@@ -229,22 +229,33 @@ path_long <- master_all %>%
 make_R1 <- function(ycol, ylab, add_net = FALSE) {
   d <- path_long %>% filter(!is.na(.data[[ycol]]))
   if (nrow(d) == 0) return(invisible(NULL))
-  # annotate n per cell
-  ncell <- d %>% count(approach_lab, Ambition, Pathway_excl)
+  # n per cell — labelled on the panel so small groups (e.g. C/D at 1.5C,
+  # n=5-7) are obvious and not read as authoritative as large-n violins.
+  ncell <- d %>% count(approach_lab, Ambition, Pathway_excl, name = "n")
+  # Flag thin cells (n < 10): overlay the raw points so the reader sees the
+  # actual data behind the smoothed violin.
+  thin <- d %>%
+    group_by(approach_lab, Ambition, Pathway_excl) %>%
+    filter(n() < 10) %>% ungroup()
   p <- d %>%
     ggplot(aes(x = Pathway_excl, y = .data[[ycol]], fill = Pathway_excl)) +
     geom_violin(alpha = 0.35, colour = NA, scale = "width", trim = TRUE) +
     geom_boxplot(width = 0.18, outlier.size = 0.5, alpha = 0.9,
                  colour = "grey25", fill = "white") +
+    geom_jitter(data = thin, width = 0.08, height = 0, size = 1,
+                colour = "grey20", alpha = 0.7) +
     stat_summary(fun = median, geom = "point", shape = 18, size = 2.4,
                  colour = "grey10") +
+    geom_text(data = ncell, aes(x = Pathway_excl, y = Inf, label = paste0("n=", n)),
+              inherit.aes = FALSE, vjust = 1.4, size = 2.9, colour = "grey35") +
     facet_grid(Ambition ~ approach_lab, scales = "free_y") +
     scale_fill_manual(values = PATH_COLS, guide = "none") +
-    scale_y_continuous(labels = comma_format()) +
+    scale_y_continuous(labels = comma_format(),
+                       expand = expansion(mult = c(0.05, 0.12))) +
     labs(title = ylab,
          subtitle = "High-CDR vs High-RE · Aggregated R10 regions · by ambition (rows) and approach (cols)",
          x = NULL, y = ylab,
-         caption = "Violin = distribution; box = IQR; diamond = median.") +
+         caption = "Violin = distribution; box = IQR; diamond = median; n labelled per cell. Raw points overlaid where n < 10.") +
     theme_cmp()
   p
 }

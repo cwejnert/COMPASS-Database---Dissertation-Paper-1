@@ -1,0 +1,1205 @@
+# =============================================================================
+# COMPASS MASTER ANALYSIS — Dissertation Paper 1
+# High-Renewables vs High-CDR mitigation pathways at 1.5C and 2C ambition
+#
+# PURPOSE
+#   Compare FIVE approaches to defining the final scenario sample set. The
+#   High-CDR vs High-RE (top-tercile) classification is IDENTICAL across all
+#   five; only two things change between approaches:
+#     (1) the scenario FILTER (SCI vetting), and
+#     (2) how AMBITION (1.5C vs 2C) is defined.
+#
+#   ┌──────┬────────────────────────────┬────────────────────────────────────┐
+#   │ App. │ Scenario filter (vetting)  │ Ambition split                     │
+#   ├──────┼────────────────────────────┼────────────────────────────────────┤
+#   │  A   │ none  (all scenarios)      │ AR6 category  C1/C2=1.5C, C3/C4=2C │
+#   │  B   │ none  (all scenarios)      │ Peak warming  <=1.7C=1.5C,          │
+#   │      │                            │               1.7-2.0C=2C          │
+#   │  C   │ full SCI vetting list      │ AR6 category                       │
+#   │  D   │ full SCI vetting list      │ Peak warming                       │
+#   │  E   │ partial SCI (tech-feas.)   │ AR6 category (configurable)         │
+#   └──────┴────────────────────────────┴────────────────────────────────────┘
+#
+# ARCHITECTURE
+#   STAGE 1 (run once):  Load data; build the R10 timeseries; compute the
+#                        expensive ANNUAL outcome tables (rfasst mortality,
+#                        DLE headcount/gap/implied-CO2, energy jobs) and the
+#                        CDR/RE deployment metrics used for classification.
+#   STAGE 2 (per approach): filter scenarios -> assign ambition -> classify
+#                        High-CDR/High-RE terciles -> cumulate annual outcomes
+#                        to the ambition window -> build that approach's
+#                        df_master. Save each approach to its own subfolder.
+#   STAGE 3:             Cross-approach comparison tables (sample sizes,
+#                        overlap of selected scenarios, pathway counts).
+#
+# OUTPUTS (per approach X in {A,B,C,D,E}, under OUT_DIR/approach_X/):
+#   compass_master_dataset_X.rds / .csv   one row per scenario x region x var
+#   compass_pathway_tercile_X.rds / .csv  High-CDR/High-RE classification
+#   compass_scenario_set_X.csv            the final scenario sample list
+#   compass_cdr_cumulative_X.csv          deployment used for classification
+#   These file names/objects mirror the originals so the figure scripts can
+#   consume any single approach by pointing at its subfolder.
+#
+# CROSS-APPROACH (under OUT_DIR/comparison/):
+#   approach_scenario_counts.csv          n scenarios per approach x ambition
+#   approach_pathway_counts.csv           n per approach x ambition x pathway
+#   approach_scenario_membership.csv      wide 0/1 membership matrix
+#   approach_summary.csv                  one-line summary per approach
+#
+# INPUTS (unchanged from your existing pipeline):
+#   compass_interp.rds              <- COMPASS_data_collection*.R
+#   compass_r10_meta.csv            <- compass_pull.py   (AR6 cat + peak warming)
+#   compass_mortality_summary.rds   <- COMPASS_rfasst*.R
+#   compass_mortality_r10.csv       <- COMPASS_rfasst*.R (annual, for windowing)
+#   job_factors_complete.csv        <- AR6 job intensity factors
+# =============================================================================
+
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(zoo)
+  library(scales)
+  library(broom)
+})
+
+
+# =============================================================================
+# SECTION 0: CONFIGURATION
+# =============================================================================
+
+# ---- 0a. Paths --------------------------------------------------------------
+# Edit these to match your machine. All outputs go under OUT_DIR/<approach>.
+COMPASS_DIR <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Data/COMPASS"
+AR6_DIR     <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Data/AR6"
+OUT_DIR     <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Outputs/COMPASS_master"
+
+dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
+
+# ---- 0b. Analysis constants -------------------------------------------------
+regions_r10 <- c("R10AFRICA", "R10CHINA+", "R10INDIA+",
+                 "R10EUROPE", "R10NORTH_AM")
+cats_keep   <- c("C1", "C2", "C3", "C4")
+START_YEAR  <- 2020L
+
+# Ambition-specific cumulation windows for wellbeing outcomes.
+# These are keyed on AMBITION (not category), so they apply identically no
+# matter whether ambition was assigned by AR6 category or by peak warming.
+WINDOW_15C  <- 2060L   # 1.5C (High-Ambition)   group
+WINDOW_2C   <- 2075L   # 2C   (Medium-Ambition) group
+
+AMB_15C <- "1.5C (High-Ambition)"
+AMB_2C  <- "2C (Medium-Ambition)"
+
+# Tercile fraction for High-CDR / High-RE classification (top 1/3).
+TOP_FRAC <- 1/3
+
+# ---- 0c. Peak-warming ambition split (approaches B, D) ----------------------
+# Median peak warming thresholds (deg C):
+#   1.5C (High-Ambition)   : peak warming <= WARMING_15C_MAX
+#   2C   (Medium-Ambition) : WARMING_15C_MAX < peak warming <= WARMING_2C_MAX
+WARMING_15C_MAX <- 1.7
+WARMING_2C_MAX  <- 2.0
+# Median (50th-percentile) peak-warming column in compass_r10_meta.csv.
+# Confirmed column name from the COMPASS metadata (MAGICCv7.5.3). Additional
+# candidates are tried in order in case of a version bump; first match wins.
+PEAK_WARMING_COL_CANDIDATES <- c(
+  "Climate Assessment|Peak Warming|Median [MAGICCv7.5.3]",
+  "Climate Assessment|Peak Warming|Median [MAGICCv7.6.0]",
+  "Climate Assessment|Peak Warming|Median"
+)
+PEAK_WARMING_COL <- NULL   # resolved in SECTION 1 from the candidates above
+
+# ---- 0d. Full SCI vetting (approaches C, D) ---------------------------------
+# The COMPASS metadata carries the authoritative SCI 2025 vetting flag directly.
+# "full" vetting keeps scenarios whose flag is in SCI_VET_PASS.
+#   Vetting|SCI 2025 values: "ok" (pass), "failed", "insufficient reporting", ""
+SCI_VET_COL  <- "Vetting|SCI 2025"
+SCI_VET_PASS <- c("ok")
+
+# ---- 0e. Partial SCI vetting for approach E (technological feasibility) ------
+# "Happy medium": stricter than none, looser than full SCI vetting. E keeps
+# scenarios that are NOT flagged as high technological-feasibility concern on
+# solar, wind, and CDR scale-up, ignoring the other SCI screens (historical
+# calibration, sustainability, overall pass/fail).
+#   Feasibility Concern|... columns are coded: "ok" / "medium" / "high" / "".
+# Confirmed column names from the COMPASS metadata (World, 2030 horizon):
+TECHFEAS_COL_CANDIDATES <- list(
+  solar = c("Feasibility Concern|Solar PV Capacity|World|2030"),
+  wind  = c("Feasibility Concern|Onshore Wind Capacity|World|2030",
+            "Feasibility Concern|Wind Capacity|World|2030"),
+  cdr   = c("Feasibility Concern|Carbon Capture|World|2030",
+            "Feasibility Concern|Carbon Capture|World|2035",
+            "Feasibility Concern|Carbon Capture|World|2040")
+)
+# A scenario FAILS a tech-feasibility flag if its value is in this set
+# (case-insensitive). "high" = high feasibility concern = tech-infeasible.
+# Everything else — "ok", "medium", and blank/NA (not assessed) — passes, so
+# an unassessed scenario is not silently excluded. Add "medium" here to also
+# exclude moderate-concern scenarios (stricter E).
+TECHFEAS_FAIL_VALUES <- c("high")
+# If TRUE, a scenario must pass ALL available tech-feasibility flags (i.e. no
+# "high" concern on solar, wind, OR CDR); if FALSE, passing ANY one suffices.
+TECHFEAS_REQUIRE_ALL <- TRUE
+
+# Last-resort proxy (only used if NO tech-feasibility columns can be found):
+# drop scenarios whose cumulative Novel CDR exceeds this percentile per ambition.
+PARTIAL_NOVELCDR_PCTL <- 0.90
+
+# ---- 0e. Approach definitions ----------------------------------------------
+# vetting  : "none" | "full" | "partial"
+# ambition : "ar6"  | "warming"
+approaches <- tribble(
+  ~id, ~label,                                              ~vetting,   ~ambition,
+  "A", "All scenarios; AR6-category ambition",             "none",     "ar6",
+  "B", "All scenarios; peak-warming ambition",             "none",     "warming",
+  "C", "Full SCI vetting; AR6-category ambition",          "full",     "ar6",
+  "D", "Full SCI vetting; peak-warming ambition",          "full",     "warming",
+  "E", "Partial SCI (tech-feasibility); AR6 ambition",     "partial",  "ar6"
+)
+
+
+# =============================================================================
+# SECTION 1: LOAD DATA + METADATA
+# =============================================================================
+
+cat("=== SECTION 1: Loading data ===\n")
+
+compass_interp <- readRDS(file.path(COMPASS_DIR, "compass_interp.rds"))
+cat("compass_interp scenarios:",
+    n_distinct(paste(compass_interp$Model, compass_interp$Scenario)), "\n")
+
+# ---- 1a. Metadata: AR6 category + median peak warming -----------------------
+meta_path <- file.path(COMPASS_DIR, "compass_r10_meta.csv")
+compass_meta <- read.csv(meta_path, stringsAsFactors = FALSE, check.names = FALSE)
+
+# Normalise model/scenario column names in metadata
+names(compass_meta)[tolower(names(compass_meta)) == "model"]    <- "Model"
+names(compass_meta)[tolower(names(compass_meta)) == "scenario"] <- "Scenario"
+
+# AR6 category column
+cat_col <- names(compass_meta)[
+  str_detect(names(compass_meta), "Climate Category\\|AR6 \\[Name\\]")
+][1]
+if (is.na(cat_col)) {
+  # fall back to any column literally named/containing "AR6"
+  cat_col <- names(compass_meta)[str_detect(names(compass_meta), "AR6")][1]
+}
+cat("AR6 category column:", cat_col, "\n")
+
+# Helper: resolve the first candidate column that exists in the metadata,
+# else auto-detect by keyword patterns.
+resolve_col <- function(candidates, detect_patterns = NULL, meta = compass_meta) {
+  hit <- candidates[candidates %in% names(meta)]
+  if (length(hit) > 0) return(hit[1])
+  if (!is.null(detect_patterns)) {
+    nm <- names(meta)
+    ok <- rep(TRUE, length(nm))
+    for (p in detect_patterns) ok <- ok & str_detect(tolower(nm), p)
+    det <- nm[ok]
+    if (length(det) > 0) return(det[1])
+  }
+  NA_character_
+}
+
+# Peak-warming column: hardcoded candidates first, then detect median peak warming
+PEAK_WARMING_COL <- resolve_col(
+  PEAK_WARMING_COL_CANDIDATES,
+  detect_patterns = c("peak", "warming")   # then prefer median below
+)
+if (!is.na(PEAK_WARMING_COL) &&
+    !PEAK_WARMING_COL %in% PEAK_WARMING_COL_CANDIDATES) {
+  # if we fell back to detection, prefer a median/50th variant when present
+  cand <- names(compass_meta)[
+    str_detect(tolower(names(compass_meta)), "peak") &
+    str_detect(tolower(names(compass_meta)), "warming")
+  ]
+  cand_med <- cand[str_detect(tolower(cand), "median|50")]
+  if (length(cand_med) > 0) PEAK_WARMING_COL <- cand_med[1]
+}
+cat("Peak-warming column:", PEAK_WARMING_COL, "\n")
+if (is.na(PEAK_WARMING_COL)) {
+  warning("No peak-warming column found. Approaches B and D (peak-warming ",
+          "ambition) will fall back to AR6-category ambition. Add your exact ",
+          "column name to PEAK_WARMING_COL_CANDIDATES at the top of the script.")
+}
+
+# Technological-feasibility columns (solar / wind / CDR) for approach E
+TECHFEAS_COLS <- imap_chr(TECHFEAS_COL_CANDIDATES, function(cands, tech) {
+  resolve_col(cands, detect_patterns = c("feasib", tech))
+})
+# CDR detection needs an extra try (keyword "carbon"/"removal")
+if (is.na(TECHFEAS_COLS[["cdr"]])) {
+  TECHFEAS_COLS[["cdr"]] <- resolve_col(
+    character(0), detect_patterns = c("feasib", "carbon"))
+  if (is.na(TECHFEAS_COLS[["cdr"]]))
+    TECHFEAS_COLS[["cdr"]] <- resolve_col(
+      character(0), detect_patterns = c("feasib", "removal"))
+}
+cat("Tech-feasibility columns resolved:\n")
+for (tech in names(TECHFEAS_COLS))
+  cat(sprintf("  %-6s -> %s\n", tech,
+              ifelse(is.na(TECHFEAS_COLS[[tech]]), "(none found)",
+                     TECHFEAS_COLS[[tech]])))
+TECHFEAS_COLS_FOUND <- TECHFEAS_COLS[!is.na(TECHFEAS_COLS)]
+if (length(TECHFEAS_COLS_FOUND) == 0)
+  warning("No technological-feasibility columns found for approach E. Add your ",
+          "exact column names to TECHFEAS_COL_CANDIDATES; the script will use ",
+          "the novel-CDR percentile proxy in the meantime.")
+
+# SCI 2025 vetting flag column (full vetting for approaches C, D)
+SCI_VET_COL <- resolve_col(SCI_VET_COL, detect_patterns = c("vetting", "sci"))
+cat("SCI vetting column:", SCI_VET_COL, "\n")
+
+# Build a tidy metadata lookup: Model, Scenario, Category, peak_warming,
+# SCI vetting flag, and the resolved tech-feasibility flags.
+meta_lookup <- compass_meta %>%
+  transmute(
+    Model, Scenario,
+    Category = case_when(
+      str_detect(.data[[cat_col]], "^C1") ~ "C1",
+      str_detect(.data[[cat_col]], "^C2") ~ "C2",
+      str_detect(.data[[cat_col]], "^C3") ~ "C3",
+      str_detect(.data[[cat_col]], "^C4") ~ "C4",
+      TRUE ~ NA_character_
+    ),
+    peak_warming = if (!is.na(PEAK_WARMING_COL))
+                     suppressWarnings(as.numeric(.data[[PEAK_WARMING_COL]]))
+                   else NA_real_,
+    sci_vet = if (!is.na(SCI_VET_COL)) as.character(.data[[SCI_VET_COL]])
+              else NA_character_
+  )
+
+# Attach the resolved tech-feasibility flag columns (raw values) as techfeas_<tech>
+for (tech in names(TECHFEAS_COLS_FOUND)) {
+  col <- TECHFEAS_COLS_FOUND[[tech]]
+  meta_lookup[[paste0("techfeas_", tech)]] <- as.character(compass_meta[[col]])
+}
+meta_lookup <- meta_lookup %>% distinct(Model, Scenario, .keep_all = TRUE)
+
+cat("Metadata scenarios with AR6 category:",
+    sum(!is.na(meta_lookup$Category)), "\n")
+if (!is.na(PEAK_WARMING_COL))
+  cat("Metadata scenarios with peak warming:",
+      sum(!is.na(meta_lookup$peak_warming)), "\n")
+if (!is.na(SCI_VET_COL)) {
+  cat("SCI vetting flag distribution:\n")
+  print(table(meta_lookup$sci_vet, useNA = "ifany"))
+}
+
+
+# =============================================================================
+# SECTION 2: VETTING DEFINITIONS
+# =============================================================================
+# "none"    -> keep all scenarios present in compass_interp (C1-C4 universe)
+# "full"    -> keep scenarios passing the SCI 2025 vetting flag (metadata
+#              column `Vetting|SCI 2025` == "ok"); the hardcoded name list below
+#              is only a fallback used if that column is missing.
+# "partial" -> technological-feasibility screen (SECTION 0e), resolved in Stage 2.
+
+# Fallback SCI-vetted scenario name list (used only if the metadata SCI vetting
+# column is unavailable). Superseded by the `Vetting|SCI 2025` flag.
+vetted_scenarios <- c(
+  "SDI-2.5°C", "SDI-Baseline",
+  "SSP1-19", "SSP1-26", "SSP1-34", "SSP1-45", "SSP1-Baseline", "SSP3-Baseline",
+  "NGFS Phase 2-Below 2°C", "NGFS Phase 2-Current Policies",
+  "NGFS Phase 2-Delayed Transition",
+  "NGFS Phase 2-Nationally Determined Contributions (NDCs)",
+  "NGFS Phase 5-Below 2°C", "NGFS Phase 5-Current Policies",
+  "NGFS Phase 5-Delayed Transition", "NGFS Phase 5-Fragmented World",
+  "NGFS Phase 5-Low Demand",
+  "NGFS Phase 5-Nationally Determined Contributions (NDCs)",
+  "NGFS Phase 5-Net-Zero 2050",
+  "COMMIT-2°C-2030", "COMMIT-Current-Policies", "COMMIT-NDCplus",
+  "ENGAGE-INDCi2030-1000", "ENGAGE-INDCi2030-1000f", "ENGAGE-INDCi2030-1200",
+  "ENGAGE-INDCi2030-1200f", "ENGAGE-INDCi2030-1400", "ENGAGE-INDCi2030-1400f",
+  "ENGAGE-INDCi2030-3000", "ENGAGE-INDCi2030-3000f", "ENGAGE-INDCi2030-800f",
+  "ENGAGE-INDCi2100", "ENGAGE-NPi2020-1000", "ENGAGE-NPi2020-1200",
+  "ENGAGE-NPi2020-1400", "ENGAGE-NPi2020-1400f", "ENGAGE-NPi2020-3000",
+  "ENGAGE-NPi2020-3000f", "ENGAGE-NPi2100",
+  "SSP2021-SSP1-Baseline", "SSP2021-SSP1-SPA1-19-Default",
+  "SSP2021-SSP1-SPA1-19-Default-LowBiomass", "SSP2021-SSP1-SPA1-19-Lifestyle",
+  "SSP2021-SSP1-SPA1-19-Lifestyle-Renewables",
+  "SSP2021-SSP1-SPA1-19-Renewables",
+  "SSP2021-SSP1-SPA1-19-Renewables-LowBiomass",
+  "SSP2021-SSP1-SPA1-26-Default", "SSP2021-SSP1-SPA1-26-Lifestyle",
+  "SSP2021-SSP1-SPA1-26-Lifestyle-Renewables",
+  "SSP2021-SSP1-SPA1-26-Renewables", "SSP2021-SSP1-SPA1-34-Default",
+  "SSP2021-SSP1-SPA1-34-Lifestyle",
+  "SSP2021-SSP1-SPA1-34-Lifestyle-Renewables",
+  "SSP2021-SSP1-SPA1-34-Renewables", "SSP2021-SSP2-Baseline",
+  "SSP2021-SSP2-SPA0-26-Default",
+  "SSP2021-SSP2-SPA1-19-Default-LowBiomass", "SSP2021-SSP2-SPA2-19-Default",
+  "SSP2021-SSP2-SPA2-19-Lifestyle",
+  "SSP2021-SSP2-SPA2-19-Lifestyle-Renewables",
+  "SSP2021-SSP2-SPA2-19-Renewables", "SSP2021-SSP2-SPA2-26-Default",
+  "SSP2021-SSP2-SPA2-26-Lifestyle",
+  "SSP2021-SSP2-SPA2-26-Lifestyle-Renewables",
+  "SSP2021-SSP2-SPA2-26-Renewables", "SSP2021-SSP2-SPA2-34-Default",
+  "SSP2021-SSP2-SPA2-34-Lifestyle",
+  "SSP2021-SSP2-SPA2-34-Lifestyle-Renewables",
+  "SSP2021-SSP2-SPA2-34-Renewables", "SSP2021-SSP2-SPA2-45-Default",
+  "SSP2021-SSP2-SPA2-45-Lifestyle",
+  "SSP2021-SSP2-SPA2-45-Lifestyle-Renewables",
+  "SSP2021-SSP2-SPA2-45-Renewables", "SSP2021-SSP3-Baseline",
+  "SSP2021-SSP4-Baseline", "SSP2021-SSP5-Baseline", "ECEMF-DIAG-NPi",
+  "NAVIGATE Demand-1.5°C-ele_u", "NAVIGATE Demand-1.5°C-tec_u",
+  "NAVIGATE Demand-2.0°C-ele_u", "NAVIGATE Demand-2.0°C-ref",
+  "NAVIGATE Demand-2.0°C-tec_u", "NAVIGATE Demand-NPi-ele",
+  "NAVIGATE Demand-NPi-ref", "NAVIGATE Demand-NPi-tec", "ENGAGE-NoPolicy",
+  "NAVIGATE Demand-2.0°C-act_u", "NAVIGATE Demand-2.0°C-all_u",
+  "NAVIGATE Demand-NPi-act", "NAVIGATE Demand-NPi-all",
+  "COVID-Shift-GreenPush_max_GDP", "COVID-Shift-NoPolicyNoCOVID",
+  "COVID-Shift-Restore", "COVID-Shift-SelfReliance",
+  "COVID-Shift-SelfReliance_max_GDP", "COVID-Shift-SmartUse",
+  "COMMIT-2°C-2020", "COMMIT-Baseline", "COMMIT-Bridge",
+  "COMMIT-Bridge-No-Tax", "COMMIT-GPP", "COMMIT-GPP-No-Tax",
+  "COMMIT-NDC-2050-Convergence", "ENGAGE-INDCi2030-1000-COV",
+  "ENGAGE-INDCi2030-1000-COV-NDCp", "ENGAGE-INDCi2030-1000-NDCp",
+  "ENGAGE-INDCi2030-1000f-COV", "ENGAGE-INDCi2030-1000f-COV-NDCp",
+  "ENGAGE-INDCi2030-1000f-NDCp", "ENGAGE-INDCi2030-1600",
+  "ENGAGE-INDCi2030-1600f", "ENGAGE-INDCi2030-1800", "ENGAGE-INDCi2030-1800f",
+  "ENGAGE-INDCi2030-2000", "ENGAGE-INDCi2030-2000f", "ENGAGE-INDCi2030-2500",
+  "ENGAGE-INDCi2030-2500f", "ENGAGE-INDCi2030-300f", "ENGAGE-INDCi2030-400f",
+  "ENGAGE-INDCi2030-500f", "ENGAGE-INDCi2030-600f", "ENGAGE-INDCi2030-600f-COV",
+  "ENGAGE-INDCi2030-600f-COV-NDCp", "ENGAGE-INDCi2030-600f-NDCp",
+  "ENGAGE-INDCi2030-700f", "ENGAGE-INDCi2030-900", "ENGAGE-INDCi2030-900f",
+  "ENGAGE-INDCi2100-COV", "ENGAGE-INDCi2100-COV-NDCp", "ENGAGE-INDCi2100-NDCp",
+  "ENGAGE-NPi2020-1000f", "ENGAGE-NPi2020-1000f-COV", "ENGAGE-NPi2020-1200f",
+  "ENGAGE-NPi2020-1600", "ENGAGE-NPi2020-1600f", "ENGAGE-NPi2020-1800",
+  "ENGAGE-NPi2020-1800f", "ENGAGE-NPi2020-2000", "ENGAGE-NPi2020-2000f",
+  "ENGAGE-NPi2020-2500", "ENGAGE-NPi2020-2500f", "ENGAGE-NPi2020-900f",
+  "ENGAGE-NPi2100-COV", "EMF30-BCOC-EndU", "EMF30-Baseline", "EMF30-CH4-Only",
+  "EMF30-D-BCOC-Red", "EMF30-D-CH4-ClimatePolicy", "EMF30-D-Frozen-CH4",
+  "EMF30-D-Frozen-EF", "EMF30-D-Frozen-EF-EndU", "EMF30-D-Frozen-EF-SLCF",
+  "EMF30-SLCF", "EMF30-Slower-Action", "EMF30-Slower-to-Faster",
+  "ADVANCE-NoPolicy", "ADVANCE-Reference", "CEMICS-Ref",
+  "LeastTotalCost-Base-brkLR15-SSP1-P50", "LeastTotalCost-Base-brkLR15-SSP2-P50",
+  "LeastTotalCost-Base-brkLR15-SSP5-P50", "LeastTotalCost-Base-brkSR15-SSP1-P50",
+  "LeastTotalCost-Base-brkSR15-SSP2-P50", "LeastTotalCost-Base-brkSR15-SSP5-P50",
+  "R2p1-SSP1-Baseline", "R2p1-SSP2-Baseline", "R2p1-SSP5-Baseline",
+  "Rescuing-1.5°C-Highest-Possible-Ambition", "BEG-Baseline",
+  "BEG-Efficiency", "CD-LINKS-No-Policy", "EMF33-Baseline",
+  "EMF33-medium-2°C-cost100", "EMF33-medium-2°C-full",
+  "EMF33-medium-2°C-limbio", "EMF33-medium-2°C-nofuel",
+  "EMF33-tax-hi-full", "EMF33-tax-hi-none", "EMF33-tax-lo-full",
+  "EMF33-tax-lo-none", "PEP-NPi", "PEP-NoPolicy", "SMP-Reference-Default",
+  "SMP-Reference-Sustainable", "Diff-NoPolicy-Baseline",
+  "NGFS Phase 2-Current Policies [IPD 95th]",
+  "NGFS Phase 2-Current Policies [IPD Median]",
+  "DeepElectrification-SSP2-Baseline", "DeepElectrification-SSP2-NPi",
+  "SHAPE-SSP2-NPi", "SHAPE-SSP2-NPi [with Climate Change Impacts]",
+  "RESCUE-End-of-Century-Budget-1150",
+  "RESCUE-End-of-Century-Budget-1150-with-OAE",
+  "RESCUE-End-of-Century-Budget-500",
+  "RESCUE-End-of-Century-Budget-500-with-OAE", "RESCUE-Peak-Budget-1150",
+  "RESCUE-Peak-Budget-1150-with-OAE", "ENGAGE-NPi2020-1000-COV",
+  "ENGAGE-NPi2020-800", "ENGAGE-NPi2020-800f", "ENGAGE-NPi2020-900",
+  "ENGAGE-INDCi2030-1200-NDCp", "ENGAGE-INDCi2030-1200f-NDCp",
+  "ENGAGE-INDCi2030-1400-NDCp", "ENGAGE-INDCi2030-1400f-NDCp",
+  "ENGAGE-INDCi2030-1600-NDCp", "ENGAGE-INDCi2030-1600f-NDCp",
+  "ENGAGE-INDCi2030-1800-NDCp", "ENGAGE-INDCi2030-1800f-NDCp",
+  "ENGAGE-INDCi2030-2000-NDCp", "ENGAGE-INDCi2030-2000f-NDCp",
+  "ENGAGE-INDCi2030-2500-NDCp", "ENGAGE-INDCi2030-2500f-NDCp",
+  "ENGAGE-INDCi2030-3000-NDCp", "ENGAGE-INDCi2030-3000f-NDCp",
+  "ENGAGE-INDCi2030-700f-NDCp", "ENGAGE-INDCi2030-800",
+  "ENGAGE-INDCi2030-800-NDCp", "ENGAGE-INDCi2030-800f-NDCp",
+  "ENGAGE-INDCi2030-900-NDCp", "ENGAGE-INDCi2030-900f-NDCp"
+)
+vetted_scenarios <- unique(vetted_scenarios)
+cat("Full SCI-vetted list size:", length(vetted_scenarios), "\n")
+
+
+# =============================================================================
+# SECTION 3: BUILD TIMESERIES + CDR/RE DEPLOYMENT  (run once)
+# =============================================================================
+
+cat("\n=== SECTION 3: Building timeseries + deployment ===\n")
+
+# R10 timeseries for all scenarios in the 4 categories (no vetting yet).
+compass_ts <- compass_interp %>%
+  filter(Region %in% regions_r10,
+         Category %in% cats_keep,
+         Year >= 2015, Year <= 2100,
+         !is.na(Value)) %>%
+  mutate(Model_Group         = "COMPASS",
+         ModelGroup_Scenario = paste("COMPASS", Scenario, sep = "_"))
+
+# ---- 3a. CDR component timeseries (MtCO2/yr) --------------------------------
+# Prefer pre-computed composite variables; otherwise build from raw components.
+cdr_present <- compass_ts %>%
+  filter(Variable %in% c("Novel CDR", "Fossil CCS", "Land-based CDR", "Total CDR"),
+         Value > 0) %>%
+  distinct(Variable) %>% pull(Variable)
+
+sum_component <- function(vars, out_name) {
+  compass_ts %>%
+    filter(Variable %in% vars) %>%
+    group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+             Region, Category, Year) %>%
+    summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+    mutate(Variable = out_name)
+}
+
+novel_cdr_ts <- if ("Novel CDR" %in% cdr_present)
+  filter(compass_ts, Variable == "Novel CDR") else
+  sum_component(c("Carbon Removal|Geological Storage|Direct Air Capture",
+                  "Carbon Capture|Geological Storage|Biomass",
+                  "Carbon Removal|Enhanced Weathering"), "Novel CDR")
+
+fossil_ccs_ts <- if ("Fossil CCS" %in% cdr_present)
+  filter(compass_ts, Variable == "Fossil CCS") else
+  sum_component(c("Carbon Capture|Energy|Fossil",
+                  "Carbon Capture|Industrial Processes"), "Fossil CCS")
+
+land_cdr_ts <- if ("Land-based CDR" %in% cdr_present)
+  filter(compass_ts, Variable == "Land-based CDR") else
+  (compass_ts %>% filter(Variable == "Carbon Removal|Land Use") %>%
+     mutate(Variable = "Land-based CDR"))
+
+total_cdr_ts <- if ("Total CDR" %in% cdr_present)
+  filter(compass_ts, Variable == "Total CDR") else
+  bind_rows(novel_cdr_ts, fossil_ccs_ts, land_cdr_ts) %>%
+    group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+             Region, Category, Year) %>%
+    summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+    mutate(Variable = "Total CDR")
+
+# ---- 3b. Renewable capacity (GW) --------------------------------------------
+re_vars <- c("Capacity|Electricity|Solar", "Capacity|Electricity|Wind",
+             "Capacity|Electricity|Hydro", "Capacity|Electricity|Nuclear",
+             "Capacity|Electricity|Biomass", "Capacity|Electricity|Geothermal")
+re_total_ts <- compass_ts %>%
+  filter(Variable %in% re_vars) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+           Region, Category, Year) %>%
+  summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Variable = "Renewable Capacity")
+
+# ---- 3c. Cumulative CDR/RE 2020-2100 (R10) for classification ---------------
+cdr_cumulative_full <- bind_rows(
+  novel_cdr_ts, fossil_ccs_ts, land_cdr_ts, total_cdr_ts, re_total_ts
+) %>%
+  filter(Region %in% regions_r10, Year >= 2020, Year <= 2100) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+           Region, Category, Variable) %>%
+  summarise(Total_Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  filter(Total_Value > 0) %>%
+  mutate(proxy = FALSE)
+
+# ---- 3d. World-level deployment for classification (prefer real World rows) --
+world_re_cap_vars <- re_vars
+world_cdr_component_vars <- c(
+  "Carbon Removal|Geological Storage|Direct Air Capture",
+  "Carbon Capture|Geological Storage|Biomass",
+  "Carbon Removal|Enhanced Weathering",
+  "Carbon Capture|Energy|Fossil",
+  "Carbon Capture|Industrial Processes",
+  "Carbon Removal|Land Use"
+)
+
+world_ts_raw <- compass_interp %>%
+  filter(Region == "World", Category %in% cats_keep,
+         Year >= 2020, Year <= 2100, !is.na(Value)) %>%
+  mutate(Model_Group = "COMPASS",
+         ModelGroup_Scenario = paste("COMPASS", Scenario, sep = "_"))
+
+world_cdr_direct <- world_ts_raw %>% filter(Variable == "Total CDR", Value > 0)
+world_cdr_computed <- world_ts_raw %>%
+  filter(Variable %in% world_cdr_component_vars) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario, Category, Year) %>%
+  summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  filter(Value > 0) %>%
+  mutate(Region = "World", Variable = "Total CDR")
+
+world_total_cdr_ts <- {
+  if (nrow(world_cdr_direct) > 0) world_cdr_direct
+  else if (nrow(world_cdr_computed) > 0) world_cdr_computed
+  else tibble()
+}
+
+# Also keep world Novel CDR (for the partial-vetting proxy in approach E)
+world_novel_cdr_ts <- world_ts_raw %>%
+  filter(Variable %in% c("Carbon Removal|Geological Storage|Direct Air Capture",
+                         "Carbon Capture|Geological Storage|Biomass",
+                         "Carbon Removal|Enhanced Weathering")) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario, Category, Year) %>%
+  summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Region = "World", Variable = "Novel CDR")
+
+world_re_ts <- world_ts_raw %>%
+  filter(Variable %in% world_re_cap_vars, Value > 0) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario, Category, Year) %>%
+  summarise(Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Region = "World", Variable = "Renewable Capacity")
+
+world_cumulative_direct <- bind_rows(world_total_cdr_ts, world_re_ts,
+                                     world_novel_cdr_ts) %>%
+  filter(Year >= 2020, Year <= 2100) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario, Category, Variable) %>%
+  summarise(Total_Value = sum(Value, na.rm = TRUE), .groups = "drop") %>%
+  filter(Total_Value > 0)
+
+# Summed-R10 fallback
+world_cumulative_sumR10 <- cdr_cumulative_full %>%
+  filter(Variable %in% c("Total CDR", "Renewable Capacity")) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario, Category, Variable) %>%
+  summarise(Total_Value = sum(Total_Value, na.rm = TRUE), .groups = "drop") %>%
+  filter(Total_Value > 0)
+
+n_r10_scens <- n_distinct(paste(compass_ts$Model, compass_ts$Scenario))
+n_world_cdr <- world_cumulative_direct %>% filter(Variable == "Total CDR") %>%
+  { n_distinct(paste(.$Model, .$Scenario)) }
+coverage_pct <- if (n_r10_scens > 0) 100 * n_world_cdr / n_r10_scens else 0
+USE_WORLD_REGION <- coverage_pct >= 50
+cat(sprintf("World-region CDR coverage: %.1f%% -> use World rows: %s\n",
+            coverage_pct, USE_WORLD_REGION))
+
+# Deployment table used for classification: one row per Model x Scenario x Variable
+if (USE_WORLD_REGION) {
+  deploy_metrics <- world_cumulative_sumR10 %>%
+    select(Model, Scenario, Category, Variable, total_sumR10 = Total_Value) %>%
+    full_join(world_cumulative_direct %>%
+                select(Model, Scenario, Category, Variable, total_world = Total_Value),
+              by = c("Model", "Scenario", "Category", "Variable")) %>%
+    mutate(Total_Value = coalesce(total_world, total_sumR10)) %>%
+    select(Model, Scenario, Category, Variable, Total_Value)
+  # add Novel CDR (world) explicitly for approach E proxy
+  deploy_metrics <- bind_rows(
+    deploy_metrics,
+    world_cumulative_direct %>%
+      filter(Variable == "Novel CDR") %>%
+      select(Model, Scenario, Category, Variable, Total_Value)
+  ) %>% distinct(Model, Scenario, Variable, .keep_all = TRUE)
+} else {
+  novel_sumR10 <- cdr_cumulative_full %>%
+    filter(Variable == "Novel CDR") %>%
+    group_by(Model, Scenario, Category, Variable) %>%
+    summarise(Total_Value = sum(Total_Value, na.rm = TRUE), .groups = "drop")
+  deploy_metrics <- bind_rows(
+    world_cumulative_sumR10 %>%
+      select(Model, Scenario, Category, Variable, Total_Value),
+    novel_sumR10
+  ) %>% distinct(Model, Scenario, Variable, .keep_all = TRUE)
+}
+
+cat("deploy_metrics rows:", nrow(deploy_metrics),
+    "| scenarios:", n_distinct(paste(deploy_metrics$Model, deploy_metrics$Scenario)), "\n")
+
+
+# =============================================================================
+# SECTION 4: ANNUAL WELLBEING OUTCOMES  (run once)
+# =============================================================================
+# Computes annual (per-year) outcome tables so that each approach can cumulate
+# to its own ambition window cheaply in Stage 2:
+#   mortality_annual  : deaths per year (from rfasst outputs)
+#   dle_annual        : DLE gap, headcount, implied CO2 per year
+#   jobs_annual       : RE / fossil jobs (thousands) per year
+# =============================================================================
+
+cat("\n=== SECTION 4: Annual wellbeing outcomes ===\n")
+
+# ---- 4a. Air-pollution mortality (annual) -----------------------------------
+mort_r10_path <- file.path(COMPASS_DIR, "compass_mortality_r10.csv")
+mortality_annual <- NULL
+if (file.exists(mort_r10_path)) {
+  ma <- read_csv(mort_r10_path, show_col_types = FALSE)
+  if ("model" %in% names(ma) && !"Model" %in% names(ma))
+    ma <- rename(ma, Model = model, Scenario = scenario)
+  if ("year" %in% names(ma) && !"Year" %in% names(ma))
+    ma <- rename(ma, Year = year)
+  if ("r10_region" %in% names(ma) && !"Region" %in% names(ma))
+    ma <- rename(ma, Region = r10_region)
+  ma <- ma %>% select(-any_of(c("model", "scenario", "year", "r10_region")))
+  deaths_col <- intersect(names(ma), c("deaths_pm25", "FUSION", "deaths_total"))[1]
+  cat("Mortality annual column:", deaths_col, "\n")
+  mortality_annual <- ma %>%
+    filter(Region %in% regions_r10) %>%
+    transmute(Model, Scenario, Region, Year = as.integer(Year),
+              deaths_annual = .data[[deaths_col]])
+} else {
+  warning("compass_mortality_r10.csv not found; will fall back to scaled ",
+          "cumulative summary for mortality.")
+  ms <- readRDS(file.path(COMPASS_DIR, "compass_mortality_summary.rds"))
+  if ("model" %in% names(ms))      ms <- rename(ms, Model = model, Scenario = scenario)
+  if ("r10_region" %in% names(ms)) ms <- rename(ms, Region = r10_region)
+  ms <- ms %>% select(-any_of(c("model", "scenario", "r10_region")))
+  mort_col <- intersect(names(ms),
+                        c("cumulative_deaths_mln_pm25", "cumulative_deaths_mln"))[1]
+  # crude annualisation: spread cumulative evenly across 2020-2100
+  mortality_annual <- ms %>%
+    filter(Region %in% regions_r10) %>%
+    transmute(Model, Scenario, Region,
+              cum_deaths_mln = .data[[mort_col]]) %>%
+    crossing(Year = seq(2020, 2100, 5)) %>%
+    mutate(deaths_annual = cum_deaths_mln * 1e6 / 17) %>%   # 17 five-year steps
+    select(Model, Scenario, Region, Year, deaths_annual)
+}
+
+# ---- 4b. Energy jobs (annual) -----------------------------------------------
+job_factors_complete <- read.csv(file.path(AR6_DIR, "job_factors_complete.csv"))
+
+cap_additions_fuel_map <- tribble(
+  ~Variable,                                    ~fuel,        ~tech_group,
+  "Capacity Additions|Electricity|Solar",       "solar_pv",   "Renewables",
+  "Capacity Additions|Electricity|Wind",        "wind_on",    "Renewables",
+  "Capacity Additions|Electricity|Hydro",       "hydro",      "Renewables",
+  "Capacity Additions|Electricity|Nuclear",     "nuclear",    "Renewables",
+  "Capacity Additions|Electricity|Biomass",     "biomass",    "Renewables",
+  "Capacity Additions|Electricity|Geothermal",  "geothermal", "Renewables",
+  "Capacity Additions|Electricity|Coal",        "coal",       "Fossil",
+  "Capacity Additions|Electricity|Gas",         "gas",        "Fossil",
+  "Capacity Additions|Electricity|Oil",         "oil",        "Fossil"
+)
+cap_stock_fuel_map <- tribble(
+  ~Variable,                          ~fuel,        ~tech_group,
+  "Capacity|Electricity|Solar",       "solar_pv",   "Renewables",
+  "Capacity|Electricity|Wind",        "wind_on",    "Renewables",
+  "Capacity|Electricity|Hydro",       "hydro",      "Renewables",
+  "Capacity|Electricity|Nuclear",     "nuclear",    "Renewables",
+  "Capacity|Electricity|Biomass",     "biomass",    "Renewables",
+  "Capacity|Electricity|Geothermal",  "geothermal", "Renewables",
+  "Capacity|Electricity|Coal",        "coal",       "Fossil",
+  "Capacity|Electricity|Gas",         "gas",        "Fossil",
+  "Capacity|Electricity|Oil",         "oil",        "Fossil"
+)
+
+cap_additions_ts <- compass_ts %>% filter(Variable %in% cap_additions_fuel_map$Variable)
+
+scens_with_additions <- cap_additions_ts %>%
+  filter(Value > 0, Year >= START_YEAR) %>%
+  distinct(Model, Scenario, Region)
+scens_needing_stockdiff <- compass_ts %>%
+  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
+  distinct(Model, Scenario, Region) %>%
+  anti_join(scens_with_additions, by = c("Model", "Scenario", "Region"))
+
+jobs_raw_additions <- cap_additions_ts %>%
+  semi_join(scens_with_additions, by = c("Model", "Scenario", "Region")) %>%
+  filter(Year >= START_YEAR) %>%
+  inner_join(cap_additions_fuel_map, by = "Variable") %>%
+  mutate(GW = Value, job_category = "oem") %>%
+  left_join(job_factors_complete %>% select(region, fuel, category, job_intensity),
+            by = c("Region" = "region", "fuel", "job_category" = "category"))
+
+jobs_raw_stockdiff <- compass_ts %>%
+  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
+  semi_join(scens_needing_stockdiff, by = c("Model", "Scenario", "Region")) %>%
+  inner_join(cap_stock_fuel_map, by = "Variable") %>%
+  arrange(Model, Scenario, Region, fuel, Year) %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+           Region, Category, fuel, tech_group) %>%
+  mutate(GW = pmax(0, (Value - lag(Value, default = first(Value))) / 5)) %>%
+  ungroup() %>%
+  filter(Year > min(Year)) %>%
+  mutate(job_category = "oem") %>%
+  left_join(job_factors_complete %>% select(region, fuel, category, job_intensity),
+            by = c("Region" = "region", "fuel", "job_category" = "category"))
+
+jobs_annual <- bind_rows(jobs_raw_additions, jobs_raw_stockdiff) %>%
+  filter(!is.na(job_intensity)) %>%
+  mutate(jobs_thousands = GW * job_intensity / 1000) %>%
+  group_by(Model, Scenario, Region, Category, Year, tech_group) %>%
+  summarise(jobs_thousands = sum(jobs_thousands, na.rm = TRUE), .groups = "drop")
+
+# ---- 4c. DLE gap / headcount / implied CO2 (annual) -------------------------
+dle_thresholds <- tribble(
+  ~Region,        ~res_comm_GJ, ~industry_GJ, ~transport_GJ,
+  "R10AFRICA",          12.0,         8.0,          4.5,
+  "R10CHINA+",          18.0,        14.0,          5.0,
+  "R10EUROPE",          28.0,        16.0,          8.0,
+  "R10INDIA+",          10.0,         8.5,          4.0,
+  "R10NORTH_AM",        35.0,        18.0,         10.0
+)
+sef_lookup <- expand_grid(
+  Year = unique(compass_ts$Year),
+  sector = c("res_comm", "industry", "transport")
+) %>%
+  mutate(annual_rate = case_when(sector == "res_comm"  ~ 0.012,
+                                 sector == "industry"  ~ 0.010,
+                                 sector == "transport" ~ 0.015),
+         SEF = pmax(0.5, 1 - annual_rate * (Year - 2020)))
+dle_thresholds_total <- dle_thresholds %>%
+  mutate(total_GJ = res_comm_GJ + industry_GJ + transport_GJ) %>%
+  select(Region, total_GJ)
+sef_total <- tibble(Year = unique(compass_ts$Year)) %>%
+  mutate(SEF_total = pmax(0.5, 1 - 0.012 * (Year - 2020)))
+dle_thresh_long <- dle_thresholds %>%
+  pivot_longer(c(res_comm_GJ, industry_GJ, transport_GJ),
+               names_to = "sector", values_to = "threshold_GJ_base") %>%
+  mutate(sector = str_remove(sector, "_GJ"))
+
+energy_ts <- compass_ts %>%
+  filter(Variable %in% c("Final Energy", "Final Energy|Industry",
+                         "Final Energy|Transportation"))
+pop_ts <- compass_ts %>% filter(Variable == "Population")
+
+fe_total_r10 <- energy_ts %>%
+  filter(Variable == "Final Energy", Region %in% regions_r10) %>%
+  select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+         Region, Year, Category, fe_total = Value)
+fe_sectors_r10 <- energy_ts %>%
+  filter(Variable %in% c("Final Energy|Industry", "Final Energy|Transportation"),
+         Region %in% regions_r10) %>%
+  mutate(sector = if_else(Variable == "Final Energy|Industry",
+                          "industry", "transport")) %>%
+  select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+         Region, Year, Category, sector, energy_EJ = Value)
+fe_wide <- fe_sectors_r10 %>%
+  pivot_wider(names_from = sector, values_from = energy_EJ) %>%
+  left_join(fe_total_r10, by = c("Model_Group", "Model", "Scenario",
+                                 "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
+  mutate(res_comm = pmax(fe_total - coalesce(industry, 0) - coalesce(transport, 0), 0))
+energy_by_sector <- fe_wide %>%
+  select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+         Region, Year, Category, industry, transport, res_comm) %>%
+  pivot_longer(c(res_comm, industry, transport),
+               names_to = "sector", values_to = "energy_EJ") %>%
+  filter(!is.na(energy_EJ))
+pop_r10 <- pop_ts %>%
+  filter(Region %in% regions_r10) %>%
+  select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+         Region, Year, Category, pop_millions = Value)
+
+# 3-sector track
+evt_3s <- energy_by_sector %>%
+  left_join(pop_r10, by = c("Model_Group", "Model", "Scenario",
+                            "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
+  left_join(dle_thresh_long, by = c("Region", "sector")) %>%
+  left_join(sef_lookup, by = c("Year", "sector")) %>%
+  filter(!is.na(pop_millions), pop_millions > 0,
+         !is.na(threshold_GJ_base), !is.na(energy_EJ)) %>%
+  mutate(energy_GJ_pc = (energy_EJ * 1e9) / (pop_millions * 1e6),
+         threshold_GJ_pc = threshold_GJ_base * SEF,
+         gap_GJ_pc = pmax(0, threshold_GJ_pc - energy_GJ_pc),
+         gap_EJ_total = gap_GJ_pc * (pop_millions * 1e6) / 1e9)
+complete_3s <- evt_3s %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+           Region, Year, Category) %>%
+  summarise(n = n_distinct(sector), .groups = "drop") %>%
+  filter(n == 3) %>% select(-n)
+evt_3s <- semi_join(evt_3s, complete_3s,
+                    by = c("Model_Group", "Model", "Scenario",
+                           "ModelGroup_Scenario", "Region", "Year", "Category"))
+
+# 1-sector fallback
+evt_1s <- fe_total_r10 %>%
+  anti_join(complete_3s, by = c("Model_Group", "Model", "Scenario",
+                                "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
+  left_join(pop_r10, by = c("Model_Group", "Model", "Scenario",
+                            "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
+  left_join(dle_thresholds_total, by = "Region") %>%
+  left_join(sef_total, by = "Year") %>%
+  filter(!is.na(pop_millions), pop_millions > 0, !is.na(fe_total), !is.na(total_GJ)) %>%
+  mutate(sector = "total",
+         energy_GJ_pc = (fe_total * 1e9) / (pop_millions * 1e6),
+         threshold_GJ_pc = total_GJ * SEF_total,
+         gap_GJ_pc = pmax(0, threshold_GJ_pc - energy_GJ_pc),
+         gap_EJ_total = gap_GJ_pc * (pop_millions * 1e6) / 1e9)
+
+evt <- bind_rows(
+  evt_3s %>% select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+                    Region, Year, Category, pop_millions, sector,
+                    energy_GJ_pc, threshold_GJ_pc, gap_GJ_pc, gap_EJ_total),
+  evt_1s %>% select(Model_Group, Model, Scenario, ModelGroup_Scenario,
+                    Region, Year, Category, pop_millions, sector,
+                    energy_GJ_pc, threshold_GJ_pc, gap_GJ_pc, gap_EJ_total)
+)
+
+energy_gini <- tribble(
+  ~Region,        ~gini,
+  "R10AFRICA",    0.45, "R10CHINA+", 0.38, "R10EUROPE", 0.25,
+  "R10INDIA+",    0.42, "R10NORTH_AM", 0.28
+) %>% mutate(sigma_ln = sqrt(2) * qnorm((gini + 1) / 2))
+
+dle_headcount_annual <- evt %>%
+  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+           Region, Year, Category, pop_millions) %>%
+  summarise(energy_GJ_pc_total = sum(energy_GJ_pc, na.rm = TRUE),
+            threshold_GJ_pc_total = sum(threshold_GJ_pc, na.rm = TRUE),
+            gap_EJ_total = sum(gap_EJ_total, na.rm = TRUE),
+            .groups = "drop") %>%
+  left_join(energy_gini, by = "Region") %>%
+  mutate(mu_ln = log(pmax(energy_GJ_pc_total, 0.01)) - sigma_ln^2 / 2,
+         deprivation_rate = pnorm((log(pmax(threshold_GJ_pc_total, 0.01)) - mu_ln) / sigma_ln),
+         headcount_millions = deprivation_rate * pop_millions)
+
+# implied CO2 (annual)
+emissions_intensity <- compass_ts %>%
+  filter(Variable %in% c("Emissions|CO2|Energy", "Final Energy"),
+         Region %in% regions_r10) %>%
+  pivot_wider(id_cols = c(Model_Group, Model, Scenario, ModelGroup_Scenario,
+                          Region, Year, Category),
+              names_from = Variable, values_from = Value, values_fn = mean) %>%
+  rename(any_of(c(co2_energy = "Emissions|CO2|Energy", fe_EJ = "Final Energy"))) %>%
+  filter(!is.na(co2_energy), !is.na(fe_EJ), fe_EJ > 0) %>%
+  mutate(ei_MtCO2_per_EJ = (co2_energy * 1000) / fe_EJ)
+
+dle_annual <- dle_headcount_annual %>%
+  left_join(emissions_intensity, by = c("Model_Group", "Model", "Scenario",
+                                        "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
+  mutate(implied_CO2_GtCO2 = gap_EJ_total * ei_MtCO2_per_EJ / 1000) %>%
+  select(Model, Scenario, Region, Category, Year,
+         gap_EJ_total, headcount_millions, implied_CO2_GtCO2)
+
+cat("Annual outcome tables built:\n")
+cat("  mortality_annual rows:", nrow(mortality_annual), "\n")
+cat("  jobs_annual rows:     ", nrow(jobs_annual), "\n")
+cat("  dle_annual rows:      ", nrow(dle_annual), "\n")
+
+
+# =============================================================================
+# SECTION 5: STAGE-2 FUNCTIONS  (filter -> ambition -> classify -> outcomes)
+# =============================================================================
+
+cat("\n=== SECTION 5: Defining per-approach functions ===\n")
+
+window_for_ambition <- function(amb) {
+  case_when(amb == AMB_15C ~ WINDOW_15C,
+            amb == AMB_2C  ~ WINDOW_2C,
+            TRUE ~ NA_integer_)
+}
+
+# ---- 5a. Ambition assignment -------------------------------------------------
+assign_ambition <- function(df, method) {
+  if (method == "ar6") {
+    df %>% left_join(meta_lookup %>% select(Model, Scenario, Category),
+                     by = c("Model", "Scenario"),
+                     suffix = c("", ".meta")) %>%
+      mutate(Category = coalesce(Category, Category.meta)) %>%
+      select(-any_of("Category.meta")) %>%
+      mutate(Ambition = case_when(
+        Category %in% c("C1", "C2") ~ AMB_15C,
+        Category %in% c("C3", "C4") ~ AMB_2C,
+        TRUE ~ NA_character_))
+  } else if (method == "warming") {
+    if (is.na(PEAK_WARMING_COL)) {
+      # graceful fallback to AR6 if peak warming unavailable
+      return(assign_ambition(df, "ar6"))
+    }
+    df %>% left_join(meta_lookup %>% select(Model, Scenario, peak_warming),
+                     by = c("Model", "Scenario")) %>%
+      mutate(Ambition = case_when(
+        !is.na(peak_warming) & peak_warming <= WARMING_15C_MAX ~ AMB_15C,
+        !is.na(peak_warming) & peak_warming >  WARMING_15C_MAX &
+          peak_warming <= WARMING_2C_MAX                       ~ AMB_2C,
+        TRUE ~ NA_character_))
+  } else stop("Unknown ambition method: ", method)
+}
+
+# ---- 5b. Scenario selection (vetting) ---------------------------------------
+# Returns a distinct Model x Scenario tibble of the surviving sample.
+select_scenarios <- function(vetting) {
+  all_scens <- deploy_metrics %>% distinct(Model, Scenario, Category)
+  if (vetting == "none") {
+    return(all_scens %>% select(Model, Scenario))
+  }
+  if (vetting == "full") {
+    # Primary: authoritative SCI 2025 vetting flag from metadata.
+    if (!is.na(SCI_VET_COL)) {
+      pass_set <- tolower(trimws(as.character(SCI_VET_PASS)))
+      keep <- meta_lookup %>%
+        filter(tolower(trimws(sci_vet)) %in% pass_set) %>%
+        select(Model, Scenario)
+      return(all_scens %>% semi_join(keep, by = c("Model", "Scenario")) %>%
+               select(Model, Scenario))
+    }
+    # Fallback: hardcoded SCI-vetted scenario-name list.
+    return(all_scens %>% filter(Scenario %in% vetted_scenarios) %>%
+             select(Model, Scenario))
+  }
+  if (vetting == "partial") {
+    # MODE 1 (primary): SCI technological-feasibility flags for solar/wind/CDR.
+    if (length(TECHFEAS_COLS_FOUND) > 0) {
+      fail_set <- tolower(as.character(TECHFEAS_FAIL_VALUES))
+      flag_cols <- paste0("techfeas_", names(TECHFEAS_COLS_FOUND))
+      tf <- meta_lookup %>% select(Model, Scenario, all_of(flag_cols))
+      # per-flag pass: TRUE unless the value is in the fail set (NA passes)
+      pass_mat <- sapply(flag_cols, function(cc) {
+        v <- tolower(trimws(as.character(tf[[cc]])))
+        !(v %in% fail_set)          # NA -> "na" -> not in fail_set -> TRUE (pass)
+      })
+      pass_mat <- matrix(pass_mat, nrow = nrow(tf))
+      tf$keep <- if (TECHFEAS_REQUIRE_ALL) apply(pass_mat, 1, all)
+                 else apply(pass_mat, 1, any)
+      keep <- tf %>% filter(keep) %>% select(Model, Scenario)
+      out <- all_scens %>% semi_join(keep, by = c("Model", "Scenario")) %>%
+        select(Model, Scenario)
+      cat(sprintf("  [partial/tech-feas] flags used: %s | require_all=%s\n",
+                  paste(names(TECHFEAS_COLS_FOUND), collapse = "+"),
+                  TECHFEAS_REQUIRE_ALL))
+      return(out)
+    }
+    # MODE 2 (fallback proxy): drop top novel-CDR reliance within ambition group.
+    cat("  [partial] no tech-feas columns found — using novel-CDR proxy\n")
+    novel <- deploy_metrics %>%
+      filter(Variable == "Novel CDR") %>%
+      transmute(Model, Scenario, Category, novel_cdr = Total_Value) %>%
+      mutate(Ambition = case_when(Category %in% c("C1", "C2") ~ AMB_15C,
+                                  Category %in% c("C3", "C4") ~ AMB_2C,
+                                  TRUE ~ NA_character_))
+    drop <- novel %>%
+      filter(!is.na(Ambition)) %>%
+      group_by(Ambition) %>%
+      mutate(thr = quantile(novel_cdr, PARTIAL_NOVELCDR_PCTL, na.rm = TRUE)) %>%
+      ungroup() %>%
+      filter(novel_cdr > thr) %>%
+      select(Model, Scenario)
+    return(all_scens %>% anti_join(drop, by = c("Model", "Scenario")) %>%
+             select(Model, Scenario))
+  }
+  stop("Unknown vetting: ", vetting)
+}
+
+# ---- 5c. Pathway classification (top tercile within ambition) ---------------
+# High-CDR / High-RE from WORLD-level deployment, terciles within Ambition.
+classify_pathways <- function(scen_set, ambition_method) {
+  wcdr <- deploy_metrics %>%
+    filter(Variable == "Total CDR") %>%
+    semi_join(scen_set, by = c("Model", "Scenario")) %>%
+    group_by(Model, Scenario, Category) %>%
+    summarise(total_cdr = sum(Total_Value, na.rm = TRUE), .groups = "drop")
+  wre <- deploy_metrics %>%
+    filter(Variable == "Renewable Capacity") %>%
+    semi_join(scen_set, by = c("Model", "Scenario")) %>%
+    group_by(Model, Scenario, Category) %>%
+    summarise(total_re = sum(Total_Value, na.rm = TRUE), .groups = "drop")
+
+  full_join(wcdr, wre, by = c("Model", "Scenario", "Category")) %>%
+    assign_ambition(ambition_method) %>%
+    filter(!is.na(Ambition)) %>%
+    group_by(Ambition) %>%
+    mutate(
+      cdr_thresh = quantile(total_cdr, 1 - TOP_FRAC, na.rm = TRUE),
+      re_thresh  = quantile(total_re,  1 - TOP_FRAC, na.rm = TRUE),
+      high_cdr   = total_cdr >= cdr_thresh,
+      high_re    = total_re  >= re_thresh,
+      Pathway_overlap = case_when(
+        high_cdr & high_re  ~ "Both High",
+        high_cdr & !high_re ~ "High-CDR only",
+        !high_cdr & high_re ~ "High-RE only",
+        TRUE                ~ "Low (both)"),
+      high_cdr_only = high_cdr & !high_re,
+      high_re_only  = high_re  & !high_cdr,
+      Pathway_excl  = case_when(high_cdr_only ~ "High-CDR",
+                                high_re_only  ~ "High-RE",
+                                TRUE ~ NA_character_),
+      threshold_label = paste0("top_", round(TOP_FRAC * 100), "pct")
+    ) %>%
+    ungroup()
+}
+
+# ---- 5d. Cumulate annual outcomes to ambition window ------------------------
+build_df_master <- function(scen_set, pathway_df, ambition_method) {
+  # ambition + window per scenario (Model x Scenario -> Ambition)
+  amb_map <- pathway_df %>% distinct(Model, Scenario, Category, Ambition) %>%
+    mutate(window_end = window_for_ambition(Ambition))
+
+  # CDR/RE cumulative (R10) restricted to the sample, with ambition attached
+  cdr_cum <- cdr_cumulative_full %>%
+    semi_join(scen_set, by = c("Model", "Scenario")) %>%
+    inner_join(amb_map %>% select(Model, Scenario, Ambition),
+               by = c("Model", "Scenario"))
+
+  # mortality cumulated to window
+  mort_cum <- mortality_annual %>%
+    inner_join(amb_map, by = c("Model", "Scenario")) %>%
+    filter(Year >= START_YEAR, Year <= window_end) %>%
+    group_by(Model, Scenario, Region) %>%
+    summarise(cumulative_deaths_mln = sum(deaths_annual * 10, na.rm = TRUE) / 1e6,
+              .groups = "drop")
+  # (x10: annual deaths carried over 10-yr blocks between 5-yr steps as in source;
+  #  adjust the multiplier to match your rfasst timestep convention if needed.)
+
+  # jobs cumulated to window, wide by tech_group
+  jobs_cum <- jobs_annual %>%
+    inner_join(amb_map, by = c("Model", "Scenario", "Category")) %>%
+    filter(Year >= START_YEAR, Year <= window_end) %>%
+    group_by(Model, Scenario, Region, tech_group) %>%
+    summarise(total_jobs = sum(jobs_thousands, na.rm = TRUE), .groups = "drop") %>%
+    pivot_wider(names_from = tech_group, values_from = total_jobs,
+                names_prefix = "jobs_", values_fill = 0)
+  if (!"jobs_Renewables" %in% names(jobs_cum)) jobs_cum$jobs_Renewables <- NA_real_
+  if (!"jobs_Fossil"     %in% names(jobs_cum)) jobs_cum$jobs_Fossil     <- NA_real_
+
+  # DLE cumulated to window
+  dle_cum <- dle_annual %>%
+    inner_join(amb_map, by = c("Model", "Scenario", "Category")) %>%
+    filter(Year >= START_YEAR, Year <= window_end) %>%
+    group_by(Model, Scenario, Region) %>%
+    summarise(cumulative_gap_EJ = sum(gap_EJ_total, na.rm = TRUE),
+              mean_headcount_millions = mean(headcount_millions, na.rm = TRUE),
+              cumulative_implied_CO2_GtCO2 = sum(implied_CO2_GtCO2, na.rm = TRUE),
+              .groups = "drop")
+
+  # assemble master (one row per scenario x region x deployment-variable)
+  dfm <- cdr_cum %>%
+    select(-proxy) %>%
+    left_join(mort_cum, by = c("Model", "Scenario", "Region")) %>%
+    left_join(jobs_cum %>% select(Model, Scenario, Region,
+                                  jobs_Renewables, jobs_Fossil),
+              by = c("Model", "Scenario", "Region")) %>%
+    left_join(dle_cum, by = c("Model", "Scenario", "Region"))
+
+  # pop-weighted aggregated R10 row (mirrors original df_master build)
+  pop_weights <- pop_ts %>%
+    filter(Region %in% regions_r10, Year == 2030) %>%
+    group_by(Model, Scenario, Region) %>%
+    summarise(pop_weight = median(Value, na.rm = TRUE), .groups = "drop")
+
+  dfm_agg <- dfm %>%
+    left_join(pop_weights, by = c("Model", "Scenario", "Region")) %>%
+    filter(!is.na(pop_weight)) %>%
+    group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
+             Category, Ambition, Variable) %>%
+    summarise(
+      Total_Value = weighted.mean(Total_Value, pop_weight, na.rm = TRUE),
+      across(any_of(c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
+                      "cumulative_gap_EJ", "mean_headcount_millions",
+                      "cumulative_implied_CO2_GtCO2")),
+             ~ {
+               vals <- .x[!is.na(.x)]; wts <- pop_weight[!is.na(.x)]
+               if (length(vals) == 0) NA_real_ else weighted.mean(vals, wts, na.rm = TRUE)
+             }),
+      .groups = "drop") %>%
+    mutate(Region = "Aggregated R10 regions")
+
+  bind_rows(dfm, dfm_agg)
+}
+
+
+# =============================================================================
+# SECTION 6: RUN ALL FIVE APPROACHES
+# =============================================================================
+
+cat("\n=== SECTION 6: Running approaches A-E ===\n")
+
+run_approach <- function(row) {
+  id <- row$id; vetting <- row$vetting; ambition_method <- row$ambition
+  cat(sprintf("\n--- Approach %s: %s ---\n", id, row$label))
+
+  scen_set   <- select_scenarios(vetting)
+  pathway_df <- classify_pathways(scen_set, ambition_method)
+  df_master  <- build_df_master(scen_set, pathway_df, ambition_method)
+
+  # per-approach scenario sample summary (one row per scenario)
+  scenario_set <- pathway_df %>%
+    transmute(Model, Scenario, Category, Ambition,
+              total_cdr, total_re,
+              Pathway_overlap, Pathway_excl,
+              high_cdr_only, high_re_only,
+              approach = id, vetting = vetting, ambition_method = ambition_method)
+
+  n_scen <- n_distinct(paste(pathway_df$Model, pathway_df$Scenario))
+  cat(sprintf("  scenarios in sample: %d | with ambition: %d\n",
+              nrow(scen_set), n_scen))
+  cat("  pathway counts (mutually exclusive):\n")
+  pathway_df %>% filter(!is.na(Pathway_excl)) %>%
+    count(Ambition, Pathway_excl) %>% as.data.frame() %>% print()
+
+  # save per-approach outputs
+  adir <- file.path(OUT_DIR, paste0("approach_", id))
+  dir.create(adir, showWarnings = FALSE, recursive = TRUE)
+  saveRDS(df_master,  file.path(adir, paste0("compass_master_dataset_", id, ".rds")))
+  write.csv(df_master, file.path(adir, paste0("compass_master_dataset_", id, ".csv")), row.names = FALSE)
+  saveRDS(pathway_df, file.path(adir, paste0("compass_pathway_tercile_", id, ".rds")))
+  write.csv(pathway_df, file.path(adir, paste0("compass_pathway_tercile_", id, ".csv")), row.names = FALSE)
+  write.csv(scenario_set, file.path(adir, paste0("compass_scenario_set_", id, ".csv")), row.names = FALSE)
+  write.csv(
+    cdr_cumulative_full %>% semi_join(scen_set, by = c("Model", "Scenario")),
+    file.path(adir, paste0("compass_cdr_cumulative_", id, ".csv")), row.names = FALSE)
+
+  list(id = id, scenario_set = scenario_set, pathway = pathway_df,
+       df_master = df_master, n_sample = nrow(scen_set), n_ambition = n_scen)
+}
+
+results <- lapply(seq_len(nrow(approaches)), function(i) run_approach(approaches[i, ]))
+names(results) <- approaches$id
+
+
+# =============================================================================
+# SECTION 7: CROSS-APPROACH COMPARISON
+# =============================================================================
+
+cat("\n=== SECTION 7: Cross-approach comparison ===\n")
+
+comp_dir <- file.path(OUT_DIR, "comparison")
+dir.create(comp_dir, showWarnings = FALSE, recursive = TRUE)
+
+all_scenario_sets <- map_dfr(results, "scenario_set")
+
+# 7a. Scenario counts per approach x ambition (and classified pathways)
+approach_scenario_counts <- all_scenario_sets %>%
+  group_by(approach, vetting, ambition_method, Ambition) %>%
+  summarise(n_scenarios   = n_distinct(paste(Model, Scenario)),
+            n_high_cdr     = sum(high_cdr_only, na.rm = TRUE),
+            n_high_re      = sum(high_re_only,  na.rm = TRUE),
+            .groups = "drop") %>%
+  arrange(approach, Ambition)
+write.csv(approach_scenario_counts,
+          file.path(comp_dir, "approach_scenario_counts.csv"), row.names = FALSE)
+cat("\nScenario counts per approach x ambition:\n")
+print(as.data.frame(approach_scenario_counts))
+
+# 7b. Pathway counts per approach x ambition x pathway (mutually exclusive)
+approach_pathway_counts <- all_scenario_sets %>%
+  filter(!is.na(Pathway_excl)) %>%
+  group_by(approach, Ambition, Pathway_excl) %>%
+  summarise(n = n_distinct(paste(Model, Scenario)), .groups = "drop") %>%
+  arrange(approach, Ambition, Pathway_excl)
+write.csv(approach_pathway_counts,
+          file.path(comp_dir, "approach_pathway_counts.csv"), row.names = FALSE)
+
+# 7c. Scenario membership matrix (which approaches select each scenario)
+approach_membership <- all_scenario_sets %>%
+  distinct(approach, Model, Scenario) %>%
+  mutate(in_sample = 1L) %>%
+  pivot_wider(names_from = approach, values_from = in_sample,
+              names_prefix = "approach_", values_fill = 0L) %>%
+  arrange(Model, Scenario)
+write.csv(approach_membership,
+          file.path(comp_dir, "approach_scenario_membership.csv"), row.names = FALSE)
+
+# 7d. One-line summary per approach
+approach_summary <- approaches %>%
+  left_join(
+    tibble(id = names(results),
+           n_sample   = map_int(results, "n_sample"),
+           n_ambition = map_int(results, "n_ambition")),
+    by = "id") %>%
+  left_join(
+    all_scenario_sets %>%
+      filter(!is.na(Pathway_excl)) %>%
+      group_by(id = approach) %>%
+      summarise(n_high_cdr = sum(high_cdr_only, na.rm = TRUE),
+                n_high_re  = sum(high_re_only,  na.rm = TRUE),
+                .groups = "drop"),
+    by = "id")
+write.csv(approach_summary,
+          file.path(comp_dir, "approach_summary.csv"), row.names = FALSE)
+cat("\nApproach summary:\n")
+print(as.data.frame(approach_summary))
+
+# 7e. Pairwise overlap of selected scenario sets (Jaccard on Model|Scenario)
+set_list <- map(results, ~ unique(paste(.x$scenario_set$Model,
+                                        .x$scenario_set$Scenario, sep = "||")))
+overlap <- expand_grid(a = names(set_list), b = names(set_list)) %>%
+  rowwise() %>%
+  mutate(
+    n_a = length(set_list[[a]]),
+    n_b = length(set_list[[b]]),
+    n_shared = length(intersect(set_list[[a]], set_list[[b]])),
+    jaccard  = n_shared / length(union(set_list[[a]], set_list[[b]]))
+  ) %>%
+  ungroup()
+write.csv(overlap, file.path(comp_dir, "approach_set_overlap.csv"), row.names = FALSE)
+cat("\nPairwise selected-scenario overlap (Jaccard):\n")
+overlap %>%
+  select(a, b, jaccard) %>%
+  pivot_wider(names_from = b, values_from = jaccard) %>%
+  as.data.frame() %>% print()
+
+cat("\n=== COMPASS MASTER ANALYSIS COMPLETE ===\n")
+cat("Per-approach outputs:  ", file.path(OUT_DIR, "approach_<A-E>"), "\n")
+cat("Comparison outputs:    ", comp_dir, "\n")
+cat("\nNext step: point the figure scripts at one approach's subfolder, e.g.\n")
+cat('  df_master <- readRDS(file.path(OUT_DIR, "approach_C",\n')
+cat('                                 "compass_master_dataset_C.rds"))\n')

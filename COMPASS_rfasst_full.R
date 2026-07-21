@@ -837,10 +837,16 @@ vetted_scenarios <- c(
 
 # Get unique scenario list — filtered to C1/C2/C3/C4 and vetted scenarios only
 # ---- Scenario selection --------------------------------------------------
-# RUN_ALL_SCENARIOS = TRUE runs rfasst on EVERY C1-C4 scenario with emissions
-# data (not just the SCI-vetted list), so air-pollution mortality has full
-# coverage for the master analysis approaches A/B/E (unvetted samples), not
-# only C/D. Set FALSE to reproduce the original vetted-only run.
+# RUN_ALL_SCENARIOS = TRUE runs rfasst on EVERY scenario that has pollutant
+# emissions, WITHOUT pre-filtering on the metadata AR6 category. This matters:
+# the master analysis classifies C1-C4 from compass_interp, but this metadata
+# category (compass_categories) is missing / C5+ / fails to name-match for some
+# of those same scenarios — so a C1-C4 pre-filter here silently drops scenarios
+# the master DOES analyse, leaving them without mortality. Running on all
+# emissions scenarios guarantees mortality exists for every classified
+# scenario; the master joins by Model+Scenario and uses only what it needs.
+# Category is kept as a (possibly NA) label only. Set FALSE to reproduce the
+# original vetted, C1-C4-only run.
 RUN_ALL_SCENARIOS <- TRUE
 
 scenarios_to_run <- em_clean %>%
@@ -849,17 +855,18 @@ scenarios_to_run <- em_clean %>%
     compass_categories,
     by = c("model" = "Model", "scenario" = "Scenario")
   ) %>%
-  select(model, scenario, Category) %>%
-  filter(!is.na(Category), Category %in% c("C1","C2","C3","C4"))
+  select(model, scenario, Category)
 
 if (!RUN_ALL_SCENARIOS) {
   scenarios_to_run <- scenarios_to_run %>%
+    filter(!is.na(Category), Category %in% c("C1","C2","C3","C4")) %>%
     filter(scenario %in% vetted_scenarios)
 }
 scenarios_to_run <- scenarios_to_run %>%
   arrange(model, scenario)
 
-cat("RUN_ALL_SCENARIOS:", RUN_ALL_SCENARIOS, "\n")
+cat("RUN_ALL_SCENARIOS:", RUN_ALL_SCENARIOS,
+    "(TRUE = all emissions scenarios, no category pre-filter)\n")
 cat("Scenarios to run:", nrow(scenarios_to_run), "\n")
 cat("By Category:\n")
 scenarios_to_run %>% count(Category) %>% print()

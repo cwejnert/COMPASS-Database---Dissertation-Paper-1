@@ -845,6 +845,27 @@ cat("  mortality_annual rows:", nrow(mortality_annual), "\n")
 cat("  jobs_annual rows:     ", nrow(jobs_annual), "\n")
 cat("  dle_annual rows:      ", nrow(dle_annual), "\n")
 
+# ---- 4d. Mortality coverage ceiling (diagnostic) ----------------------------
+# How many CLASSIFIED (deployment) scenarios actually have mortality output?
+# This is the ceiling on mortality coverage regardless of vetting: mortality
+# exists only for scenarios present in the rfasst run (i.e. with emissions data).
+# If this is well below 100%, re-running COMPASS_rfasst_full.R will NOT reach
+# full coverage — the gap is emissions-data availability, not the vetted filter.
+{
+  deploy_scen <- deploy_metrics %>% distinct(Model, Scenario)
+  mort_scen   <- mortality_annual %>% distinct(Model, Scenario)
+  n_deploy <- nrow(deploy_scen)
+  n_both   <- deploy_scen %>% semi_join(mort_scen, by = c("Model", "Scenario")) %>% nrow()
+  cat(sprintf(
+    "  MORTALITY COVERAGE CEILING: %d / %d classified scenarios have mortality (%.0f%%)\n",
+    n_both, n_deploy, if (n_deploy > 0) 100 * n_both / n_deploy else 0))
+  cat(sprintf("    (rfasst produced mortality for %d scenarios total)\n",
+              nrow(mort_scen)))
+  if (n_deploy > 0 && n_both / n_deploy < 0.9)
+    cat("    -> Coverage < 90%: gap is emissions-data availability, not vetting.\n",
+        "      Check that compass_emissions_raw.csv covers the full scenario set.\n")
+}
+
 
 # =============================================================================
 # SECTION 5: STAGE-2 FUNCTIONS  (filter -> ambition -> classify -> outcomes)
@@ -1094,6 +1115,18 @@ run_approach <- function(row) {
   cat("  pathway counts (mutually exclusive):\n")
   pathway_df %>% filter(!is.na(Pathway_excl)) %>%
     count(Ambition, Pathway_excl) %>% as.data.frame() %>% print()
+
+  # outcome coverage: % non-NA per outcome on the aggregated-R10 Total-CDR rows.
+  # Mortality dropping below the others flags the emissions-coverage ceiling.
+  cov <- df_master %>%
+    filter(Variable == "Total CDR", Region == "Aggregated R10 regions") %>%
+    summarise(n = n(),
+              across(any_of(c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
+                              "cumulative_gap_EJ", "mean_headcount_millions",
+                              "cumulative_implied_CO2_GtCO2")),
+                     ~ round(100 * mean(!is.na(.x)), 0), .names = "pct_{.col}"))
+  cat("  outcome coverage (% non-NA, agg R10 Total CDR rows):\n")
+  print(as.data.frame(cov))
 
   # save per-approach outputs
   adir <- file.path(OUT_DIR, paste0("approach_", id))

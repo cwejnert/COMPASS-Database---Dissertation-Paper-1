@@ -3,22 +3,26 @@
 # High-Renewables vs High-CDR mitigation pathways at 1.5C and 2C ambition
 #
 # PURPOSE
-#   Compare FIVE approaches to defining the final scenario sample set. The
-#   High-CDR vs High-RE (top-tercile) classification is IDENTICAL across all
-#   five; only two things change between approaches:
-#     (1) the scenario FILTER (SCI vetting), and
-#     (2) how AMBITION (1.5C vs 2C) is defined.
+#   Compare TEN approaches to defining the final scenario sample set. The
+#   High-CDR vs High-RE classification method is IDENTICAL across all ten;
+#   three things vary between approaches:
+#     (1) the scenario FILTER (SCI vetting),
+#     (2) how AMBITION (1.5C vs 2C) is defined, and
+#     (3) the classification cut: top TERCILE (A-E) or above MEDIAN (F-J,
+#         the same 5 filter/ambition combinations at a looser 50% cut, which
+#         roughly doubles group sizes for the feasibility-vetted approaches).
 #
-#   ┌──────┬────────────────────────────┬────────────────────────────────────┐
-#   │ App. │ Scenario filter (vetting)  │ Ambition split                     │
-#   ├──────┼────────────────────────────┼────────────────────────────────────┤
-#   │  A   │ none  (all scenarios)      │ AR6 category  C1/C2=1.5C, C3/C4=2C │
-#   │  B   │ none  (all scenarios)      │ Peak warming  <=1.7C=1.5C,          │
-#   │      │                            │               1.7-2.0C=2C          │
-#   │  C   │ full SCI vetting list      │ AR6 category                       │
-#   │  D   │ full SCI vetting list      │ Peak warming                       │
-#   │  E   │ partial SCI (tech-feas.)   │ AR6 category (configurable)         │
-#   └──────┴────────────────────────────┴────────────────────────────────────┘
+#   ┌──────┬────────────────────────────┬───────────────────┬───────────────┐
+#   │ App. │ Scenario filter (vetting)  │ Ambition split     │ Top fraction  │
+#   ├──────┼────────────────────────────┼───────────────────┼───────────────┤
+#   │ A/F  │ none  (all scenarios)      │ AR6 category       │ 1/3   │  1/2  │
+#   │ B/G  │ none  (all scenarios)      │ Peak warming       │ 1/3   │  1/2  │
+#   │ C/H  │ full SCI vetting list      │ AR6 category       │ 1/3   │  1/2  │
+#   │ D/I  │ full SCI vetting list      │ Peak warming       │ 1/3   │  1/2  │
+#   │ E/J  │ partial SCI (tech-feas.)   │ AR6 category       │ 1/3   │  1/2  │
+#   └──────┴────────────────────────────┴───────────────────┴───────────────┘
+#   AR6 category: C1/C2 = 1.5C, C3/C4 = 2C. Peak warming: <=1.7C = 1.5C,
+#   1.7-2.0C = 2C.
 #
 # ARCHITECTURE
 #   STAGE 1 (run once):  Load data; build the R10 timeseries; compute the
@@ -26,14 +30,27 @@
 #                        DLE headcount/gap/implied-CO2, energy jobs) and the
 #                        CDR/RE deployment metrics used for classification.
 #   STAGE 2 (per approach): filter scenarios -> assign ambition -> classify
-#                        High-CDR/High-RE terciles -> cumulate annual outcomes
-#                        to the ambition window -> build that approach's
-#                        df_master. Save each approach to its own subfolder.
+#                        High-CDR/High-RE at the approach's top fraction ->
+#                        cumulate annual outcomes to the ambition window ->
+#                        build that approach's df_master, with both absolute
+#                        and population-normalised (per-capita) outcome
+#                        columns, at R10-region AND aggregated ("World" =
+#                        5-region sum) resolution. Save each approach to its
+#                        own subfolder.
 #   STAGE 3:             Cross-approach comparison tables (sample sizes,
 #                        overlap of selected scenarios, pathway counts).
 #
-# OUTPUTS (per approach X in {A,B,C,D,E}, under OUT_DIR/approach_X/):
-#   compass_master_dataset_X.rds / .csv   one row per scenario x region x var
+# POPULATION NORMALISATION
+#   Denominator: fixed 2020 population (median across scenarios) per R10
+#   region; the aggregate row uses the 5-region total. Per-capita columns
+#   (suffix _per_1k / _pct / _pc) sit alongside the absolute columns in the
+#   same df_master — nothing is dropped, both are always available.
+#
+# OUTPUTS (per approach X in {A..J}, under OUT_DIR/approach_X/):
+#   compass_master_dataset_X.rds / .csv   one row per scenario x region x var;
+#                                         absolute AND per-capita outcome cols;
+#                                         Region includes R10 + "Aggregated R10
+#                                         regions" (World-equivalent, pop-summed)
 #   compass_pathway_tercile_X.rds / .csv  High-CDR/High-RE classification
 #   compass_scenario_set_X.csv            the final scenario sample list
 #   compass_cdr_cumulative_X.csv          deployment used for classification
@@ -89,7 +106,9 @@ WINDOW_2C   <- 2075L   # 2C   (Medium-Ambition) group
 AMB_15C <- "1.5C (High-Ambition)"
 AMB_2C  <- "2C (Medium-Ambition)"
 
-# Tercile fraction for High-CDR / High-RE classification (top 1/3).
+# Default top fraction for High-CDR / High-RE classification. Each approach
+# carries its own top_frac (1/3 = top tercile, 1/2 = above median); this global
+# is only a fallback for calls that don't pass one.
 TOP_FRAC <- 1/3
 
 # ---- 0c. Peak-warming ambition split (approaches B, D) ----------------------
@@ -147,13 +166,22 @@ PARTIAL_NOVELCDR_PCTL <- 0.90
 # ---- 0e. Approach definitions ----------------------------------------------
 # vetting  : "none" | "full" | "partial"
 # ambition : "ar6"  | "warming"
+# top_frac : 1/3 (top tercile) | 1/2 (above median)
+# A-E use the top-tercile cut; F-J are their median-split twins (top 50%),
+# which roughly double the High-CDR / High-RE group sizes to give the
+# feasibility-vetted approaches (C/D) more statistical power.
 approaches <- tribble(
-  ~id, ~label,                                              ~vetting,   ~ambition,
-  "A", "All scenarios; AR6-category ambition",             "none",     "ar6",
-  "B", "All scenarios; peak-warming ambition",             "none",     "warming",
-  "C", "Full SCI vetting; AR6-category ambition",          "full",     "ar6",
-  "D", "Full SCI vetting; peak-warming ambition",          "full",     "warming",
-  "E", "Partial SCI (tech-feasibility); AR6 ambition",     "partial",  "ar6"
+  ~id, ~label,                                                      ~vetting,  ~ambition, ~top_frac,
+  "A", "All scenarios; AR6 ambition; top tercile",                 "none",    "ar6",     1/3,
+  "B", "All scenarios; peak-warming ambition; top tercile",        "none",    "warming", 1/3,
+  "C", "Full SCI vetting; AR6 ambition; top tercile",              "full",    "ar6",     1/3,
+  "D", "Full SCI vetting; peak-warming ambition; top tercile",     "full",    "warming", 1/3,
+  "E", "Partial SCI (tech-feas.); AR6 ambition; top tercile",      "partial", "ar6",     1/3,
+  "F", "All scenarios; AR6 ambition; above median",                "none",    "ar6",     1/2,
+  "G", "All scenarios; peak-warming ambition; above median",       "none",    "warming", 1/2,
+  "H", "Full SCI vetting; AR6 ambition; above median",             "full",    "ar6",     1/2,
+  "I", "Full SCI vetting; peak-warming ambition; above median",    "full",    "warming", 1/2,
+  "J", "Partial SCI (tech-feas.); AR6 ambition; above median",     "partial", "ar6",     1/2
 )
 
 
@@ -893,6 +921,33 @@ window_for_ambition <- function(amb) {
             TRUE ~ NA_integer_)
 }
 
+# ---- 5.0 Population for per-capita normalisation -----------------------------
+# Fixed 2020 population per R10 region (median across scenarios), matching the
+# denominator used in P_new_outcome_figures. pop2020_total is the 5-region sum,
+# used to normalise the aggregate ("World") row.
+pop2020_r10 <- pop_ts %>%
+  filter(Region %in% regions_r10, Year == 2020) %>%
+  group_by(Region) %>%
+  summarise(pop_mln = median(Value, na.rm = TRUE), .groups = "drop")
+pop2020_total <- sum(pop2020_r10$pop_mln, na.rm = TRUE)
+cat("2020 population (mln) by region:\n"); print(as.data.frame(pop2020_r10))
+cat("5-region total (mln):", round(pop2020_total, 0), "\n")
+
+# Add population-normalised outcome columns given a `pop_mln` column already
+# joined on. Units: deaths & jobs per 1,000 people; headcount as % of pop;
+# DLE gap in GJ/capita; implied CO2 in tCO2/capita. Absolute columns are kept.
+add_percapita <- function(df) {
+  df %>% mutate(
+    mort_per_1k        = if ("cumulative_deaths_mln"        %in% names(.)) cumulative_deaths_mln        / pop_mln * 1000 else NA_real_,
+    headcount_pct      = if ("mean_headcount_millions"      %in% names(.)) mean_headcount_millions      / pop_mln * 100  else NA_real_,
+    re_jobs_per_1k     = if ("jobs_Renewables"              %in% names(.)) jobs_Renewables              / pop_mln       else NA_real_,
+    fossil_jobs_per_1k = if ("jobs_Fossil"                  %in% names(.)) jobs_Fossil                  / pop_mln       else NA_real_,
+    net_re_jobs_per_1k = if (all(c("jobs_Renewables","jobs_Fossil") %in% names(.))) (jobs_Renewables - jobs_Fossil) / pop_mln else NA_real_,
+    gap_GJ_pc          = if ("cumulative_gap_EJ"            %in% names(.)) cumulative_gap_EJ            * 1000 / pop_mln else NA_real_,
+    implied_CO2_tpc    = if ("cumulative_implied_CO2_GtCO2" %in% names(.)) cumulative_implied_CO2_GtCO2 * 1000 / pop_mln else NA_real_
+  )
+}
+
 # ---- 5a. Ambition assignment -------------------------------------------------
 assign_ambition <- function(df, method) {
   if (method == "ar6") {
@@ -984,9 +1039,10 @@ select_scenarios <- function(vetting) {
   stop("Unknown vetting: ", vetting)
 }
 
-# ---- 5c. Pathway classification (top tercile within ambition) ---------------
-# High-CDR / High-RE from WORLD-level deployment, terciles within Ambition.
-classify_pathways <- function(scen_set, ambition_method) {
+# ---- 5c. Pathway classification (top fraction within ambition) --------------
+# High-CDR / High-RE from WORLD-level deployment, top `top_frac` within Ambition
+# (1/3 = top tercile, 1/2 = above median).
+classify_pathways <- function(scen_set, ambition_method, top_frac = TOP_FRAC) {
   wcdr <- deploy_metrics %>%
     filter(Variable == "Total CDR") %>%
     semi_join(scen_set, by = c("Model", "Scenario")) %>%
@@ -1003,8 +1059,8 @@ classify_pathways <- function(scen_set, ambition_method) {
     filter(!is.na(Ambition)) %>%
     group_by(Ambition) %>%
     mutate(
-      cdr_thresh = quantile(total_cdr, 1 - TOP_FRAC, na.rm = TRUE),
-      re_thresh  = quantile(total_re,  1 - TOP_FRAC, na.rm = TRUE),
+      cdr_thresh = quantile(total_cdr, 1 - top_frac, na.rm = TRUE),
+      re_thresh  = quantile(total_re,  1 - top_frac, na.rm = TRUE),
       high_cdr   = total_cdr >= cdr_thresh,
       high_re    = total_re  >= re_thresh,
       Pathway_overlap = case_when(
@@ -1017,7 +1073,7 @@ classify_pathways <- function(scen_set, ambition_method) {
       Pathway_excl  = case_when(high_cdr_only ~ "High-CDR",
                                 high_re_only  ~ "High-RE",
                                 TRUE ~ NA_character_),
-      threshold_label = paste0("top_", round(TOP_FRAC * 100), "pct")
+      threshold_label = paste0("top_", round(top_frac * 100), "pct")
     ) %>%
     ungroup()
 }
@@ -1065,54 +1121,52 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
               cumulative_implied_CO2_GtCO2 = sum(implied_CO2_GtCO2, na.rm = TRUE),
               .groups = "drop")
 
-  # assemble master (one row per scenario x region x deployment-variable)
+  # assemble per-region master (one row per scenario x region x deployment-var),
+  # absolute outcomes, then attach 2020 population and per-capita columns.
   dfm <- cdr_cum %>%
     select(-proxy) %>%
     left_join(mort_cum, by = c("Model", "Scenario", "Region")) %>%
     left_join(jobs_cum %>% select(Model, Scenario, Region,
                                   jobs_Renewables, jobs_Fossil),
               by = c("Model", "Scenario", "Region")) %>%
-    left_join(dle_cum, by = c("Model", "Scenario", "Region"))
+    left_join(dle_cum, by = c("Model", "Scenario", "Region")) %>%
+    left_join(pop2020_r10, by = "Region") %>%
+    add_percapita()
 
-  # pop-weighted aggregated R10 row (mirrors original df_master build)
-  pop_weights <- pop_ts %>%
-    filter(Region %in% regions_r10, Year == 2030) %>%
-    group_by(Model, Scenario, Region) %>%
-    summarise(pop_weight = median(Value, na.rm = TRUE), .groups = "drop")
-
+  # Aggregate ("World" = 5-region sum) row: SUM absolute outcomes across the R10
+  # regions (deaths, jobs, headcount, gap, CO2 are all additive), then normalise
+  # by the 5-region total population. Total_Value (deployment) is summed too.
+  outcome_cols <- c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
+                    "cumulative_gap_EJ", "mean_headcount_millions",
+                    "cumulative_implied_CO2_GtCO2")
   dfm_agg <- dfm %>%
-    left_join(pop_weights, by = c("Model", "Scenario", "Region")) %>%
-    filter(!is.na(pop_weight)) %>%
     group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
              Category, Ambition, Variable) %>%
     summarise(
-      Total_Value = weighted.mean(Total_Value, pop_weight, na.rm = TRUE),
-      across(any_of(c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
-                      "cumulative_gap_EJ", "mean_headcount_millions",
-                      "cumulative_implied_CO2_GtCO2")),
-             ~ {
-               vals <- .x[!is.na(.x)]; wts <- pop_weight[!is.na(.x)]
-               if (length(vals) == 0) NA_real_ else weighted.mean(vals, wts, na.rm = TRUE)
-             }),
+      Total_Value = sum(Total_Value, na.rm = TRUE),
+      across(any_of(outcome_cols),
+             ~ if (all(is.na(.x))) NA_real_ else sum(.x, na.rm = TRUE)),
       .groups = "drop") %>%
-    mutate(Region = "Aggregated R10 regions")
+    mutate(Region = "Aggregated R10 regions", pop_mln = pop2020_total) %>%
+    add_percapita()
 
   bind_rows(dfm, dfm_agg)
 }
 
 
 # =============================================================================
-# SECTION 6: RUN ALL FIVE APPROACHES
+# SECTION 6: RUN ALL APPROACHES (A-E top tercile, F-J above median)
 # =============================================================================
 
-cat("\n=== SECTION 6: Running approaches A-E ===\n")
+cat("\n=== SECTION 6: Running approaches A-J ===\n")
 
 run_approach <- function(row) {
   id <- row$id; vetting <- row$vetting; ambition_method <- row$ambition
+  top_frac <- row$top_frac
   cat(sprintf("\n--- Approach %s: %s ---\n", id, row$label))
 
   scen_set   <- select_scenarios(vetting)
-  pathway_df <- classify_pathways(scen_set, ambition_method)
+  pathway_df <- classify_pathways(scen_set, ambition_method, top_frac)
   df_master  <- build_df_master(scen_set, pathway_df, ambition_method)
 
   # per-approach scenario sample summary (one row per scenario)
@@ -1121,7 +1175,9 @@ run_approach <- function(row) {
               total_cdr, total_re,
               Pathway_overlap, Pathway_excl,
               high_cdr_only, high_re_only,
-              approach = id, vetting = vetting, ambition_method = ambition_method)
+              approach = id, vetting = vetting, ambition_method = ambition_method,
+              threshold_label = threshold_label,
+              top_frac = top_frac)
 
   n_scen <- n_distinct(paste(pathway_df$Model, pathway_df$Scenario))
   cat(sprintf("  scenarios in sample: %d | with ambition: %d\n",
@@ -1245,7 +1301,7 @@ overlap %>%
   as.data.frame() %>% print()
 
 cat("\n=== COMPASS MASTER ANALYSIS COMPLETE ===\n")
-cat("Per-approach outputs:  ", file.path(OUT_DIR, "approach_<A-E>"), "\n")
+cat("Per-approach outputs:  ", file.path(OUT_DIR, "approach_<A-J>"), "\n")
 cat("Comparison outputs:    ", comp_dir, "\n")
 cat("\nNext step: point the figure scripts at one approach's subfolder, e.g.\n")
 cat('  df_master <- readRDS(file.path(OUT_DIR, "approach_C",\n')

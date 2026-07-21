@@ -270,13 +270,46 @@ p_net <- make_R1("net_re_jobs", "Net RE jobs (RE - Fossil, 000s)")
 if (!is.null(p_net)) save_fig(p_net, "R1_net_re_jobs.png", 15, 7)
 
 # ---- R2: contrast forest plot ------------------------------------------------
-# median(High-CDR) - median(High-RE) per outcome x ambition x approach.
-contrast <- path_long %>%
+# median(High-CDR) - median(High-RE) per outcome x ambition x approach, plus a
+# Mann-Whitney U test and Cliff's delta effect size.
+
+# Minimum per-group n for a meaningful test; smaller cells report NA p-value.
+MIN_N_TEST <- 4
+
+long_vals <- path_long %>%
   select(approach, approach_lab, Ambition, Pathway_excl,
          all_of(OUTCOMES$col), net_re_jobs) %>%
   pivot_longer(c(all_of(OUTCOMES$col), net_re_jobs),
                names_to = "outcome", values_to = "val") %>%
-  filter(!is.na(val)) %>%
+  filter(!is.na(val))
+
+# Mann-Whitney U (High-CDR vs High-RE) + Cliff's delta per cell.
+stat_tests <- long_vals %>%
+  group_by(approach, Ambition, outcome) %>%
+  summarise(
+    n_cdr = sum(Pathway_excl == "High-CDR"),
+    n_re  = sum(Pathway_excl == "High-RE"),
+    p_value = {
+      x <- val[Pathway_excl == "High-CDR"]; y <- val[Pathway_excl == "High-RE"]
+      if (min(length(x), length(y)) >= MIN_N_TEST)
+        suppressWarnings(wilcox.test(x, y)$p.value) else NA_real_
+    },
+    cliffs_delta = {
+      x <- val[Pathway_excl == "High-CDR"]; y <- val[Pathway_excl == "High-RE"]
+      if (length(x) > 0 && length(y) > 0)
+        (sum(outer(x, y, ">")) - sum(outer(x, y, "<"))) / (length(x) * length(y))
+      else NA_real_
+    },
+    .groups = "drop") %>%
+  mutate(
+    sig   = !is.na(p_value) & p_value < 0.05,
+    p_lab = case_when(is.na(p_value) ~ "ns (n<4)",
+                      p_value < 0.001 ~ "***",
+                      p_value < 0.01  ~ "**",
+                      p_value < 0.05  ~ "*",
+                      TRUE            ~ "ns"))
+
+contrast <- long_vals %>%
   group_by(approach, approach_lab, Ambition, outcome, Pathway_excl) %>%
   summarise(med = median(val), n = n(), .groups = "drop") %>%
   pivot_wider(names_from = Pathway_excl, values_from = c(med, n)) %>%
@@ -287,34 +320,58 @@ contrast <- path_long %>%
     n_min = pmin(`n_High-CDR`, `n_High-RE`, na.rm = TRUE),
     outcome_lab = c(OUTCOMES$label, "Net RE jobs (000s)")[
       match(outcome, c(OUTCOMES$col, "net_re_jobs"))]
-  )
+  ) %>%
+  left_join(stat_tests, by = c("approach", "Ambition", "outcome"))
 
 fig_R2 <- contrast %>%
   filter(!is.na(rel)) %>%
-  mutate(Ambition = factor(Ambition, levels = AMB_ORDER)) %>%
+  mutate(Ambition = factor(Ambition, levels = AMB_ORDER),
+         Significance = if_else(sig, "p < 0.05", "ns / n<4")) %>%
   ggplot(aes(x = rel, y = approach_lab, colour = Ambition)) +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "grey50") +
-  geom_point(aes(size = n_min), alpha = 0.85,
+  geom_point(aes(size = n_min, shape = Significance), alpha = 0.9,
              position = position_dodge(width = 0.5)) +
   facet_wrap(~ outcome_lab, scales = "free_x", ncol = 3) +
   scale_colour_manual(values = c("1.5C (High-Ambition)" = "#1a9641",
                                  "2C (Medium-Ambition)" = "#d7191c"),
                       name = NULL) +
+  scale_shape_manual(values = c("p < 0.05" = 16, "ns / n<4" = 1), name = NULL) +
   scale_size_continuous(range = c(1.5, 5), name = "min group n") +
   labs(title = "High-CDR minus High-RE: outcome contrast across approaches",
        subtitle = "Relative difference in medians (% of High-RE median). Right of 0 = higher under High-CDR.",
        x = "Median(High-CDR) − Median(High-RE), % of High-RE", y = NULL,
-       caption = "Robust conclusions = points that stay on the same side of 0 across approaches (A-E). Point size = smaller of the two group sizes.") +
+       caption = paste("Filled = Mann-Whitney U p < 0.05; hollow = not significant or n < 4 per group.",
+                       "Robust conclusions = points on the same side of 0 across approaches (A-E). Size = smaller group n.")) +
   theme_cmp()
 save_fig(fig_R2, "R2_contrast_forest.png", 15, 9)
 
-# Also write the contrast table for the paper
+# Also write the contrast table for the paper (with test statistics)
 write.csv(contrast %>%
             select(approach, Ambition, outcome = outcome_lab,
                    med_HighCDR = `med_High-CDR`, med_HighRE = `med_High-RE`,
                    diff, rel_pct = rel, n_HighCDR = `n_High-CDR`,
-                   n_HighRE = `n_High-RE`),
+                   n_HighRE = `n_High-RE`,
+                   p_value, p_lab, cliffs_delta, significant = sig) %>%
+            arrange(outcome, Ambition, approach),
           file.path(COMP_DIR, "approach_outcome_contrast.csv"), row.names = FALSE)
+
+# Robustness summary: for each outcome x ambition, in how many of the 5
+# approaches is the High-CDR vs High-RE difference significant AND same-signed?
+robustness <- contrast %>%
+  filter(!is.na(diff)) %>%
+  group_by(outcome_lab, Ambition) %>%
+  summarise(n_approaches   = n(),
+            n_significant  = sum(sig, na.rm = TRUE),
+            n_cdr_higher   = sum(diff > 0, na.rm = TRUE),
+            n_re_higher    = sum(diff < 0, na.rm = TRUE),
+            consistent_dir = max(sum(diff > 0, na.rm = TRUE),
+                                 sum(diff < 0, na.rm = TRUE)),
+            .groups = "drop") %>%
+  arrange(outcome_lab, Ambition)
+write.csv(robustness,
+          file.path(COMP_DIR, "approach_robustness_summary.csv"), row.names = FALSE)
+cat("\nRobustness (significant & same-signed across approaches):\n")
+print(as.data.frame(robustness))
 
 cat("\n=== CROSS-APPROACH FIGURES COMPLETE ===\n")
 cat("Figures: ", FIG_DIR, "\n")

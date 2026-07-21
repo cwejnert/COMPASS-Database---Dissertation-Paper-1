@@ -1133,7 +1133,13 @@ mortality_r10 <- pm25_r10 %>%
 write.csv(mortality_r10,
           file.path(OUT_DIR, "compass_mortality_r10.csv"),
           row.names = FALSE)
-cat("Saved: compass_mortality_r10.csv\n")
+# ALSO write to COMPASS_DIR: this is where COMPASS_master_analysis.R reads the
+# annual mortality file from. Writing it here too prevents master from silently
+# using a stale copy left in COMPASS_DIR from an earlier (vetted-only) run.
+write.csv(mortality_r10,
+          file.path(COMPASS_DIR, "compass_mortality_r10.csv"),
+          row.names = FALSE)
+cat("Saved: compass_mortality_r10.csv (to OUT_DIR and COMPASS_DIR)\n")
 
 # === SECTION 7: CUMULATIVE SUMMARY 2020-2100 ===
 mortality_summary <- mortality_r10 %>%

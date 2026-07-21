@@ -598,9 +598,23 @@ cat("deploy_metrics rows:", nrow(deploy_metrics),
 cat("\n=== SECTION 4: Annual wellbeing outcomes ===\n")
 
 # ---- 4a. Air-pollution mortality (annual) -----------------------------------
-mort_r10_path <- file.path(COMPASS_DIR, "compass_mortality_r10.csv")
+# The rfasst script writes compass_mortality_r10.csv to its own output folder
+# (Outputs/COMPASS_mortality) AND to COMPASS_DIR. Look in both and use the most
+# recently modified, so a stale copy in COMPASS_DIR can't silently win. Add
+# more candidate paths here if your rfasst OUT_DIR differs.
+MORT_R10_CANDIDATES <- c(
+  file.path(COMPASS_DIR, "compass_mortality_r10.csv"),
+  file.path(dirname(COMPASS_DIR), "..", "Outputs", "COMPASS_mortality",
+            "compass_mortality_r10.csv"),
+  "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Outputs/COMPASS_mortality/compass_mortality_r10.csv"
+)
+mort_found <- MORT_R10_CANDIDATES[file.exists(MORT_R10_CANDIDATES)]
+mort_r10_path <- if (length(mort_found) > 0)
+  mort_found[which.max(file.mtime(mort_found))] else MORT_R10_CANDIDATES[1]
 mortality_annual <- NULL
 if (file.exists(mort_r10_path)) {
+  cat("Reading annual mortality from:", mort_r10_path,
+      "(modified", format(file.mtime(mort_r10_path)), ")\n")
   ma <- read_csv(mort_r10_path, show_col_types = FALSE)
   if ("model" %in% names(ma) && !"Model" %in% names(ma))
     ma <- rename(ma, Model = model, Scenario = scenario)

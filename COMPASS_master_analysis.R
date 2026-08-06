@@ -679,6 +679,38 @@ if (file.exists(mort_r10_path)) {
 # ---- 4b. Energy jobs (annual) -----------------------------------------------
 job_factors_complete <- read.csv(file.path(AR6_DIR, "job_factors_complete.csv"))
 
+# ---- Geothermal O&M job factor (absent from the source table) ---------------
+# job_factors_complete carries no geothermal factor, so geothermal capacity was
+# silently dropped from the jobs calc (~7% of GW-rows, all geothermal), which
+# understates RENEWABLE jobs. The jobs code uses only the "oem" (O&M) category,
+# so we add geothermal O&M here. Method: anchor the most-cited geothermal O&M
+# employment factor -- 1.17 jobs/MW = 1170 jobs/GW (Geothermal Energy Assoc.
+# 2015) -- as the geometric mean across regions, and distribute it with a
+# technology-independent regional labour multiplier derived from the table's OWN
+# O&M factors (geometric mean across low-carbon generation techs). This mirrors
+# the Rutovitz et al. (2015) structure (global employment factor x regional
+# labour multiplier) and avoids importing any single technology's regional
+# quirks (e.g. the China hydro O&M spike, or biomass's fuel-driven pattern).
+if (!any(job_factors_complete$fuel == "geothermal" &
+         job_factors_complete$category == "oem")) {
+  .geo_om_global <- 1170                                   # jobs/GW (GEA 2015)
+  .donors <- c("biomass", "hydro", "wind_on", "solar_pv", "nuclear")
+  .gm <- function(x) exp(mean(log(x)))
+  geothermal_oem <- job_factors_complete %>%
+    filter(category == "oem", fuel %in% .donors,
+           region %in% regions_r10, job_intensity > 0) %>%
+    group_by(fuel) %>%
+    mutate(ratio = job_intensity / .gm(job_intensity)) %>%
+    group_by(region) %>%
+    summarise(mult = .gm(ratio), .groups = "drop") %>%
+    transmute(region, fuel = "geothermal", category = "oem",
+              job_intensity = .geo_om_global * mult)
+  job_factors_complete <- bind_rows(job_factors_complete, geothermal_oem)
+  cat("Added geothermal O&M job factors (jobs/GW):\n")
+  print(as.data.frame(geothermal_oem %>%
+                        mutate(job_intensity = round(job_intensity, 0))))
+}
+
 cap_additions_fuel_map <- tribble(
   ~Variable,                                    ~fuel,        ~tech_group,
   "Capacity Additions|Electricity|Solar",       "solar_pv",   "Renewables",

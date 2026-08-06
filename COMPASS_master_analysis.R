@@ -729,7 +729,13 @@ jobs_raw_stockdiff <- compass_ts %>%
   arrange(Model, Scenario, Region, fuel, Year) %>%
   group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
            Region, Category, fuel, tech_group) %>%
-  mutate(GW = pmax(0, (Value - lag(Value, default = first(Value))) / 5)) %>%
+  # JOBS FIX: divide the annual stock change by the ACTUAL year gap (= 1 on the
+  # annual compass_interp grid), not a hard-coded 5. The old "/ 5" under-counted
+  # fallback-path jobs ~5x. Confirmed empirically: on scenarios reporting both,
+  # median(net stock change / gross additions) ~= 0.56 -> the stock difference is
+  # already an annual quantity (order-1), not 1/5 of one. First year of each group
+  # -> NA gap -> dropped by the filter below.
+  mutate(GW = pmax(0, (Value - lag(Value)) / (Year - lag(Year)))) %>%
   ungroup() %>%
   filter(Year > min(Year)) %>%
   mutate(job_category = "oem") %>%

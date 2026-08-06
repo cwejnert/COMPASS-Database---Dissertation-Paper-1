@@ -48,9 +48,20 @@ is dropped:
 | `mean_headcount_millions` | `headcount_pct` | % of population below DLS |
 | `cumulative_gap_EJ` | `gap_GJ_pc` | GJ per capita |
 | `cumulative_implied_CO2_GtCO2` | `implied_CO2_tpc` | tCO2 per capita |
-| `jobs_Renewables` | `re_jobs_per_1k` | RE jobs per 1,000 pop |
-| `jobs_Fossil` | `fossil_jobs_per_1k` | Fossil jobs per 1,000 pop |
+| `jobs_Renewables` | `re_jobs_per_1k` | RE total-employment person-years per 1,000 pop |
+| `jobs_Fossil` | `fossil_jobs_per_1k` | Fossil total-employment person-years per 1,000 pop |
 | (derived) `jobs_Renewables - jobs_Fossil` | `net_re_jobs_per_1k` | Net RE jobs per 1,000 pop |
+
+Jobs are **total energy-sector employment** (Rutovitz-style), cumulated over the
+ambition window as person-years: **build** jobs (construction + manufacturing)
+applied to capacity *additions*, plus **O&M + fuel** jobs (oem + extraction +
+refinery) applied to installed *capacity stock* each year. (A prior version
+applied only the O&M factor to additions — a dimensional mismatch that captured
+neither build nor true O&M/fuel employment.) Fuel/extraction employment is
+proxied per installed GW (constant-capacity-factor approximation), consistent
+with the per-GW `job_factors_complete` table; geothermal factors, absent from
+that table, are added from GEA (2015) values distributed by a regional labour
+multiplier.
 
 ## Outputs
 

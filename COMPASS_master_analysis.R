@@ -679,36 +679,45 @@ if (file.exists(mort_r10_path)) {
 # ---- 4b. Energy jobs (annual) -----------------------------------------------
 job_factors_complete <- read.csv(file.path(AR6_DIR, "job_factors_complete.csv"))
 
-# ---- Geothermal O&M job factor (absent from the source table) ---------------
-# job_factors_complete carries no geothermal factor, so geothermal capacity was
-# silently dropped from the jobs calc (~7% of GW-rows, all geothermal), which
-# understates RENEWABLE jobs. The jobs code uses only the "oem" (O&M) category,
-# so we add geothermal O&M here. Method: anchor the most-cited geothermal O&M
-# employment factor -- 1.17 jobs/MW = 1170 jobs/GW (Geothermal Energy Assoc.
-# 2015) -- as the geometric mean across regions, and distribute it with a
-# technology-independent regional labour multiplier derived from the table's OWN
-# O&M factors (geometric mean across low-carbon generation techs). This mirrors
-# the Rutovitz et al. (2015) structure (global employment factor x regional
-# labour multiplier) and avoids importing any single technology's regional
-# quirks (e.g. the China hydro O&M spike, or biomass's fuel-driven pattern).
-if (!any(job_factors_complete$fuel == "geothermal" &
-         job_factors_complete$category == "oem")) {
-  .geo_om_global <- 1170                                   # jobs/GW (GEA 2015)
+# ---- Geothermal job factors (absent from the source table) ------------------
+# job_factors_complete carries no geothermal factor at all, so geothermal
+# capacity was silently dropped from the jobs calc (~7% of GW-rows), which
+# understates RENEWABLE jobs. Add geothermal for every phase used by the total-
+# employment calc below (construction, manufacturing, O&M; geothermal has no
+# fuel so extraction/refinery stay 0). Method: anchor the most-cited global
+# geothermal employment factors -- O&M 1.17 jobs/MW = 1170 jobs/GW; construction
+# 3.1 = 3100; manufacturing 3.3 = 3300 (Geothermal Energy Assoc. 2015 / GEA
+# geothermal-econ) -- and distribute each with ONE technology-independent
+# regional labour multiplier derived from the table's own O&M factors (geometric
+# mean across low-carbon generation techs). This mirrors the Rutovitz et al.
+# (2015) structure (global employment factor x regional labour multiplier) and
+# avoids importing any single technology's regional quirks (e.g. the China hydro
+# O&M spike, or biomass's fuel-driven pattern).
+if (!any(job_factors_complete$fuel == "geothermal")) {
+  .geo_global <- tribble(~category,        ~ef_global,
+                         "oem",            1170,
+                         "construction",   3100,
+                         "manufacturing",  3300)
   .donors <- c("biomass", "hydro", "wind_on", "solar_pv", "nuclear")
   .gm <- function(x) exp(mean(log(x)))
-  geothermal_oem <- job_factors_complete %>%
+  .region_mult <- job_factors_complete %>%
     filter(category == "oem", fuel %in% .donors,
            region %in% regions_r10, job_intensity > 0) %>%
     group_by(fuel) %>%
     mutate(ratio = job_intensity / .gm(job_intensity)) %>%
     group_by(region) %>%
-    summarise(mult = .gm(ratio), .groups = "drop") %>%
-    transmute(region, fuel = "geothermal", category = "oem",
-              job_intensity = .geo_om_global * mult)
-  job_factors_complete <- bind_rows(job_factors_complete, geothermal_oem)
-  cat("Added geothermal O&M job factors (jobs/GW):\n")
-  print(as.data.frame(geothermal_oem %>%
-                        mutate(job_intensity = round(job_intensity, 0))))
+    summarise(mult = .gm(ratio), .groups = "drop")
+  geothermal_factors <- expand_grid(region = regions_r10,
+                                    category = .geo_global$category) %>%
+    left_join(.geo_global, by = "category") %>%
+    left_join(.region_mult, by = "region") %>%
+    transmute(region, fuel = "geothermal", category,
+              job_intensity = ef_global * mult)
+  job_factors_complete <- bind_rows(job_factors_complete, geothermal_factors)
+  cat("Added geothermal job factors (jobs/GW) by phase:\n")
+  print(as.data.frame(geothermal_factors %>%
+                        pivot_wider(names_from = category, values_from = job_intensity) %>%
+                        mutate(across(where(is.numeric), ~round(.x, 0)))))
 }
 
 cap_additions_fuel_map <- tribble(
@@ -746,37 +755,65 @@ scens_needing_stockdiff <- compass_ts %>%
   distinct(Model, Scenario, Region) %>%
   anti_join(scens_with_additions, by = c("Model", "Scenario", "Region"))
 
-jobs_raw_additions <- cap_additions_ts %>%
+# TOTAL energy-sector employment (Rutovitz-style). The three job streams have
+# DIFFERENT dimensional drivers, so they are applied to different quantities:
+#   * build  (construction + manufacturing) -> ONE-TIME per GW ADDED   (a flow)
+#   * O&M + fuel (oem + extraction + refinery) -> ONGOING per GW INSTALLED (stock)
+# The previous version applied only the O&M factor to additions -- an ongoing
+# per-stock rate multiplied by a one-time flow -- which is dimensionally wrong
+# and captured neither build employment nor true O&M/fuel employment. See the
+# methods note. ASSUMPTION: fuel/extraction employment is proxied per installed
+# GW (constant capacity-factor approximation), consistent with the per-GW
+# encoding of job_factors_complete; construction/manufacturing are per GW built.
+job_ef <- job_factors_complete %>%
+  filter(category %in% c("construction", "manufacturing",
+                         "oem", "extraction", "refinery")) %>%
+  pivot_wider(names_from = category, values_from = job_intensity,
+              values_fn = mean, values_fill = 0) %>%
+  mutate(build_ef   = construction + manufacturing,   # per GW added  (one-time)
+         ongoing_ef = oem + extraction + refinery) %>% # per GW stock (per year)
+  select(region, fuel, build_ef, ongoing_ef)
+
+# ---- installed CAPACITY STOCK by tech -> drives O&M + fuel (ongoing) --------
+stock_ts <- compass_ts %>%
+  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
+  inner_join(cap_stock_fuel_map, by = "Variable") %>%
+  transmute(Model, Scenario, Region, Category, Year, fuel, tech_group,
+            stock_GW = pmax(0, Value))
+
+# ---- capacity ADDITIONS by tech -> drives build (one-time) ------------------
+# Direct where reported; else implied from the annual stock change (year-gap,
+# = 1 on the annual grid; see the fallback-divisor fix note).
+add_direct <- cap_additions_ts %>%
   semi_join(scens_with_additions, by = c("Model", "Scenario", "Region")) %>%
   filter(Year >= START_YEAR) %>%
   inner_join(cap_additions_fuel_map, by = "Variable") %>%
-  mutate(GW = Value, job_category = "oem") %>%
-  left_join(job_factors_complete %>% select(region, fuel, category, job_intensity),
-            by = c("Region" = "region", "fuel", "job_category" = "category"))
-
-jobs_raw_stockdiff <- compass_ts %>%
+  transmute(Model, Scenario, Region, Category, Year, fuel, tech_group,
+            add_GW = pmax(0, Value))
+add_fallback <- compass_ts %>%
   filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
   semi_join(scens_needing_stockdiff, by = c("Model", "Scenario", "Region")) %>%
   inner_join(cap_stock_fuel_map, by = "Variable") %>%
   arrange(Model, Scenario, Region, fuel, Year) %>%
-  group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
-           Region, Category, fuel, tech_group) %>%
-  # JOBS FIX: divide the annual stock change by the ACTUAL year gap (= 1 on the
-  # annual compass_interp grid), not a hard-coded 5. The old "/ 5" under-counted
-  # fallback-path jobs ~5x. Confirmed empirically: on scenarios reporting both,
-  # median(net stock change / gross additions) ~= 0.56 -> the stock difference is
-  # already an annual quantity (order-1), not 1/5 of one. First year of each group
-  # -> NA gap -> dropped by the filter below.
-  mutate(GW = pmax(0, (Value - lag(Value)) / (Year - lag(Year)))) %>%
+  group_by(Model, Scenario, Region, Category, fuel, tech_group) %>%
+  mutate(add_GW = pmax(0, (Value - lag(Value)) / (Year - lag(Year)))) %>%
   ungroup() %>%
-  filter(Year > min(Year)) %>%
-  mutate(job_category = "oem") %>%
-  left_join(job_factors_complete %>% select(region, fuel, category, job_intensity),
-            by = c("Region" = "region", "fuel", "job_category" = "category"))
+  filter(!is.na(add_GW)) %>%
+  transmute(Model, Scenario, Region, Category, Year, fuel, tech_group, add_GW)
+additions_ts <- bind_rows(add_direct, add_fallback)
 
-jobs_annual <- bind_rows(jobs_raw_additions, jobs_raw_stockdiff) %>%
-  filter(!is.na(job_intensity)) %>%
-  mutate(jobs_thousands = GW * job_intensity / 1000) %>%
+# ---- three streams -> total jobs per Model/Scenario/Region/Year/tech_group --
+jobs_build <- additions_ts %>%
+  left_join(job_ef, by = c("Region" = "region", "fuel")) %>%
+  transmute(Model, Scenario, Region, Category, Year, tech_group,
+            jobs_thousands = add_GW * build_ef / 1000)
+jobs_ongoing <- stock_ts %>%
+  left_join(job_ef, by = c("Region" = "region", "fuel")) %>%
+  transmute(Model, Scenario, Region, Category, Year, tech_group,
+            jobs_thousands = stock_GW * ongoing_ef / 1000)
+
+jobs_annual <- bind_rows(jobs_build, jobs_ongoing) %>%
+  filter(!is.na(jobs_thousands)) %>%
   group_by(Model, Scenario, Region, Category, Year, tech_group) %>%
   summarise(jobs_thousands = sum(jobs_thousands, na.rm = TRUE), .groups = "drop")
 

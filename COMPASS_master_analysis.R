@@ -743,27 +743,35 @@ jobs_annual <- bind_rows(jobs_raw_additions, jobs_raw_stockdiff) %>%
   summarise(jobs_thousands = sum(jobs_thousands, na.rm = TRUE), .groups = "drop")
 
 # ---- 4c. DLE gap / headcount / implied CO2 (annual) -------------------------
+# DLE FIX 1 (see dle_fix.R / methods note): DESIRE-calibrated final-energy
+# thresholds (GJ/capita/yr). Needs floor with TRANSPORT largest in every region;
+# every sector inside DESIRE's published range, totals within its 17-35 span.
+# Replaces the old residential-led table (totals up to 63 GJ/cap, wealth-tracking).
+# For a final published number, population-weight DESIRE's country-level values
+# to R10 (or confirm with the authors).
 dle_thresholds <- tribble(
-  ~Region,        ~res_comm_GJ, ~industry_GJ, ~transport_GJ,
-  "R10AFRICA",          12.0,         8.0,          4.5,
-  "R10CHINA+",          18.0,        14.0,          5.0,
-  "R10EUROPE",          28.0,        16.0,          8.0,
-  "R10INDIA+",          10.0,         8.5,          4.0,
-  "R10NORTH_AM",        35.0,        18.0,         10.0
+  ~Region,        ~res_comm_GJ, ~transport_GJ, ~industry_GJ,   # total (rationale)
+  "R10INDIA+",           4.5,          10.5,         3.0,       # 18.0 warm, dense
+  "R10AFRICA",           5.0,          11.0,         3.0,       # 19.0 warm; long-distance transport
+  "R10CHINA+",           6.5,          11.5,         4.0,       # 22.0 ~ DESIRE global average
+  "R10EUROPE",           9.0,          12.0,         4.5,       # 25.5 cold -> heating raises res_comm
+  "R10NORTH_AM",        11.0,          18.0,         5.5        # 34.5 cold+hot, car-dependent
 )
+# DLE FIX 2 (see dle_fix.R): steepen provisioning-efficiency to match DESIRE's
+# ~-30% to -46% by 2040. 1.9%/yr lands at ~-38% by 2040, then holds a floor.
+# (was sector-specific 1.0-1.5%/yr, giving only ~-24% by 2040.)
+SEF_RATE  <- 0.019
+SEF_FLOOR <- 0.5
 sef_lookup <- expand_grid(
   Year = unique(compass_ts$Year),
   sector = c("res_comm", "industry", "transport")
 ) %>%
-  mutate(annual_rate = case_when(sector == "res_comm"  ~ 0.012,
-                                 sector == "industry"  ~ 0.010,
-                                 sector == "transport" ~ 0.015),
-         SEF = pmax(0.5, 1 - annual_rate * (Year - 2020)))
+  mutate(SEF = pmax(SEF_FLOOR, 1 - SEF_RATE * (Year - 2020)))
 dle_thresholds_total <- dle_thresholds %>%
   mutate(total_GJ = res_comm_GJ + industry_GJ + transport_GJ) %>%
   select(Region, total_GJ)
 sef_total <- tibble(Year = unique(compass_ts$Year)) %>%
-  mutate(SEF_total = pmax(0.5, 1 - 0.012 * (Year - 2020)))
+  mutate(SEF_total = pmax(SEF_FLOOR, 1 - SEF_RATE * (Year - 2020)))
 dle_thresh_long <- dle_thresholds %>%
   pivot_longer(c(res_comm_GJ, industry_GJ, transport_GJ),
                names_to = "sector", values_to = "threshold_GJ_base") %>%
@@ -852,17 +860,31 @@ energy_gini <- tribble(
   "R10INDIA+",    0.42, "R10NORTH_AM", 0.28
 ) %>% mutate(sigma_ln = sqrt(2) * qnorm((gini + 1) / 2))
 
+# DLE FIX 3 (see dle_fix.R): compute the energy GAP distributionally on the SAME
+# region-total lognormal as the headcount, instead of the old mean-based
+# (threshold - mean) shortfall. The old gap read ZERO whenever mean >= threshold
+# (ignoring the poor tail) and was inconsistent with the headcount. The DESIRE gap
+# is the energy to lift everyone below the threshold up to it = partial
+# expectation of (threshold - energy) over the below-threshold tail:
+#   m  = ln(E) - s^2/2 ;  d1 = (ln(T) - m)/s ;  d2 = d1 - s
+#   headcount rate = Phi(d1)             (unchanged)
+#   gap per capita = T*Phi(d1) - E*Phi(d2)
 dle_headcount_annual <- evt %>%
   group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
            Region, Year, Category, pop_millions) %>%
   summarise(energy_GJ_pc_total = sum(energy_GJ_pc, na.rm = TRUE),
             threshold_GJ_pc_total = sum(threshold_GJ_pc, na.rm = TRUE),
-            gap_EJ_total = sum(gap_EJ_total, na.rm = TRUE),
             .groups = "drop") %>%
-  left_join(energy_gini, by = "Region") %>%
-  mutate(mu_ln = log(pmax(energy_GJ_pc_total, 0.01)) - sigma_ln^2 / 2,
-         deprivation_rate = pnorm((log(pmax(threshold_GJ_pc_total, 0.01)) - mu_ln) / sigma_ln),
-         headcount_millions = deprivation_rate * pop_millions)
+  left_join(energy_gini, by = "Region") %>%     # sigma_ln from energy Gini
+  mutate(s  = sigma_ln,
+         mu_ln = log(pmax(energy_GJ_pc_total, 0.01)) - s^2 / 2,
+         d1 = (log(pmax(threshold_GJ_pc_total, 0.01)) - mu_ln) / s,
+         d2 = d1 - s,
+         deprivation_rate  = pnorm(d1),          # headcount (unchanged)
+         headcount_millions = deprivation_rate * pop_millions,
+         gap_GJ_pc = pmax(0, threshold_GJ_pc_total * pnorm(d1) -
+                             energy_GJ_pc_total   * pnorm(d2)),   # distributional
+         gap_EJ_total = gap_GJ_pc * (pop_millions * 1e6) / 1e9)
 
 # implied CO2 (annual)
 emissions_intensity <- compass_ts %>%

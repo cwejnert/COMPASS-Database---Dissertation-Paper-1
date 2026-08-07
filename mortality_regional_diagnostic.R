@@ -25,12 +25,42 @@ suppressPackageStartupMessages({
   library(dplyr); library(tidyr); library(readr); library(stringr)
 })
 
-# ---- EDIT THESE PATHS --------------------------------------------------------
-MORT_CSV   <- "compass_mortality_r10.csv"
-EM_CSV     <- "compass_emissions_raw.csv"
-PATHWAY_A  <- "compass_pathway_tercile_A.csv"
-INTERP     <- "compass_interp.rds"      # optional; set to NA to skip H3
+# ---- PATHS -------------------------------------------------------------------
+# The inputs live in THREE different folders, so this script can be run from any
+# working directory -- the absolute paths below are what matter. They default to
+# the same directories used by COMPASS_master_analysis.R / COMPASS_rfasst_full.R.
+COMPASS_DIR     <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Data/COMPASS"
+MASTER_OUT_DIR  <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Outputs/COMPASS_master"
+MORT_OUT_DIR    <- "C:/Users/camwe/OneDrive/Documents/YSSP_CDR_wellbeing/Outputs/COMPASS_mortality"
+
+# compass_mortality_r10.csv is written to BOTH COMPASS_DIR and the rfasst OUT_DIR;
+# take whichever exists and is newest, so a stale copy can't silently win.
+.mort_candidates <- c(file.path(COMPASS_DIR,  "compass_mortality_r10.csv"),
+                      file.path(MORT_OUT_DIR, "compass_mortality_r10.csv"))
+.mort_found <- .mort_candidates[file.exists(.mort_candidates)]
+MORT_CSV   <- if (length(.mort_found))
+                .mort_found[which.max(file.mtime(.mort_found))] else .mort_candidates[1]
+
+EM_CSV     <- file.path(COMPASS_DIR, "compass_emissions_raw.csv")
+PATHWAY_A  <- file.path(MASTER_OUT_DIR, "approach_A", "compass_pathway_tercile_A.csv")
+INTERP     <- file.path(COMPASS_DIR, "compass_interp.rds")  # optional; NA to skip H3
 # -----------------------------------------------------------------------------
+
+# fail early and clearly if an input is missing, rather than deep in a join
+{
+  .req <- c(MORT_CSV = MORT_CSV, EM_CSV = EM_CSV, PATHWAY_A = PATHWAY_A)
+  .missing <- .req[!file.exists(.req)]
+  if (length(.missing)) {
+    stop("Missing required input file(s):\n",
+         paste0("  ", names(.missing), ": ", .missing, collapse = "\n"),
+         "\nEdit the path variables at the top of this script.", call. = FALSE)
+  }
+  cat("Inputs resolved:\n")
+  cat("  mortality :", MORT_CSV, "\n")
+  cat("  emissions :", EM_CSV, "\n")
+  cat("  pathways  :", PATHWAY_A, "\n")
+  cat("  interp    :", if (file.exists(INTERP)) INTERP else "(not found - H3 skipped)", "\n\n")
+}
 
 regions_r10 <- c("R10AFRICA","R10CHINA+","R10EUROPE","R10INDIA+","R10NORTH_AM")
 WIN <- c(`1.5C (High-Ambition)` = 2060L, `2C (Medium-Ambition)` = 2075L)
@@ -56,11 +86,33 @@ norm_names <- function(d) {
 }
 
 # ---- pathway labels (approach A) ----------------------------------------
-pw <- read.csv(PATHWAY_A, stringsAsFactors = FALSE, check.names = FALSE) %>%
-  norm_names() %>%
-  select(Model, Scenario, Ambition, Pathway_excl) %>%
-  filter(!is.na(Pathway_excl), Pathway_excl != "")
-cat("pathway-labelled scenarios:", nrow(pw), "\n")
+pw_raw <- read.csv(PATHWAY_A, stringsAsFactors = FALSE, check.names = FALSE) %>%
+  norm_names()
+cat("pathway file columns:", paste(names(pw_raw), collapse = ", "), "\n")
+
+# Pathway label column: prefer the mutually-exclusive one, else fall back
+.path_col <- intersect(c("Pathway_excl", "Pathway", "Pathway_overlap"), names(pw_raw))[1]
+if (is.na(.path_col))
+  stop("No pathway column found (looked for Pathway_excl / Pathway / Pathway_overlap). ",
+       "Columns present: ", paste(names(pw_raw), collapse = ", "), call. = FALSE)
+
+# Ambition column: derive from Category if the file doesn't carry it
+if (!"Ambition" %in% names(pw_raw)) {
+  if (!"Category" %in% names(pw_raw))
+    stop("Pathway file has neither 'Ambition' nor 'Category'. Columns: ",
+         paste(names(pw_raw), collapse = ", "), call. = FALSE)
+  cat("note: 'Ambition' absent - deriving from Category (C1/C2 = 1.5C, C3/C4 = 2C)\n")
+  pw_raw$Ambition <- ifelse(pw_raw$Category %in% c("C1","C2"), "1.5C (High-Ambition)",
+                     ifelse(pw_raw$Category %in% c("C3","C4"), "2C (Medium-Ambition)", NA))
+}
+
+pw <- pw_raw %>%
+  transmute(Model, Scenario, Ambition, Pathway_excl = .data[[.path_col]]) %>%
+  filter(!is.na(Pathway_excl), Pathway_excl != "",
+         Pathway_excl %in% c("High-CDR", "High-RE"))
+cat("pathway column used:", .path_col, "| labelled scenarios:", nrow(pw), "\n")
+if (nrow(pw) == 0) stop("No High-CDR/High-RE labelled scenarios found.", call. = FALSE)
+print(table(pw$Ambition, pw$Pathway_excl))
 
 # =========================================================================
 # H1 — PM2.5 vs O3 composition by region x pathway

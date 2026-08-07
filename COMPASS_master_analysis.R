@@ -97,11 +97,33 @@ regions_r10 <- c("R10AFRICA", "R10CHINA+", "R10INDIA+",
 cats_keep   <- c("C1", "C2", "C3", "C4")
 START_YEAR  <- 2020L
 
-# Ambition-specific cumulation windows for wellbeing outcomes.
-# These are keyed on AMBITION (not category), so they apply identically no
-# matter whether ambition was assigned by AR6 category or by peak warming.
-WINDOW_15C  <- 2060L   # 1.5C (High-Ambition)   group
-WINDOW_2C   <- 2075L   # 2C   (Medium-Ambition) group
+# Cumulation window for wellbeing outcomes (DLE gap, deprivation, mortality,
+# jobs). A SINGLE common window across every ambition group and approach --
+# not the earlier 2060 (1.5C) / 2075 (2C) split.
+#
+# WHY: the earlier split didn't match the CLASSIFICATION window -- whether a
+# scenario counts as High-CDR or High-RE is decided from full-century
+# (2020-2100) cumulative deployment (see SECTION 3c), so a pathway was being
+# LABELLED on a century of behaviour but JUDGED on less than that, and by a
+# different amount depending on ambition. It also had no clear mechanistic
+# anchor (2060/2075 read as "roughly when each ambition nears net-zero," not a
+# principled cutoff), and it confounds any cross-ambition comparison: two
+# purely independent cumulative quantities look spuriously correlated just
+# from differing window lengths (verified while diagnosing the regional
+# mortality mechanism -- pooling 1.5C/2C gave r~0.75-0.8 between i.i.d. noise).
+#
+# 2100 matches the classification window exactly and is a decadal year in the
+# rfasst mortality grid (2010, 2020, ..., 2100), so it also removes the
+# earlier partial mismatch where the 2075 endpoint fell between mortality's
+# 2070/2080 decadal steps.
+#
+# TRADEOFF: extending 1.5C outcome measurement from 2060 to 2100 adds ~40
+# years that are more likely post-net-zero and comparatively converged
+# between High-CDR and High-RE, which may modestly shrink 1.5C effect sizes/
+# significance relative to earlier results using the 2060 cutoff.
+OUTCOME_WINDOW_END <- 2100L
+WINDOW_15C  <- OUTCOME_WINDOW_END   # 1.5C (High-Ambition)   group
+WINDOW_2C   <- OUTCOME_WINDOW_END   # 2C   (Medium-Ambition) group
 
 AMB_15C <- "1.5C (High-Ambition)"
 AMB_2C  <- "2C (Medium-Ambition)"

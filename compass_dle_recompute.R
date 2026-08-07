@@ -21,7 +21,9 @@ META   <- "compass_r10_meta.csv"     # <-- path to compass_r10_meta.csv
 
 regions_r10 <- c("R10AFRICA","R10CHINA+","R10INDIA+","R10EUROPE","R10NORTH_AM")
 cats_keep   <- c("C1","C2","C3","C4")
-WIN <- c(`1.5C`=2060L, `2C`=2075L); START <- 2020L; TOP_FRAC <- 1/3
+# Single common cumulation window for every ambition, matching the master's
+# OUTCOME_WINDOW_END (2100) -- see COMPASS_master_analysis.R for rationale.
+WIN <- c(`1.5C`=2100L, `2C`=2100L); START <- 2020L; TOP_FRAC <- 1/3
 
 ci <- readRDS(INTERP)
 cat("interp columns:", paste(names(ci), collapse=", "), "\n")

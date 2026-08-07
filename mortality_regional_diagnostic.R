@@ -63,7 +63,9 @@ INTERP     <- file.path(COMPASS_DIR, "compass_interp.rds")  # optional; NA to sk
 }
 
 regions_r10 <- c("R10AFRICA","R10CHINA+","R10EUROPE","R10INDIA+","R10NORTH_AM")
-WIN <- c(`1.5C (High-Ambition)` = 2060L, `2C (Medium-Ambition)` = 2075L)
+# Single common cumulation window for every ambition, matching the master's
+# OUTCOME_WINDOW_END (2100) -- see COMPASS_master_analysis.R for rationale.
+WIN <- c(`1.5C (High-Ambition)` = 2100L, `2C (Medium-Ambition)` = 2100L)
 
 # helpers -----------------------------------------------------------------
 cliffs <- function(x, y) {
@@ -209,7 +211,7 @@ if (!is.na(INTERP) && file.exists(INTERP)) {
   ci <- readRDS(INTERP)
   fe <- ci %>%
     filter(Region %in% regions_r10, Variable == "Final Energy",
-           Year >= 2020, Year <= 2075, !is.na(Value)) %>%
+           Year >= 2020, Year <= 2100, !is.na(Value)) %>%
     inner_join(pw, by = c("Model","Scenario")) %>%
     filter(grepl("2C", Ambition)) %>%
     group_by(Model, Scenario, Region, Pathway_excl) %>%

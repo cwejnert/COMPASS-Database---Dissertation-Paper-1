@@ -33,7 +33,12 @@ PATHWAY_A <- file.path(MASTER_OUT_DIR, "approach_A", "compass_pathway_tercile_A.
 stopifnot(file.exists(INTERP), file.exists(EM_CSV), file.exists(PATHWAY_A))
 
 regions_r10 <- c("R10AFRICA","R10CHINA+","R10EUROPE","R10INDIA+","R10NORTH_AM")
-WIN <- c(`1.5C (High-Ambition)` = 2060L, `2C (Medium-Ambition)` = 2075L)
+# Single common cumulation window for every ambition, matching the master's
+# OUTCOME_WINDOW_END (2100) -- see COMPASS_master_analysis.R for rationale.
+# NOTE: the within-ambition stratification below (part 2) is kept even though
+# both windows are now equal -- it's cheap, still correct, and guards against
+# this script being run against an older master where the windows differ again.
+WIN <- c(`1.5C (High-Ambition)` = 2100L, `2C (Medium-Ambition)` = 2100L)
 norm_names <- function(d) {
   n <- names(d); n[tolower(n)=="model"]<-"Model"; n[tolower(n)=="scenario"]<-"Scenario"
   n[tolower(n)=="year"]<-"Year"; n[tolower(n)=="region"]<-"Region"; names(d)<-n; d
@@ -76,13 +81,12 @@ print(as.data.frame(res1 %>% mutate(across(c(CDR_mean,RE_mean),~signif(.x,3)),
 cat("(+pct / cliff>0 = High-RE deploys MORE biomass than High-CDR, despite biomass not defining either label)\n")
 
 # ---- 2. does biomass capacity actually predict BC/OC emissions? -------------
-# IMPORTANT: correlate WITHIN each Ambition group, not pooled. Pooling 1.5C and
-# 2C scenarios together confounds the correlation, because 2C scenarios sum
-# cumulative quantities over more years (2020-2075) than 1.5C ones (2020-2060)
-# -- ANY two cumulative variables look spuriously correlated across the pooled
-# sample purely from window-length differences, regardless of a real
-# relationship. Verified on synthetic i.i.d. data: pooling produced r ~ 0.75-0.8
-# between variables generated completely independently.
+# Stratify by Ambition even though both windows are now 2100 (defensive: this
+# was a real bug when the windows differed -- 2C summed more years than 1.5C,
+# so ANY two cumulative variables looked spuriously correlated purely from
+# window-length differences, regardless of a real relationship; verified on
+# synthetic i.i.d. data, pooled r ~0.75-0.8 between independent variables).
+# Costs nothing to keep and protects against a future window-config change.
 em <- read_csv(EM_CSV, show_col_types = FALSE) %>% norm_names()
 bc_oc <- em %>% filter(Region %in% regions_r10, variable %in% c("Emissions|BC","Emissions|OC")) %>%
   inner_join(pw, by = c("Model","Scenario")) %>%

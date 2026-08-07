@@ -28,7 +28,9 @@ PATHWAY_A <- file.path(MASTER_OUT_DIR, "approach_A", "compass_pathway_tercile_A.
 
 stopifnot(file.exists(INTERP), file.exists(PATHWAY_A))
 regions_r10 <- c("R10AFRICA","R10CHINA+","R10EUROPE","R10INDIA+","R10NORTH_AM")
-WIN <- c(`1.5C (High-Ambition)` = 2060L, `2C (Medium-Ambition)` = 2075L)
+# Single common cumulation window for every ambition, matching the master's
+# OUTCOME_WINDOW_END (2100) -- see COMPASS_master_analysis.R for rationale.
+WIN <- c(`1.5C (High-Ambition)` = 2100L, `2C (Medium-Ambition)` = 2100L)
 
 cliffs <- function(x, y) {
   x <- x[!is.na(x)]; y <- y[!is.na(y)]

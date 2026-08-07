@@ -818,20 +818,45 @@ jobs_annual <- bind_rows(jobs_build, jobs_ongoing) %>%
   summarise(jobs_thousands = sum(jobs_thousands, na.rm = TRUE), .groups = "drop")
 
 # ---- 4c. DLE gap / headcount / implied CO2 (annual) -------------------------
-# DLE FIX 1 (see dle_fix.R / methods note): DESIRE-calibrated final-energy
-# thresholds (GJ/capita/yr). Needs floor with TRANSPORT largest in every region;
-# every sector inside DESIRE's published range, totals within its 17-35 span.
-# Replaces the old residential-led table (totals up to 63 GJ/cap, wealth-tracking).
-# For a final published number, population-weight DESIRE's country-level values
-# to R10 (or confirm with the authors).
-dle_thresholds <- tribble(
-  ~Region,        ~res_comm_GJ, ~transport_GJ, ~industry_GJ,   # total (rationale)
-  "R10INDIA+",           4.5,          10.5,         3.0,       # 18.0 warm, dense
-  "R10AFRICA",           5.0,          11.0,         3.0,       # 19.0 warm; long-distance transport
-  "R10CHINA+",           6.5,          11.5,         4.0,       # 22.0 ~ DESIRE global average
-  "R10EUROPE",           9.0,          12.0,         4.5,       # 25.5 cold -> heating raises res_comm
-  "R10NORTH_AM",        11.0,          18.0,         5.5        # 34.5 cold+hot, car-dependent
+# DLE FIX 1 (see dle_fix.R / methods note): decent-living final-energy
+# thresholds (GJ/capita/yr).
+#
+# SOURCED (default): regional totals read from Kikstra et al. 2021, ERL 16
+# 095006, figure 1A ("Threshold for DLE", black lines), mapped from the IIASA
+# regions to our five R10 regions:
+#     R10NORTH_AM <- NAM 37 | R10EUROPE <- WEU/EEU 28 | R10CHINA+ <- CPA 15
+#     R10INDIA+   <- SAS 10 | R10AFRICA <- AFR 17      (global mean 17 GJ/cap)
+# Sector split uses DESIRE's published global shares (Kikstra et al. 2025:
+# res_comm 6.7, transport 11.8, industry 3.8 GJ/cap -> 30.0 / 52.9 / 17.0 %),
+# which keeps transport the largest component in every region.
+#
+# This REPLACES an earlier interpolated table (18.0/19.0/22.0/25.5/34.5) that we
+# had placed inside DESIRE's per-sector ranges by climate/settlement judgement.
+# That interpolation compressed the true regional spread badly: published
+# NAM:SAS is ~3.7x, our interpolation was only 1.9x. Net effect of the switch:
+# INDIA+ -44%, CHINA+ -32%, AFRICA -11%, EUROPE +10%, NORTH_AM +7%.
+#
+# NOTE ON VINTAGE: Kikstra 2021 puts the global mean DLE threshold at 17
+# GJ/cap; DESIRE (2025) reports 22.3 [17-35]. We use the 2021 values directly
+# because they are the published *regional* thresholds. Set DLE_RESCALE_TO_DESIRE
+# to TRUE to keep the 2021 regional pattern but rescale its level to DESIRE's
+# 22.3 global mean (x 1.31).
+DLE_RESCALE_TO_DESIRE <- FALSE
+.dle_totals <- c("R10INDIA+" = 10, "R10AFRICA" = 17, "R10CHINA+" = 15,
+                 "R10EUROPE" = 28, "R10NORTH_AM" = 37)          # Kikstra 2021 fig 1A
+if (DLE_RESCALE_TO_DESIRE) .dle_totals <- .dle_totals * (22.3 / 17)
+.dle_shares <- c(res_comm = 6.7, transport = 11.8, industry = 3.8)
+.dle_shares <- .dle_shares / sum(.dle_shares)                    # DESIRE sector split
+dle_thresholds <- tibble(
+  Region        = names(.dle_totals),
+  res_comm_GJ   = round(unname(.dle_totals) * .dle_shares[["res_comm"]],  2),
+  transport_GJ  = round(unname(.dle_totals) * .dle_shares[["transport"]], 2),
+  industry_GJ   = round(unname(.dle_totals) * .dle_shares[["industry"]],  2)
 )
+cat("DLE thresholds (GJ/cap/yr), source = Kikstra et al. 2021 fig 1A",
+    if (DLE_RESCALE_TO_DESIRE) "rescaled to DESIRE 22.3\n" else "(global mean 17)\n")
+print(as.data.frame(dle_thresholds %>%
+        mutate(total = res_comm_GJ + transport_GJ + industry_GJ)))
 # DLE FIX 2 (see dle_fix.R): steepen provisioning-efficiency to match DESIRE's
 # ~-30% to -46% by 2040. 1.9%/yr lands at ~-38% by 2040, then holds a floor.
 # (was sector-specific 1.0-1.5%/yr, giving only ~-24% by 2040.)

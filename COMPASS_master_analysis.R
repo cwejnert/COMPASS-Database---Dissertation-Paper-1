@@ -492,9 +492,42 @@ total_cdr_ts <- if ("Total CDR" %in% cdr_present)
     mutate(Variable = "Total CDR")
 
 # ---- 3b. Renewable capacity (GW) --------------------------------------------
-re_vars <- c("Capacity|Electricity|Solar", "Capacity|Electricity|Wind",
-             "Capacity|Electricity|Hydro", "Capacity|Electricity|Nuclear",
-             "Capacity|Electricity|Biomass", "Capacity|Electricity|Geothermal")
+# ---- What counts as "renewable" for the High-RE classification --------------
+# RE_SPEC selects the definition; everything downstream (World-level metric,
+# classification, all approaches) follows from it.
+#
+#   "renewables"  (DEFAULT) Solar, Wind, Hydro, Geothermal
+#   "low_carbon"            + Nuclear
+#   "with_biomass"          + Nuclear + Biomass   (the original definition)
+#
+# WHY BIOMASS IS EXCLUDED BY DEFAULT: biomass is the physical substrate of the
+# dominant CDR technology in these scenarios. Its generating capacity counted
+# toward Renewable Capacity while its captured carbon counts toward CDR
+# ("Carbon Capture|Geological Storage|Biomass"), so a BECCS-heavy scenario
+# scored on BOTH classification axes at once -- contaminating the very contrast
+# being measured. Excluding it also removes the bioenergy air-quality signal
+# (bioenergy combustion is a major BC/OC source), which is plausibly a symptom
+# of the same overlap.
+#
+# WHY NUCLEAR IS EXCLUDED BY DEFAULT: it is low-carbon but not renewable, and
+# the contrast of interest is renewables vs carbon removal. Unlike biomass it is
+# non-combustion, so it introduces no air-quality or CDR overlap -- it is a
+# clean definitional sensitivity rather than a correctness issue.
+#
+# Re-run with RE_SPEC set to each value to produce the definition-sensitivity
+# table for the SI.
+RE_SPEC <- "renewables"
+
+.re_sets <- list(
+  renewables   = c("Solar", "Wind", "Hydro", "Geothermal"),
+  low_carbon   = c("Solar", "Wind", "Hydro", "Geothermal", "Nuclear"),
+  with_biomass = c("Solar", "Wind", "Hydro", "Geothermal", "Nuclear", "Biomass")
+)
+if (!RE_SPEC %in% names(.re_sets))
+  stop("RE_SPEC must be one of: ", paste(names(.re_sets), collapse = ", "))
+re_vars <- paste0("Capacity|Electricity|", .re_sets[[RE_SPEC]])
+cat("RE classification spec:", RE_SPEC, "->",
+    paste(.re_sets[[RE_SPEC]], collapse = ", "), "\n")
 re_total_ts <- compass_ts %>%
   filter(Variable %in% re_vars) %>%
   group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
@@ -720,14 +753,22 @@ if (!any(job_factors_complete$fuel == "geothermal")) {
                         mutate(across(where(is.numeric), ~round(.x, 0)))))
 }
 
+# Jobs are grouped FOUR ways -- Renewables / Nuclear / Bioenergy / Fossil --
+# rather than the previous two. Nuclear and bioenergy are reported separately so
+# the jobs grouping does not have to be re-litigated whenever the RE_SPEC
+# classification changes, and so the (large) bioenergy employment block is
+# visible instead of being absorbed into "Renewables". Biomass carries the
+# highest employment factors of any technology (build ~20,400 jobs/GW, O&M
+# ~2,840 jobs/GW), so where it sits materially moves the totals.
+# jobs_re_group() aggregates these to match the active RE_SPEC.
 cap_additions_fuel_map <- tribble(
   ~Variable,                                    ~fuel,        ~tech_group,
   "Capacity Additions|Electricity|Solar",       "solar_pv",   "Renewables",
   "Capacity Additions|Electricity|Wind",        "wind_on",    "Renewables",
   "Capacity Additions|Electricity|Hydro",       "hydro",      "Renewables",
-  "Capacity Additions|Electricity|Nuclear",     "nuclear",    "Renewables",
-  "Capacity Additions|Electricity|Biomass",     "biomass",    "Renewables",
   "Capacity Additions|Electricity|Geothermal",  "geothermal", "Renewables",
+  "Capacity Additions|Electricity|Nuclear",     "nuclear",    "Nuclear",
+  "Capacity Additions|Electricity|Biomass",     "biomass",    "Bioenergy",
   "Capacity Additions|Electricity|Coal",        "coal",       "Fossil",
   "Capacity Additions|Electricity|Gas",         "gas",        "Fossil",
   "Capacity Additions|Electricity|Oil",         "oil",        "Fossil"
@@ -737,13 +778,22 @@ cap_stock_fuel_map <- tribble(
   "Capacity|Electricity|Solar",       "solar_pv",   "Renewables",
   "Capacity|Electricity|Wind",        "wind_on",    "Renewables",
   "Capacity|Electricity|Hydro",       "hydro",      "Renewables",
-  "Capacity|Electricity|Nuclear",     "nuclear",    "Renewables",
-  "Capacity|Electricity|Biomass",     "biomass",    "Renewables",
   "Capacity|Electricity|Geothermal",  "geothermal", "Renewables",
+  "Capacity|Electricity|Nuclear",     "nuclear",    "Nuclear",
+  "Capacity|Electricity|Biomass",     "biomass",    "Bioenergy",
   "Capacity|Electricity|Coal",        "coal",       "Fossil",
   "Capacity|Electricity|Gas",         "gas",        "Fossil",
   "Capacity|Electricity|Oil",         "oil",        "Fossil"
 )
+
+# Which job groups count as "renewable" for the ACTIVE classification spec, so
+# jobs_Renewables always matches how High-RE was defined.
+jobs_re_group <- switch(RE_SPEC,
+  renewables   = c("Renewables"),
+  low_carbon   = c("Renewables", "Nuclear"),
+  with_biomass = c("Renewables", "Nuclear", "Bioenergy"))
+cat("Jobs counted as renewable under RE_SPEC='", RE_SPEC, "': ",
+    paste(jobs_re_group, collapse = ", "), "\n", sep = "")
 
 cap_additions_ts <- compass_ts %>% filter(Variable %in% cap_additions_fuel_map$Variable)
 
@@ -1223,6 +1273,10 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
   #  adjust the multiplier to match your rfasst timestep convention if needed.)
 
   # jobs cumulated to window, wide by tech_group
+  # Cumulate by the four tech groups, then fold them into the renewable /
+  # fossil split implied by the active RE_SPEC (see jobs_re_group). Nuclear and
+  # bioenergy are also kept as their own columns so they can be reported or
+  # re-grouped without re-running.
   jobs_cum <- jobs_annual %>%
     inner_join(amb_map, by = c("Model", "Scenario", "Category")) %>%
     filter(Year >= START_YEAR, Year <= window_end) %>%
@@ -1230,8 +1284,13 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     summarise(total_jobs = sum(jobs_thousands, na.rm = TRUE), .groups = "drop") %>%
     pivot_wider(names_from = tech_group, values_from = total_jobs,
                 names_prefix = "jobs_", values_fill = 0)
-  if (!"jobs_Renewables" %in% names(jobs_cum)) jobs_cum$jobs_Renewables <- NA_real_
-  if (!"jobs_Fossil"     %in% names(jobs_cum)) jobs_cum$jobs_Fossil     <- NA_real_
+  for (g in c("Renewables", "Nuclear", "Bioenergy", "Fossil")) {
+    cn <- paste0("jobs_", g)
+    if (!cn %in% names(jobs_cum)) jobs_cum[[cn]] <- 0
+  }
+  jobs_cum <- jobs_cum %>%
+    mutate(jobs_Renewables = rowSums(across(all_of(paste0("jobs_", jobs_re_group))),
+                                     na.rm = TRUE))
 
   # DLE cumulated to window
   dle_cum <- dle_annual %>%
@@ -1249,7 +1308,8 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     select(-proxy) %>%
     left_join(mort_cum, by = c("Model", "Scenario", "Region")) %>%
     left_join(jobs_cum %>% select(Model, Scenario, Region,
-                                  jobs_Renewables, jobs_Fossil),
+                                  jobs_Renewables, jobs_Fossil,
+                                  jobs_Nuclear, jobs_Bioenergy),
               by = c("Model", "Scenario", "Region")) %>%
     left_join(dle_cum, by = c("Model", "Scenario", "Region")) %>%
     left_join(pop2020_r10, by = "Region") %>%
@@ -1259,6 +1319,7 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
   # regions (deaths, jobs, headcount, gap, CO2 are all additive), then normalise
   # by the 5-region total population. Total_Value (deployment) is summed too.
   outcome_cols <- c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
+                    "jobs_Nuclear", "jobs_Bioenergy",
                     "cumulative_gap_EJ", "mean_headcount_millions",
                     "cumulative_implied_CO2_GtCO2")
   dfm_agg <- dfm %>%

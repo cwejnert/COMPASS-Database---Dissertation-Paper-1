@@ -243,5 +243,11 @@ out <- bind_rows(
       cliff=as.character(cor_FE_deaths), pct_diff=as.character(FE_pct_diff)) %>%
       mutate(across(everything(), as.character)) else NULL
 )
-write_csv(out, "mortality_diagnostic_summary.csv")
-cat("\nwrote mortality_diagnostic_summary.csv (small -- attach or paste this back)\n")
+OUT_CSV <- file.path(MASTER_OUT_DIR, "mortality_diagnostic_summary.csv")
+ok <- tryCatch({ write_csv(out, OUT_CSV); TRUE },
+               error = function(e) { write_csv(out, "mortality_diagnostic_summary.csv"); FALSE })
+if (!ok) OUT_CSV <- file.path(getwd(), "mortality_diagnostic_summary.csv")
+cat("\n===========================================================\n")
+cat("WROTE:", normalizePath(OUT_CSV, winslash = "/", mustWork = FALSE), "\n")
+cat("rows:", nrow(out), " -- small file, attach or paste this back\n")
+cat("===========================================================\n")

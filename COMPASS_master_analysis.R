@@ -181,7 +181,9 @@ approaches <- tribble(
   "G", "All scenarios; peak-warming ambition; above median",       "none",    "warming", 1/2,
   "H", "Full SCI vetting; AR6 ambition; above median",             "full",    "ar6",     1/2,
   "I", "Full SCI vetting; peak-warming ambition; above median",    "full",    "warming", 1/2,
-  "J", "Partial SCI (tech-feas.); AR6 ambition; above median",     "partial", "ar6",     1/2
+  "J", "Partial SCI (tech-feas.); AR6 ambition; above median",     "partial", "ar6",     1/2,
+  "K", "All scenarios; SCI GW-tier ambition; top tercile",         "none",    "sci_gw",  1/3,
+  "L", "Full SCI vetting; SCI GW-tier ambition; top tercile",      "full",    "sci_gw",  1/3
 )
 
 
@@ -277,6 +279,21 @@ if (length(TECHFEAS_COLS_FOUND) == 0)
 SCI_VET_COL <- resolve_col(SCI_VET_COL, detect_patterns = c("vetting", "sci"))
 cat("SCI vetting column:", SCI_VET_COL, "\n")
 
+# SCI 2025 Global Warming (GW0-GW8) category, Tier I -- SCI's OWN peak-warming
+# classification, introduced as its replacement for AR6's C1-C8. Sourced
+# directly from SCI (same provenance as SCI_VET_COL), unlike WARMING_15C_MAX/
+# WARMING_2C_MAX below, which are our own chosen peak-warming cutoffs. Where
+# both are present, GW3 spans the AR6 C2/C3/C4 boundary region (SCI's own
+# scientists did not draw the 1.5-vs-2C line exactly at AR6 C2|C3), which is
+# the same ambiguity the self-chosen 1.7/2.0 cutoffs were trying to resolve.
+# Mapping: GW0-GW2 -> 1.5C (peak <~1.7C), GW3 -> 2C ("likely below 2C");
+# GW4+ excluded, matching the exclusion of >2.0C peak warming elsewhere.
+SCI_GW_COL <- resolve_col(
+  c("Climate Category|SCI 2025 [Tier I]"),
+  detect_patterns = c("sci", "tier i\\]")
+)
+cat("SCI GW tier column:", SCI_GW_COL, "\n")
+
 # Build a tidy metadata lookup: Model, Scenario, Category, peak_warming,
 # SCI vetting flag, and the resolved tech-feasibility flags.
 meta_lookup <- compass_meta %>%
@@ -293,7 +310,9 @@ meta_lookup <- compass_meta %>%
                      suppressWarnings(as.numeric(.data[[PEAK_WARMING_COL]]))
                    else NA_real_,
     sci_vet = if (!is.na(SCI_VET_COL)) as.character(.data[[SCI_VET_COL]])
-              else NA_character_
+              else NA_character_,
+    sci_gw = if (!is.na(SCI_GW_COL)) as.character(.data[[SCI_GW_COL]])
+             else NA_character_
   )
 
 # Attach the resolved tech-feasibility flag columns (raw values) as techfeas_<tech>
@@ -1143,6 +1162,19 @@ assign_ambition <- function(df, method) {
         !is.na(peak_warming) & peak_warming <= WARMING_15C_MAX ~ AMB_15C,
         !is.na(peak_warming) & peak_warming >  WARMING_15C_MAX &
           peak_warming <= WARMING_2C_MAX                       ~ AMB_2C,
+        TRUE ~ NA_character_))
+  } else if (method == "sci_gw") {
+    # SCI's OWN peak-warming scheme (Tier I: GW0-GW8), sourced directly from
+    # SCI rather than a self-chosen cutoff. See SCI_GW_COL note above.
+    if (is.na(SCI_GW_COL)) {
+      warning("No SCI GW-tier column found; falling back to AR6 ambition.")
+      return(assign_ambition(df, "ar6"))
+    }
+    df %>% left_join(meta_lookup %>% select(Model, Scenario, sci_gw),
+                     by = c("Model", "Scenario")) %>%
+      mutate(Ambition = case_when(
+        sci_gw %in% c("GW0", "GW1", "GW2") ~ AMB_15C,
+        sci_gw == "GW3"                    ~ AMB_2C,
         TRUE ~ NA_character_))
   } else stop("Unknown ambition method: ", method)
 }

@@ -136,6 +136,32 @@ Classification is a tercile within the pooled sample, so adding CDR-focused
 scenarios raises the carbon-management threshold and reclassifies scenarios that
 have nothing to do with the addition.
 
+## Readiness (`Z1_readiness.R`)
+
+One pass over all three families, asking the same five questions: complete grid,
+levels, cluster-robust significance, survival of SCI vetting, and survival of the
+model-composition guard.
+
+| family | full DB | vetted | direction agrees | var-share median | regions <0.10 | within-model sign flips | verdict |
+|---|---|---|---|---|---|---|---|
+| **Jobs** | 22/22 (20 sig) | 22/22 | 100% | 0.45 | 0 | **0 of 22** | **ready** |
+| **Deprivation** | 17/22 (18 sig) | 14/22 | 86% | 0.47 | 0 | **12 of 22** | direction not robust |
+| **Health** | 14/22 (10 sig) | 12/22 | 73% | 0.12 | 5 | 4 of 11 testable | not reportable |
+
+**The variance guard is necessary but not sufficient.** Deprivation passes it
+comfortably (no region below 0.10, median 0.47) yet its pooled and within-model
+contrasts disagree in 12 of 22 cells. Plenty of within-model *variation* does not
+mean the pathway *contrast* is consistent within and between models — that is a
+textbook Simpson's paradox and only the stratified comparison catches it.
+
+Read the flips by ambition, because the two are not equally informative:
+
+- **1.5C**: only ONE family holds both arms with >=3 scenarios each, covering 9%
+  of the cell. Those four flips are essentially untested, not refuted.
+- **2C**: four families qualify (AIM, GCAM, MESSAGEix-GLOBIOM, WITCH), covering
+  35% of the cell — a real test. Deprivation flips in **8 of 11** 2C cells.
+  Jobs, on the same 35% subset, flips in none.
+
 ## Conventions that matter
 
 - **Cliff's delta is signed as ADVANTAGE**: positive *always* means High-RE is better. The

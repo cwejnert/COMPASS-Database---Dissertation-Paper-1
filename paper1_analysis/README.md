@@ -58,6 +58,29 @@ transitions. Don't reintroduce that check.
 | `build_final_deck.js` | the 26-slide deck (`npm i pptxgenjs`) |
 | `build_brief.py` | assembles `brief.html` from `brief.head.html` + `brief.body.html`, inlining figures as data URIs |
 
+## NH3 sensitivity
+
+The first attempt returned two byte-identical mortality files (MD5 `bbaa7f67...`).
+Tracing `DROP_NH3` through the pipeline, the mechanism *should* work: patch 01d
+drops `Emissions|NH3` from `pollutant_map`, so NH3 never reaches `em_clean`, and
+the per-scenario backfill then re-adds it at `value_kt = 0` because
+`required_pols` still hardcodes it. NH3 does end up zeroed.
+
+That leaves two possibilities, and they need different responses:
+
+- the no-NH3 run never actually re-ran, and the old `03_nh3_run.R` copied the
+  untouched main file to the `_noNH3` name — it never checked the file changed; or
+- NH3 genuinely does not move PM2.5 mortality through this code path, in which
+  case the byte-identical files were correct and the sensitivity is moot.
+
+| file | role |
+|---|---|
+| `nh3_probe.R` | Runs **one** scenario twice, NH3 as reported and NH3 forced to zero, and compares. ~10 minutes. Sources the rfasst script only up to `SECTION 5`, so the helpers load without the batch loop starting. Asserts the two emission lists genuinely differ in NH3 *before* running — the guard that was missing. |
+| `nh3_run_checked.R` | Hardened replacement for `03_nh3_run.R`. Fingerprints the summary before the run, asserts `DROP_NH3` took effect and that NH3 left `em_clean`, and **refuses to write `_noNH3` if the output is unchanged**. Restores the MAIN outputs either way. |
+
+Run the probe first. If NH3 does not move mortality, the 90-minute batch has
+nothing to find.
+
 ## Ingestion
 
 `ingest_bergero.R` appends a new scenario set (Bergero / State of CDR) to

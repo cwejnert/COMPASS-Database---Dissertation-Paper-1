@@ -75,11 +75,18 @@ That leaves two possibilities, and they need different responses:
 
 | file | role |
 |---|---|
-| `nh3_probe.R` | Runs **one** scenario twice, NH3 as reported and NH3 forced to zero, and compares. ~10 minutes. Sources the rfasst script only up to `SECTION 5`, so the helpers load without the batch loop starting. Asserts the two emission lists genuinely differ in NH3 *before* running — the guard that was missing. |
+| `nh3_probe.R` | Runs four scenarios twice each, NH3 as reported and NH3 forced to zero, and compares. About a minute — an rfasst pair is ~0.1 min. Sources the rfasst script only up to `SECTION 5`, so the helpers load without the batch loop starting. Asserts the two emission lists genuinely differ in NH3 *before* running — the guard that was missing. |
 | `nh3_run_checked.R` | Hardened replacement for `03_nh3_run.R`. Fingerprints the summary before the run, asserts `DROP_NH3` took effect and that NH3 left `em_clean`, and **refuses to write `_noNH3` if the output is unchanged**. Restores the MAIN outputs either way. |
 
 Run the probe first. If NH3 does not move mortality, the 90-minute batch has
 nothing to find.
+
+**`m3_get_mort_pm25` returns no single mortality column.** It gives one row per
+region × year × age × disease with a column per concentration-response function —
+`GBD`, `GEMM` and `FUSION`. Anything reading its output must name one of those;
+the master's `deaths_pm25` derives from FUSION. The first version of this probe
+looked for `mort_pm25`/`value`/`deaths`, found none, and reported "no PM2.5
+output" on a run that had in fact succeeded.
 
 ## Ingestion
 

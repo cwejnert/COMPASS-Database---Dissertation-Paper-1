@@ -81,9 +81,10 @@ avail <- em_clean %>%
 if (!nrow(avail)) stop("No scenario reports non-zero NH3 in em_clean. ",
                        "If DROP_NH3 is currently TRUE in the script, set it ",
                        "back to FALSE before probing.")
+# a single rfasst pair takes ~0.1 min, so take two from each side rather than one
 pick <- bind_rows(
-  avail %>% filter(grepl("^REMIND", fam)) %>% slice_max(nh3_total, n = 1),
-  avail %>% filter(!grepl("^REMIND", fam)) %>% slice_max(nh3_total, n = 1)
+  avail %>% filter(grepl("^REMIND", fam))  %>% slice_max(nh3_total, n = 2),
+  avail %>% filter(!grepl("^REMIND", fam)) %>% slice_max(nh3_total, n = 2)
 )
 print(as.data.frame(pick))
 if (!nrow(pick)) stop("Could not select probe scenarios.")
@@ -127,26 +128,39 @@ probe_one <- function(mod, scen) {
   cat(sprintf("  ran in %.1f min\n",
               as.numeric(difftime(Sys.time(), t0, units = "mins"))))
 
+  # rfasst::m3_get_mort_pm25 returns one row per region x year x age x disease,
+  # with a COLUMN PER CONCENTRATION-RESPONSE FUNCTION: GBD, GEMM and FUSION.
+  # There is no single "mortality" column, which is why the first version of
+  # this probe found nothing to compare. Sum over age and disease and keep all
+  # three CRFs -- the master uses deaths_pm25, which derives from FUSION.
   grab <- function(r) {
     if (is.null(r$pm25)) return(NULL)
     d <- bind_rows(r$pm25)
-    vc <- intersect(c("mort_pm25","value","mort","deaths"), names(d))[1]
-    rc <- intersect(c("region","fasst_region","subRegion"), names(d))[1]
-    if (is.na(vc) || is.na(rc)) {
-      cat("  columns returned:", paste(names(d), collapse=", "), "\n"); return(NULL)
+    rc   <- intersect(c("region","fasst_region","subRegion"), names(d))[1]
+    crfs <- intersect(c("GBD","GEMM","FUSION","mort_pm25","value","mort","deaths"),
+                      names(d))
+    if (is.na(rc) || !length(crfs)) {
+      cat("  columns returned:", paste(names(d), collapse=", "), "\n")
+      return(NULL)
     }
     d %>% group_by(region = .data[[rc]]) %>%
-      summarise(v = sum(.data[[vc]], na.rm = TRUE), .groups = "drop")
+      summarise(across(all_of(crfs), ~sum(as.numeric(.x), na.rm = TRUE)),
+                .groups = "drop") %>%
+      pivot_longer(all_of(crfs), names_to = "crf", values_to = "v")
   }
   A <- grab(r_with); B <- grab(r_zero)
   if (is.null(A) || is.null(B)) { cat("  [!] no PM2.5 output returned\n"); return(NULL) }
 
   cmp <- A %>% rename(with_nh3 = v) %>%
-    inner_join(B %>% rename(zero_nh3 = v), by = "region") %>%
+    inner_join(B %>% rename(zero_nh3 = v), by = c("region","crf")) %>%
     mutate(pct = ifelse(with_nh3 > 0, 100*(zero_nh3 - with_nh3)/with_nh3, NA_real_))
-  cat(sprintf("  global with NH3: %.0f | NH3 zeroed: %.0f | change %+.1f%%\n",
-              sum(cmp$with_nh3), sum(cmp$zero_nh3),
-              100*(sum(cmp$zero_nh3) - sum(cmp$with_nh3))/sum(cmp$with_nh3)))
+  glob <- cmp %>% group_by(crf) %>%
+    summarise(w = sum(with_nh3), z = sum(zero_nh3), .groups = "drop") %>%
+    mutate(pct = 100*(z - w)/w)
+  for (k in seq_len(nrow(glob)))
+    cat(sprintf("  %-7s global with NH3: %12.0f | zeroed: %12.0f | change %+7.2f%%\n",
+                glob$crf[k], glob$w[k], glob$z[k], glob$pct[k]))
+
   cmp %>% mutate(model = mod, scenario = scen)
 }
 
@@ -159,27 +173,37 @@ if (!nrow(OUT)) {
   cat("No comparison completed. The [FAIL]/[!] lines above say why.\n")
 } else {
   saveRDS(OUT, "nh3_probe_result.rds")
-  print(OUT %>% group_by(model, scenario) %>%
-        summarise(regions = n(), max_abs_pct = round(max(abs(pct), na.rm=TRUE), 2),
-                  median_pct = round(median(pct, na.rm=TRUE), 2), .groups="drop") %>%
-        as.data.frame())
+  print(OUT %>% group_by(crf) %>%
+        summarise(cells = n(),
+                  median_pct  = round(median(pct, na.rm = TRUE), 3),
+                  max_abs_pct = round(max(abs(pct), na.rm = TRUE), 3),
+                  .groups = "drop") %>% as.data.frame())
+  cat("\nby scenario (FUSION, the CRF behind deaths_pm25):\n")
+  print(OUT %>% filter(crf == "FUSION") %>% group_by(model, scenario) %>%
+        summarise(regions = n(),
+                  median_pct  = round(median(pct, na.rm = TRUE), 3),
+                  max_abs_pct = round(max(abs(pct), na.rm = TRUE), 3),
+                  .groups = "drop") %>% as.data.frame())
+
   worst <- max(abs(OUT$pct), na.rm = TRUE)
-  cat("\nlargest regional change from removing NH3:", round(worst, 2), "%\n\n")
+  cat("\nlargest regional change from removing NH3, any CRF:",
+      round(worst, 3), "%\n\n")
   if (worst < 0.01) {
     cat("VERDICT: NH3 does not move PM2.5 mortality through this code path.\n")
     cat("The byte-identical files were CORRECT, not a failed run. The ammonia\n")
     cat("sensitivity is moot and should be reported as such: rfasst as invoked\n")
     cat("here is insensitive to NH3, so the REMIND NH3 under-reporting cannot\n")
-    cat("be biasing the mortality result. Worth one line in the SI, and it is\n")
-    cat("also worth asking why -- an SRM that ignores ammonium nitrate would be\n")
-    cat("a limitation of the mortality estimate in its own right.\n")
+    cat("be biasing the mortality result. That is a clean answer to the\n")
+    cat("question -- but it is also a LIMITATION worth stating, because a PM2.5\n")
+    cat("estimate that ignores ammonium nitrate understates secondary aerosol\n")
+    cat("everywhere, not just in REMIND.\n")
   } else {
-    cat("VERDICT: NH3 DOES move mortality. So the batch run is at fault, not\n")
-    cat("the science -- 03_nh3_run.R copies compass_mortality_summary.rds to\n")
-    cat("the _noNH3 name WITHOUT EVER CHECKING IT CHANGED, so a run that\n")
-    cat("silently did nothing produces two identical files.\n")
-    cat("Re-run the batch with 03_nh3_run_checked.R, which verifies the file\n")
-    cat("was regenerated and refuses to write an identical copy.\n")
+    cat("VERDICT: NH3 DOES move mortality, by up to", round(worst, 2), "% regionally.\n")
+    cat("So the batch run is at fault, not the science -- the old 03_nh3_run.R\n")
+    cat("copies compass_mortality_summary.rds to the _noNH3 name WITHOUT EVER\n")
+    cat("CHECKING IT CHANGED, so a run that silently did nothing produces two\n")
+    cat("identical files. Re-run with nh3_run_checked.R, which verifies the\n")
+    cat("output was regenerated and refuses to write an identical copy.\n")
   }
 }
 cat("\nwritten: nh3_probe_result.rds (send this back)\n")

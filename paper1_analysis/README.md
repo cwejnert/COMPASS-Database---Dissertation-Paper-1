@@ -60,6 +60,19 @@ transitions. Don't reintroduce that check.
 
 ## NH3 sensitivity
 
+**Settled by the probe:** removing NH3 cuts global PM2.5 mortality by about
+**11%** (FUSION: -11.1, -10.7, -10.9, -12.4% across four scenarios; GBD -8 to
+-10%; GEMM -11 to -13%). NH3 matters, so the byte-identical files were a failed
+run, not a null finding.
+
+But that is not the paper's question. Cliff's delta is **rank-based**: a uniform
+~11% shift leaves it exactly unchanged (verified: scaling both arms by 0.89 moves
+delta from 1.000 to 1.000). The contrast only moves if the NH3 effect differs
+*between the arms* — and the probe already suggests it does not, since REMIND
+(99% High-RE) and MESSAGE-GLOBIOM (mostly High-CMT) shift by the same ~11%.
+`nh3_arm_test.R` tests that directly on a sample of both arms, in ~15 minutes
+rather than a five-hour batch.
+
 The first attempt returned two byte-identical mortality files (MD5 `bbaa7f67...`).
 Tracing `DROP_NH3` through the pipeline, the mechanism *should* work: patch 01d
 drops `Emissions|NH3` from `pollutant_map`, so NH3 never reaches `em_clean`, and
@@ -76,10 +89,13 @@ That leaves two possibilities, and they need different responses:
 | file | role |
 |---|---|
 | `nh3_probe.R` | Runs four scenarios twice each, NH3 as reported and NH3 forced to zero, and compares. About a minute — an rfasst pair is ~0.1 min. Sources the rfasst script only up to `SECTION 5`, so the helpers load without the batch loop starting. Asserts the two emission lists genuinely differ in NH3 *before* running — the guard that was missing. |
+| `nh3_arm_test.R` | The decisive test. Samples N scenarios from each arm, runs each with and without NH3, and **recomputes Cliff's delta both ways** — the number that would actually appear in the paper. Also Wilcoxon-tests whether the per-scenario % change differs by arm. |
 | `nh3_run_checked.R` | Hardened replacement for `03_nh3_run.R`. Fingerprints the summary before the run, asserts `DROP_NH3` took effect and that NH3 left `em_clean`, and **refuses to write `_noNH3` if the output is unchanged**. Restores the MAIN outputs either way. |
 
-Run the probe first. If NH3 does not move mortality, the 90-minute batch has
-nothing to find.
+Order: `nh3_probe.R` (does NH3 matter at all?) -> `nh3_arm_test.R` (does it move
+the *contrast*?) -> `nh3_run_checked.R` only if the arm test says the contrast
+moves. Most of the value is in the first two; the full batch changes levels, and
+levels are not what the paper claims.
 
 **`m3_get_mort_pm25` returns no single mortality column.** It gives one row per
 region × year × age × disease with a column per concentration-response function —

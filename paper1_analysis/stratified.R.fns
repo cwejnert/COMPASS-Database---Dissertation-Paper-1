@@ -1,0 +1,143 @@
+# =============================================================================
+# MODEL-STRATIFIED SPECIFICATION — the primary analysis.
+#
+# The pooled comparison confounds pathway with model: REMIND-MAgPIE is 100%
+# High-RE, POLES-JRC and GEM-E3 are 0%, IMAGE is 3%. A pooled difference can
+# therefore be a between-MODEL difference wearing a pathway label.
+#
+# Fix: compare pathways only WITHIN a model family, then combine strata.
+#   - van Elteren test: the stratified Wilcoxon rank-sum. Ranks are computed
+#     inside each stratum, so only within-model contrasts contribute.
+#     Design-free weights w_h = 1/(N_h+1), optimal when strata differ in size.
+#   - Stratum-weighted Cliff's delta (weights n1_h * n2_h) for effect size.
+# Strata containing only one pathway carry no information and drop out.
+# =============================================================================
+source("engine.R")
+
+van_elteren <- function(x, g, stratum) {
+  ok <- !is.na(x) & !is.na(g) & !is.na(stratum)
+  x <- x[ok]; g <- g[ok]; stratum <- stratum[ok]
+  num <- 0; den <- 0; n1t <- 0; n2t <- 0; nstr <- 0
+  for (h in unique(stratum)) {
+    i <- stratum == h; xh <- x[i]; gh <- g[i]
+    n1 <- sum(gh == "High-CMT"); n2 <- sum(gh == "High-RE"); N <- n1 + n2
+    if (n1 < 1 || n2 < 1 || N < 3) next
+    r <- rank(xh); W <- sum(r[gh == "High-RE"]); E <- n2 * (N + 1) / 2
+    tie <- table(xh); tcorr <- sum(tie^3 - tie)
+    V <- n1 * n2 / (12 * N * (N - 1)) * ((N^3 - N) - tcorr)
+    if (!is.finite(V) || V <= 0) next
+    w <- 1 / (N + 1)
+    num <- num + w * (W - E); den <- den + w^2 * V
+    n1t <- n1t + n1; n2t <- n2t + n2; nstr <- nstr + 1
+  }
+  if (den <= 0 || nstr == 0)
+    return(list(p = NA_real_, z = NA_real_, n_cmt = n1t, n_re = n2t, n_strata = nstr))
+  z <- num / sqrt(den)
+  list(p = 2 * pnorm(-abs(z)), z = z, n_cmt = n1t, n_re = n2t, n_strata = nstr)
+}
+
+cliff_strat <- function(x, g, stratum) {
+  ok <- !is.na(x); x <- x[ok]; g <- g[ok]; stratum <- stratum[ok]
+  num <- 0; wt <- 0
+  for (h in unique(stratum)) {
+    i <- stratum == h
+    a <- x[i][g[i] == "High-CMT"]; b <- x[i][g[i] == "High-RE"]
+    if (!length(a) || !length(b)) next
+    d <- (sum(outer(b, a, ">")) - sum(outer(b, a, "<"))) / (length(a) * length(b))
+    num <- num + length(a) * length(b) * d; wt <- wt + length(a) * length(b)
+  }
+  if (wt == 0) NA_real_ else num / wt
+}
+
+add_measures <- function(d) d %>% mutate(
+  NET    = net_jobs_per_1k,
+  LOWC   = (re_jobs_per_1k + nuclear_jobs_per_1k + bio_jobs_per_1k) - fossil_jobs_per_1k,
+  REFOSS = re_jobs_per_1k - fossil_jobs_per_1k)
+
+OUT_SET <- c(NET="Net energy jobs / 1,000", LOWC="Low-carbon minus fossil jobs / 1,000",
+             REFOSS="RE minus fossil jobs / 1,000", mort_per_1k="PM2.5 mortality / 1,000",
+             gap_GJ_pc="Energy deprivation gap (GJ/cap)", headcount_pct="Deprivation headcount (%)")
+LOWER <- c("mort_per_1k","gap_GJ_pc","headcount_pct")
+
+# =============================================================================
+# THE ANALYSIS FRAME — one definition, used by every downstream script.
+#
+# Every outcome is cumulated over the SAME window. Each re-cut was verified
+# against the master at 2020-2100 (jobs, mortality and deprivation all reproduce
+# it exactly), so the window is a parameter rather than a fork in the pipeline.
+#
+#   jobs        jobs_type.rds          decadal, summed
+#   mortality   MORT_WINDOWS.rds       decadal, x10 rectangles (master convention)
+#   deprivation DLE_WINDOWS.rds        truly annual, summed; headcount is a MEAN
+#
+# Two jobs contrasts only. Gross energy employment (RE + fossil + nuclear + bio)
+# is a TOTAL, not a contrast, and is deliberately not reported.
+# =============================================================================
+WINDOW <- "2020-2050"
+
+OUT5 <- c(REFOSS        = "RE - fossil jobs",
+          LOWC          = "Low-carbon - fossil jobs",
+          gap_GJ_pc     = "Energy deprivation gap",
+          headcount_pct = "Deprivation headcount",
+          mort_per_1k   = "PM2.5 mortality")
+JOBS5  <- c("REFOSS","LOWC")
+LOWER5 <- c("mort_per_1k","gap_GJ_pc","headcount_pct")
+
+load_frame <- function(id = "A", window = WINDOW) {
+  y_max <- as.integer(sub(".*-", "", window))
+  jt  <- readRDS("jobs_type.rds")
+  gp  <- function(tg) dplyr::case_when(tg=="Fossil"~"Fossil", tg=="Nuclear"~"Nuclear",
+                                       tg=="Bioenergy"~"Bioenergy", TRUE~"Renewables")
+  jr <- jt %>% dplyr::filter(Year>=2020, Year<=y_max, Region %in% R10_TEN) %>%
+    dplyr::mutate(g=gp(tech_group)) %>%
+    dplyr::group_by(Model,Scenario,Region,g) %>%
+    dplyr::summarise(k=sum(jobs_thousands,na.rm=TRUE), .groups="drop")
+  comp <- jr %>% dplyr::distinct(Model,Scenario,Region) %>%
+    dplyr::count(Model,Scenario) %>% dplyr::filter(n==10) %>% dplyr::select(Model,Scenario)
+  jw <- jr %>% dplyr::semi_join(comp, by=c("Model","Scenario")) %>%
+    dplyr::group_by(Model,Scenario,g) %>% dplyr::summarise(k=sum(k), .groups="drop") %>%
+    dplyr::mutate(Region="Aggregated R10 regions")
+  J <- dplyr::bind_rows(jr,jw) %>%
+    tidyr::pivot_wider(names_from=g, values_from=k, values_fill=0)
+
+  ds <- readRDS(paste0("ds_",id,".rds")) %>% dplyr::filter(Variable=="Total CDR")
+  pw <- readRDS(paste0("pw_",id,".rds")) %>% dplyr::filter(!is.na(Pathway_excl)) %>%
+    dplyr::distinct(Model,Scenario,Pathway=Pathway_excl)
+  popr <- ds %>% dplyr::distinct(Model,Scenario,Region,pop_mln) %>%
+    dplyr::filter(Region %in% R10_TEN)
+  popw <- popr %>% dplyr::group_by(Model,Scenario) %>% dplyr::filter(dplyr::n()==10) %>%
+    dplyr::summarise(pop_mln=sum(pop_mln), .groups="drop") %>%
+    dplyr::mutate(Region="Aggregated R10 regions")
+  amb <- ds %>% dplyr::distinct(Model,Scenario,Ambition)
+
+  MW <- readRDS("MORT_WINDOWS.rds") %>% dplyr::filter(window == !!window) %>%
+    dplyr::select(Model,Scenario,Region, mort_per_1k = mort)
+  DW <- readRDS("DLE_WINDOWS.rds")  %>% dplyr::filter(window == !!window) %>%
+    dplyr::select(Model,Scenario,Region, gap_GJ_pc, headcount_pct)
+
+  J %>%
+    dplyr::inner_join(dplyr::bind_rows(popr,popw), by=c("Model","Scenario","Region")) %>%
+    dplyr::mutate(REFOSS = 1000*(Renewables-Fossil)/(pop_mln*1000),
+                  LOWC   = 1000*((Renewables+Bioenergy+Nuclear)-Fossil)/(pop_mln*1000)) %>%
+    dplyr::left_join(DW, by=c("Model","Scenario","Region")) %>%
+    dplyr::left_join(MW, by=c("Model","Scenario","Region")) %>%
+    dplyr::inner_join(amb, by=c("Model","Scenario")) %>%
+    dplyr::inner_join(pw,  by=c("Model","Scenario")) %>%
+    dplyr::mutate(Pathway = factor(Pathway, levels=PATHWAYS),
+                  amb = ifelse(grepl("^1\\.5", Ambition), "1.5C", "2C"),
+                  fam = sub("[ /].*$","",Model))
+}
+
+# advantage-signed cell comparison: positive ALWAYS means High-RE is better
+cell5 <- function(d, out) {
+  a <- d[[out]][d$Pathway=="High-CMT"]; b <- d[[out]][d$Pathway=="High-RE"]
+  a<-a[!is.na(a)]; b<-b[!is.na(b)]
+  if (length(a)<5 || length(b)<5)
+    return(tibble(n_cmt=length(a), n_re=length(b), med_cmt=NA_real_, med_re=NA_real_,
+                  pct=NA_real_, adv=NA_real_, p=NA_real_))
+  sgn <- ifelse(out %in% LOWER5, -1, 1)
+  tibble(n_cmt=length(a), n_re=length(b), med_cmt=median(a), med_re=median(b),
+         pct = sgn*100*(median(b)-median(a))/abs(median(a)),
+         adv = sgn*cliff_d(a,b),
+         p   = suppressWarnings(wilcox.test(a,b))$p.value)
+}

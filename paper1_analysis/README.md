@@ -136,6 +136,20 @@ Classification is a tercile within the pooled sample, so adding CDR-focused
 scenarios raises the carbon-management threshold and reclassifies scenarios that
 have nothing to do with the addition.
 
+## Regions shown in the by-region results
+
+**Pacific OECD is excluded from the regional display** and kept only inside the
+World aggregate (a ten-region sum). Reason: `Z3` shows Cliff's delta on that
+region's *own* renewable deployment between the two arms is **−0.19** (1.5C) and
+**−0.07** (2C) — High-RE builds no more renewables there than High-CMT does.
+Scoring a renewables-versus-carbon-management contrast in a region where the two
+arms deploy the same renewables is not a weak result; it is not the comparison
+the paper claims to make.
+
+Reforming economies is weak but real (+0.26, +0.45) and is **kept**, flagged.
+
+`Z4_final_table.R` produces the final grid on that basis: nine regions plus World.
+
 ## Readiness (`Z1_readiness.R`)
 
 One pass over all three families, asking the same five questions: complete grid,

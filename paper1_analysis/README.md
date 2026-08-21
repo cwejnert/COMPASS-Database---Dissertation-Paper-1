@@ -54,8 +54,10 @@ transitions. Don't reintroduce that check.
 | file | produces |
 |---|---|
 | `U1_final_results.R` | `FINAL_RESULTS.rds` — every cell, three outcome families, cluster-robust intervals, across four samples (full/vetted × all/matched) |
-| `V1_figs.R` | `V1`–`V6` figures, all from `FINAL_RESULTS.rds` |
-| `build_final_deck.js` | the 26-slide deck (`npm i pptxgenjs`) |
+| `Z4_final_table.R` | the final grid: nine regions plus World, 48/60 |
+| `Y1_final_figs.R` | `Y1`–`Y7` figures on the nine-region basis, incl. label coherence and the NH3 gap |
+| `V1_figs.R` | superseded by `Y1_final_figs.R`; kept for the 11-region versions |
+| `build_final_deck.js` | the 31-slide deck (`npm i pptxgenjs`) |
 | `build_brief.py` | assembles `brief.html` from `brief.head.html` + `brief.body.html`, inlining figures as data URIs |
 
 ## NH3 sensitivity
@@ -110,7 +112,8 @@ That leaves two possibilities, and they need different responses:
 | `nh3_probe.R` | Runs four scenarios twice each, NH3 as reported and NH3 forced to zero, and compares. About a minute — an rfasst pair is ~0.1 min. Sources the rfasst script only up to `SECTION 5`, so the helpers load without the batch loop starting. Asserts the two emission lists genuinely differ in NH3 *before* running — the guard that was missing. |
 | `nh3_arm_test.R` | The decisive test. Samples N scenarios from each arm, runs each with and without NH3, and **recomputes Cliff's delta both ways** — the number that would actually appear in the paper. Also Wilcoxon-tests whether the per-scenario % change differs by arm. |
 | `nh3_arm_analysis.R` | Reads `nh3_arm_test_result.rds` and separates the arm effect from the model-family effect. This is where the 58× REMIND gap is quantified. |
-| `nh3_run_checked.R` | Hardened replacement for `03_nh3_run.R`. Fingerprints the summary before the run, asserts `DROP_NH3` took effect and that NH3 left `em_clean`, and **refuses to write `_noNH3` if the output is unchanged**. Restores the MAIN outputs either way. |
+| `nh3_harmonised_run.R` | **Use this one.** Zeroes ammonia directly in `em_clean` and drives rfasst itself — no `DROP_NH3` flag, no patch 01d, no text-editing of source files. Runs only the ~590 classified scenarios (~75 min, not five hours), writes `compass_mortality_r10_noNH3.csv` in the master's exact schema, and never touches the main outputs. |
+| `nh3_run_checked.R` | Superseded. It inherited the flag-flipping design and fails with `no unique 'DROP_NH3 <- ...' line found` wherever patch 01d never applied — which is also the likeliest reason the original sensitivity produced two identical files. |
 
 Order: `nh3_probe.R` (does NH3 matter at all? — yes, ~11%) -> `nh3_arm_test.R` +
 `nh3_arm_analysis.R` (does it move the *contrast*? — yes, and it is a model

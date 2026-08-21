@@ -151,6 +151,40 @@ bullets("Method — why three families, not five",
   {t:"METHOD",c:TEAL},
   "Robustness run on every choice: tercile cut from the top half to the top quarter · common-support thresholds · per-region against global labels · full database against SCI vetting · matched against unmatched samples.");
 
+table("Method — outcome 1 of 3","Energy jobs: how the number is built",
+  ["","",""],
+  [[{t:"Source",o:{bold:true}},"AR6 job-intensity factors","job_factors_complete.csv, Rutovitz-style: a global employment factor per technology times a regional labour multiplier. Geothermal is absent upstream and is imputed at 1,170 jobs/GW O&M and ~20,400 jobs/GW build, carrying the mean regional multiplier"],
+   [{t:"Three streams",o:{bold:true}},"construction · manufacturing · O&M","Construction and manufacturing scale with CAPACITY ADDITIONS (per GW built); operations and maintenance scales with CAPACITY STOCK (per GW installed). Extraction and refining attach to fossil fuel throughput"],
+   [{t:"Technology groups",o:{bold:true}},"Renewables / Nuclear / Bioenergy / Fossil","Solar PV, onshore wind, hydro, geothermal → Renewables. Coal, gas, oil → Fossil. The renewable group is tied to RE_SPEC, so jobs_Renewables always matches how High-RE was defined — no drift between the axis and the outcome"],
+   [{t:"The contrast",o:{bold:true}},{t:"renewables − fossil",o:{bold:true}},"A NET POSITION, not a displacement claim. The second measure, (renewables + bioenergy + nuclear) − fossil, is the within-family check and agrees in every cell"],
+   [{t:"Window & units",o:{bold:true}},"2020–2050, per 1,000 people","Four decadal snapshots summed. Units are thousand jobs summed over four decade marks, NOT job-years — fine for a contrast, but say so"],
+   [{t:"Known limit",o:{bold:true}},{t:"partly transmission from the ranking axis",o:{color:RED}},"ρ(global RE axis, regional jobs contrast) = 0.40–0.90. Not a tautology — the axis is global, the outcome regional, and jobs-per-capacity varies 31–59% within region — but the CDR axis is anti-correlated at −0.48 to −0.62, so it is not a clean control either"]],
+  [1.9,2.6,7.6], {t:"METHOD",c:TEAL},
+  "No offshore wind category exists in the database, so all wind is onshore. Employment factors decline over time with learning, so the same GW built in 2050 carries fewer jobs than in 2020 — which is why the advantage is front-loaded.", 10);
+
+table("Method — outcome 2 of 3","Energy deprivation: how the number is built",
+  ["","",""],
+  [[{t:"Threshold",o:{bold:true}},"Kikstra et al. 2021, fig 1A","Regional decent-living final-energy thresholds in GJ/cap/yr: India+ 10, China+ 15, Africa 17, Europe 28, North America 37. Global mean 17. Published REGIONAL values are used rather than rescaling to the DESIRE global mean of 22.3"],
+   [{t:"Sector split",o:{bold:true}},"residential/commercial · transport · industry","DESIRE shares 6.7 / 11.8 / 3.8, normalised. The threshold is applied per sector, not just to the total"],
+   [{t:"Efficiency path",o:{bold:true}},"−1.9%/yr, floored at 50%","Service-provisioning efficiency improves over time, so the energy needed to reach decent living falls. Lands at ~−38% by 2040, matching DESIRE's −30 to −46%. A floor at 50% prevents the threshold collapsing late in the century"],
+   [{t:"The gap",o:{bold:true}},{t:"max(0, threshold − actual)",o:{bold:true}},"Truncated at zero: a region above its threshold has NO surplus credited. So the measure is deprivation, not net adequacy — a region cannot offset another's shortfall"],
+   [{t:"The contrast",o:{bold:true}},"cumulative gap, GJ/capita","Summed over 2020–2050 from a TRULY ANNUAL series (31 values, not decadal). The second measure, the deprivation headcount, is a MEAN over the window rather than a sum — a stock, not a flow — and correlates ρ = 0.99"],
+   [{t:"Known limit",o:{bold:true}},{t:"unverifiable within models",o:{color:RED}},"No model family holds enough of both arms to check the result inside a model: at 1.5°C exactly one family qualifies, carrying 100% of the stratified weight. Report the pooled result with that limitation stated"]],
+  [1.9,2.6,7.6], {t:"METHOD",c:TEAL},
+  "The regional Gini implied by these thresholds is understated relative to observed inequality (Africa 0.33 against ~0.43), so within-region distribution is not represented — the gap is a regional aggregate, not a household count.", 10);
+
+table("Method — outcome 3 of 3","PM2.5 mortality: how the number is built",
+  ["","",""],
+  [[{t:"Model",o:{bold:true}},"TM5-FASST via rfasst","A source–receptor model: regional precursor emissions map to regional PM2.5 concentrations through fixed transfer coefficients, then to premature deaths"],
+   [{t:"Precursors",o:{bold:true}},"SO₂ · NOx · BC · OM · NH₃ · VOC","Organic carbon is converted to organic matter at 1.3. Methane and CO enter the ozone module only. Emissions are disaggregated from R10 to 56 FASST regions by population weight, then aggregated back"],
+   [{t:"Response function",o:{bold:true}},{t:"FUSION",o:{bold:true}},"rfasst returns three concentration–response functions — GBD, GEMM and FUSION. The pipeline uses FUSION, which sits between the other two. There is no single mortality column; naming the CRF is mandatory"],
+   [{t:"Window & units",o:{bold:true}},"2020–2050, deaths per 1,000","Decadal values × 10 (rectangle integration), summed, divided by base-period population. Verified four ways that deaths_pm25 is an ANNUAL RATE, so the ×10 is right: 2020 global 5.86 mln/yr, smooth 5.7→7.95 rise, plausible per-capita rates, and the rfasst summary equals a plain sum at ratio 1.0000"],
+   [{t:"Quality gate",o:{bold:true}},"≥6 non-zero precursors, all ten regions","501 of 590 classified scenarios pass, and the gate is BALANCED — 85% of both arms. COFFEE (0/12) and TIAM-ECN (0/23) are removed entirely"],
+   [{t:"Validation",o:{bold:true}},{t:"6.9 mln deaths/yr globally",o:{color:GREEN}},"IQR 6.4–7.5, against GBD 4.1 and GEMM 8.9. Regional rates a consistent 1.4–1.6× GBD. The model is fine; the emissions going into it are the problem"],
+   [{t:"Known limit",o:{bold:true}},{t:"ammonia is not reported on a common basis",o:{color:RED}},"NH₃ is 6–12% of PM2.5 mortality in IMAGE, POLES-JRC, AIM and MESSAGEix — and 0.15% in REMIND, which is ~95% of High-RE. High-CMT therefore carries ~9% extra mortality that is an accounting difference between modelling teams"]],
+  [1.9,2.6,7.6], {t:"METHOD",c:TEAL},
+  "Mortality also fails the poolability screen in four of nine regions, so even after ammonia is harmonised it would carry a within-model caveat. It is the one family reported with a hold rather than a result.", 9.5);
+
 // ============================== 3. RESULTS ===================================
 section("Part three","Results","Global first, then the regions that carry a story.");
 
@@ -274,6 +308,33 @@ table("Regions","One line each",
    [{t:"Pacific OECD",o:{color:RED}},{t:"—",o:{color:RED}},{t:"—",o:{color:RED}},{t:"—",o:{color:RED}},{t:"excluded",o:{color:RED}},{t:"High-RE builds NO MORE renewables here, so the contrast does not exist. Kept inside the World sum only",o:{color:RED}}]],
   [1.8,0.7,0.8,0.8,2.1,5.9], {t:"REGIONS",c:GOLD},
   "Latin America, Middle East and North America are omitted from this slide for space, not for weakness — all three appear in the full grid. Latin America's High-CMT is 73% land-based CDR (afforestation creates no energy jobs, so its jobs result is close to definitional); Middle East is 77% fossil CCS and loses deprivation at 2°C; North America is the only region reversing on mortality at both ambition levels.", 9.5);
+
+bullets("Regions — the high-build economies","India+, Africa, Rest of Asia: most to build, least to retire",
+  ["INDIA+ is the strongest case in the study. Jobs +214% median, deprivation +60%, and it wins on renewable job CREATION (δ +0.89) with a fossil-jobs delta of 0.00 — the transition adds without subtracting. Its decent-living threshold is the lowest of any region at 10 GJ/cap, so the same delivered energy closes proportionally more of the gap.",
+   "AFRICA posts the largest jobs gap anywhere, +326%, on almost no incumbent workforce — there is nothing to defend and everything to build. Its High-CMT is 49% land-based CDR, which is afforestation and creates no energy jobs at all, so the contrast is unusually stark.",
+   "REST OF ASIA is the study's most instructive tension: the second-largest jobs advantage (+312%) sits alongside the ONLY double deprivation loss (δ −0.41 and −0.51). Its High-CMT scenarios deliver more final energy per capita, so the decent-living gap closes faster under carbon management even as the labour case runs the other way.",
+   "That tension is the paper's most useful regional finding. Jobs and energy access are not the same claim, and a region can be better off on employment while worse off on delivered energy. Any policy read that treats 'renewables are better' as a single fact fails here.",
+   "Mechanically all three share the same driver: a large remaining build (ρ = +0.67 with the jobs advantage) and a small incumbent fleet (ρ = −0.50 with fossil, −0.62 with nuclear). Where both hold, the advantage is largest."],
+  {t:"REGIONS",c:GOLD},
+  "Africa's mortality goes the other way at both ambition levels but neither cell is significant, and under 4% of its mortality variance is within-model — it should be reported as untestable rather than as a finding.");
+
+bullets("Regions — the incumbent economies","Europe, China+, North America: most to retire",
+  ["EUROPE is the hard case that still wins. Joint-smallest remaining build, and it loses on three fronts at once — fossil, nuclear AND bioenergy — yet it takes every family at both ambition levels: jobs +161%, deprivation +45%. It is the strongest evidence that the result is not simply 'whoever builds most wins'.",
+   "Its jobs win is also the most displacement-heavy in the study: δ on fossil job loss is +0.67 to +0.80, meaning High-RE sheds substantially more fossil employment. Europe is where the transition is genuinely a substitution rather than an addition, and the just-transition framing applies most directly.",
+   "CHINA+ carries the second-largest incumbent energy workforce anywhere and still sweeps, because the remaining build is larger still. It is the only region to win all three families at 2°C, and its deprivation advantage (+28%) holds despite a high starting level of energy access.",
+   "NORTH AMERICA wins jobs (+117%) and deprivation (+21%) but is the ONLY region where mortality reverses significantly at BOTH ambition levels. It also holds the highest incumbent nuclear capacity of any region, and every model that contains both arms puts High-RE lower on mortality — the pooled figure disagrees with all of them, which is the Simpson signature.",
+   "Together these three show the mechanism's boundary: the advantage narrows as the incumbent fleet grows, but across this database it does not reverse on jobs or deprivation in any of them."],
+  {t:"REGIONS",c:GOLD},
+  "Europe and China+ are also the two regions where the global label holds most tightly (δ 0.72–0.87 on their own renewable deployment), so their results carry the least classification risk.");
+
+bullets("Regions — where the mechanism runs out","Reforming economies, Middle East, Latin America",
+  ["REFORMING ECONOMIES is the just-transition case arrived at from the other direction. It carries 2.9 incumbent energy job-years per 1,000 — roughly four times any other region — and posts the weakest jobs advantage (+127%, and only +0.28 at 1.5°C, not significant).",
+   "More importantly its jobs win is mostly fossil job DESTRUCTION, not renewable job creation: δ on renewable jobs is only +0.07 at 1.5°C against +0.70 on fossil job loss. That cell should be flagged in the paper rather than counted as an employment gain — the arithmetic is positive, the welfare reading is not.",
+   "MIDDLE EAST is the purest fossil-CCS region at 77%, so High-CMT there means keeping the fossil fleet running — which delivers energy as well as emissions. It wins jobs comfortably (+292%) but LOSES deprivation at 2°C (δ −0.39): carbon management supplies more decent-living energy precisely because it keeps burning.",
+   "LATIN AMERICA's High-CMT is 73% land-based CDR. Afforestation creates no energy jobs at all, so the jobs contrast there is close to definitional and should be presented with that caveat rather than as an independent confirmation.",
+   "PACIFIC OECD is excluded from the regional results entirely: High-RE builds no more renewables there than High-CMT (δ −0.19 and −0.07), so the contrast the paper claims to measure does not exist in that region. It remains inside the World aggregate, which is a ten-region sum."],
+  {t:"REGIONS",c:GOLD},
+  "Four of the five deprivation reversals in the study sit in this group. They are real and regional, not artefacts, and explaining them is more credible than a clean sweep would have been.");
 
 img("Regions","Which technologies the work sits in",
   "P4b_fuel_region.png",

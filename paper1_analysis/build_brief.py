@@ -5,12 +5,12 @@ be self-contained). Placeholders in the body map to files here."""
 import base64, os, sys
 
 FIGS = {
-    "__V1__":   "V1_scorecard.png",
-    "__V2__":   "V2_world_forest.png",
-    "__V3__":   "V3_robustness.png",
-    "__V4__":   "V4_jobs_decomposition.png",
+    "__V1__":   "Y1_scorecard.png",
+    "__V2__":   "Y2_world_forest.png",
+    "__V3__":   "Y3_robustness.png",
+    "__V4__":   "Y4_jobs_decomposition.png",
     "__V5__":   "V5_tradeoff.png",
-    "__V6__":   "V6_mortality_variance.png",
+    "__V6__":   "Y6_nh3_gap.png",
     "__P4A__":  "P4a_jobtype_region.png",
     "__P4B__":  "P4b_fuel_region.png",
     "__P2B__":  "P2b_two_factor.png",

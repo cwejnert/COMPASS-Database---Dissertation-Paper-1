@@ -42,6 +42,7 @@ Run in order; each writes its own `.rds`. See `AUDIT_V2.md` for the findings and
 | `T2_audit_sample_inference.R` | The split threshold sample (26% of scenarios report no renewable capacity) and the cluster bootstrap |
 | `T3_audit_outcomes.R` | What `pop_mln` is, whether jobs is the ranking axis rescaled, what the mortality gate removes, and how many independent results there really are |
 | `T4_audit_followups.R` | The three things T3 turned up |
+| `W1_novel_cdr_coverage.R` | Whether "Novel CDR = 0" is a real zero or a missing row (it is a missing row), and whether that biases the classification axis |
 
 `T1b` supersedes an earlier `T1` whose component and cut-sensitivity checks were **vacuous** —
 two labellings that are both non-`NA` for a scenario must agree, because they share the
@@ -57,6 +58,18 @@ transitions. Don't reintroduce that check.
 | `build_final_deck.js` | the 26-slide deck (`npm i pptxgenjs`) |
 | `build_brief.py` | assembles `brief.html` from `brief.head.html` + `brief.body.html`, inlining figures as data URIs |
 
+## Ingestion
+
+`ingest_bergero.R` appends a new scenario set (Bergero / State of CDR) to
+`compass_interp.rds` from an IAMC-format export. It validates variable coverage
+against what the master needs, interpolates to annual, and writes
+`compass_interp_plus.rds` — it never overwrites the original.
+
+Run the added set as a **separate approach**, not as a replacement for A.
+Classification is a tercile within the pooled sample, so adding CDR-focused
+scenarios raises the carbon-management threshold and reclassifies scenarios that
+have nothing to do with the addition.
+
 ## Conventions that matter
 
 - **Cliff's delta is signed as ADVANTAGE**: positive *always* means High-RE is better. The
@@ -69,5 +82,13 @@ transitions. Don't reintroduce that check.
 - **Two jobs contrasts only**: `REFOSS` (renewables − fossil) and `LOWC` (renewables + bioenergy
   + nuclear − fossil). An earlier "NET" measure was the gross sum of all four, not a contrast,
   and was dropped as invalid.
+- **Missing is not zero.** The carbon-management axis sums its three components
+  with `na.rm = TRUE`, so an unreported component scores as a real zero. Only 29%
+  of scenarios report Novel CDR at all, and among those that do it is 43% of the
+  axis — the largest component, not the smallest. Reporting is a model
+  fingerprint (0% in four families, 97% in WITCH). `W1` tests it: rebuilding the
+  axis on land + fossil CCS alone moves 9% of scenarios, flips zero arms, and
+  moves the headline 79% -> 77%. Keep the published axis; report the two-component
+  version as a sensitivity.
 - **Variance guard**: `share_within = mean(within-family variance) / total variance`. Below 0.10
   the cell is comparing model inventories, not pathways.

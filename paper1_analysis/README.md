@@ -142,25 +142,54 @@ One pass over all three families, asking the same five questions: complete grid,
 levels, cluster-robust significance, survival of SCI vetting, and survival of the
 model-composition guard.
 
-| family | full DB | vetted | direction agrees | var-share median | regions <0.10 | within-model sign flips | verdict |
+| family | full DB | vetted | direction agrees | var-share median | regions <0.10 | within-model | verdict |
 |---|---|---|---|---|---|---|---|
-| **Jobs** | 22/22 (20 sig) | 22/22 | 100% | 0.45 | 0 | **0 of 22** | **ready** |
-| **Deprivation** | 17/22 (18 sig) | 14/22 | 86% | 0.47 | 0 | **12 of 22** | direction not robust |
-| **Health** | 14/22 (10 sig) | 12/22 | 73% | 0.12 | 5 | 4 of 11 testable | not reportable |
+| **Jobs** | 22/22 (20 sig) | 22/22 | 100% | 0.45 | 0 | **0 flips of 22** | **ready** |
+| **Deprivation** | 17/22 (18 sig) | 14/22 | 86% | 0.47 | 0 | underpowered — see below | **ready, with a stated limit** |
+| **Health** | 14/22 (10 sig) | 12/22 | 73% | 0.12 | 5 | 4 flips of 11 testable | not reportable |
 
-**The variance guard is necessary but not sufficient.** Deprivation passes it
-comfortably (no region below 0.10, median 0.47) yet its pooled and within-model
-contrasts disagree in 12 of 22 cells. Plenty of within-model *variation* does not
-mean the pathway *contrast* is consistent within and between models — that is a
-textbook Simpson's paradox and only the stratified comparison catches it.
+### The within-model check is underpowered for deprivation (`Z2_strat_fair.R`)
 
-Read the flips by ambition, because the two are not equally informative:
+An earlier pass reported deprivation's pooled and within-model contrasts
+disagreeing in 12 of 22 cells and called the result "not robust". **That was
+over-stated.** The stratified estimate is too thin to referee:
 
-- **1.5C**: only ONE family holds both arms with >=3 scenarios each, covering 9%
-  of the cell. Those four flips are essentially untested, not refuted.
-- **2C**: four families qualify (AIM, GCAM, MESSAGEix-GLOBIOM, WITCH), covering
-  35% of the cell — a real test. Deprivation flips in **8 of 11** 2C cells.
-  Jobs, on the same 35% subset, flips in none.
+- **1.5C**: exactly ONE family qualifies (REMIND, 3 High-CMT against 8 High-RE)
+  and carries **100%** of the weight.
+- **2C**: four families qualify, but `cliff_strat` weights by `n_cmt * n_re`, so
+  MESSAGEix-GLOBIOM carries **52%** of the estimate on just **4** High-RE runs.
+
+Two follow-ups show the flips are an artefact of that thinness, not of the result:
+
+- **Treatment strength is not the driver.** At 2C the High-RE scenarios inside
+  both-arms families sit at median `re_depth` 1.19 (barely past the threshold)
+  against 1.67 outside — so the stratified test does compare a weaker treatment.
+  But depth-matching the *pooled* estimate to the same band changes almost
+  nothing: **1 sign flip against 12** for the within-model test.
+- Jobs, on the same thin strata, flips **zero** times.
+
+So the within-model check confirms jobs and is simply unable to adjudicate
+deprivation. It neither confirms nor refutes it. State that as a limitation;
+do not report it as a failure.
+
+### The global label is regionally coherent (`Z3_label_coherence.R`)
+
+The axes are global sums, but the outcomes are regional, so the label has to
+describe the region it scores. It does, in 8 of 10 regions: Cliff's delta on
+*regional* renewable deployment between the arms runs 0.72–0.99, and on regional
+carbon management −0.75 to −1.00 everywhere.
+
+**Two exceptions, and they are the same two regions the jobs decomposition
+already flagged:**
+
+| region | re_delta 1.5C | re_delta 2C | reading |
+|---|---|---|---|
+| Pacific OECD | **−0.19** | **−0.07** | High-RE builds no more renewables here — the label does not describe this region |
+| Reforming econ. | +0.26 | +0.45 | weak |
+
+Relabelling per region rather than globally moves deprivation by **2 sign
+changes out of 20** (15/20 → 13/20), so the global-versus-regional choice is not
+what drives the result.
 
 ## Conventions that matter
 

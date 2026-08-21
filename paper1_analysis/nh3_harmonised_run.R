@@ -104,6 +104,32 @@ if (!length(res)) stop("nothing to write.")
 
 # ------------------------------- 5. aggregate exactly as the master does -----
 line("5. AGGREGATING TO R10")
+# Save the RAW per-FASST-region output first. Aggregation is cheap and easy to
+# get wrong; the 36-minute rfasst run is neither. With this on disk, a mapping
+# mistake costs seconds to fix instead of another full run.
+saveRDS(bind_rows(res), file.path(COMPASS_DIR, "noNH3_raw_fasst.rds"))
+cat("raw per-FASST-region output saved: noNH3_raw_fasst.rds\n")
+
+# DIAGNOSE the mapping before trusting it. The first attempt produced only five
+# R10 regions and mortality that ROSE in three of them -- impossible for removing
+# a precursor -- which means the region mapping, not the run, was at fault.
+cat("\nfasst_to_r10: rows", nrow(fasst_to_r10),
+    "| distinct fasst_region", n_distinct(fasst_to_r10$fasst_region),
+    "| distinct r10_region", n_distinct(fasst_to_r10$r10_region), "\n")
+dupes <- fasst_to_r10 %>% count(fasst_region) %>% filter(n > 1)
+if (nrow(dupes)) {
+  cat("[FAIL]", nrow(dupes), "fasst regions map to MORE THAN ONE R10 region.\n")
+  cat("       A many-to-many join duplicates rows and inflates the sums.\n")
+  print(as.data.frame(dupes))
+}
+raw_regs <- sort(unique(bind_rows(res)$region))
+cat("regions returned by rfasst:", length(raw_regs), "\n")
+unmapped <- setdiff(raw_regs, fasst_to_r10$fasst_region)
+if (length(unmapped)) {
+  cat("[FAIL]", length(unmapped), "returned regions are NOT in fasst_to_r10 and\n")
+  cat("       are silently dropped by the filter:\n")
+  print(unmapped)
+}
 # The master uses deaths_pm25 = sum(FUSION) over fasst regions mapped to R10.
 # Reproduced verbatim so the output drops into the existing pipeline.
 cat_lookup <- em_clean %>% distinct(model, scenario) %>%
@@ -119,6 +145,12 @@ out <- bind_rows(res) %>%
 
 cat("rows:", nrow(out), "| scenarios:", n_distinct(paste(out$model, out$scenario)),
     "| regions:", n_distinct(out$r10_region), "\n")
+if (n_distinct(out$r10_region) != 10) {
+  cat("\n[FAIL] expected 10 R10 regions, got", n_distinct(out$r10_region), "-",
+      paste(sort(unique(out$r10_region)), collapse = ", "), "\n")
+  cat("The raw output is saved, so this is fixable without re-running rfasst.\n")
+  stop("aggregation produced the wrong number of regions; refusing to write.")
+}
 write.csv(out, OUT_CSV, row.names = FALSE)
 cat("written:", OUT_CSV, "\n")
 
@@ -136,10 +168,20 @@ if (file.exists(main)) {
   cat("comparable rows:", nrow(cmp), "\n")
   cat(sprintf("median change: %+.2f%% | IQR %+.2f to %+.2f\n",
               median(cmp$pct), quantile(cmp$pct,.25), quantile(cmp$pct,.75)))
-  if (abs(median(cmp$pct)) < 0.01)
+  # TM5-FASST sums non-negative source-receptor contributions, so removing a
+  # precursor can only LOWER PM2.5. Any increase means the region labels are
+  # scrambled, not that ammonia helps.
+  up <- mean(cmp$pct > 0.5)
+  cat(sprintf("rows where mortality ROSE by >0.5%%: %.1f%%\n", 100*up))
+  if (up > 0.02) {
+    cat("\n[FAIL] removing ammonia cannot raise PM2.5 mortality. The region\n")
+    cat("       mapping is wrong. Do NOT use this file.\n")
+  } else if (abs(median(cmp$pct)) < 0.01) {
     cat("\n[WARNING] essentially no change. Investigate before using this file.\n")
-  else
-    cat("\n[ok] the harmonised run genuinely differs from the main run.\n")
+  } else {
+    cat("\n[ok] the harmonised run differs from the main run, and in the only\n")
+    cat("     direction physically possible.\n")
+  }
 } else cat("main file not found; skipping the comparison.\n")
 
 cat(sprintf("\ntotal runtime: %.0f minutes\n",

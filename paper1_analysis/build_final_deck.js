@@ -157,7 +157,7 @@ table("Method — outcome 1 of 3","Energy jobs: how the number is built",
    [{t:"Three streams",o:{bold:true}},"construction · manufacturing · O&M","Construction and manufacturing scale with CAPACITY ADDITIONS (per GW built); operations and maintenance scales with CAPACITY STOCK (per GW installed). Extraction and refining attach to fossil fuel throughput"],
    [{t:"Technology groups",o:{bold:true}},"Renewables / Nuclear / Bioenergy / Fossil","Solar PV, onshore wind, hydro, geothermal → Renewables. Coal, gas, oil → Fossil. The renewable group is tied to RE_SPEC, so jobs_Renewables always matches how High-RE was defined — no drift between the axis and the outcome"],
    [{t:"The contrast",o:{bold:true}},{t:"renewables − fossil",o:{bold:true}},"A NET POSITION, not a displacement claim. The second measure, (renewables + bioenergy + nuclear) − fossil, is the within-family check and agrees in every cell"],
-   [{t:"Window & units",o:{bold:true}},"2020–2050, per 1,000 people","Four decadal snapshots summed. Units are thousand jobs summed over four decade marks, NOT job-years — fine for a contrast, but say so"],
+   [{t:"Window & units",o:{bold:true}},"2020–2050, job-years per 1,000","Four decadal snapshots x10 and summed — rectangle integration, the same convention mortality uses. The x10 is a pure relabelling: it changes no Cliff's delta and no percentage gap, only the units"],
    [{t:"Known limit",o:{bold:true}},{t:"partly transmission from the ranking axis",o:{color:RED}},"ρ(global RE axis, regional jobs contrast) = 0.40–0.90. Not a tautology — the axis is global, the outcome regional, and jobs-per-capacity varies 31–59% within region — but the CDR axis is anti-correlated at −0.48 to −0.62, so it is not a clean control either"]],
   [1.9,2.6,7.6], {t:"METHOD",c:TEAL},
   "No offshore wind category exists in the database, so all wind is onshore. Employment factors decline over time with learning, so the same GW built in 2050 carries fewer jobs than in 2020 — which is why the advantage is front-loaded.", 10);
@@ -196,14 +196,14 @@ img("Result","High-RE wins 48 of 60 comparisons",
 
 table("Result — global","World, both levels of ambition",
   ["Family","Ambition","High-CMT","High-RE","Difference","Cliff's δ  [95% CI]"],
-  [[{t:"Energy jobs",o:{bold:true}},"1.5°C","6.05","13.44",{t:"+122%",o:{bold:true,color:GOLD}},{t:"+0.96  [0.91, 1.00]",o:{bold:true}}],
-   [{t:"Energy jobs",o:{bold:true}},"2°C","2.43","8.87",{t:"+265%",o:{bold:true,color:GOLD}},{t:"+0.92  [0.86, 0.96]",o:{bold:true}}],
+  [[{t:"Energy jobs",o:{bold:true}},"1.5°C","60.5","134.4",{t:"+122%",o:{bold:true,color:GOLD}},{t:"+0.96  [0.91, 1.00]",o:{bold:true}}],
+   [{t:"Energy jobs",o:{bold:true}},"2°C","24.3","88.7",{t:"+265%",o:{bold:true,color:GOLD}},{t:"+0.92  [0.86, 0.96]",o:{bold:true}}],
    [{t:"Deprivation gap",o:{bold:true}},"1.5°C","13.96","10.01",{t:"−28%",o:{bold:true,color:GOLD}},{t:"+0.38  [0.12, 0.67]",o:{bold:true}}],
    [{t:"Deprivation gap",o:{bold:true}},"2°C","13.83","9.56",{t:"−31%",o:{bold:true,color:GOLD}},{t:"+0.32  [0.04, 0.53]",o:{bold:true}}],
    [{t:"PM2.5 mortality",o:{color:MUTE}},{t:"1.5°C",o:{color:MUTE}},{t:"28.20",o:{color:MUTE}},{t:"26.52",o:{color:MUTE}},{t:"−5.9%",o:{color:MUTE}},{t:"+0.47  [0.13, 0.82]",o:{color:MUTE}}],
    [{t:"PM2.5 mortality",o:{color:MUTE}},{t:"2°C",o:{color:MUTE}},{t:"30.76",o:{color:MUTE}},{t:"27.74",o:{color:MUTE}},{t:"−9.8%",o:{color:MUTE}},{t:"+0.33  [−0.05, 0.76]  n.s.",o:{color:MUTE}}]],
   [2.6,1.2,1.6,1.6,1.7,3.4], {t:"RESULT",c:GOLD},
-  "Jobs in thousand jobs per 1,000 people, summed over four decadal snapshots; deprivation in GJ per capita; mortality in deaths per 1,000. All cumulative 2020–2050. Mortality is greyed because the two arms are not yet on the same precursor accounting — see Part four. Under a naive Wilcoxon every one of these six cells is significant, which is precisely why the cluster bootstrap is used instead.", 10.5);
+  "Jobs in job-years per 1,000 people (decadal values x10, rectangle integration, matching the mortality convention); deprivation in GJ per capita; mortality in deaths per 1,000. All cumulative 2020–2050. Mortality is greyed because the two arms are not yet on the same precursor accounting — see Part four. Under a naive Wilcoxon every one of these six cells is significant, which is precisely why the cluster bootstrap is used instead.", 10.5);
 
 img("Result — global","Nine of ten World cells clear the interval",
   "Y2_world_forest.png",

@@ -54,6 +54,7 @@ transitions. Don't reintroduce that check.
 | file | produces |
 |---|---|
 | `U1_final_results.R` | `FINAL_RESULTS.rds` — every cell, three outcome families, cluster-robust intervals, across four samples (full/vetted × all/matched) |
+| `re_spec_sensitivity.R` | The SI definition-sensitivity table the master asks for. Needs master re-runs at `RE_SPEC = low_carbon` and `with_biomass` — it cannot be approximated downstream, since `ds_A.rds` carries only the aggregated Renewable Capacity. Instructions in the file header. |
 | `Z4_final_table.R` | the final grid: nine regions plus World, 48/60 |
 | `Y1_final_figs.R` | `Y1`–`Y7` figures on the nine-region basis, incl. label coherence and the NH3 gap |
 | `V1_figs.R` | superseded by `Y1_final_figs.R`; kept for the 11-region versions |
@@ -229,5 +230,8 @@ what drives the result.
   axis on land + fossil CCS alone moves 9% of scenarios, flips zero arms, and
   moves the headline 79% -> 77%. Keep the published axis; report the two-component
   version as a sensitivity.
+- **Jobs are job-years.** Decadal values x10 (rectangle integration), matching the
+  mortality convention. The x10 is a pure relabelling: no Cliff's delta and no
+  percentage gap changes, only the units.
 - **Variance guard**: `share_within = mean(within-family variance) / total variance`. Below 0.10
   the cell is comparing model inventories, not pathways.

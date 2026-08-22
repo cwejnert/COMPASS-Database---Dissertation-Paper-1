@@ -284,6 +284,20 @@ img("Result — robustness","No single design choice carries the result","Y3_rob
   "Share of cells favouring High-RE under each alternative specification. Only SCI vetting moves the number meaningfully, and that is a power effect concentrated in deprivation: vetting cuts the sample from 590 to 137, so cells lose significance rather than changing direction.",
   {t:"ROBUST",c:GOLD},0.42);
 
+table("Result — window sensitivity","Would running to 2100 strengthen the story? No.",
+  ["","2020–2050 (primary)","2020–2100","What it means"],
+  [[{t:"Cells favouring High-RE",o:{bold:true}},{t:"44 of 60",o:{bold:true}},{t:"39 of 60",o:{bold:true,color:RED}},"The longer window is worse overall"],
+   ["Significantly against High-RE","9",{t:"13",o:{color:RED}},"Driven almost entirely by health"],
+   [{t:"Jobs — cells",o:{bold:true}},"20/20","20/20","Unchanged, and gains one significant cell"],
+   ["Jobs — median δ","0.877","0.853","Effect size edges down"],
+   [{t:"Jobs — model families agreeing",o:{bold:true}},{t:"83%",o:{bold:true,color:GREEN}},{t:"62%",o:{bold:true,color:RED}},"The result becomes LESS model-robust — this is the number that matters"],
+   ["Deprivation — cells","16/20","17/20","Marginally better"],
+   [{t:"Deprivation — families agreeing",o:{bold:true}},"42%","42%","Unchanged. The longer window does nothing for the problem that actually limits it"],
+   ["Health — cells","8/20",{t:"2/20",o:{color:RED}},"World flips from +0.06 to −0.28; Europe from +0.22 to −0.47"],
+   ["Job-years composition, build share","87%","75%","O&M rises 16% → 25%, exactly as a construction-dividend mechanism predicts"]],
+  [3.5,2.4,2.0,4.2],{t:"WINDOW",c:GOLD},
+  "2020–2050 is the primary window because the two strategies diverge there and because post-2050 employment factors and decent-living thresholds are extrapolated far past anything observable. That reason was fixed before these numbers were computed, and it is the reason to keep — choosing a window because it scores higher is specification search and a reviewer will find it.",10);
+
 img("Result — the decisive test","Does it survive inside a single model?","Y10_within_model.png",
   "Jobs holds. Deprivation does not. Health cannot be asked.",
   "Every pooled cell is partly a model contrast, because the arms are 85% REMIND against 1% REMIND. This asks the question inside each model family that holds both arms with at least three scenarios each. Shaded quadrants are reversals. Jobs: 83% of families agree with the pooled direction. Deprivation: 42% — barely better than a coin flip.",
@@ -376,7 +390,7 @@ section("Part six","The why","Mechanically and in the real world — World first
 
 bullets("Why — World","The mechanism is an engineering fact, not a modelling artefact",
   ["LABOUR INTENSITY PER UNIT OF ENERGY IS HIGHER FOR BUILDING THAN FOR FUELLING. A gas turbine needs a fuel supply chain and a handful of operators. An equivalent wind or solar build needs factories, foundations, cabling and installation crews, and the work is concentrated in the years it is being built. That is why manufacturing plus construction is 93% of the World gap.",
-   "THE DIVIDEND IS FRONT-LOADED, AND THAT IS A REAL LIMITATION. O&M — the part that persists after the build-out — is only 14% of the gap. A pathway that builds fast produces a labour surge, not a permanent workforce. The 2020–2050 window captures the surge; the SI extension to 2100 shows it decaying, exactly as the mechanism predicts.",
+   "THE DIVIDEND IS FRONT-LOADED, AND THAT IS A REAL LIMITATION. O&M — the part that persists after the build-out — is only 16% of the gap to 2050. A pathway that builds fast produces a labour surge, not a permanent workforce. Extending to 2100 shifts the composition exactly as the mechanism predicts: the build share falls from 87% to 75% and O&M rises from 16% to 25%, while the effect size edges down from δ 0.88 to 0.85.",
    "FOSSIL CCS EXTENDS THE FUEL SUPPLY CHAIN, WHICH IS WHY EXTRACTION IS THE ONE CATEGORY HIGH-CMT LEADS. Capture keeps the mine and the well running. It is real employment and the measure counts it — the renewable advantage survives it, but the extraction term is the one place the comparison genuinely favours carbon management.",
    "THE REAL-WORLD EVIDENCE POINTS THE SAME WAY. Observed employment per GW installed in solar PV and onshore wind exceeds that of new thermal capacity in essentially every published national accounting, and the gap is widest in the build phase. The models are reproducing something already visible in labour statistics, not inventing it."],
   {t:"WORLD",c:GOLD});

@@ -425,10 +425,24 @@ img("The correction","What harmonising does to the result","Y8_nh3_correction.pn
 bullets("The correction — what to conclude",
   "The co-benefit does not survive, and the correction is the conservative one",
   ["AT WORLD, THE ENTIRE EFFECT WAS AMMONIA. The gap goes from 1.68 deaths per 1,000 avoided by High-RE to −0.08 at 1.5°C, and from 3.02 to +0.74 at 2°C. Both harmonised intervals are wider than the gap itself. Air-quality mortality does not distinguish the two pathways in the 2020–2050 window.",
-   "DELETION IS THE CORRECTION MOST FAVOURABLE TO HIGH-RE. The scientifically better fix is to IMPUTE REMIND's missing agricultural ammonia rather than delete everyone's, and that would push High-RE's mortality UP — further against it, not back toward the original result. So the harmonised near-zero is an UPPER BOUND on the High-RE advantage. Both available corrections point the same way.",
+   "THE PUBLISHED NUMBER IS THE MIDDLE OF THE RANGE, NOT THE PESSIMISTIC END. \"Putting ammonia back\" means two opposite things, and only one of them is a correction — see the next slide. Restoring the data as reported hands High-RE a 1.67 deaths-per-1,000 advantage at World; imputing the ammonia REMIND never filed hands it a 1.25 DISADVANTAGE. The harmonised figure sits between them at −0.08.",
    "NORTH AMERICA'S REMAINING GAP IS NOT A FINDING. 2.71 deaths per 1,000 on 47 versus 17 scenarios with NO model family holding both arms. Inside MESSAGEix the sign reverses. Reforming Economies (9.41) is in the same territory. Both are reported as unresolvable rather than as evidence that carbon management is healthier.",
    "THIS IS A CONTRIBUTION, NOT A LOSS. Anyone using AR6 for air-quality work will hit this, and nobody has written it down. The paper reports the naive estimate, the diagnosis and the correction — which is a stronger and more useful result than the co-benefit would have been."],
   {t:"CONCLUSION",c:RED});
+
+table("The correction","\u201CPut the ammonia back\u201D means two opposite things",
+  ["","What is done","High-CMT","High-RE","World gap 1.5\u00b0C","Cells for High-RE"],
+  [[{t:"A · Revert",o:{bold:true,color:RED}},"Leave each model's ammonia as reported","28.20","26.52",
+    {t:"+1.67",o:{bold:true,color:RED}},{t:"12 of 20",o:{color:RED}}],
+   [{t:"",o:{}},{t:"NOT a correction. High-CMT keeps ~8% of its mortality from ammonia; High-RE keeps 0.4%, because REMIND never filed any. The gap IS the reporting difference.",o:{color:MUTE,fontSize:9.5}},"","","",""],
+   [{t:"B · Harmonise",o:{bold:true,color:GREEN}},"Remove ammonia from every model","26.21","26.29",
+    {t:"\u22120.08",o:{bold:true,color:GREEN}},{t:"8 of 20",o:{color:GREEN}}],
+   [{t:"",o:{}},{t:"PUBLISHED. Both arms now on the same basis. Costs the four families that do report ammonia their real signal, but needs no external data and cannot be accused of assuming an answer.",o:{color:MUTE,fontSize:9.5}},"","","",""],
+   [{t:"C · Impute",o:{bold:true,color:CMT}},"Give REMIND the ammonia it is missing","28.00","29.25",
+    {t:"\u22121.25",o:{bold:true,color:CMT}},{t:"4 of 20",o:{color:CMT}}],
+   [{t:"",o:{}},{t:"The scientifically correct fix, and the one that penalises High-RE MOST. Needs an external agricultural ammonia source; rests here on n=1 for the High-RE fraction, so it is a bound rather than a result.",o:{color:MUTE,fontSize:9.5}},"","","",""]],
+  [1.75,4.55,1.25,1.25,1.6,1.7],{t:"THE RANGE",c:GOLD},
+  "Deaths per 1,000, cumulative 2020\u20132050. The gap is deaths AVOIDED by High-RE, so positive favours it. The decisive input: in MESSAGEix, the only family holding both arms while reporting ammonia, the eight High-CMT runs sit at 5.2\u20136.6% ammonia and the single High-RE run at 10.1% \u2014 HIGHER. If BECCS-heavy carbon management genuinely carried more fertiliser ammonia we would see the reverse, so the gap is a filing difference, not a pathway property.",10);
 
 // ============================== 5. MECHANISM =================================
 section("Part five","Mechanism","Why the jobs result looks the way it does.");
@@ -646,7 +660,7 @@ bullets("Limitations","Stated plainly, because they are load-bearing",
   {t:"LIMITS",c:RED});
 
 bullets("What is open","Next steps, in priority order",
-  ["IMPUTE AMMONIA FOR REMIND rather than deleting it for everyone. Deletion discards real signal from the four families that do report NH₃. Imputation needs an external agricultural ammonia source and would sharpen the mortality result in both directions — it is a next-paper problem, but it is the scientifically correct fix.",
+  ["IMPUTE AMMONIA FOR REMIND rather than deleting it for everyone. Deletion discards real signal from the four families that do report NH₃. On the one within-model fraction available, imputation moves the World gap to −1.25 deaths per 1,000, i.e. FURTHER against High-RE. It needs an external agricultural ammonia source and is a next-paper problem, but it is the scientifically correct fix and it would not rescue the co-benefit.",
    "RE_SPEC DEFINITION SENSITIVITY. The renewables axis currently excludes nuclear and biomass, for a principled reason — biomass is the substrate of BECCS, so a BECCS-heavy scenario would score on both axes. The master supports low_carbon and with_biomass alternatives; running all three would answer the reviewer question directly. Requires two re-runs on the machine holding the interpolated database.",
    "REGIONAL EMISSIONS PROVENANCE. Scenarios reporting emissions only at World have their regional detail filled in by population weight, which carries no pathway information. A test is written; if those scenarios concentrate in one arm the regional mortality cells need re-cutting on genuine regional data.",
    "BERGERO / STATE OF CDR SCENARIOS, parked deliberately. Adding a CDR-focused ensemble moves the tercile thresholds and reclassifies scenarios unrelated to it, so it changes the comparison rather than extending it."],

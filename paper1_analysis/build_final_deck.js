@@ -119,7 +119,7 @@ function region(name, verdict, vcolor, stats, mech, real, note){
 bullets("The answer in one slide","Three outcomes, three different verdicts",
   ["ENERGY JOBS — a real result, and the paper's finding. High-RE is better in 20 of 20 cells, 19 clearing the interval, none against. At World, net energy employment goes from 6.05 to 13.44 job-years per 1,000 people at 1.5°C (+122%) and 2.43 to 8.87 at 2°C (+265%). It survives the hardest test available: inside a single modelling framework, 83% of model families and 20 of 22 cells still point to High-RE.",
    "ENERGY DEPRIVATION — large, consistent, and NOT separable from model composition. High-RE closes the decent-living gap from 13.96 to 10.01 GJ per capita at 1.5°C (−28%) and 13.83 to 9.56 at 2°C (−31%), in 16 of 20 cells. But only 42% of model families agree with the pooled direction, and at 2°C the within-model answer reverses in five regions. Reported with that limitation stated, not as a headline.",
-   "AIR-QUALITY MORTALITY — no difference. 26.21 against 26.29 deaths per 1,000 at 1.5°C, a gap of −0.08 with an interval of [−0.90, +1.19]. Before ammonia was put on a common basis across models the same comparison read 1.68 deaths avoided. The apparent PM2.5 co-benefit was a difference in how modelling teams file agricultural emissions.",
+   "AIR-QUALITY MORTALITY — reported both ways, and neither supports a co-benefit. As reported, High-RE avoids 1.67 deaths per 1,000 at World — but the interval is [−0.12, +3.08] and does not clear zero. Harmonised for ammonia it is −0.08 [−0.90, +1.19]. What the mortality data DOES say is that India+ carries 44 deaths per 1,000 against Europe's 12 and North America's 10 — a 4.7-fold burden gap that no pathway choice closes.",
    "Descriptively High-RE is better in 44 of 60 comparisons, 32 significantly. But the count is the weakest way to read this: what matters is that one family is robust to model composition and the other two are not."],
   {t:"SUMMARY",c:GOLD},
   "Everything cumulated 2020–2050, the net-zero window. Every cell is reported as the two arm medians in their own units; significance is a 2,000-replicate cluster bootstrap on the raw difference between them, resampling whole model × scenario-family clusters.");
@@ -424,11 +424,42 @@ img("The correction","What harmonising does to the result","Y8_nh3_correction.pn
 
 bullets("The correction — what to conclude",
   "The co-benefit does not survive, and the correction is the conservative one",
-  ["AT WORLD, THE ENTIRE EFFECT WAS AMMONIA. The gap goes from 1.68 deaths per 1,000 avoided by High-RE to −0.08 at 1.5°C, and from 3.02 to +0.74 at 2°C. Both harmonised intervals are wider than the gap itself. Air-quality mortality does not distinguish the two pathways in the 2020–2050 window.",
+  ["THE AS-REPORTED RESULT WAS NEVER SIGNIFICANT EITHER. On the raw basis the World advantage is +1.67 [−0.12, +3.08] at 1.5°C and +3.02 [−0.55, +4.45] at 2°C — both straddle zero. Harmonising takes them to −0.08 and +0.74. So the two versions disagree about the point estimate and agree about the conclusion: air-quality mortality does not distinguish the pathways at World.",
    "THE PUBLISHED NUMBER IS THE MIDDLE OF THE RANGE, NOT THE PESSIMISTIC END. \"Putting ammonia back\" means two opposite things, and only one of them is a correction — see the next slide. Restoring the data as reported hands High-RE a 1.67 deaths-per-1,000 advantage at World; imputing the ammonia REMIND never filed hands it a 1.25 DISADVANTAGE. The harmonised figure sits between them at −0.08.",
    "NORTH AMERICA'S REMAINING GAP IS NOT A FINDING. 2.71 deaths per 1,000 on 47 versus 17 scenarios with NO model family holding both arms. Inside MESSAGEix the sign reverses. Reforming Economies (9.41) is in the same territory. Both are reported as unresolvable rather than as evidence that carbon management is healthier.",
    "THIS IS A CONTRIBUTION, NOT A LOSS. Anyone using AR6 for air-quality work will hit this, and nobody has written it down. The paper reports the naive estimate, the diagnosis and the correction — which is a stronger and more useful result than the co-benefit would have been."],
   {t:"CONCLUSION",c:RED});
+
+table("Result — mortality","Reported both ways, so the reader meets the caveat in the table",
+  ["Region","As reported","","Ammonia harmonised","","Does it survive?"],
+  [[{t:"",o:{}},{t:"1.5\u00b0C",o:{bold:true,color:MUTE}},{t:"2\u00b0C",o:{bold:true,color:MUTE}},
+    {t:"1.5\u00b0C",o:{bold:true,color:MUTE}},{t:"2\u00b0C",o:{bold:true,color:MUTE}},{t:"",o:{}}],
+   [{t:"WORLD",o:{bold:true}},{t:"+1.67",o:{bold:true}},{t:"+3.02",o:{bold:true}},
+    {t:"\u22120.08",o:{bold:true,color:MUTE}},{t:"+0.74",o:{bold:true,color:MUTE}},
+    {t:"no \u2014 and it was never significant",o:{color:RED}}],
+   ["Africa","\u22120.34","\u22120.04","\u22120.34","\u22120.13","unchanged"],
+   ["China+","+3.03",{t:"+4.99 \u25cf",o:{color:GREEN}},{t:"\u22122.78 \u25cf",o:{color:RED}},
+    {t:"\u22121.42 \u25cf",o:{color:RED}},{t:"no \u2014 reverses at both levels",o:{color:RED}}],
+   ["Europe",{t:"+5.14 \u25cf",o:{color:GREEN}},{t:"+6.70 \u25cf",o:{color:GREEN}},"+0.27","+0.37",
+    {t:"no \u2014 95% of it was ammonia",o:{color:RED}}],
+   ["India+",{t:"+3.42 \u25cf",o:{color:GREEN}},"+3.75",{t:"+2.63 \u25cf",o:{color:GREEN}},"+2.74",
+    {t:"YES",o:{color:GREEN,bold:true}}],
+   ["Latin America","\u22120.62","+0.50","\u22120.85","+0.13","unchanged"],
+   ["Middle East","+4.66","\u22122.11","+3.48","\u22124.54","unchanged, neither significant"],
+   ["North America","\u22121.31","\u22120.60",{t:"\u22122.71 \u25cf",o:{color:RED}},
+    {t:"\u22122.31 \u25cf",o:{color:RED}},"strengthens against High-RE"],
+   ["Reforming econ.",{t:"\u22124.80 \u25cf",o:{color:RED}},"\u22124.83",
+    {t:"\u22129.41 \u25cf",o:{color:RED}},{t:"\u22129.89 \u25cf",o:{color:RED}},"strengthens against High-RE"],
+   ["Rest of Asia","+0.22","+1.54","\u22120.24","+1.05","unchanged"],
+   [{t:"Cells favouring High-RE",o:{bold:true}},{t:"12 of 20",o:{bold:true}},{t:"",o:{}},
+    {t:"8 of 20",o:{bold:true}},{t:"",o:{}},{t:"4 change sign, 2 lose significance",o:{bold:true}}]],
+  [2.3,1.5,1.5,1.75,1.75,3.3],{t:"BOTH WAYS",c:GOLD},
+  "Deaths per 1,000 avoided by High-RE; positive favours it. \u25cf clears a cluster-robust 95% interval on the raw difference. THE KEY LINE: on the raw basis the as-reported World advantage is +1.67 [\u22120.12, +3.08] and +3.02 [\u22120.55, +4.45] \u2014 neither clears zero. Even taken at face value, the World co-benefit was never a significant result once the interval is placed on the gap rather than on rank overlap.",10);
+
+img("Result — mortality","What the mortality data does say clearly","Y12_burden.png",
+  "A 4.7-fold gap in air-pollution burden between regions, which no pathway choice closes.",
+  "The two arm medians sit on top of each other in every region; the regions do not. India+ carries 44.1 deaths per 1,000 against Latin America 9.3, North America 10.1 and Europe 11.7. The ordering is identical when ammonia is harmonised (India+ 43.6 against Europe 8.7, a 5.0-fold gap), so this finding is independent of the reporting question entirely.",
+  {t:"BURDEN",c:GOLD},0.42);
 
 table("The correction","\u201CPut the ammonia back\u201D means two opposite things",
   ["","What is done","High-CMT","High-RE","World gap 1.5\u00b0C","Cells for High-RE"],

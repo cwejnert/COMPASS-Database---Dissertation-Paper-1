@@ -25,6 +25,21 @@ prefix <- tempfile(fileext = ".R")
 writeLines(src[seq_len(cut - 1)], prefix)
 source(prefix, local = FALSE)
 
+# THE FILTER THAT ACTUALLY GATES EVERYTHING. em_clean is filtered on
+# `region %in% c(COMPASS_R10_REGIONS, "World")`, and the R10 aggregation is
+# filtered on `r10_region %in% COMPASS_R10_REGIONS`. If this vector is short,
+# both the input and the output shrink -- and the World-only disaggregation
+# spreads each World total over FEWER regions, inflating every one of them.
+cat("\n--- COMPASS_R10_REGIONS (the gate on everything) ---\n")
+cat("length:", length(COMPASS_R10_REGIONS), "\n")
+print(COMPASS_R10_REGIONS)
+if (length(COMPASS_R10_REGIONS) != 10) {
+  cat("\n[FAIL] this must contain all TEN R10 regions.\n")
+  cat("Missing:", paste(setdiff(unique(fasst_to_r10$r10_region),
+                                COMPASS_R10_REGIONS), collapse = ", "), "\n")
+  cat("Fix the definition in the rfasst script before re-running anything.\n")
+} else cat("[ok] all ten present\n")
+
 cat("\n--- fasst_to_r10 ---\n")
 cat("rows:", nrow(fasst_to_r10),
     "| distinct fasst_region:", n_distinct(fasst_to_r10$fasst_region),

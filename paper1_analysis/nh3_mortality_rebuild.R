@@ -21,8 +21,12 @@
 #    cannot be trusted either.
 #
 # USAGE (from the scratchpad holding the analysis .rds files):
-#   Rscript nh3_mortality_rebuild.R  [path/to/compass_mortality_r10_noNH3.csv]
+#   Rscript nh3_mortality_rebuild.R  [no_nh3.csv]  [nh3_scenario_region_source.csv]
 #   With no argument it runs the self-check on the original file only.
+#   The optional second argument is the flag file from nh3_synthetic_regions.R.
+#   Supplying it adds a third pass restricted to scenarios whose REGIONAL
+#   emissions are real rather than manufactured from a World total by population
+#   weight -- the only remaining known threat to the regional mortality cells.
 # =============================================================================
 source("stratified.R.fns")
 options(width = 178)
@@ -30,7 +34,8 @@ line <- function(s) cat("\n", strrep("=",78), "\n", s, "\n", strrep("=",78), "\n
 set.seed(20260821)
 
 args   <- commandArgs(trailingOnly = TRUE)
-NO_NH3 <- if (length(args)) args[1] else NA_character_
+NO_NH3 <- if (length(args) >= 1) args[1] else NA_character_
+SRCFLG <- if (length(args) >= 2) args[2] else NA_character_
 B      <- 2000
 ALLR   <- c("Aggregated R10 regions", R10_TEN)
 DROP   <- "R10PAC_OECD"
@@ -170,3 +175,52 @@ cat("  ammonia harmonised       : ", sum(sh$adv_no > 0), " favour High-RE, ",
 cat("  sign changes:", sum(sh$flip), "| median shift:", round(median(sh$shift),3), "\n")
 saveRDS(cmp, "NH3_MORT_REBUILD.rds")
 cat("\nwritten: NH3_MORT_REBUILD.rds\n")
+
+# =============================================================================
+# THIRD PASS — real regional emissions only
+#
+# Scenarios that report emissions only at World have their R10 detail filled in
+# by population weight inside the rfasst script. Their regional PM2.5 therefore
+# carries no pathway information: every region gets the same per-capita
+# intensity by construction. That is harmless if the two arms hold equal shares
+# of such scenarios and biasing if they do not. This pass drops them and asks
+# whether the harmonised regional result survives on genuine regional data.
+#
+# The WORLD row is unaffected either way -- a World total is a World total,
+# however it was later split -- so it is reported from the full sample.
+# =============================================================================
+if (!is.na(SRCFLG)) {
+  line("REAL-REGION SUBSET — dropping World-derived regional emissions")
+  if (!file.exists(SRCFLG)) stop("Not found: ", SRCFLG)
+  FL <- read.csv(SRCFLG, stringsAsFactors = FALSE)
+  cat("flag file rows:", nrow(FL), "\n")
+  print(as.data.frame(table(FL$Pathway, FL$source)))
+
+  keep <- FL %>% filter(source == "real regions") %>%
+    distinct(Model = model, Scenario = scenario)
+  cat("\nscenarios with real regional emissions:", nrow(keep), "of", nrow(FL), "\n")
+
+  D  <- build(NA_, "no NH3") %>% semi_join(keep, by = c("Model","Scenario"))
+  RR <- sweep(D, "no NH3, real regions")
+
+  cmp2 <- cmp %>% select(Region, amb, adv_no, sig_no, shown) %>%
+    inner_join(RR %>% select(Region, amb, adv_rr = adv, sig_rr = sig,
+                             n_cmt_rr = n_cmt, n_re_rr = n_re),
+               by = c("Region","amb")) %>%
+    mutate(flip = !is.na(adv_no) & !is.na(adv_rr) & sign(adv_no) != sign(adv_rr))
+  print(cmp2 %>% mutate(reg = ifelse(Region=="Aggregated R10 regions","WORLD",
+                                     sub("^R10","",Region)),
+                        across(where(is.numeric), ~round(.,3))) %>%
+        select(reg, amb, n_cmt_rr, n_re_rr, adv_no, sig_no, adv_rr, sig_rr, flip) %>%
+        as.data.frame())
+
+  s2 <- cmp2 %>% filter(shown, !is.na(adv_rr))
+  cat("\ncells retaining >= 5 per arm after the restriction:", nrow(s2), "of 20\n")
+  cat("  favouring High-RE:", sum(s2$adv_rr > 0), "|",
+      sum(s2$adv_rr > 0 & s2$sig_rr), "significantly\n")
+  cat("  sign changes against the full harmonised sample:", sum(s2$flip), "\n")
+  saveRDS(cmp2, "NH3_MORT_REALREGION.rds")
+  cat("written: NH3_MORT_REALREGION.rds\n")
+  cat("\nIf cells are lost to sample size rather than flipped, the restriction\n")
+  cat("costs power, not direction -- report the full sample and this as a check.\n")
+}

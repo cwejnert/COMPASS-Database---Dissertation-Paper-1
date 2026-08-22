@@ -49,7 +49,25 @@ source(prefix, local = FALSE)
 for (need in c("em_clean","build_em_list","run_rfasst_for_scenario",
                "COMPASS_R10_REGIONS","FASST_YEARS","fasst_to_r10"))
   if (!exists(need)) stop("missing after sourcing the prefix: ", need)
-cat("scenarios available:", n_distinct(paste(em_clean$model, em_clean$scenario)), "\n")
+cat("script:", normalizePath(RFASST), "\n")
+cat("lines:", length(src), "| scenarios available:",
+    n_distinct(paste(em_clean$model, em_clean$scenario)), "\n")
+
+# THE INVARIANT THAT MATTERS. Two copies of this script exist in different
+# folders -- a 1,363-line version that produced the main mortality file (10 R10
+# regions, 1,337 scenarios) and a 1,237-line version in the COMPASS data
+# directory that yields half the em_clean rows and only five regions downstream.
+# Line counts are a symptom; region coverage in em_clean is the thing to assert.
+have <- intersect(COMPASS_R10_REGIONS, unique(em_clean$region))
+cat("R10 regions present in em_clean:", length(have), "of 10\n")
+if (length(have) < 10)
+  stop("em_clean covers only ", length(have), " R10 regions (missing: ",
+       paste(setdiff(COMPASS_R10_REGIONS, have), collapse = ", "), ").\n",
+       "  You are almost certainly running from the wrong folder. Use the copy ",
+       "of the rfasst script that produced compass_mortality_r10.csv -- the one ",
+       "with ~1,363 lines and ~714,400 em_clean rows, NOT the copy in the ",
+       "COMPASS data directory.")
+cat("em_clean rows:", nrow(em_clean), "(the correct script gives ~714,400)\n")
 
 # ------------------------------- 2. which scenarios do we actually need? -----
 line("2. RESTRICTING TO THE CLASSIFIED SCENARIOS")

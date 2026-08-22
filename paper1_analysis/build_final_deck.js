@@ -284,6 +284,20 @@ img("Result — robustness","No single design choice carries the result","Y3_rob
   "Share of cells favouring High-RE under each alternative specification. Only SCI vetting moves the number meaningfully, and that is a power effect concentrated in deprivation: vetting cuts the sample from 590 to 137, so cells lose significance rather than changing direction.",
   {t:"ROBUST",c:GOLD},0.42);
 
+table("Result — classification basis","Global tercile or per-region tercile? It barely matters.",
+  ["","Global tercile (published)","Per-region tercile","What it means"],
+  [[{t:"Labels that differ",o:{bold:true}},"—",{t:"3.6%",o:{bold:true}},"Of 3,248 labelled region-rows, 116 flip. A scenario leaning renewable globally leans renewable locally too"],
+   ["Where the labels DO differ","—","Pacific OECD 74% same · Reforming econ. 91%","Exactly the two regions already flagged for weak label coherence — an internal consistency check that passes"],
+   [{t:"Cells favouring High-RE",o:{bold:true}},{t:"38 of 54",o:{bold:true}},{t:"37 of 54",o:{bold:true}},"Nine regions, no World row (World IS the global aggregate, so no per-region label exists there)"],
+   ["Significantly for / against","30 / 9","29 / 9","Indistinguishable"],
+   ["Jobs","18/18, δ 0.87","18/18, δ 0.96","Slightly stronger; no cell changes sign"],
+   ["Deprivation","14/18","12/18","Slightly weaker; two cells change sign"],
+   ["Health","6/18","7/18",{t:"four cells change sign — Africa −0.29 → +0.48",o:{color:RED}}],
+   [{t:"REMIND share of High-RE arm",o:{bold:true}},{t:"85%",o:{bold:true,color:RED}},{t:"84%",o:{bold:true,color:RED}},"THE POINT: per-region labelling does not touch the model-composition problem at all"],
+   ["Scenarios labelled","590 (all regions)",{t:"~55% per region",o:{color:RED}},"The per-region rule discards roughly half the sample in each region, so the within-model test has far less to work with"]],
+  [3.2,2.5,2.6,3.8],{t:"LABEL BASIS",c:GOLD},
+  "The classification basis is not load-bearing: seven of 54 cells change sign, five of them health, and none of them jobs. The global tercile is retained because it answers the question the paper asks — do pathway ARCHETYPES differ — and because it is the only basis on which the World row is defined.",10);
+
 table("Result — window sensitivity","Would running to 2100 strengthen the story? No.",
   ["","2020–2050 (primary)","2020–2100","What it means"],
   [[{t:"Cells favouring High-RE",o:{bold:true}},{t:"44 of 60",o:{bold:true}},{t:"39 of 60",o:{bold:true,color:RED}},"The longer window is worse overall"],

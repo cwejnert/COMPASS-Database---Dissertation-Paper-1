@@ -8,9 +8,11 @@
 // regional rows (the global label does not describe it) and stays inside the
 // World aggregate.
 //
-// Numbers come from FINAL_RESULTS_NH3.rds (mortality harmonised for ammonia)
-// and W2_WITHIN.rds (the within-model test). Figures Y1-Y10 are built off the
-// same files, so deck and figures agree.
+// Results are reported as RAW LEVELS with a cluster-bootstrap 95% interval on
+// the raw DIFFERENCE IN MEDIANS (RAW_RESULTS.rds, built by W6_raw_effects.R).
+// Cliff's delta is retained only where the question is genuinely about rank
+// overlap -- the within-model test. Mortality is ammonia-harmonised throughout.
+// Figures Y1-Y10 are built off the same files, so deck and figures agree.
 // =============================================================================
 const P = require("pptxgenjs");
 const p = new P();
@@ -79,20 +81,24 @@ function bullets(kick,title,items,tag,note){
 // A region slide: profile strip on the left, mechanism and real-world on the right.
 function region(name, verdict, vcolor, stats, mech, real, note){
   const s=slide(); head(s,"Region · why", name, {t:verdict,c:vcolor});
-  s.addShape(p.ShapeType.rect,{x:0.62,y:1.62,w:3.55,h:4.62,fill:{color:PANEL}});
-  let y=1.80;
+  // Stacked label-over-value: the raw cells carry strings like
+  // "6.96 -> 19.21 · 3.88 -> 13.63", which will not fit a right-aligned column.
+  s.addShape(p.ShapeType.rect,{x:0.62,y:1.62,w:3.62,h:4.62,fill:{color:PANEL}});
+  const rowH = Math.min(0.50, 4.42/Math.max(stats.length,1));
+  let y=1.74;
   stats.forEach(r=>{
-    s.addText(r[0],{x:0.80,y:y,w:2.0,h:0.26,fontSize:9.5,color:MUTE,fontFace:F});
-    s.addText(r[1],{x:2.75,y:y,w:1.30,h:0.26,fontSize:9.5,bold:true,color:r[2]||INK,
-      fontFace:F,align:"right"});
-    y+=0.315;
+    s.addText(r[0].toUpperCase(),{x:0.82,y:y,w:3.24,h:0.19,fontSize:7.4,color:MUTE,
+      fontFace:F,charSpacing:0.7});
+    s.addText(r[1],{x:0.82,y:y+0.175,w:3.24,h:0.24,fontSize:10.5,bold:true,
+      color:r[2]||INK,fontFace:F,shrinkText:true});
+    y+=rowH;
   });
-  s.addText("MECHANISM",{x:4.42,y:1.66,w:4,h:0.24,fontSize:9.5,bold:true,color:TEAL,
+  s.addText("MECHANISM",{x:4.50,y:1.66,w:4,h:0.24,fontSize:9.5,bold:true,color:TEAL,
     fontFace:F,charSpacing:1.4});
-  s.addText(mech,{x:4.42,y:1.94,w:8.3,h:1.95,fontSize:11.5,color:INK,fontFace:F,lineSpacing:17});
-  s.addText("IN THE REAL WORLD",{x:4.42,y:4.02,w:4,h:0.24,fontSize:9.5,bold:true,color:GOLD,
+  s.addText(mech,{x:4.50,y:1.94,w:8.22,h:1.95,fontSize:11.5,color:INK,fontFace:F,lineSpacing:17,valign:"top"});
+  s.addText("IN THE REAL WORLD",{x:4.50,y:4.02,w:4,h:0.24,fontSize:9.5,bold:true,color:GOLD,
     fontFace:F,charSpacing:1.4});
-  s.addText(real,{x:4.42,y:4.30,w:8.3,h:1.95,fontSize:11.5,color:INK,fontFace:F,lineSpacing:17});
+  s.addText(real,{x:4.50,y:4.30,w:8.22,h:1.95,fontSize:11.5,color:INK,fontFace:F,lineSpacing:17,valign:"top"});
   if(note) s.addText(note,{x:0.62,y:6.42,w:12.1,h:0.66,fontSize:9.5,color:MUTE,fontFace:F,lineSpacing:13});
   return s;
 }
@@ -111,19 +117,19 @@ function region(name, verdict, vcolor, stats, mech, real, note){
 }
 
 bullets("The answer in one slide","Three outcomes, three different verdicts",
-  ["ENERGY JOBS — a real result, and the paper's finding. High-RE wins 20 of 20 cells, 19 significant, none against. Median +194% at World. It survives the hardest test available: inside a single modelling framework, 83% of model families and 20 of 22 cells still point to High-RE.",
-   "ENERGY DEPRIVATION — large, consistent, and NOT separable from model composition. Pooled, High-RE closes the gap in 16 of 20 cells (median −30% at World). But only 42% of model families agree with the pooled direction, and at 2°C the within-model answer reverses in five regions. Reported with that limitation stated, not as a headline.",
-   "AIR-QUALITY MORTALITY — no difference. Once ammonia is put on a common accounting basis across models, the World advantage falls from +0.47 to +0.06 and from +0.33 to +0.03. The apparent PM2.5 co-benefit of renewables-led mitigation was a difference in how modelling teams file agricultural emissions.",
-   "Descriptively High-RE leads 44 of 60 comparisons, 34 significantly. But the count is the weakest way to read this: what matters is that one family is robust to model composition and the other two are not."],
+  ["ENERGY JOBS — a real result, and the paper's finding. High-RE is better in 20 of 20 cells, 19 clearing the interval, none against. At World, net energy employment goes from 6.05 to 13.44 job-years per 1,000 people at 1.5°C (+122%) and 2.43 to 8.87 at 2°C (+265%). It survives the hardest test available: inside a single modelling framework, 83% of model families and 20 of 22 cells still point to High-RE.",
+   "ENERGY DEPRIVATION — large, consistent, and NOT separable from model composition. High-RE closes the decent-living gap from 13.96 to 10.01 GJ per capita at 1.5°C (−28%) and 13.83 to 9.56 at 2°C (−31%), in 16 of 20 cells. But only 42% of model families agree with the pooled direction, and at 2°C the within-model answer reverses in five regions. Reported with that limitation stated, not as a headline.",
+   "AIR-QUALITY MORTALITY — no difference. 26.21 against 26.29 deaths per 1,000 at 1.5°C, a gap of −0.08 with an interval of [−0.90, +1.19]. Before ammonia was put on a common basis across models the same comparison read 1.68 deaths avoided. The apparent PM2.5 co-benefit was a difference in how modelling teams file agricultural emissions.",
+   "Descriptively High-RE is better in 44 of 60 comparisons, 32 significantly. But the count is the weakest way to read this: what matters is that one family is robust to model composition and the other two are not."],
   {t:"SUMMARY",c:GOLD},
-  "Everything cumulated 2020–2050, the net-zero window. Significance is a cluster bootstrap over 312 model × scenario-family clusters, not a scenario-level p-value.");
+  "Everything cumulated 2020–2050, the net-zero window. Every cell is reported as the two arm medians in their own units; significance is a 2,000-replicate cluster bootstrap on the raw difference between them, resampling whole model × scenario-family clusters.");
 
 bullets("The arc","How the paper gets there",
   ["THE QUESTION. Two ways to hit the same temperature target: manage carbon (capture it, remove it, keep the molecule) or displace it (build renewables). Both are in AR6. Do they deliver the same human outcomes?",
    "THE DESIGN. Classify every AR6 scenario on two global axes — cumulative CDR and renewable capacity — into High-CMT and High-RE. Hold climate ambition fixed. Compare three wellbeing outcomes across nine regions and World.",
    "THE COMPLICATION, and it shapes everything. The two arms are not populated by the same models. REMIND supplies 85% of High-RE and 1% of High-CMT. Every pooled comparison is therefore partly a pathway contrast and partly a model contrast, and the paper's job is to say which is which.",
    "THE TEST. Where a model family holds both arms, ask the question inside that model. Jobs passes. Deprivation does not. Mortality cannot be asked — only two families qualify.",
-   "THE CORRECTION. Mortality had a second, identifiable defect: ammonia is 6–12% of PM2.5 mortality in most models and 0.15% in REMIND. Re-running TM5-FASST with ammonia removed for every model eliminates 86–90% of the apparent effect."],
+   "THE CORRECTION. Mortality had a second, identifiable defect: ammonia is 6–12% of PM2.5 mortality in most models and 0.15% in REMIND. Re-running TM5-FASST with ammonia removed for every model takes the World gap from 1.68 deaths per 1,000 avoided to −0.08."],
   {t:"NARRATIVE",c:TEAL},
   "The result is a tiered claim rather than a single number, which is what the data can actually support.");
 
@@ -243,41 +249,107 @@ bullets("Method — inference","Why a cluster bootstrap and not a p-value",
 section("Part three","Results","Global first, then every region, then the test that matters.");
 
 img("Result","The scorecard","Y1_scorecard.png",
-  "High-RE leads 44 of 60 comparisons — but the three families behave completely differently.",
-  "Jobs is unanimous. Deprivation leads in 16 of 20 with three reversals. Health is scattered around zero. Bold cells clear a cluster-robust 95% interval. Positive always means High-RE is better.",
+  "High-RE is better in 44 of 60 comparisons — but the three families behave completely differently.",
+  "Percentage change in the median outcome, High-CMT to High-RE. Jobs is unanimous and large. Deprivation leads in 16 of 20 with three reversals. Health sits on zero. Bold cells clear a cluster-robust 95% interval on the raw difference.",
   {t:"44 / 60",c:GOLD},0.44);
 
 table("Result — global","World, both levels of ambition",
-  ["Outcome","Ambition","High-CMT","High-RE","Change","Cliff's δ","Cluster-robust"],
-  [[{t:"Energy jobs",o:{bold:true}},"1.5°C","6.05","13.44",{t:"+122%",o:{color:GREEN,bold:true}},"+0.96",{t:"significant",o:{color:GREEN}}],
-   [{t:"job-years per 1,000",o:{color:MUTE}},"2°C","2.43","8.87",{t:"+265%",o:{color:GREEN,bold:true}},"+0.92",{t:"significant",o:{color:GREEN}}],
-   [{t:"Energy deprivation",o:{bold:true}},"1.5°C","13.96","10.01",{t:"−28%",o:{color:GREEN,bold:true}},"+0.38",{t:"significant",o:{color:GREEN}}],
-   [{t:"gap, GJ per capita",o:{color:MUTE}},"2°C","13.83","9.56",{t:"−31%",o:{color:GREEN,bold:true}},"+0.32",{t:"significant",o:{color:GREEN}}],
-   [{t:"PM2.5 mortality",o:{bold:true}},"1.5°C","26.21","26.29",{t:"−0.3%",o:{color:MUTE}},"+0.06",{t:"not significant",o:{color:MUTE}}],
-   [{t:"deaths per 1,000",o:{color:MUTE}},"2°C","28.01","27.26",{t:"+2.7%",o:{color:MUTE}},"+0.03",{t:"not significant",o:{color:MUTE}}]],
-  [2.6,1.3,1.6,1.6,1.5,1.5,2.0],{t:"WORLD",c:GOLD},
-  "Mortality figures are the ammonia-harmonised values. Before that correction they read +0.47 and +0.33, both apparently significant. Jobs medians are low in absolute terms because they are net of fossil losses and per 1,000 of TOTAL population, not of the workforce.");
+  ["Outcome","Ambition","High-CMT","High-RE","Raw difference","95% interval","Change"],
+  [[{t:"Energy jobs",o:{bold:true}},"1.5°C","6.05","13.44",{t:"+7.39",o:{color:GREEN,bold:true}},{t:"[+6.35, +9.13]",o:{color:GREEN}},{t:"+122%",o:{color:GREEN,bold:true}}],
+   [{t:"job-years per 1,000",o:{color:MUTE}},"2°C","2.43","8.87",{t:"+6.44",o:{color:GREEN,bold:true}},{t:"[+5.62, +7.20]",o:{color:GREEN}},{t:"+265%",o:{color:GREEN,bold:true}}],
+   [{t:"Energy deprivation",o:{bold:true}},"1.5°C","13.96","10.01",{t:"−3.95",o:{color:GREEN,bold:true}},{t:"[+0.57, +5.87]",o:{color:GREEN}},{t:"−28%",o:{color:GREEN,bold:true}}],
+   [{t:"gap, GJ per capita",o:{color:MUTE}},"2°C","13.83","9.56",{t:"−4.27",o:{color:GREEN,bold:true}},{t:"[+0.28, +5.32]",o:{color:GREEN}},{t:"−31%",o:{color:GREEN,bold:true}}],
+   [{t:"PM2.5 mortality",o:{bold:true}},"1.5°C","26.21","26.29",{t:"+0.08",o:{color:MUTE}},{t:"[−0.90, +1.19]",o:{color:MUTE,bold:true}},{t:"−0.3%",o:{color:MUTE}}],
+   [{t:"deaths per 1,000",o:{color:MUTE}},"2°C","28.01","27.26",{t:"−0.74",o:{color:MUTE}},{t:"[−3.11, +1.87]",o:{color:MUTE,bold:true}},{t:"+2.7%",o:{color:MUTE}}]],
+  [2.6,1.2,1.4,1.4,1.9,2.2,1.4],{t:"WORLD",c:GOLD},
+  "The interval is on the RAW DIFFERENCE between the arm medians, signed as advantage to High-RE, from a 2,000-replicate cluster bootstrap. Both health intervals straddle zero by more than the gap itself. Jobs medians are low in absolute terms because they are net of fossil losses and per 1,000 of TOTAL population, not of the workforce.");
 
-img("Result — global","Where the World cells actually sit","Y2_world_forest.png",
-  "Jobs is far from zero. Deprivation is clearly positive. Health sits on the line.",
-  "Cliff's delta with a cluster-robust 95% interval, resampling whole model × scenario-family clusters. Gold clears zero, grey does not.",
-  {t:"WORLD",c:GOLD},0.40);
+img("Result — global","How big is the gap, in real units?","Y2_world_forest.png",
+  "Jobs and deprivation clear zero comfortably. Health straddles it in both directions.",
+  "Raw difference between the arm medians in each outcome's own units, with a cluster-robust 95% interval. Grey text gives the two medians. Health's interval is wider than its point estimate at both ambition levels, which is what a genuine null looks like.",
+  {t:"WORLD",c:GOLD},0.36);
 
-table("Result — regions","Every region, every family, both ambition levels",
-  ["Region","Jobs 1.5°C","Jobs 2°C","Depriv 1.5°C","Depriv 2°C","Health 1.5°C","Health 2°C","Score"],
-  [
-   ["WORLD",{t:"+0.96 ★",o:{color:GREEN}},{t:"+0.92 ★",o:{color:GREEN}},{t:"+0.38 ★",o:{color:GREEN}},{t:"+0.32 ★",o:{color:GREEN}},"+0.06","+0.03",{t:"6/6",o:{bold:true}}],
-   ["India+",{t:"+0.97 ★",o:{color:GREEN}},{t:"+0.89 ★",o:{color:GREEN}},{t:"+0.89 ★",o:{color:GREEN}},{t:"+0.84 ★",o:{color:GREEN}},{t:"+0.48 ★",o:{color:GREEN}},"+0.06",{t:"6/6",o:{bold:true}}],
-   ["Europe",{t:"+0.90 ★",o:{color:GREEN}},{t:"+0.80 ★",o:{color:GREEN}},{t:"+0.84 ★",o:{color:GREEN}},{t:"+0.64 ★",o:{color:GREEN}},"+0.22","+0.20",{t:"6/6",o:{bold:true}}],
-   ["Africa",{t:"+0.86 ★",o:{color:GREEN}},{t:"+0.95 ★",o:{color:GREEN}},{t:"+0.28 ★",o:{color:GREEN}},{t:"+0.41 ★",o:{color:GREEN}},"−0.29","−0.14","4/6"],
-   ["China+",{t:"+0.75 ★",o:{color:GREEN}},{t:"+0.72 ★",o:{color:GREEN}},{t:"+0.76 ★",o:{color:GREEN}},{t:"+0.39 ★",o:{color:GREEN}},{t:"−0.45 ★",o:{color:RED}},{t:"−0.50 ★",o:{color:RED}},"4/6"],
-   ["Latin America",{t:"+0.91 ★",o:{color:GREEN}},{t:"+0.88 ★",o:{color:GREEN}},{t:"+0.69 ★",o:{color:GREEN}},{t:"+0.55 ★",o:{color:GREEN}},"−0.34","−0.06","4/6"],
-   ["North America",{t:"+0.82 ★",o:{color:GREEN}},{t:"+0.82 ★",o:{color:GREEN}},{t:"+0.39 ★",o:{color:GREEN}},"+0.18",{t:"−1.00 ★",o:{color:RED}},{t:"−0.93 ★",o:{color:RED}},"4/6"],
-   ["Middle East",{t:"+0.91 ★",o:{color:GREEN}},{t:"+0.79 ★",o:{color:GREEN}},"+0.06",{t:"−0.39 ★",o:{color:RED}},"+0.25","−0.19","4/6"],
-   ["Reforming econ.","+0.28",{t:"+0.44 ★",o:{color:GREEN}},{t:"+0.28 ★",o:{color:GREEN}},"−0.01",{t:"−0.91 ★",o:{color:RED}},{t:"−0.71 ★",o:{color:RED}},"3/6"],
-   ["Rest of Asia",{t:"+0.98 ★",o:{color:GREEN}},{t:"+0.88 ★",o:{color:GREEN}},{t:"−0.41 ★",o:{color:RED}},{t:"−0.51 ★",o:{color:RED}},"−0.01","+0.06","3/6"]],
-  [2.1,1.5,1.4,1.55,1.45,1.55,1.45,1.15],{t:"ALL CELLS",c:GOLD},
-  "★ = clears the cluster-robust 95% interval. Positive favours High-RE. Pacific OECD is excluded from these rows and retained in the World aggregate. Mortality is ammonia-harmonised throughout.",10);
+// ---- three raw tables, one per family --------------------------------------
+function rawtable(kick,title,unit,rows,tag,note){
+  return table(kick,title,
+    ["Region","High-CMT","High-RE","Difference","High-CMT","High-RE","Difference"],
+    rows,[2.5,1.6,1.6,1.75,1.6,1.6,1.75],tag,note,10.5);
+}
+{ const s2=slide(); head(s2,"Result — regions","Energy jobs: job-years per 1,000 people",{t:"20 / 20",c:GOLD});
+  s2.addText("1.5°C HIGH AMBITION",{x:2.72,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  s2.addText("2°C MEDIUM AMBITION",{x:7.75,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  const H=["Region","High-CMT","High-RE","Difference","High-CMT","High-RE","Difference"];
+  const R=[
+   ["WORLD","6.05","13.44",{t:"+7.39 ●",o:{color:GREEN,bold:true}},"2.43","8.87",{t:"+6.44 ●",o:{color:GREEN,bold:true}}],
+   ["Africa","2.80","10.37",{t:"+7.57 ●",o:{color:GREEN}},"1.52","7.33",{t:"+5.80 ●",o:{color:GREEN}}],
+   ["China+","6.20","10.14",{t:"+3.95 ●",o:{color:GREEN}},"2.18","7.24",{t:"+5.06 ●",o:{color:GREEN}}],
+   ["Europe","1.80","4.67",{t:"+2.87 ●",o:{color:GREEN}},"1.38","3.64",{t:"+2.26 ●",o:{color:GREEN}}],
+   ["India+","6.96","19.21",{t:"+12.25 ●",o:{color:GREEN,bold:true}},"3.88","13.63",{t:"+9.75 ●",o:{color:GREEN,bold:true}}],
+   ["Latin America","6.65","12.19",{t:"+5.54 ●",o:{color:GREEN}},"3.57","10.69",{t:"+7.12 ●",o:{color:GREEN}}],
+   ["Middle East","7.90","19.31",{t:"+11.41 ●",o:{color:GREEN,bold:true}},"1.87","10.09",{t:"+8.22 ●",o:{color:GREEN}}],
+   ["North America","4.88","9.28",{t:"+4.40 ●",o:{color:GREEN}},"2.94","7.15",{t:"+4.20 ●",o:{color:GREEN}}],
+   ["Reforming econ.","10.77","17.18",{t:"+6.41",o:{color:MUTE}},"3.93","11.61",{t:"+7.67 ●",o:{color:GREEN}}],
+   ["Rest of Asia","4.01","14.46",{t:"+10.45 ●",o:{color:GREEN,bold:true}},"2.19","10.15",{t:"+7.97 ●",o:{color:GREEN}}]];
+  const body=[H.map(h=>({text:h,options:{bold:true,color:MUTE,fontSize:9,fill:{color:PANEL},fontFace:F}}))];
+  R.forEach(r=>body.push(r.map(c=>{const o={fontSize:10.5,fontFace:F,color:INK,valign:"top"};
+    if(typeof c==="object"){Object.assign(o,c.o||{});return {text:c.t,options:o};} return {text:c,options:o};})));
+  s2.addTable(body,{x:0.62,y:1.78,w:12.1,colW:[2.5,1.6,1.6,1.75,1.6,1.6,1.75],
+    border:{type:"solid",color:LINE,pt:0.5},rowH:0.39,autoPage:false});
+  s2.addText("● clears a cluster-robust 95% interval on the raw difference. Every cell favours High-RE, and only Reforming Economies at 1.5°C fails to clear the interval — its interval is [−3.49, +15.24], which is width, not direction. The absolute numbers are net of fossil job losses and per 1,000 of total population.",
+    {x:0.62,y:6.55,w:12.1,h:0.7,fontSize:10,color:MUTE,fontFace:F,lineSpacing:14});
+}
+{ const s2=slide(); head(s2,"Result — regions","Energy deprivation: decent-living gap, GJ per capita",{t:"16 / 20",c:GOLD});
+  s2.addText("1.5°C HIGH AMBITION",{x:2.72,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  s2.addText("2°C MEDIUM AMBITION",{x:7.75,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  const H=["Region","High-CMT","High-RE","Gap closed","High-CMT","High-RE","Gap closed"];
+  const R=[
+   ["WORLD","13.96","10.01",{t:"−3.95 ●",o:{color:GREEN,bold:true}},"13.83","9.56",{t:"−4.27 ●",o:{color:GREEN,bold:true}}],
+   ["Africa","49.98","38.41",{t:"−11.57",o:{color:MUTE}},"58.62","34.03",{t:"−24.59 ●",o:{color:GREEN,bold:true}}],
+   ["China+","1.13","0.75",{t:"−0.37 ●",o:{color:GREEN}},"0.76","0.59",{t:"−0.17 ●",o:{color:GREEN}}],
+   ["Europe","4.60","2.01",{t:"−2.59 ●",o:{color:GREEN}},"2.92","1.92",{t:"−1.00 ●",o:{color:GREEN}}],
+   ["India+","1.11","0.47",{t:"−0.64 ●",o:{color:GREEN}},"1.12","0.42",{t:"−0.70 ●",o:{color:GREEN}}],
+   ["Latin America","46.59","32.80",{t:"−13.79 ●",o:{color:GREEN,bold:true}},"42.14","30.92",{t:"−11.22 ●",o:{color:GREEN,bold:true}}],
+   ["Middle East","2.35","1.91",{t:"−0.44",o:{color:MUTE}},"0.86","2.06",{t:"+1.19 ●",o:{color:RED,bold:true}}],
+   ["North America","6.38","4.93",{t:"−1.45 ●",o:{color:GREEN}},"5.05","4.06",{t:"−0.99",o:{color:MUTE}}],
+   ["Reforming econ.","1.45","0.89",{t:"−0.56",o:{color:MUTE}},"1.15","1.17",{t:"+0.02",o:{color:MUTE}}],
+   ["Rest of Asia","2.19","7.62",{t:"+5.42",o:{color:MUTE}},"3.10","6.81",{t:"+3.71 ●",o:{color:RED,bold:true}}]];
+  const body=[H.map(h=>({text:h,options:{bold:true,color:MUTE,fontSize:9,fill:{color:PANEL},fontFace:F}}))];
+  R.forEach(r=>body.push(r.map(c=>{const o={fontSize:10.5,fontFace:F,color:INK,valign:"top"};
+    if(typeof c==="object"){Object.assign(o,c.o||{});return {text:c.t,options:o};} return {text:c,options:o};})));
+  s2.addTable(body,{x:0.62,y:1.78,w:12.1,colW:[2.5,1.6,1.6,1.75,1.6,1.6,1.75],
+    border:{type:"solid",color:LINE,pt:0.5},rowH:0.39,autoPage:false});
+  s2.addText("Negative closes the gap and favours High-RE. Note the enormous range in baseline: Africa starts 50–59 GJ per capita short of decent living, China+ and India+ around 1. The two reversals (Middle East 2°C, Rest of Asia) do NOT survive the within-model test — see slide 26.",
+    {x:0.62,y:6.55,w:12.1,h:0.7,fontSize:10,color:MUTE,fontFace:F,lineSpacing:14});
+}
+{ const s2=slide(); head(s2,"Result — regions","PM2.5 mortality: deaths per 1,000, ammonia harmonised",{t:"8 / 20",c:MUTE});
+  s2.addText("1.5°C HIGH AMBITION",{x:2.72,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  s2.addText("2°C MEDIUM AMBITION",{x:7.75,y:1.50,w:4.9,h:0.24,fontSize:9.5,bold:true,
+    color:TEAL,fontFace:F,charSpacing:1.3,align:"center"});
+  const H=["Region","High-CMT","High-RE","Difference","High-CMT","High-RE","Difference"];
+  const R=[
+   ["WORLD","26.21","26.29",{t:"+0.08",o:{color:MUTE,bold:true}},"28.01","27.26",{t:"−0.74",o:{color:MUTE,bold:true}}],
+   ["Africa","23.05","23.39",{t:"+0.34",o:{color:MUTE}},"23.43","23.56",{t:"+0.13",o:{color:MUTE}}],
+   ["China+","28.22","31.00",{t:"+2.78 ●",o:{color:RED,bold:true}},"31.07","32.49",{t:"+1.42 ●",o:{color:RED}}],
+   ["Europe","8.76","8.49",{t:"−0.27",o:{color:MUTE}},"9.01","8.64",{t:"−0.37",o:{color:MUTE}}],
+   ["India+","42.95","40.31",{t:"−2.63 ●",o:{color:GREEN,bold:true}},"46.40","43.66",{t:"−2.74",o:{color:MUTE}}],
+   ["Latin America","8.32","9.17",{t:"+0.85",o:{color:MUTE}},"9.39","9.26",{t:"−0.13",o:{color:MUTE}}],
+   ["Middle East","32.86","29.37",{t:"−3.48",o:{color:MUTE}},"25.42","29.96",{t:"+4.54",o:{color:MUTE}}],
+   ["North America","7.36","10.07",{t:"+2.71 ●",o:{color:RED,bold:true}},"7.79","10.10",{t:"+2.31 ●",o:{color:RED,bold:true}}],
+   ["Reforming econ.","24.66","34.06",{t:"+9.41 ●",o:{color:RED,bold:true}},"24.98","34.88",{t:"+9.89 ●",o:{color:RED,bold:true}}],
+   ["Rest of Asia","28.49","28.73",{t:"+0.24",o:{color:MUTE}},"30.80","29.74",{t:"−1.05",o:{color:MUTE}}]];
+  const body=[H.map(h=>({text:h,options:{bold:true,color:MUTE,fontSize:9,fill:{color:PANEL},fontFace:F}}))];
+  R.forEach(r=>body.push(r.map(c=>{const o={fontSize:10.5,fontFace:F,color:INK,valign:"top"};
+    if(typeof c==="object"){Object.assign(o,c.o||{});return {text:c.t,options:o};} return {text:c,options:o};})));
+  s2.addTable(body,{x:0.62,y:1.78,w:12.1,colW:[2.5,1.6,1.6,1.75,1.6,1.6,1.75],
+    border:{type:"solid",color:LINE,pt:0.5},rowH:0.39,autoPage:false});
+  s2.addText("Negative favours High-RE. Twelve of twenty gaps are under one death per 1,000 on baselines of 7–46 — that is the null, expressed in units anyone can check. The four significant cells against High-RE are the ones the within-model test cannot support: North America and Reforming Economies have NO model holding both arms.",
+    {x:0.62,y:6.55,w:12.1,h:0.7,fontSize:10,color:MUTE,fontFace:F,lineSpacing:14});
+}
 
 img("Result — robustness","No single design choice carries the result","Y3_robustness.png",
   "Tercile cut, threshold sample, label basis, database and vetting — none flips the answer.",
@@ -290,7 +362,7 @@ table("Result — classification basis","Global tercile or per-region tercile? I
    ["Where the labels DO differ","—","Pacific OECD 74% same · Reforming econ. 91%","Exactly the two regions already flagged for weak label coherence — an internal consistency check that passes"],
    [{t:"Cells favouring High-RE",o:{bold:true}},{t:"38 of 54",o:{bold:true}},{t:"37 of 54",o:{bold:true}},"Nine regions, no World row (World IS the global aggregate, so no per-region label exists there)"],
    ["Significantly for / against","30 / 9","29 / 9","Indistinguishable"],
-   ["Jobs","18/18, δ 0.87","18/18, δ 0.96","Slightly stronger; no cell changes sign"],
+   ["Jobs","18/18","18/18","No cell changes sign"],
    ["Deprivation","14/18","12/18","Slightly weaker; two cells change sign"],
    ["Health","6/18","7/18",{t:"four cells change sign — Africa −0.29 → +0.48",o:{color:RED}}],
    [{t:"REMIND share of High-RE arm",o:{bold:true}},{t:"85%",o:{bold:true,color:RED}},{t:"84%",o:{bold:true,color:RED}},"THE POINT: per-region labelling does not touch the model-composition problem at all"],
@@ -303,7 +375,7 @@ table("Result — window sensitivity","Would running to 2100 strengthen the stor
   [[{t:"Cells favouring High-RE",o:{bold:true}},{t:"44 of 60",o:{bold:true}},{t:"39 of 60",o:{bold:true,color:RED}},"The longer window is worse overall"],
    ["Significantly against High-RE","9",{t:"13",o:{color:RED}},"Driven almost entirely by health"],
    [{t:"Jobs — cells",o:{bold:true}},"20/20","20/20","Unchanged, and gains one significant cell"],
-   ["Jobs — median δ","0.877","0.853","Effect size edges down"],
+   ["Jobs — median gap","+6.9 job-yr/1,000","+29.6 job-yr/1,000","Absolute gap grows; consistency falls"],
    [{t:"Jobs — model families agreeing",o:{bold:true}},{t:"83%",o:{bold:true,color:GREEN}},{t:"62%",o:{bold:true,color:RED}},"The result becomes LESS model-robust — this is the number that matters"],
    ["Deprivation — cells","16/20","17/20","Marginally better"],
    [{t:"Deprivation — families agreeing",o:{bold:true}},"42%","42%","Unchanged. The longer window does nothing for the problem that actually limits it"],
@@ -319,9 +391,9 @@ img("Result — the decisive test","Does it survive inside a single model?","Y10
 
 table("Result — what each family can claim","The readiness table, honestly scored",
   ["","Jobs","Energy deprivation","Health"],
-  [["Pooled cells favouring High-RE","20/20","16/20","8/20"],
-   ["Significant for High-RE","19","14","1"],
-   ["Significant against","0","3","6"],
+  [["Cells where High-RE is better","20/20","16/20","8/20"],
+   ["Clearing the interval, for High-RE","19","12","1"],
+   ["Clearing the interval, against","0","2","6"],
    ["Holds under SCI vetting",{t:"20/20",o:{color:GREEN}},"13/20","7/20"],
    ["Holds on the depth-matched sample",{t:"20/20",o:{color:GREEN}},"17/20","9/20"],
    ["Model families agreeing with pooled",{t:"83%",o:{bold:true,color:GREEN}},{t:"42%",o:{bold:true,color:RED}},{t:"60% (2 families only)",o:{color:MUTE}}],
@@ -346,15 +418,15 @@ img("The proof","It moves one arm and not the other","Y9_nh3_asymmetry.png",
   {t:"THE PROOF",c:RED},0.42);
 
 img("The correction","What harmonising does to the result","Y8_nh3_correction.png",
-  "Eighteen of twenty cells move toward High-CMT. Four change sign; none changes sign toward High-RE.",
+  "In raw units: the World gap falls from 1.68 to −0.08 deaths per 1,000 at 1.5°C.",
   "TM5-FASST re-run with ammonia removed for EVERY model, on the same 590 classified scenarios, with the data-quality gate held fixed at the original run so both versions cover identical scenarios. The re-cut reproduces the published mortality cells exactly when fed the original file — max |difference| in Cliff's delta 0.000 — which is what makes the harmonised numbers trustworthy.",
   {t:"CORRECTED",c:RED},0.42);
 
 bullets("The correction — what to conclude",
   "The co-benefit does not survive, and the correction is the conservative one",
-  ["AT WORLD, 86% AND 90% OF THE EFFECT WAS AMMONIA. δ +0.472 → +0.064 at 1.5°C, and +0.332 → +0.032 at 2°C. Neither harmonised value is close to significant. Air-quality mortality does not distinguish the two pathways in the 2020–2050 window.",
+  ["AT WORLD, THE ENTIRE EFFECT WAS AMMONIA. The gap goes from 1.68 deaths per 1,000 avoided by High-RE to −0.08 at 1.5°C, and from 3.02 to +0.74 at 2°C. Both harmonised intervals are wider than the gap itself. Air-quality mortality does not distinguish the two pathways in the 2020–2050 window.",
    "DELETION IS THE CORRECTION MOST FAVOURABLE TO HIGH-RE. The scientifically better fix is to IMPUTE REMIND's missing agricultural ammonia rather than delete everyone's, and that would push High-RE's mortality UP — further against it, not back toward the original result. So the harmonised near-zero is an UPPER BOUND on the High-RE advantage. Both available corrections point the same way.",
-   "NORTH AMERICA'S −1.00 IS NOT A FINDING. Complete separation with a zero-width bootstrap interval on 47 versus 17 scenarios is the signature of model composition, not of pathways. Reforming economies at −0.91 is in the same territory. Both are reported as unresolvable rather than as evidence that High-CMT is healthier.",
+   "NORTH AMERICA'S REMAINING GAP IS NOT A FINDING. 2.71 deaths per 1,000 on 47 versus 17 scenarios with NO model family holding both arms. Inside MESSAGEix the sign reverses. Reforming Economies (9.41) is in the same territory. Both are reported as unresolvable rather than as evidence that carbon management is healthier.",
    "THIS IS A CONTRIBUTION, NOT A LOSS. Anyone using AR6 for air-quality work will hit this, and nobody has written it down. The paper reports the naive estimate, the diagnosis and the correction — which is a stronger and more useful result than the co-benefit would have been."],
   {t:"CONCLUSION",c:RED});
 
@@ -380,7 +452,7 @@ table("Mechanism","Where the job-years actually sit",
 bullets("Mechanism — the two factors that order the regions",
   "How much is left to build, and how much is already there",
   ["FACTOR ONE — THE REMAINING BUILD. Correlation +0.67 between a region's renewable deployment gap and its jobs advantage. India+ has the largest deployment gap of any region (+10.31 on the renewable axis) and the largest jobs advantage (+214% median).",
-   "FACTOR TWO — THE INCUMBENT FLEET. Correlation −0.50 with fossil capacity in 2020 and −0.62 with nuclear. The bigger the existing energy workforce, the more a renewable build has to overcome before it shows up as a NET gain. Reforming economies holds 2.50 TW of fossil capacity, the most of any region, and has the weakest jobs advantage (δ +0.28 at 1.5°C).",
+   "FACTOR TWO — THE INCUMBENT FLEET. Correlation −0.50 with fossil capacity in 2020 and −0.62 with nuclear. The bigger the existing energy workforce, the more a renewable build has to overcome before it shows up as a NET gain. Reforming economies holds 2.50 TW of fossil capacity, the most of any region, and has the weakest jobs advantage — its 1.5°C interval, [−3.49, +15.24], is the only jobs cell in the study that fails to clear zero.",
    "WHERE BOTH HOLD, THE ADVANTAGE IS LARGEST. India+, Rest of Asia and Africa: everything to build, almost nothing to retire. Median jobs advantages +214%, +312% and +326%.",
    "WHERE NEITHER HOLDS, THE LABEL ITSELF BREAKS DOWN. Pacific OECD builds no more renewables under High-RE than under High-CMT, which is why it is out of the regional display entirely."],
   {t:"ORDERING",c:TEAL});
@@ -404,7 +476,7 @@ section("Part six","The why","Mechanically and in the real world — World first
 
 bullets("Why — World","The mechanism is an engineering fact, not a modelling artefact",
   ["LABOUR INTENSITY PER UNIT OF ENERGY IS HIGHER FOR BUILDING THAN FOR FUELLING. A gas turbine needs a fuel supply chain and a handful of operators. An equivalent wind or solar build needs factories, foundations, cabling and installation crews, and the work is concentrated in the years it is being built. That is why manufacturing plus construction is 93% of the World gap.",
-   "THE DIVIDEND IS FRONT-LOADED, AND THAT IS A REAL LIMITATION. O&M — the part that persists after the build-out — is only 16% of the gap to 2050. A pathway that builds fast produces a labour surge, not a permanent workforce. Extending to 2100 shifts the composition exactly as the mechanism predicts: the build share falls from 87% to 75% and O&M rises from 16% to 25%, while the effect size edges down from δ 0.88 to 0.85.",
+   "THE DIVIDEND IS FRONT-LOADED, AND THAT IS A REAL LIMITATION. O&M — the part that persists after the build-out — is only 16% of the gap to 2050. A pathway that builds fast produces a labour surge, not a permanent workforce. Extending to 2100 shifts the composition exactly as the mechanism predicts: the build share falls from 87% to 75% and O&M rises from 16% to 25%, while the per-cell consistency falls — 83% of model families agree with the pooled direction to 2050, only 62% to 2100.",
    "FOSSIL CCS EXTENDS THE FUEL SUPPLY CHAIN, WHICH IS WHY EXTRACTION IS THE ONE CATEGORY HIGH-CMT LEADS. Capture keeps the mine and the well running. It is real employment and the measure counts it — the renewable advantage survives it, but the extraction term is the one place the comparison genuinely favours carbon management.",
    "THE REAL-WORLD EVIDENCE POINTS THE SAME WAY. Observed employment per GW installed in solar PV and onshore wind exceeds that of new thermal capacity in essentially every published national accounting, and the gap is widest in the build phase. The models are reproducing something already visible in labour statistics, not inventing it."],
   {t:"WORLD",c:GOLD});
@@ -421,9 +493,9 @@ section("Part seven","Region by region",
   "Nine regions, each with its own mechanism and its own real-world reading.");
 
 region("India+ — the strongest case in the study","6 / 6",GREEN,
-  [["Jobs, median gap","+214%",GREEN],
-   ["Deprivation, median","−60% gap",GREEN],
-   ["Health δ (harmonised)","+0.48 / +0.06"],
+  [["Jobs 1.5°C / 2°C","6.96→19.21 · 3.88→13.63",GREEN],
+   ["Deprivation gap, GJ/cap","1.11→0.47 · 1.12→0.42",GREEN],
+   ["Mortality /1,000","42.95 v 40.31 · 46.40 v 43.66"],
    ["Renewable build gap","+10.31",GREEN],
    ["Fossil jobs term","0.00"],
    ["Fossil capacity 2020","0.27 TW"],
@@ -435,10 +507,10 @@ region("India+ — the strongest case in the study","6 / 6",GREEN,
   "Caveat: the health cell is significant only at 1.5°C and rests on 47 versus 34 scenarios. India+ also carries the highest baseline PM2.5 mortality of any region, so the ABSOLUTE stakes there are the largest even where the pathway contrast is small.");
 
 region("Europe — the cleanest sweep, and the biggest ammonia correction","6 / 6",GREEN,
-  [["Jobs, median gap","+161%",GREEN],
-   ["Deprivation, median","−45% gap",GREEN],
-   ["Health δ (harmonised)","+0.22 / +0.20"],
-   ["Health δ BEFORE correction","+0.89 / +0.86",RED],
+  [["Jobs 1.5°C / 2°C","1.80→4.67 · 1.38→3.64",GREEN],
+   ["Deprivation gap, GJ/cap","4.60→2.01 · 2.92→1.92",GREEN],
+   ["Mortality /1,000","8.76 v 8.49 · 9.01 v 8.64"],
+   ["Mortality gap BEFORE fix","5.14 · 6.70 deaths",RED],
    ["Renewable build gap","+1.89"],
    ["Fossil jobs term","−0.80",RED],
    ["Nuclear jobs term","−0.57",RED],
@@ -446,12 +518,12 @@ region("Europe — the cleanest sweep, and the biggest ammonia correction","6 / 
    ["NH₃ effect, High-RE","−0.7%"]],
   "Europe has the SMALLEST renewable build gap of any included region (+1.89) and still sweeps jobs, because the work is concentrated in manufacturing rather than raw capacity. It also has the largest simultaneous retirement of fossil (−0.92), nuclear (−0.57) and bioenergy (−0.48) employment, so the net advantage is earned against the stiffest incumbency headwind in the study.",
   "Europe is where the ammonia problem bites hardest: intensive livestock and fertiliser use make agricultural NH₃ a dominant PM2.5 precursor, so removing it cut High-CMT's modelled mortality by 36.0% and High-RE's by 0.7%. The apparent −36% health advantage was almost entirely a reporting difference. What remains (+0.21) is not significant. Europe's real health story in this window is about agriculture, not about power generation.",
-  "Europe and China+ are the two regions where the global label holds most tightly on their own renewable deployment (δ 0.72–0.87), so their results carry the least classification risk.");
+  "Europe and China+ are the two regions where the global label holds most tightly on their own renewable deployment (Cliff's delta 0.72–0.87 on their own renewable deployment), so their results carry the least classification risk.");
 
 region("Africa — the largest jobs gap and the largest deprivation stakes","4 / 6",GREEN,
-  [["Jobs, median gap","+326%",GREEN],
-   ["Deprivation, median","−33% gap",GREEN],
-   ["Health δ (harmonised)","−0.29 / −0.14"],
+  [["Jobs 1.5°C / 2°C","2.80→10.37 · 1.52→7.33",GREEN],
+   ["Deprivation gap, GJ/cap","49.98→38.41 · 58.62→34.03",GREEN],
+   ["Mortality /1,000","23.05 v 23.39 · 23.43 v 23.56"],
    ["Renewable build gap","+5.99",GREEN],
    ["Fossil capacity 2020","0.06 TW"],
    ["Baseline deprivation gap","71.9 GJ/cap",RED],
@@ -462,9 +534,9 @@ region("Africa — the largest jobs gap and the largest deprivation stakes","4 /
   "Caveat: at 2°C the within-model deprivation direction reverses to −0.28, so Africa is one of the cells where the pooled deprivation advantage cannot be attributed to the pathway. The jobs result is unaffected.");
 
 region("China+ — sweeps on jobs and deprivation, loses on health","4 / 6",GOLD,
-  [["Jobs, median gap","+148%",GREEN],
-   ["Deprivation, median","−28% gap",GREEN],
-   ["Health δ (harmonised)","−0.45 ★ / −0.50 ★",RED],
+  [["Jobs 1.5°C / 2°C","6.20→10.14 · 2.18→7.24",GREEN],
+   ["Deprivation gap, GJ/cap","1.13→0.75 · 0.76→0.59",GREEN],
+   ["Mortality /1,000","28.22 v 31.00 · 31.07 v 32.49",RED],
    ["Renewable build gap","+3.17"],
    ["Fossil capacity 2020","1.64 TW",RED],
    ["Fossil jobs term","−0.16"],
@@ -475,23 +547,23 @@ region("China+ — sweeps on jobs and deprivation, loses on health","4 / 6",GOLD
   "China+ was the only region to win all three families at 2°C before the ammonia correction. It now wins two. That change is entirely attributable to the correction, not to any change in the jobs or deprivation data.");
 
 region("North America — jobs and deprivation hold, health is unresolvable","4 / 6",GOLD,
-  [["Jobs, median gap","+117%",GREEN],
-   ["Deprivation, median","−21% gap",GREEN],
-   ["Health δ (harmonised)","−1.00 ★ / −0.93 ★",RED],
-   ["Bootstrap interval, health","[−1.00, −1.00]",RED],
+  [["Jobs 1.5°C / 2°C","4.88→9.28 · 2.94→7.15",GREEN],
+   ["Deprivation gap, GJ/cap","6.38→4.93 · 5.05→4.06",GREEN],
+   ["Mortality /1,000","7.36 v 10.07 · 7.79 v 10.10",RED],
+   ["Mortality gap","+2.71 · +2.31 deaths",RED],
    ["Nuclear capacity 2020","0.25 TW",RED],
    ["Nuclear jobs term","−0.62",RED],
    ["Novel CDR share","25%",CMT],
    ["Within-model health","+0.32"],
    ["Health arm sizes","47 vs 17",RED]],
   "North America holds the highest incumbent nuclear capacity of any region (0.25 TW) and the largest nuclear-jobs penalty (−0.62), so its jobs advantage of +117% is earned against a substantial high-skill retirement. It also has the most technology-forward carbon-management portfolio, with novel CDR at 25% of its removal mix — the highest anywhere.",
-  "The health cell reads δ = −1.00 with a bootstrap interval of zero width. That is complete separation on 47 versus 17 scenarios, and it is a model-composition signature, not a pathway effect: inside MESSAGEix the sign is +0.32, favouring High-RE. Every model that contains both arms disagrees with the pooled figure. This cell is reported as unresolvable and should not be cited as evidence that carbon management is healthier in North America.",
-  "This is the clearest single illustration in the deck of why the within-model test exists. A δ of −1.00 with a zero-width interval looks like the strongest result in the study and is in fact the weakest.");
+  "The mortality cell shows High-RE at 10.07 deaths per 1,000 against High-CMT at 7.36 — a gap of 2.71 that clears its interval. But it rests on 47 versus 17 scenarios with NO model family holding both arms, and inside MESSAGEix the sign reverses in High-RE's favour. Every model that contains both arms disagrees with the pooled figure. This cell is reported as unresolvable and should not be cited as evidence that carbon management is healthier in North America.",
+  "This is the clearest single illustration in the deck of why the within-model test exists. On the pooled numbers it looks like one of the largest effects in the study; it is the one least able to bear weight.");
 
 region("Latin America — the land-based outlier","4 / 6",GOLD,
-  [["Jobs, median gap","+141%",GREEN],
-   ["Deprivation, median","−28% gap",GREEN],
-   ["Health δ (harmonised)","−0.34 / −0.06"],
+  [["Jobs 1.5°C / 2°C","6.65→12.19 · 3.57→10.69",GREEN],
+   ["Deprivation gap, GJ/cap","46.59→32.80 · 42.14→30.92",GREEN],
+   ["Mortality /1,000","8.32 v 9.17 · 9.39 v 9.26"],
    ["Renewable share 2020","56%",GREEN],
    ["Renewable build gap","+5.95",GREEN],
    ["Fossil jobs term","−0.74",RED],
@@ -503,9 +575,9 @@ region("Latin America — the land-based outlier","4 / 6",GOLD,
   "Flagged as a scope limitation rather than a result: for Latin America specifically, the paper's outcome set is least likely to capture what matters about the High-CMT pathway.");
 
 region("Middle East — jobs yes, deprivation reverses","4 / 6",GOLD,
-  [["Jobs, median gap","+292%",GREEN],
-   ["Deprivation 1.5°C / 2°C","+0.06 / −0.39 ★",RED],
-   ["Health δ (harmonised)","+0.25 / −0.19"],
+  [["Jobs 1.5°C / 2°C","7.90→19.31 · 1.87→10.09",GREEN],
+   ["Deprivation gap, GJ/cap","2.35→1.91 · 0.86→2.06",RED],
+   ["Mortality /1,000","32.86 v 29.37 · 25.42 v 29.96"],
    ["Renewable share 2020","14%",RED],
    ["Renewable build gap","+8.89",GREEN],
    ["Fossil jobs term","+0.20",GREEN],
@@ -514,26 +586,26 @@ region("Middle East — jobs yes, deprivation reverses","4 / 6",GOLD,
    ["Within-model depriv. 2C","+0.22",GREEN]],
   "The Middle East has the lowest renewable share anywhere (14%) and the second-largest deployment gap (+8.89), so the jobs advantage is the second-largest in the study at +292%. Notably its fossil-jobs term is POSITIVE (+0.20 at 2°C): High-RE scenarios there retain MORE fossil employment than High-CMT and still win on jobs, which rules out the 'wins by shutting down coal' reading entirely.",
   "For the Gulf, High-CMT is not a climate strategy layered onto the economy — it IS the economy. At 77% fossil CCS, the highest share anywhere, carbon management means continuing to produce and export hydrocarbons while capturing the emissions. High-RE means abandoning the export base. That is a political-economy difference of a completely different order from anything in Europe or India, and it is the main reason to expect the modelled pathways to diverge from what will actually be attempted.",
-  "The 2°C deprivation reversal (−0.39) does NOT survive the within-model check: AIM +0.22, MESSAGEix +0.72, WITCH +0.15 all favour High-RE. This is a Simpson reversal driven by model composition, and the region should not be reported as a genuine deprivation loss.");
+  "The 2°C deprivation reversal — the gap WIDENS from 0.86 to 2.06 GJ per capita — does NOT survive the within-model check: AIM, MESSAGEix and WITCH all favour High-RE inside the model. This is a Simpson reversal driven by model composition, and the region should not be reported as a genuine deprivation loss.");
 
 region("Rest of Asia — the largest deprivation reversal, and it is not real","3 / 6",GOLD,
-  [["Jobs, median gap","+312%",GREEN],
-   ["Deprivation δ","−0.41 ★ / −0.51 ★",RED],
-   ["Health δ (harmonised)","−0.01 / +0.06"],
+  [["Jobs 1.5°C / 2°C","4.01→14.46 · 2.19→10.15",GREEN],
+   ["Deprivation gap, GJ/cap","2.19→7.62 · 3.10→6.81",RED],
+   ["Mortality /1,000","28.49 v 28.73 · 30.80 v 29.74"],
    ["Renewable build gap","+8.93",GREEN],
    ["Fossil jobs term","+0.09 / +0.18",GREEN],
    ["Final energy, High-RE","+44%",GREEN],
    ["Within-model depriv.","+0.43 / +0.74",GREEN],
    ["AIM / WITCH / REMIND","+0.79 / +0.74 / +0.43",GREEN]],
-  "Rest of Asia has the third-largest deployment gap (+8.93), a POSITIVE fossil-jobs term at both ambition levels, and High-RE scenarios that deliver 44% MORE final energy per capita. On every mechanistic indicator it should be one of the strongest deprivation cases in the study. Instead the pooled deprivation cell reads −0.41 and −0.51, significantly AGAINST High-RE.",
-  "That contradiction is the clearest Simpson's paradox in the paper. Inside AIM the delta is +0.79, inside WITCH +0.74, inside REMIND +0.43 — every substantial model family that holds both arms favours High-RE. The pooled reversal happens because MESSAGEix reports very low deprivation gaps in this region (median 0.86 GJ/cap) and populates 118 of the High-CMT scenarios, while REMIND reports much higher gaps (median 6.8–8.3) and populates 217 of the High-RE ones. The arms are comparing models, not pathways.",
+  "Rest of Asia has the third-largest deployment gap (+8.93), a POSITIVE fossil-jobs term at both ambition levels, and High-RE scenarios that deliver 44% MORE final energy per capita. On every mechanistic indicator it should be one of the strongest deprivation cases in the study. Instead the pooled deprivation gap is 7.62 against 2.19 GJ per capita at 1.5°C and 6.81 against 3.10 at 2°C — substantially WORSE under High-RE.",
+  "That contradiction is the clearest Simpson's paradox in the paper. Inside AIM, WITCH and REMIND alike — every substantial model family that holds both arms — High-RE has the SMALLER gap. The pooled reversal happens because MESSAGEix reports very low deprivation gaps in this region (median 0.86 GJ/cap) and populates 118 of the High-CMT scenarios, while REMIND reports much higher gaps (median 6.8–8.3) and populates 217 of the High-RE ones. The arms are comparing models, not pathways.",
   "Reported as a reversal that the within-model evidence contradicts. It is also the single best argument in the deck for why the deprivation family carries a limitation rather than a claim.");
 
 region("Reforming economies — the weakest case, and the reason why","3 / 6",RED,
-  [["Jobs δ","+0.28 / +0.44 ★"],
-   ["Jobs, median gap","+127%",GREEN],
-   ["Deprivation δ","+0.28 ★ / −0.01"],
-   ["Health δ (harmonised)","−0.91 ★ / −0.71 ★",RED],
+  [["Jobs 1.5°C / 2°C","10.77→17.18 · 3.93→11.61",GREEN],
+   ["Jobs interval, 1.5°C","[−3.49, +15.24]",MUTE],
+   ["Deprivation gap, GJ/cap","1.45→0.89 · 1.15→1.17"],
+   ["Mortality /1,000","24.66 v 34.06 · 24.98 v 34.88",RED],
    ["Fossil capacity 2020","2.50 TW",RED],
    ["Fossil jobs term","−2.49",RED],
    ["Nuclear jobs term","−1.35",RED],
@@ -541,13 +613,13 @@ region("Reforming economies — the weakest case, and the reason why","3 / 6",RE
    ["Label coherence 1.5°C","+0.07",RED]],
   "Reforming economies holds the largest incumbent fossil fleet of any region at 2.50 TW, and pays the largest employment penalty for it: fossil −2.49 and nuclear −1.35, the biggest retirements in the study. Its renewable-deployment gap at 1.5°C is only +0.07, meaning the global label barely distinguishes the two arms there — it is the weakest label coherence of any region still in the regional display.",
   "Russia and Central Asia are where the transition is most obviously a net industrial loss under this measure, and the models reflect that. The bioenergy term is the only strongly positive one (+1.91), which suggests the High-RE pathways there lean on biomass rather than wind and solar — the one place in the study where the renewable build is not primarily a manufacturing story.",
-  "Retained with a flag rather than dropped. Its health cell (−0.91) has the same complete-separation problem as North America's and is equally unresolvable; inside MESSAGEix the sign is +0.35, favouring High-RE.");
+  "Retained with a flag rather than dropped. Its mortality cell — 34.06 against 24.66 deaths per 1,000, a gap of 9.41 and the largest in the study — has the same problem as North America's and is equally unresolvable: no model family holds both arms, and inside MESSAGEix the sign favours High-RE.");
 
 region("Pacific OECD — excluded, and why that is the right call","EXCLUDED",RED,
   [["Renewable deployment δ","−0.19 / −0.07",RED],
-   ["Jobs δ","+0.35 / +0.23"],
-   ["Deprivation δ","+0.01 / −0.51",RED],
-   ["Health δ (harmonised)","+0.96 / +0.93"],
+   ["Jobs 1.5°C / 2°C","3.31→4.06 · 2.27→3.58"],
+   ["Deprivation gap, GJ/cap","4.31→4.83 · 2.99→4.23",RED],
+   ["Mortality /1,000","30.84 v 12.51 · 34.50 v 12.72"],
    ["Final energy, High-RE","−29% / −39%",RED],
    ["Fossil jobs term","−0.21 / −0.53",RED],
    ["Status","World aggregate only"]],
@@ -559,9 +631,9 @@ region("Pacific OECD — excluded, and why that is the right call","EXCLUDED",RE
 section("Part eight","What we can claim","And what has to be said alongside it.");
 
 bullets("The claim","Three sentences the paper can defend",
-  ["ONE. In the AR6 scenario ensemble, high-renewable mitigation pathways deliver substantially more net energy employment than high-carbon-management pathways at the same climate ambition — 20 of 20 region × ambition cells, median +194% at World, and the result holds inside individual modelling frameworks (83% of model families, 20 of 22 cells). The mechanism is construction and manufacturing, which together are 93% of the gap.",
-   "TWO. High-renewable pathways are also associated with substantially lower energy deprivation — 16 of 20 cells, median −30% at World, robust to every specification tested. But this association cannot be separated from model composition: only 42% of model families agree with the pooled direction, and the within-model answer reverses in both directions depending on region. It is reported as an association with that limitation stated.",
-   "THREE. There is no detectable difference in air-quality mortality between the two pathway types once ammonia is placed on a common accounting basis across models. The apparent co-benefit in the uncorrected data (+0.47 at World) was 86–90% an artefact of REMIND not reporting agricultural ammonia, and the correction used is the one most favourable to renewables.",
+  ["ONE. In the AR6 scenario ensemble, high-renewable mitigation pathways deliver substantially more net energy employment than high-carbon-management pathways at the same climate ambition. At World, 6.05 against 13.44 job-years per 1,000 people at 1.5°C — a difference of +7.39 [+6.35, +9.13] — and 2.43 against 8.87 at 2°C. Better in 20 of 20 region × ambition cells, and it holds inside individual modelling frameworks (83% of model families, 20 of 22 cells). The mechanism is construction and manufacturing, which together are 93% of the gap.",
+   "TWO. High-renewable pathways are also associated with substantially lower energy deprivation — the decent-living gap closes from 13.96 to 10.01 GJ per capita at World, 16 of 20 cells, robust to every specification tested. But this association cannot be separated from model composition: only 42% of model families agree with the pooled direction, and the within-model answer reverses in both directions depending on region. It is reported as an association with that limitation stated.",
+   "THREE. There is no detectable difference in air-quality mortality between the two pathway types once ammonia is placed on a common accounting basis across models. At World the gap is −0.08 deaths per 1,000 with an interval of [−0.90, +1.19]. The apparent co-benefit in the uncorrected data — 1.68 deaths per 1,000 avoided — was an artefact of REMIND not reporting agricultural ammonia, and the correction used is the one most favourable to renewables.",
    "The methodological finding — that AR6 emissions reporting is not comparable across modelling teams for ammonia, and that this materially changes air-quality conclusions — is a contribution in its own right and has not been documented elsewhere."],
   {t:"CLAIM",c:GOLD});
 

@@ -13,6 +13,9 @@
 #   F5  the zero problem   what the non-reporting scenarios do to the arms
 #
 # USAGE: Rscript Z9_century_figs.R      (run from the repo root)
+#
+# Figures are written to paper1_analysis/figures_century/ rather than the
+# working directory, so running from the repo root does not scatter PNGs there.
 # =============================================================================
 suppressPackageStartupMessages({library(dplyr);library(tidyr);library(ggplot2);library(purrr)})
 options(width=170)
@@ -30,6 +33,10 @@ th <- theme_minimal(base_size=9) +
         plot.title=element_text(face="bold",colour=INK,size=11.5),
         plot.subtitle=element_text(colour=MUTE,size=8.2,lineheight=1.15),
         plot.caption=element_text(colour=MUTE,size=7,hjust=0,lineheight=1.25))
+FIGDIR <- "paper1_analysis/figures_century"
+dir.create(FIGDIR, showWarnings = FALSE, recursive = TRUE)
+fig <- function(name) file.path(FIGDIR, name)
+
 ORD9 <- c("WORLD","Africa","China+","Europe","India+","Latin America",
           "Middle East","North America","Reforming econ.","Rest of Asia")
 DROP <- "R10PAC_OECD"
@@ -75,7 +82,7 @@ p1 <- ggplot(d1, aes(fam, regf, fill=cellv)) +
                       "carrying the World result.\nPacific OECD is excluded from the regional ",
                       "rows and retained inside the World aggregate.")) +
   th + theme(legend.position="top", panel.grid=element_blank())
-ggsave("F1_scorecard.png", p1, width=8.4, height=4.8, dpi=210)
+ggsave(fig("F1_scorecard.png"), p1, width=8.4, height=4.8, dpi=210)
 
 # ---------------------------------------------------------- F2 World detail --
 d2 <- R %>% filter(Region=="Aggregated R10 regions") %>%
@@ -103,7 +110,7 @@ p2 <- ggplot(d2, aes(gap, ambl)) +
                       "large (-5.7 and -4.3 GJ per capita) but its\ninterval touches zero. ",
                       "Mortality clears at 1.5C only, and Europe supplies most of that ",
                       "8.7 million.")) + th
-ggsave("F2_world.png", p2, width=8.4, height=3.5, dpi=210)
+ggsave(fig("F2_world.png"), p2, width=8.4, height=3.5, dpi=210)
 
 # ------------------------------------------------------- F3 land sensitivity --
 if (file.exists("W12_LAND.rds") && file.exists("W13_ZEROS_LANDMORT.rds")) {
@@ -139,7 +146,7 @@ if (file.exists("W12_LAND.rds") && file.exists("W13_ZEROS_LANDMORT.rds")) {
                         "land-heavy carbon-management\nscenarios carry fewer energy jobs. ",
                         "Excluding land is therefore the conservative choice.")) +
     th + theme(legend.position="top")
-  ggsave("F3_land.png", p3, width=8.4, height=5.0, dpi=210)
+  ggsave(fig("F3_land.png"), p3, width=8.4, height=5.0, dpi=210)
 }
 
 # ---------------------------------------------------------- F4 coverage flow --
@@ -178,7 +185,7 @@ p4 <- ggplot(d4, aes(stage, n, fill=arm)) +
                       "against 42), which is\nexactly why the outcomes must be gated ",
                       "separately rather than jointly.")) +
   th + theme(legend.position="top", axis.text.x=element_text(size=7.2))
-ggsave("F4_coverage.png", p4, width=8.4, height=4.2, dpi=210)
+ggsave(fig("F4_coverage.png"), p4, width=8.4, height=4.2, dpi=210)
 
 # ------------------------------------------------------------ F5 the zeros ---
 Z <- readRDS("W13_ZEROS_LANDMORT.rds")$zeros %>% filter(approach=="A", !is.na(Pathway))
@@ -207,6 +214,6 @@ p5 <- ggplot(d5, aes(grp, jobs, fill=grp)) +
                       "GCAM (33 of 50). SCI vetting already excludes every one of them.\n",
                       "Dropping them takes World deprivation from non-significant to ",
                       "significant at BOTH ambition levels.")) + th
-ggsave("F5_zeros.png", p5, width=8.4, height=4.2, dpi=210)
+ggsave(fig("F5_zeros.png"), p5, width=8.4, height=4.2, dpi=210)
 
-cat("\nwritten: F1_scorecard.png F2_world.png F3_land.png F4_coverage.png F5_zeros.png\n")
+cat("\nwritten to", FIGDIR, ":\n  F1_scorecard  F2_world  F3_land  F4_coverage  F5_zeros\n")

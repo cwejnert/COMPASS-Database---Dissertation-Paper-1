@@ -1,0 +1,9 @@
+approach,Ambition,Pathway,classified_pathways,mortality_available,coverage_pct
+A,1.5C (High-Ambition),High-RE,64,37,57.8125
+A,1.5C (High-Ambition),High-engineered-CMT,64,42,65.625
+A,2C (Medium-Ambition),High-RE,239,168,70.2928870292887
+A,2C (Medium-Ambition),High-engineered-CMT,239,138,57.74058577405858
+C,1.5C (High-Ambition),High-RE,7,7,100
+C,1.5C (High-Ambition),High-engineered-CMT,7,7,100
+C,2C (Medium-Ambition),High-RE,63,62,98.41269841269842
+C,2C (Medium-Ambition),High-engineered-CMT,63,55,87.3015873015873

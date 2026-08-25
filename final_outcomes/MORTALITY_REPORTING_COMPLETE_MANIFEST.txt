@@ -1,0 +1,4 @@
+PM2.5 mortality diagnostic; 2020-2100 trapezoidal integration of decadal RFASST annual deaths
+inputs=directly reported R10 PM precursors; no World-to-R10 or NH3 sidecar imputation
+interpolation=short bracketed PM temporal gaps permitted (zero values required in this run)
+interpretation=coverage-qualified diagnostic; not a full-ensemble causal pathway ranking

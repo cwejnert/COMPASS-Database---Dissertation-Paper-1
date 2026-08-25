@@ -1,0 +1,133 @@
+approach,Region,Ambition,outcome,n_models,median_model_effect,n_re_lower,n_re_higher
+A,Aggregated R10 regions,1.5C (High-Ambition),gap_GJ_pc,3,-1.2728131578437,2,1
+A,Aggregated R10 regions,1.5C (High-Ambition),headcount_pct,3,-0.7112587808895015,2,1
+A,Aggregated R10 regions,1.5C (High-Ambition),net_re_jobs_per_1k,3,0.4423899862720191,1,2
+A,Aggregated R10 regions,2C (Medium-Ambition),gap_GJ_pc,5,0.8442168584553507,2,3
+A,Aggregated R10 regions,2C (Medium-Ambition),headcount_pct,5,-0.1472010378467541,3,2
+A,Aggregated R10 regions,2C (Medium-Ambition),net_re_jobs_per_1k,6,18.54720078726075,1,5
+A,R10AFRICA,1.5C (High-Ambition),gap_GJ_pc,3,-6.126401014551988,2,1
+A,R10AFRICA,1.5C (High-Ambition),headcount_pct,3,-1.7330095061708946,2,1
+A,R10AFRICA,1.5C (High-Ambition),net_re_jobs_per_1k,3,-25.99361505554299,2,1
+A,R10AFRICA,2C (Medium-Ambition),gap_GJ_pc,5,4.8412795254977965,2,3
+A,R10AFRICA,2C (Medium-Ambition),headcount_pct,5,-0.5292215903002528,3,2
+A,R10AFRICA,2C (Medium-Ambition),net_re_jobs_per_1k,6,17.498351343706233,1,5
+A,R10CHINA+,1.5C (High-Ambition),gap_GJ_pc,3,0.11312708477295996,1,2
+A,R10CHINA+,1.5C (High-Ambition),headcount_pct,3,0.02009892104845251,1,2
+A,R10CHINA+,1.5C (High-Ambition),net_re_jobs_per_1k,3,59.350838318849014,1,2
+A,R10CHINA+,2C (Medium-Ambition),gap_GJ_pc,5,0.09977771431869797,1,4
+A,R10CHINA+,2C (Medium-Ambition),headcount_pct,5,0.04674613949742196,1,4
+A,R10CHINA+,2C (Medium-Ambition),net_re_jobs_per_1k,6,18.804543855910744,2,4
+A,R10EUROPE,1.5C (High-Ambition),gap_GJ_pc,3,0.2701629541039998,1,2
+A,R10EUROPE,1.5C (High-Ambition),headcount_pct,3,0.08273540025759096,0,3
+A,R10EUROPE,1.5C (High-Ambition),net_re_jobs_per_1k,3,-5.746484631074338,2,1
+A,R10EUROPE,2C (Medium-Ambition),gap_GJ_pc,5,0.40105545605884974,1,4
+A,R10EUROPE,2C (Medium-Ambition),headcount_pct,5,0.1748033977513791,1,4
+A,R10EUROPE,2C (Medium-Ambition),net_re_jobs_per_1k,6,16.147692808103482,1,5
+A,R10INDIA+,1.5C (High-Ambition),gap_GJ_pc,3,0.04596554193735991,1,2
+A,R10INDIA+,1.5C (High-Ambition),headcount_pct,3,0.043812465430583036,1,2
+A,R10INDIA+,1.5C (High-Ambition),net_re_jobs_per_1k,3,14.045362796342488,0,3
+A,R10INDIA+,2C (Medium-Ambition),gap_GJ_pc,5,-0.021155522928527515,3,2
+A,R10INDIA+,2C (Medium-Ambition),headcount_pct,5,-0.005412793759768553,3,2
+A,R10INDIA+,2C (Medium-Ambition),net_re_jobs_per_1k,6,58.52468335185799,0,6
+A,R10LATIN_AM,1.5C (High-Ambition),gap_GJ_pc,3,2.6430966595794985,0,3
+A,R10LATIN_AM,1.5C (High-Ambition),headcount_pct,3,0.30650593424751094,1,2
+A,R10LATIN_AM,1.5C (High-Ambition),net_re_jobs_per_1k,3,-80.2728428400525,2,1
+A,R10LATIN_AM,2C (Medium-Ambition),gap_GJ_pc,5,2.3653866092414404,2,3
+A,R10LATIN_AM,2C (Medium-Ambition),headcount_pct,5,-0.7418106377733498,3,2
+A,R10LATIN_AM,2C (Medium-Ambition),net_re_jobs_per_1k,6,34.90169736564076,2,4
+A,R10MIDDLE_EAST,1.5C (High-Ambition),gap_GJ_pc,3,-0.26728121370311597,2,1
+A,R10MIDDLE_EAST,1.5C (High-Ambition),headcount_pct,3,-0.08439975265754898,2,1
+A,R10MIDDLE_EAST,1.5C (High-Ambition),net_re_jobs_per_1k,3,12.309743476411995,1,2
+A,R10MIDDLE_EAST,2C (Medium-Ambition),gap_GJ_pc,5,-0.15352009556622548,3,2
+A,R10MIDDLE_EAST,2C (Medium-Ambition),headcount_pct,5,-0.10914480222064249,3,2
+A,R10MIDDLE_EAST,2C (Medium-Ambition),net_re_jobs_per_1k,6,67.10275811007722,1,5
+A,R10NORTH_AM,1.5C (High-Ambition),gap_GJ_pc,3,0.2419742210726996,1,2
+A,R10NORTH_AM,1.5C (High-Ambition),headcount_pct,3,0.059510700031179864,1,2
+A,R10NORTH_AM,1.5C (High-Ambition),net_re_jobs_per_1k,3,-41.0963622713425,2,1
+A,R10NORTH_AM,2C (Medium-Ambition),gap_GJ_pc,5,1.3634823444157202,2,3
+A,R10NORTH_AM,2C (Medium-Ambition),headcount_pct,5,0.35260332539118,2,3
+A,R10NORTH_AM,2C (Medium-Ambition),net_re_jobs_per_1k,6,23.632981616956855,2,4
+A,R10PAC_OECD,1.5C (High-Ambition),gap_GJ_pc,3,1.43179870103197,0,3
+A,R10PAC_OECD,1.5C (High-Ambition),headcount_pct,3,0.2916214416592897,0,3
+A,R10PAC_OECD,1.5C (High-Ambition),net_re_jobs_per_1k,3,-29.552951382673,2,1
+A,R10PAC_OECD,2C (Medium-Ambition),gap_GJ_pc,5,1.3629901418705708,1,4
+A,R10PAC_OECD,2C (Medium-Ambition),headcount_pct,5,0.19578736815752507,0,5
+A,R10PAC_OECD,2C (Medium-Ambition),net_re_jobs_per_1k,6,40.700660125443136,1,5
+A,R10REF_ECON,1.5C (High-Ambition),gap_GJ_pc,3,0.07424721010821,1,2
+A,R10REF_ECON,1.5C (High-Ambition),headcount_pct,3,0.01566192712057002,1,2
+A,R10REF_ECON,1.5C (High-Ambition),net_re_jobs_per_1k,3,-64.60102116199101,2,1
+A,R10REF_ECON,2C (Medium-Ambition),gap_GJ_pc,5,-0.18094921363716,3,2
+A,R10REF_ECON,2C (Medium-Ambition),headcount_pct,5,0.006367834725188426,2,3
+A,R10REF_ECON,2C (Medium-Ambition),net_re_jobs_per_1k,6,27.982067286640756,3,3
+A,R10REST_ASIA,1.5C (High-Ambition),gap_GJ_pc,3,0.021403378875250012,1,2
+A,R10REST_ASIA,1.5C (High-Ambition),headcount_pct,3,-0.5466046864074103,2,1
+A,R10REST_ASIA,1.5C (High-Ambition),net_re_jobs_per_1k,3,8.634620306616995,1,2
+A,R10REST_ASIA,2C (Medium-Ambition),gap_GJ_pc,5,-0.46943094761580006,4,1
+A,R10REST_ASIA,2C (Medium-Ambition),headcount_pct,5,-0.49798979238486485,4,1
+A,R10REST_ASIA,2C (Medium-Ambition),net_re_jobs_per_1k,6,40.28021653018749,1,5
+C,Aggregated R10 regions,1.5C (High-Ambition),gap_GJ_pc,1,-1.0990343524941508,1,0
+C,Aggregated R10 regions,1.5C (High-Ambition),headcount_pct,1,-0.645637089324901,1,0
+C,Aggregated R10 regions,1.5C (High-Ambition),net_re_jobs_per_1k,1,269.506732005392,0,1
+C,Aggregated R10 regions,2C (Medium-Ambition),gap_GJ_pc,1,-1.4665524903779517,1,0
+C,Aggregated R10 regions,2C (Medium-Ambition),headcount_pct,1,-0.7966462637006702,1,0
+C,Aggregated R10 regions,2C (Medium-Ambition),net_re_jobs_per_1k,1,186.155546325246,0,1
+C,R10AFRICA,1.5C (High-Ambition),gap_GJ_pc,1,-2.568497081288399,1,0
+C,R10AFRICA,1.5C (High-Ambition),headcount_pct,1,-2.6319556245145463,1,0
+C,R10AFRICA,1.5C (High-Ambition),net_re_jobs_per_1k,1,491.53582911214596,0,1
+C,R10AFRICA,2C (Medium-Ambition),gap_GJ_pc,1,-4.8857341857601995,1,0
+C,R10AFRICA,2C (Medium-Ambition),headcount_pct,1,-3.2437673662082496,1,0
+C,R10AFRICA,2C (Medium-Ambition),net_re_jobs_per_1k,1,438.55642638403293,0,1
+C,R10CHINA+,1.5C (High-Ambition),gap_GJ_pc,1,0.0819668433282601,0,1
+C,R10CHINA+,1.5C (High-Ambition),headcount_pct,1,0.04221851641301999,0,1
+C,R10CHINA+,1.5C (High-Ambition),net_re_jobs_per_1k,1,182.40674644027752,0,1
+C,R10CHINA+,2C (Medium-Ambition),gap_GJ_pc,1,-0.09281086899843305,1,0
+C,R10CHINA+,2C (Medium-Ambition),headcount_pct,1,-0.10507241256162503,1,0
+C,R10CHINA+,2C (Medium-Ambition),net_re_jobs_per_1k,1,60.15748040038871,0,1
+C,R10EUROPE,1.5C (High-Ambition),gap_GJ_pc,1,-0.3860138076060231,1,0
+C,R10EUROPE,1.5C (High-Ambition),headcount_pct,1,-0.12872079460989516,1,0
+C,R10EUROPE,1.5C (High-Ambition),net_re_jobs_per_1k,1,28.761159842890546,0,1
+C,R10EUROPE,2C (Medium-Ambition),gap_GJ_pc,1,-0.6909834382179953,1,0
+C,R10EUROPE,2C (Medium-Ambition),headcount_pct,1,-0.3304331802501699,1,0
+C,R10EUROPE,2C (Medium-Ambition),net_re_jobs_per_1k,1,9.194762589910594,0,1
+C,R10INDIA+,1.5C (High-Ambition),gap_GJ_pc,1,-0.04365134002233195,1,0
+C,R10INDIA+,1.5C (High-Ambition),headcount_pct,1,-0.03945551141192005,1,0
+C,R10INDIA+,1.5C (High-Ambition),net_re_jobs_per_1k,1,152.61786686942048,0,1
+C,R10INDIA+,2C (Medium-Ambition),gap_GJ_pc,1,0.06999670369544908,0,1
+C,R10INDIA+,2C (Medium-Ambition),headcount_pct,1,0.05465144589052151,0,1
+C,R10INDIA+,2C (Medium-Ambition),net_re_jobs_per_1k,1,30.244299729378497,0,1
+C,R10LATIN_AM,1.5C (High-Ambition),gap_GJ_pc,1,-5.962624240021796,1,0
+C,R10LATIN_AM,1.5C (High-Ambition),headcount_pct,1,-1.872670514725101,1,0
+C,R10LATIN_AM,1.5C (High-Ambition),net_re_jobs_per_1k,1,215.42690266524198,0,1
+C,R10LATIN_AM,2C (Medium-Ambition),gap_GJ_pc,1,-7.423296173609948,1,0
+C,R10LATIN_AM,2C (Medium-Ambition),headcount_pct,1,-2.6013567694497475,1,0
+C,R10LATIN_AM,2C (Medium-Ambition),net_re_jobs_per_1k,1,160.7860634633274,0,1
+C,R10MIDDLE_EAST,1.5C (High-Ambition),gap_GJ_pc,1,-2.3216561648498057e-4,1,0
+C,R10MIDDLE_EAST,1.5C (High-Ambition),headcount_pct,1,-0.021010122922516028,1,0
+C,R10MIDDLE_EAST,1.5C (High-Ambition),net_re_jobs_per_1k,1,905.5138596891679,0,1
+C,R10MIDDLE_EAST,2C (Medium-Ambition),gap_GJ_pc,1,-0.1436825266518964,1,0
+C,R10MIDDLE_EAST,2C (Medium-Ambition),headcount_pct,1,-0.098876713280592,1,0
+C,R10MIDDLE_EAST,2C (Medium-Ambition),net_re_jobs_per_1k,1,964.985627990036,0,1
+C,R10NORTH_AM,1.5C (High-Ambition),gap_GJ_pc,1,3.1808995181023043,0,1
+C,R10NORTH_AM,1.5C (High-Ambition),headcount_pct,1,0.7440819532385907,0,1
+C,R10NORTH_AM,1.5C (High-Ambition),net_re_jobs_per_1k,1,196.78502203805306,0,1
+C,R10NORTH_AM,2C (Medium-Ambition),gap_GJ_pc,1,-0.884323539408248,1,0
+C,R10NORTH_AM,2C (Medium-Ambition),headcount_pct,1,-0.25916114174100535,1,0
+C,R10NORTH_AM,2C (Medium-Ambition),net_re_jobs_per_1k,1,117.6844741175522,0,1
+C,R10PAC_OECD,1.5C (High-Ambition),gap_GJ_pc,1,1.541755906440219,0,1
+C,R10PAC_OECD,1.5C (High-Ambition),headcount_pct,1,0.49146718163712455,0,1
+C,R10PAC_OECD,1.5C (High-Ambition),net_re_jobs_per_1k,1,78.99818780572988,0,1
+C,R10PAC_OECD,2C (Medium-Ambition),gap_GJ_pc,1,-1.075761180731039,1,0
+C,R10PAC_OECD,2C (Medium-Ambition),headcount_pct,1,-0.3478488573156948,1,0
+C,R10PAC_OECD,2C (Medium-Ambition),net_re_jobs_per_1k,1,46.020762137790854,0,1
+C,R10REF_ECON,1.5C (High-Ambition),gap_GJ_pc,1,0.015441122818455,0,1
+C,R10REF_ECON,1.5C (High-Ambition),headcount_pct,1,-0.009952057647283463,1,0
+C,R10REF_ECON,1.5C (High-Ambition),net_re_jobs_per_1k,1,493.0092364352834,0,1
+C,R10REF_ECON,2C (Medium-Ambition),gap_GJ_pc,1,-0.1979941617764649,1,0
+C,R10REF_ECON,2C (Medium-Ambition),headcount_pct,1,-0.0957891811362635,1,0
+C,R10REF_ECON,2C (Medium-Ambition),net_re_jobs_per_1k,1,435.6455812420435,0,1
+C,R10REST_ASIA,1.5C (High-Ambition),gap_GJ_pc,1,-0.4883481174114017,1,0
+C,R10REST_ASIA,1.5C (High-Ambition),headcount_pct,1,-0.6386908409152801,1,0
+C,R10REST_ASIA,1.5C (High-Ambition),net_re_jobs_per_1k,1,154.14910370817796,0,1
+C,R10REST_ASIA,2C (Medium-Ambition),gap_GJ_pc,1,-0.6410100939696104,1,0
+C,R10REST_ASIA,2C (Medium-Ambition),headcount_pct,1,-0.5584942364539804,1,0
+C,R10REST_ASIA,2C (Medium-Ambition),net_re_jobs_per_1k,1,51.7032576882155,0,1

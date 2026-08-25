@@ -1,0 +1,5 @@
+classification horizon=2020-2100 cumulative deployment
+outcome horizon=2020-2100 mortality
+CMT axis=Novel CDR + Fossil/industrial CCS; land-based CDR excluded
+portfolio rule=top-tercile focal axis; not top-tercile opposing axis
+mortality input policy=direct R10 reporting with only short bracketed temporal interpolation

@@ -43,9 +43,20 @@ DROP <- "R10PAC_OECD"
 amb_lab <- function(x) factor(x, levels=c("1.5C","2C"),
                               labels=c("1.5C high ambition","2C medium ambition"))
 
-R <- readRDS("CENTURY_RESULTS.rds") %>%
+# CENTURY_RESULTS carries the pre-strict World row, in which a scenario's World
+# total inherited the regional coverage of whichever deployment variable its row
+# belonged to. V3 rebuilt World under the strict ten-region rule and STRICT_WORLD
+# is what the deck reports, so World is taken from there. The R10 rows are
+# untouched by that fix -- they agree to 4e-12 -- and are kept from
+# CENTURY_RESULTS so that the figures quote exactly the same intervals as the
+# regional tables rather than a second, independently seeded bootstrap draw.
+WKEY <- "Aggregated R10 regions"
+R <- bind_rows(
+       readRDS("CENTURY_RESULTS.rds")   %>% filter(Region != WKEY),
+       readRDS("STRICT_WORLD.rds")$grid %>% filter(Region == WKEY)) %>%
   filter(approach=="A", primary, !is.na(gap)) %>%
   mutate(fam = factor(family, levels=c("Jobs","Deprivation","Health")))
+stopifnot(sum(R$Region == WKEY) == 6)   # 3 outcomes x 2 ambition levels
 H <- R %>% filter(Region != DROP)
 cat("cells:", nrow(H), "| favour High-RE:", sum(H$gap>0),
     "| significant for:", sum(H$gap>0 & H$sig), "| against:", sum(H$gap<0 & H$sig), "\n")
@@ -160,13 +171,17 @@ MC <- readRDS("W13_ZEROS_LANDMORT.rds")$mort %>%
   filter(axis=="engineered", reg=="WORLD") %>%
   select(amb, n_cmt, n_re) %>%
   pivot_longer(c(n_cmt,n_re), names_to="k", values_to="Complete mortality") %>%
-  mutate(Pathway = ifelse(k=="n_cmt","High-CMT","High-RE")) %>% select(-k)
+  # STRICT_WORLD$flow spells the arm "High-engineered-CMT"; matching that exactly
+  # matters, because a mismatch silently drops the two CMT mortality bars rather
+  # than failing.
+  mutate(Pathway = ifelse(k=="n_cmt","High-engineered-CMT","High-RE")) %>% select(-k)
 d4 <- FL %>% left_join(MC, by=c("amb","Pathway")) %>%
   pivot_longer(-c(amb,Pathway), names_to="stage", values_to="n") %>%
   mutate(stage = factor(stage, levels=c("Classified","Complete jobs",
                                         "Complete deprivation","Complete mortality")),
          ambl = amb_lab(amb),
          arm = ifelse(Pathway=="High-RE","High-RE","High-engineered-CMT"))
+stopifnot(!any(is.na(d4$n)))   # every stage must have a bar in both arms
 p4 <- ggplot(d4, aes(stage, n, fill=arm)) +
   geom_col(position=position_dodge(width=0.72), width=0.66) +
   geom_text(aes(label=n), position=position_dodge(width=0.72),
@@ -197,9 +212,13 @@ d5 <- Z %>% inner_join(SW, by=c("Model","Scenario")) %>%
                                      "renewables reported"),
          ambl = amb_lab(amb))
 p5 <- ggplot(d5, aes(grp, jobs, fill=grp)) +
-  geom_boxplot(outlier.shape=21, outlier.size=1.2, width=0.5,
-               colour=GREY, linewidth=0.4, alpha=0.85) +
   geom_hline(yintercept=0, colour=INK, linewidth=0.4, linetype="dashed") +
+  geom_boxplot(outlier.shape=NA, width=0.5, colour=GREY, linewidth=0.4, alpha=0.85) +
+  # The non-reporting group is a flat line at zero, which a boxplot alone renders
+  # almost invisibly -- exactly the group the figure exists to show. The points
+  # give it presence and show how many scenarios sit there.
+  geom_jitter(width=0.13, height=0, shape=21, size=1.25, stroke=0.3,
+              colour=INK, fill="#FFFFFF", alpha=0.7) +
   facet_wrap(~ambl) +
   scale_fill_manual(values=c(`renewables reported`="#CBDCF0",
                              `renewables NOT reported\n(filled with zero)`="#F2C9C9"),

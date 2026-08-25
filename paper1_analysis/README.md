@@ -57,12 +57,16 @@ comparison remains a pathway contrast *plus* a modelling-framework contrast:
 
 | | pooled | within-model support | verdict |
 |---|---|---|---|
-| Jobs | 20/20, all significant | confirms in every family holding both arms | **a result** |
-| Deprivation | 14/20, 11 significant, 2 against | within-model median often disagrees | holds at 1.5 °C; regionally split at 2 °C |
-| Health | 8/20, 5 significant, 2 against | thin | Europe holds; World 1.5 °C holds; **Africa reverses significantly** |
+| Jobs | 20/20, all significant | **72%** agree · median family agrees in 16/20 | a result at 2 °C; pooled-only at 1.5 °C |
+| Deprivation | 14/20, 11 significant, 2 against | **42%** agree · 9 conflicts | an association; attribution unresolved |
+| Health | 8/20, 5 significant, 2 against | **25%** agree · only 2 families | Europe holds on pooling alone; no general claim |
 
-> The within-model grid has **not yet been re-run** on the repaired keys and the
-> all-CDR axis. It is the one number here still on the older sample.
+> **The real limit is ambition, not outcome.** At 1.5 °C only **one** model
+> family (MESSAGEix) holds both arms well enough to be asked, so every
+> high-ambition cell — including the headline ones — rests on pooling. At 2 °C
+> four families can be asked and jobs holds in 16 of 20 cells. Quoting a single
+> agreement rate across both levels hides this. Source:
+> `W14_within_model_landprimary.R`.
 
 ---
 
@@ -107,7 +111,7 @@ significantly.** Diagnosed and quantified in `V6_key_repair.R`.
 | **The figures** | `Z9_century_figs.R` → `figures_century/F1`–`F5` |
 | **The rebuild everything rests on** | `V5_land_primary.R` — both axes, repaired keys, strict World |
 | **The defect you must know about** | `V6_key_repair.R` — 71 scenarios the published join dropped silently |
-| **The one thing to check first** | `W2_within_model.R` — it decides what the paper can claim |
+| **The one thing to check first** | `W14_within_model_landprimary.R` — it decides what the paper can claim |
 | **The conventions** | "Conventions that matter" at the bottom of this file |
 
 ---
@@ -123,6 +127,7 @@ significantly.** Diagnosed and quantified in `V6_key_repair.R`.
 | `V2_rebuild_century.R` | the earlier engineered-axis rebuild. **Superseded by `V5`** — it carries the key defect | `CENTURY_RESULTS.rds` |
 | `W12_land_sensitivity.R` | the first land in/out comparison, on reconstructed labels. Superseded by `V5`, retained for the churn diagnostics | `W12_LAND.rds` |
 | `W13_zeros_and_land_mortality.R` | are the zero-renewable scenarios true zeros? | `W13_ZEROS_LANDMORT.rds` |
+| **`W14_within_model_landprimary.R`** | the within-model test on the primary axis; replaces `W2` | `W14_WITHIN.rds` |
 | `Z9_century_figs.R` | the figure set `F1`–`F5`, all from `LAND_PRIMARY` | `figures_century/` |
 | `build_final_deck.js` | the deck | `decks/COMPASS_Paper1_final_8.25.pptx` |
 
@@ -163,7 +168,8 @@ against the all-CDR labels is the highest-value outstanding job.**
 
 | script | asks | headline finding |
 |---|---|---|
-| **`W2_within_model.R`** | does the result survive inside a single modelling framework? | Jobs: **6 of 6 families agree at 2 °C**; mixed at 1.5 °C. Deprivation: within-model median often disagrees with the pooled direction. Health: too thin to ask properly. |
+| **`W14_within_model_landprimary.R`** | does the result survive inside a single modelling framework? | Jobs 72% agree (16/20 cells); deprivation 42% (9 conflicts); health 25% (2 families). At 1.5 °C only MESSAGEix can be asked at all. Self-checks that it reproduces the pooled grid exactly before comparing against it. |
+| `W2_within_model.R` | the same question on the **superseded** design | Not runnable from a clean checkout — it sources `stratified.R.fns` (`WINDOW <- "2020-2050"`), filters `Variable == "Total CDR"`, takes labels from `pw_*.rds$Pathway_excl`, and needs five gitignored `.rds` inputs. Replaced by `W14`. |
 | `W9_spec_landscape.R` | which specification gives the strongest result? | The maximum runs on the smallest sample; it scores highest *because* it is smallest. |
 | `W4_label_basis.R` | global tercile or per-region? | 3.6% of labels change and REMIND's share is unmoved, so it fixes nothing that matters. |
 | `W5_aggregation_order.R` | cumulate-then-median, or median-then-cumulate? | Differs by 0.2–2.5%; reverses no cell. Cumulate-per-scenario is required for inference regardless. |
@@ -294,9 +300,12 @@ discarded.
   classified scenarios have no mortality output because the target list was
   drawn under the engineered axis. This limits a headline result, not just a
   robustness check — it is the top priority.
-- **Re-run the within-model grid** (`W2_within_model.R`) on the repaired keys and
-  the all-CDR axis. It is the only number in this index still on the older
-  sample, and it decides how strongly each claim can be stated.
+- **Get more model families into the 1.5 °C comparison.** The within-model check
+  now runs on the all-CDR axis and repaired keys (`W14`), and it exposes the real
+  limit: at 1.5 °C only one family holds both arms well enough to be asked, so
+  every high-ambition cell rests on pooling. Nothing in this dataset fixes that —
+  it is a property of AR6 — but the paper must say it plainly rather than quoting
+  an average across ambition levels.
 - **Fix the labels file at source.** The mangled degree signs should be corrected
   where the file is written, and
   `COMPASS_engineered_cmt_century_outcomes_summary.R`'s `inner_join()` should

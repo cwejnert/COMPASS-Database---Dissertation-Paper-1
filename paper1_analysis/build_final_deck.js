@@ -142,7 +142,7 @@ bullets("The answer in one slide","Renewables-led mitigation delivers more wellb
   ["ENERGY EMPLOYMENT — unanimous and fully significant. High-RE is better in all 20 region × ambition cells and ALL 20 clear the interval. At World, net energy employment goes from 228 to 692 job-years per 1,000 people at 1.5°C (+204%) and 187 to 471 at 2°C (+153%). Nothing else in the study comes close for consistency.",
    "ENERGY DEPRIVATION — now significant at World at high ambition. The decent-living gap closes from 18.43 to 11.62 GJ per capita at 1.5°C, a 37% reduction, and the interval clears zero [+1.72, +9.73]. At 2°C it closes from 15.46 to 11.37 but the interval does not [−0.56, +7.75]. Better in 14 of 20 cells, 11 significant, 2 significantly against.",
    "AIR-QUALITY MORTALITY — favourable at high ambition. High-RE avoids 11.11 million cumulative deaths at World 1.5°C [+3.82, +50.40] — significant — while the 2°C cell is −4.28 and not. Europe carries it: 4.99 and 3.66 million avoided, significant at both levels, a 31% reduction on a base of about 16 million.",
-   "OVERALL: 42 of 60 comparisons favour High-RE, 36 significantly, 4 against. Four of the six World cells clear the interval, and all four favour High-RE."],
+   "OVERALL: 42 of 60 comparisons favour High-RE, 36 significantly, 4 against; four of six World cells clear. THE CAVEAT THAT TRAVELS WITH ALL OF IT: the High-RE arm is 88% REMIND at 1.5°C and 69% at 2°C, against a genuinely multi-model High-CDR arm. Dropping REMIND keeps the jobs direction in 19 of 20 cells but cuts the advantage to a median 18% of its pooled size, and removes the deprivation result entirely."],
   {t:"SUMMARY",c:GOLD},
   "Cumulative 2020–2100 for both classification and outcomes. Every cell is the two arm medians with a 2,000-replicate cluster bootstrap on the raw difference, resampling whole model × scenario-family clusters.");
 
@@ -277,6 +277,44 @@ table("Model composition","The confound is far worse at 1.5°C than the pooled f
     {t:"families with ≥3 in BOTH arms: 1 at 1.5°C, 4 at 2°C",o:{bold:true}}]],
   [2.3,1.3,1.3,1.3,1.3,4.6],{t:"1.5°C vs 2°C",c:RED},
   "AT 1.5°C THE ARMS ARE ALMOST PERFECTLY SEGREGATED BY MODEL. REMIND supplies 59 of 67 High-RE scenarios and one of 67 High-CDR; IMAGE (23/0) and WITCH (6/0) are pure High-CDR. So 'High-RE against High-CDR' at high ambition is close to 'REMIND against IMAGE, MESSAGEix, WITCH and GCAM'. The pooled 73% REMIND share understates the problem exactly where the headline results sit. This is very likely substantive rather than clerical — at the most stringent target, frameworks diverge structurally in HOW they get there, and that divergence is what sorts them into arms.",10);
+
+table("Model composition","How many models is each arm really made of?",
+  ["","High-CDR arm","High-RE arm","Reading"],
+  [[{t:"1.5°C — scenarios",o:{bold:true}},"67","67",""],
+   ["  families present","7","5",""],
+   ["  largest family",{t:"MESSAGEix 37%",o:{color:GREEN}},{t:"REMIND 88%",o:{color:RED,bold:true}},"one model is nearly the whole arm"],
+   [{t:"  effective number of models",o:{bold:true}},{t:"3.6",o:{bold:true,color:GREEN}},{t:"1.3",o:{bold:true,color:RED}},
+    {t:"a multi-model ensemble against effectively one model",o:{color:RED}}],
+   [{t:"2°C — scenarios",o:{bold:true}},"238","238",""],
+   ["  families present","7","8",""],
+   ["  largest family",{t:"MESSAGEix 31%",o:{color:GREEN}},{t:"REMIND 69%",o:{color:RED,bold:true}},""],
+   [{t:"  effective number of models",o:{bold:true}},{t:"4.7",o:{bold:true,color:GREEN}},{t:"2.0",o:{bold:true,color:RED}},
+    {t:"better, and still a 2-to-1 asymmetry in breadth",o:{color:GOLD}}]],
+  [3.4,2.6,2.6,3.5],{t:"CONCENTRATION",c:RED},
+  "Effective number of models = 1 / Σ(share²), the inverse Herfindahl index: it asks how many models an arm is really made of, so an arm that is 88% one model counts as ~1 however long its tail. THE ASYMMETRY IS THE PROBLEM, not the overlap between arms. High-CDR is a genuine ensemble at both ambition levels; High-RE is REMIND with a fringe. A pooled difference between them could be a pathway effect or a REMIND effect, and nothing in the composition alone distinguishes the two — which is what the next slide tests.",10);
+
+table("Model composition","Drop REMIND from the High-RE arm and the direction holds — the magnitude does not",
+  ["World cell","With REMIND","Without REMIND","Residual RE arm","What survives"],
+  [[{t:"Jobs · 1.5°C",o:{bold:true}},{t:"+463.9 ●",o:{color:GREEN,bold:true}},{t:"+84.0",o:{color:MUTE,bold:true}},"8 scenarios",
+    {t:"sign holds; 18% of the gap; interval lost",o:{color:GOLD}}],
+   [{t:"Jobs · 2°C",o:{bold:true}},{t:"+284.7 ●",o:{color:GREEN,bold:true}},{t:"+37.4 ●",o:{color:GREEN,bold:true}},"73 scenarios",
+    {t:"STILL SIGNIFICANT, at 13% of the gap",o:{color:GREEN}}],
+   [{t:"Deprivation · 1.5°C",o:{bold:true}},{t:"−6.81 ●",o:{color:GREEN,bold:true}},{t:"+2.77",o:{color:RED,bold:true}},"8 scenarios",
+    {t:"SIGN FLIPS",o:{color:RED,bold:true}}],
+   [{t:"Deprivation · 2°C",o:{bold:true}},{t:"−4.09",o:{color:MUTE}},{t:"+4.31",o:{color:RED,bold:true}},"65 scenarios",
+    {t:"SIGN FLIPS",o:{color:RED,bold:true}}],
+   [{t:"Mortality · 1.5°C",o:{bold:true}},{t:"−11.11 ●",o:{color:GREEN,bold:true}},{t:"—",o:{color:MUTE}},"2 scenarios",
+    {t:"cannot be scored at all",o:{color:MUTE}}],
+   [{t:"",o:{}},{t:"",o:{}},{t:"",o:{}},{t:"",o:{}},{t:"",o:{}}],
+   [{t:"ACROSS ALL NINE REGIONS + WORLD",o:{bold:true,color:TEAL}},"","","",""],
+   [{t:"  Jobs — cells keeping the sign",o:{bold:true}},"20 of 20",{t:"19 of 20",o:{color:GREEN,bold:true}},"",
+    {t:"median 18–19% of the advantage retained",o:{color:GOLD}}],
+   [{t:"  Jobs — cells still significant",o:{bold:true}},"20",{t:"9",o:{color:GOLD,bold:true}},"","7 of those 9 are at 2°C"],
+   [{t:"  Deprivation — cells still significant",o:{bold:true}},"13",{t:"0",o:{color:RED,bold:true}},"",
+    {t:"8 of 20 cells flip sign",o:{color:RED,bold:true}}]],
+  [3.0,1.9,1.9,1.7,3.6],{t:"LEAVE-ONE-OUT",c:RED},
+  "READ THIS CAREFULLY IN BOTH DIRECTIONS. Dropping REMIND leaves 8 High-RE scenarios at 1.5°C and 73 at 2°C, so losing significance is partly just lost power and is NOT by itself evidence of a confound. But a power loss widens the interval around a STABLE estimate — it does not move the estimate by 80%, and it does not flip signs. Both happen here. The defensible reading: the DIRECTION of the jobs result survives the loss of its dominant model, and at 2°C it survives significantly on 73 independent scenarios, so there is a real pathway effect — but the SIZE of the pooled advantage is substantially a REMIND effect, and the deprivation result does not survive at all.",9.5);
+
 
 
 table("Diagnostics","World coverage flow — how many scenarios each outcome can actually use",
@@ -547,17 +585,18 @@ bullets("The confound","Better than it was, and still the binding constraint",
   "Source: W14_within_model_landprimary.R, built on the all-CDR axis and the repaired keys. It self-checks that it reproduces the pooled grid exactly before comparing against it, so the two are the same numbers. Effect size is Cliff's delta: inside one family the samples are tiny and the question is about rank overlap, not the size of the gap. W2_within_model.R is its predecessor and runs on the superseded design.");
 
 table("Is it real?","What survives, and what the reader should take on trust",
-  ["","Pooled result","Within-model support","Verdict"],
-  [[{t:"Energy jobs",o:{bold:true}},{t:"20/20, all 20 significant",o:{bold:true,color:GREEN}},
-    {t:"72% agree · 16 of 20 cells",o:{color:GREEN}},{t:"a result at 2°C; pooled-only at 1.5°C",o:{bold:true,color:GREEN}}],
+  ["","Pooled result","Within-model","Without REMIND","Verdict"],
+  [[{t:"Energy jobs",o:{bold:true}},{t:"20/20, all significant",o:{bold:true,color:GREEN}},
+    {t:"72% agree",o:{color:GREEN}},{t:"19/20 keep sign; 18% of size",o:{color:GOLD}},
+    {t:"direction is a result; magnitude is not",o:{bold:true,color:GREEN}}],
    [{t:"Energy deprivation",o:{bold:true}},"14/20, 11 significant, 2 against",
-    {t:"42% agree · 9 conflicts",o:{color:RED}},
-    {t:"an association; attribution unresolved",o:{color:GOLD}}],
+    {t:"42% agree",o:{color:RED}},{t:"8 flips; 0 of 13 survive",o:{color:RED,bold:true}},
+    {t:"an association; attribution unresolved",o:{color:RED}}],
    [{t:"PM2.5 mortality",o:{bold:true}},"8/20, 5 significant, 2 against",
-    {t:"25% agree · 2 families only",o:{color:RED}},
-    {t:"Europe holds on pooling alone; no general claim",o:{color:GOLD}}]],
-  [2.8,3.2,3.0,3.1],{t:"VERDICT",c:GOLD},
-  "The asymmetry is the point: the same test that clears jobs is what convicts deprivation, so it cannot be dismissed as an unfair standard. All three also hold on the engineered-only axis (jobs 20/20, deprivation 15/20, health 9/20), so the axis choice is not what is carrying any of them. What limits the claims is model composition, not the specification.");
+    {t:"25% agree",o:{color:RED}},{t:"2 flips; 1 of 3 survives",o:{color:RED}},
+    {t:"Europe only; no general claim",o:{color:GOLD}}]],
+  [2.4,2.9,1.9,2.6,2.3],{t:"VERDICT",c:GOLD},
+  "Three independent stress tests, applied identically to all three outcomes: does a single model family agree with the pooled direction; does the result survive removing the family that dominates the High-RE arm; and does it hold on the narrower engineered-only axis. Jobs passes the first two in direction and all three in sign. Deprivation fails both composition tests. That the same standard clears one and convicts another is what makes it a standard rather than an excuse — and the axis choice carries none of it (engineered-only: jobs 20/20, deprivation 15/20, health 9/20).");
 
 bullets("Sensitivity — the axis boundary","What happens if the CDR axis is narrowed to engineered removal only",
   ["THE QUESTION. The primary axis is all CDR. Narrowing it to engineered removal — novel CDR plus fossil and industrial CCS, excluding afforestation, reforestation and soil carbon — is the obvious alternative, and it is what an earlier version of this analysis used. The test re-runs the entire classification on the narrower axis and scores both label sets on IDENTICAL outcome data, so only the labels differ.",
@@ -588,14 +627,15 @@ img("Sensitivity — the zeros","What the non-reporting scenarios do to the High
 section("Part seven","What we can claim","And what has to be said alongside it.");
 
 bullets("The claim","What renewables-led mitigation delivers, and how sure we are",
-  ["ONE — WORK. At matched climate ambition, renewables-led mitigation employs substantially more people in energy than CDR-led mitigation: 228 against 692 job-years per 1,000 at World 1.5°C, a difference of +464 [+380, +513], and +285 [+181, +337] at 2°C. Better in ALL 20 region × ambition cells and significant in all 20 — the only outcome of which that is true, and the within-model check supports it in 16 of 20 cells. The mechanism is the renewable build, which outweighs High-CDR's fossil, nuclear and bioenergy employment combined by 11 to 1.",
-   "TWO — ENERGY ACCESS, AT HIGH AMBITION. Renewables-led pathways close the decent-living energy gap at World 1.5°C by 6.81 GJ per capita [+1.72, +9.73], a 37% reduction, and significantly in six of nine regions — Africa, Latin America, Europe, North America, India+ and China+. At 2°C the World cell does not clear and two regions reverse significantly. Report it as holding at high ambition and regionally split at medium.",
+  ["ONE — WORK, AND THE DIRECTION IS ROBUST. At matched climate ambition, renewables-led mitigation employs more people in energy than CDR-led mitigation: 228 against 692 job-years per 1,000 at World 1.5°C, +464 [+380, +513], and +285 [+181, +337] at 2°C. Better in ALL 20 cells and significant in all 20. It survives dropping REMIND — 19 of 20 cells keep the sign, and World 2°C still clears on the 73 non-REMIND scenarios.",
+   "BUT THE MAGNITUDE IS NOT ROBUST, AND THE PAPER SHOULD SAY SO. Without REMIND the World gap falls to +84 at 1.5°C and +37 at 2°C — a median of 18% of the pooled advantage retained across cells. Claim the direction and the mechanism confidently; treat the SIZE as an upper bound set largely by one model. 'Renewables-led pathways employ more people' is supported; 'they employ two to three times more' is not.",
+   "TWO — ENERGY ACCESS, WHICH DOES NOT SURVIVE ITS DOMINANT MODEL. The pooled result looks strong — the World gap closes by 6.81 GJ per capita at 1.5°C [+1.72, +9.73], significantly, and in six of nine regions. But drop REMIND and EIGHT of twenty cells flip sign, including World at both ambition levels, and NOT ONE of the thirteen significant cells survives. Combined with a within-model agreement rate of 42%, this should be reported as an association that the ensemble cannot yet attribute to the pathway rather than as a wellbeing finding.",
    "THREE — AIR QUALITY, AND IT IS NOT UNIVERSAL. Renewables-led pathways avoid 11.11 million cumulative PM2.5 deaths at World 1.5°C [+3.82, +50.40], and 4.99 million in Europe — a 31% reduction, the largest proportional effect anywhere, significant at both ambition levels. But Africa goes significantly the OTHER way at both levels, because its PM2.5 is dominated by household solid fuel and dust rather than the power mix. There is no universal air-quality co-benefit to claim.",
-   "TAKEN TOGETHER: the choice between carbon removal and renewables matters decisively for employment, substantially for energy access at high ambition, and in specific places — not everywhere — for air quality. That asymmetry is the paper's answer, and it is more useful and more credible than three uniform ticks would have been."],
+   "TAKEN TOGETHER: the choice between carbon removal and renewables matters for employment — that survives every test we can apply, in direction if not in magnitude — and in specific places for air quality. Energy access looks favourable but cannot be separated from model composition. That graded answer is what the database actually supports, and reporting it that way is what makes the employment claim worth believing."],
   {t:"CLAIM",c:GOLD});
 
 bullets("Limitations","Stated plainly, because they are load-bearing",
-  ["MODEL COMPOSITION REMAINS THE BINDING CONSTRAINT, AND IT IS WORST AT 1.5°C. REMIND supplies 88% of the High-RE arm at high ambition against 1% of High-CDR, and only ONE family (MESSAGEix, on three High-RE scenarios) holds both arms well enough to be asked. Every 1.5°C cell — including the headline ones — rests on pooling. At 2°C the picture genuinely improves: four families can be asked, and jobs holds in 16 of 20 cells. Deprivation agrees in 42% of comparisons and health in 25%.",
+  ["MODEL COMPOSITION IS THE BINDING CONSTRAINT, AND IT IS AN ASYMMETRY IN CONCENTRATION. The High-CDR arm is a real ensemble (effectively 3.6 models at 1.5°C, 4.7 at 2°C); the High-RE arm is effectively 1.3 and 2.0, because REMIND is 88% and 69% of it. Leave-one-out is the honest test: the jobs DIRECTION survives dropping REMIND in 19 of 20 cells and stays significant at World 2°C, but the magnitude falls to a median 18% of the pooled value, and every one of the thirteen significant deprivation cells disappears with eight flipping sign.",
    "TWO UPSTREAM DATA DEFECTS WERE FOUND AND FIXED, AND BOTH MATTERED. The World row was aggregated within deployment-variable groups, so it inherited the wrong regional coverage; and 71 classified scenarios never reached the outcome tables because the labels file stores degree signs as literal text that no join could match. Both are fixed here, both moved numbers, and neither reversed a finding — but they are a reminder that the published intermediate files should not be taken at face value.",
    "MORTALITY RUNS ON A RESTRICTED SAMPLE, AND ON THIS AXIS THE RESTRICTION IS WORSE. Its target list was drawn against the ENGINEERED labels, so the 80 scenarios the all-CDR axis newly admits have no mortality run at all. That is target selection rather than a property of those scenarios, and it means the mortality arms here are smaller than the engineered axis's. Re-running the mortality targets against the all-CDR labels is the single most valuable outstanding job.",
    "THE DEPRIVATION MEASURE TRUNCATES AT ZERO, so it responds only to sectors where a region falls short — not always the household sector. It is a regional aggregate and cannot speak to who inside a region is deprived.",
@@ -604,7 +644,8 @@ bullets("Limitations","Stated plainly, because they are load-bearing",
 
 bullets("What is open","Next steps, in priority order",
   ["RE-RUN THE MORTALITY TARGETS AGAINST THE ALL-CDR LABELS. The mortality sample was selected under the engineered axis, so 80 newly classified scenarios carry no mortality output. This is the one outstanding item that limits a headline result rather than a robustness check.",
-   "GET MORE FAMILIES INTO THE 1.5°C COMPARISON. The within-model check now runs on the all-CDR axis and repaired keys, and it exposes the real limit: at 1.5°C only ONE model family holds both arms well enough to be asked, so every high-ambition cell rests on pooling. Nothing in this dataset fixes that — it is a property of AR6 — but the paper must say it plainly rather than quoting an average across ambition levels.",
+   "DECIDE HOW TO PRESENT THE JOBS MAGNITUDE. The direction survives every test; the size does not. Options are to report the pooled figure with the leave-one-out value alongside it, to lead with the non-REMIND estimate as a conservative floor, or to report a range. This is a presentation decision that should be made deliberately rather than by default, because the pooled figure alone overstates what the ensemble supports.",
+   "CONSIDER WHETHER DEPRIVATION CAN BE CLAIMED AT ALL. It fails both composition tests — 42% within-model agreement, and none of its thirteen significant cells survives dropping REMIND, with eight flipping sign. Either it is reported as an association with the attribution explicitly unresolved, or it moves to the SI. Reporting it beside jobs as a co-equal finding is not defensible.",
    "FIX THE LABELS FILE AT SOURCE. The mangled degree signs should be corrected where the file is written, not repaired downstream, and the published summary's inner_join() should be made to fail loudly on unmatched keys rather than dropping them silently.",
    "DECIDE HOW TO REPORT THE ZERO-RENEWABLE SCENARIOS. Retained with the zero fill is the published behaviour. On the all-CDR axis dropping them no longer changes a headline, so this is now a presentational choice rather than a live risk.",
    "RE_SPEC DEFINITION SENSITIVITY — whether the renewables axis should include nuclear or biomass. A reviewer will ask, and the answer is currently a principled argument without a table behind it."],

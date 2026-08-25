@@ -50,34 +50,55 @@ wider definition.
 portfolio rule takes same-size terciles on the same sample and subtracts the same
 overlap from each, so the two arms are necessarily equal.
 
-**The binding constraint, and it is worst where the headlines are.** REMIND
-supplies **73%** of the High-RE arm pooled — but **88% at 1.5 °C** and 69% at
-2 °C, against ~1% of High-CDR at both. At high ambition the arms are almost
-perfectly segregated by model:
+**The binding constraint is an asymmetry in CONCENTRATION between the arms.**
+The High-CDR arm is a genuine multi-model ensemble; the High-RE arm is REMIND
+with a fringe:
 
-| | 1.5 °C | 2 °C |
+| | High-CDR | High-RE |
 |---|---|---|
-| scenarios · families present | 134 · 7 | 476 · 9 |
-| REMIND's share of the **High-RE** arm | **88%** (59/67) | 69% (165/238) |
-| families with ≥1 scenario in both arms | 5 | 6 |
-| families with **≥3 in both** (askable within-model) | **1** | 4 |
+| 1.5 °C — largest family | MESSAGEix 37% | **REMIND 88%** |
+| 1.5 °C — **effective number of models** | **3.6** | **1.3** |
+| 2 °C — largest family | MESSAGEix 31% | **REMIND 69%** |
+| 2 °C — **effective number of models** | **4.7** | **2.0** |
 
-Per family at 1.5 °C: REMIND 1 CDR / 59 RE · IMAGE 23 / 0 · WITCH 6 / 0 ·
-MESSAGEix 25 / 3 · GCAM 7 / 1 · POLES 4 / 1 · AIM 1 / 3. So *High-RE against
-High-CDR* at high ambition is close to **REMIND against IMAGE, MESSAGEix, WITCH
-and GCAM**, and the one family that can be asked within-model rests on three
-High-RE scenarios. This is very likely substantive rather than clerical: at the
-most stringent target, frameworks diverge structurally in *how* they get there,
-and that divergence is what sorts them into arms.
+Effective number of models = 1 / Σ(share²), the inverse Herfindahl index: how
+many models an arm is *really* made of, so an arm that is 88% one model counts
+as ~1 however long its tail. A pooled difference between a 3.6-model arm and a
+1.3-model arm could be a pathway effect or a REMIND effect, and composition
+alone cannot distinguish them.
+
+**The leave-one-out test is what distinguishes them**, and it is decisive
+(`W15_arm_composition.R`):
+
+| World cell | with REMIND | without REMIND | residual RE arm | survives? |
+|---|---|---|---|---|
+| Jobs · 1.5 °C | **+463.9** ✓ | +84.0 | 8 | sign holds; 18% of the gap |
+| Jobs · 2 °C | **+284.7** ✓ | **+37.4** ✓ | 73 | **still significant** |
+| Deprivation · 1.5 °C | **−6.81** ✓ | +2.77 | 8 | **sign flips** |
+| Deprivation · 2 °C | −4.09 | +4.31 | 65 | **sign flips** |
+| Mortality · 1.5 °C | **−11.11** ✓ | — | 2 | cannot be scored |
+
+Across all nine regions plus World: **jobs** keeps its sign in 19 of 20 cells
+and stays significant in 9 (7 of them at 2 °C), retaining a median **18%** of
+the pooled advantage. **Deprivation** loses all 13 significant cells and 8 of 20
+flip sign.
+
+> **Read this in both directions.** Dropping REMIND leaves 8 High-RE scenarios
+> at 1.5 °C, so losing significance there is partly lost power, not proof of a
+> confound. But lost power widens the interval around a *stable* estimate — it
+> does not move the estimate by 80% or flip signs. Both happen. The defensible
+> reading: the jobs **direction** survives its dominant model (significantly so
+> at 2 °C, on 73 independent scenarios), the jobs **magnitude** is largely a
+> REMIND effect, and deprivation does not survive at all.
 
 Every pooled comparison is therefore a pathway contrast *plus* a
 modelling-framework contrast:
 
-| | pooled | within-model support | verdict |
-|---|---|---|---|
-| Jobs | 20/20, all significant | **72%** agree · median family agrees in 16/20 | a result at 2 °C; pooled-only at 1.5 °C |
-| Deprivation | 14/20, 11 significant, 2 against | **42%** agree · 9 conflicts | an association; attribution unresolved |
-| Health | 8/20, 5 significant, 2 against | **25%** agree · only 2 families | Europe holds on pooling alone; no general claim |
+| | pooled | within-model | without REMIND | verdict |
+|---|---|---|---|---|
+| Jobs | 20/20, all significant | **72%** agree | 19/20 keep sign; **18%** of size | **direction is a result; magnitude is not** |
+| Deprivation | 14/20, 11 significant, 2 against | **42%** agree | **8 flips; 0 of 13 survive** | an association; attribution unresolved |
+| Health | 8/20, 5 significant, 2 against | **25%** agree · 2 families | 2 flips; 1 of 3 survives | Europe only; no general claim |
 
 > **The real limit is ambition, not outcome.** At 1.5 °C only **one** family
 > (MESSAGEix, on three High-RE scenarios) holds both arms well enough to be
@@ -146,6 +167,7 @@ significantly.** Diagnosed and quantified in `V6_key_repair.R`.
 | `W12_land_sensitivity.R` | the first land in/out comparison, on reconstructed labels. Superseded by `V5`, retained for the churn diagnostics | `W12_LAND.rds` |
 | `W13_zeros_and_land_mortality.R` | are the zero-renewable scenarios true zeros? | `W13_ZEROS_LANDMORT.rds` |
 | **`W14_within_model_landprimary.R`** | the within-model test on the primary axis; replaces `W2` | `W14_WITHIN.rds` |
+| **`W15_arm_composition.R`** | what each arm is made of, and leave-one-family-out — **the decisive robustness test** | `W15_ARMS.rds` |
 | `Z9_century_figs.R` | the figure set `F1`–`F5`, all from `LAND_PRIMARY` | `figures_century/` |
 | `build_final_deck.js` | the deck | `decks/COMPASS_Paper1_final_8.25.pptx` |
 

@@ -1485,23 +1485,98 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     left_join(pop2020_r10, by = "Region") %>%
     add_percapita()
 
-  # Aggregate ("World" = 10-region sum) row: SUM absolute outcomes across the R10
-  # regions (deaths, jobs, headcount, gap, CO2 are all additive), then normalise
-  # by the 10-region total population. Total_Value (deployment) is summed too.
+  # ---------------------------------------------------------------------------
+  # Aggregate ("World" = 10-region sum) row — STRICT TEN-REGION RULE.
+  #
+  # WHY THIS IS NOT A PLAIN group_by(...) %>% summarise(sum). The previous
+  # version grouped by `Variable` and summed the outcome columns inside each
+  # group. Because `dfm` carries one row per scenario x region x DEPLOYMENT
+  # VARIABLE, that made a scenario's World outcome inherit the regional coverage
+  # of whichever CDR variable the row belonged to. COFFEE 1.1 / COMMIT-Baseline
+  # reports Renewable Capacity for ten regions and Total CDR for nine, so its
+  # World jobs read 765,457 on one row and 684,824 on the other. Every one of the
+  # 288 affected scenario-regions showed exactly that pattern.
+  #
+  # The rule now is: a World value exists only when ALL TEN R10 regions are
+  # present for THAT outcome, and each outcome is gated INDEPENDENTLY — missing
+  # mortality must not blank jobs or deprivation, since their coverage differs
+  # substantially (at 1.5C, 53 scenarios have complete deprivation against 42
+  # with complete jobs). Partial sums are set to NA rather than reported.
+  #
+  # Coverage is carried explicitly (n_regions_* and world_complete_*) so that
+  # downstream code and the paper can report the coverage flow rather than
+  # silently inheriting whatever survived.
+  # ---------------------------------------------------------------------------
+  n_r10 <- length(regions_r10)   # the ten R10 regions, defined at the top of the script
+
+  # Sum a column only if it is present in all ten regions; otherwise NA.
+  strict10 <- function(x) if (sum(!is.na(x)) == n_r10) sum(x) else NA_real_
+
+  # 1. OUTCOME-ONLY R10 TABLE — one row per scenario x region, no Variable.
+  #    The outcome columns are constant across a scenario-region's Variable rows
+  #    (they are attached by left_join before this point), so de-duplicating is
+  #    lossless. Asserted below rather than assumed.
   outcome_cols <- c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
                     "jobs_Nuclear", "jobs_Bioenergy",
                     "cumulative_gap_EJ", "mean_headcount_millions",
                     "cumulative_implied_CO2_GtCO2")
-  dfm_agg <- dfm %>%
-    group_by(Model_Group, Model, Scenario, ModelGroup_Scenario,
-             Category, Ambition, Variable) %>%
+  keys <- c("Model_Group", "Model", "Scenario", "ModelGroup_Scenario",
+            "Category", "Ambition")
+  dfm_out <- dfm %>%
+    select(all_of(keys), Region, any_of(outcome_cols)) %>%
+    distinct()
+  n_dup <- dfm_out %>% count(Model, Scenario, Region) %>% filter(n > 1) %>% nrow()
+  if (n_dup > 0)
+    stop("build_df_master: ", n_dup, " scenario-regions carry conflicting ",
+         "outcome values across Variable rows. The World aggregation cannot be ",
+         "made well-defined until that is resolved upstream.")
+
+  # 2. PER-OUTCOME STRICT AGGREGATION, with coverage fields.
+  #    Jobs requires BOTH the renewable and fossil components, because the
+  #    headline measure is their difference.
+  dfm_world_out <- dfm_out %>%
+    group_by(across(all_of(keys))) %>%
     summarise(
-      Total_Value = sum(Total_Value, na.rm = TRUE),
-      across(any_of(outcome_cols),
-             ~ if (all(is.na(.x))) NA_real_ else sum(.x, na.rm = TRUE)),
+      n_regions_jobs      = sum(!is.na(jobs_Renewables) & !is.na(jobs_Fossil)),
+      n_regions_gap       = sum(!is.na(cumulative_gap_EJ)),
+      n_regions_headcount = sum(!is.na(mean_headcount_millions)),
+      n_regions_mortality = sum(!is.na(cumulative_deaths_mln)),
+      n_regions_co2       = sum(!is.na(cumulative_implied_CO2_GtCO2)),
+      jobs_ok = n_regions_jobs == n_r10,
+      across(c(jobs_Renewables, jobs_Fossil, jobs_Nuclear, jobs_Bioenergy),
+             ~ if (jobs_ok) sum(.x, na.rm = TRUE) else NA_real_),
+      cumulative_gap_EJ            = strict10(cumulative_gap_EJ),
+      mean_headcount_millions      = strict10(mean_headcount_millions),
+      cumulative_deaths_mln        = strict10(cumulative_deaths_mln),
+      cumulative_implied_CO2_GtCO2 = strict10(cumulative_implied_CO2_GtCO2),
       .groups = "drop") %>%
+    mutate(world_complete_jobs      = n_regions_jobs      == n_r10,
+           world_complete_gap       = n_regions_gap       == n_r10,
+           world_complete_headcount = n_regions_headcount == n_r10,
+           world_complete_mortality = n_regions_mortality == n_r10) %>%
+    select(-jobs_ok)
+
+  # 3. WORLD DEPLOYMENT, gated the same way. A World deployment total summed
+  #    over nine regions is the same class of error one level up, and pairing it
+  #    with a true ten-region World outcome would be worse than either alone.
+  dfm_world_dep <- dfm %>%
+    group_by(across(all_of(keys)), Variable) %>%
+    summarise(n_regions_deployment = sum(!is.na(Total_Value)),
+              Total_Value = strict10(Total_Value), .groups = "drop") %>%
+    mutate(world_complete_deployment = n_regions_deployment == n_r10)
+
+  # 4. JOIN, and normalise by the ten-region population total.
+  dfm_agg <- dfm_world_dep %>%
+    left_join(dfm_world_out, by = keys) %>%
     mutate(Region = "Aggregated R10 regions", pop_mln = pop2020_total) %>%
     add_percapita()
+
+  cat(sprintf(
+    "  World rows: %d | complete jobs %d, deprivation %d, mortality %d, deployment %d\n",
+    nrow(dfm_agg), sum(dfm_agg$world_complete_jobs, na.rm = TRUE),
+    sum(dfm_agg$world_complete_gap, na.rm = TRUE),
+    sum(dfm_agg$world_complete_mortality, na.rm = TRUE),
+    sum(dfm_agg$world_complete_deployment, na.rm = TRUE)))
 
   bind_rows(dfm, dfm_agg)
 }

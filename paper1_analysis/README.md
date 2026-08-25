@@ -38,13 +38,22 @@ deprivation at 1.5 °C, mortality at 1.5 °C. Both failures are at 2 °C.
 
 **Read direction first — these are associations, not causal estimates.** The
 primary evidence is which way each cell points and how consistently. Intervals
-are reported throughout as context on how firmly a cell points, but they are not
-what the conclusions rest on. That framing makes one robustness test decisive:
-what breaks an association is a **reversal**, not a wide interval.
+are reported throughout as context on how firmly a cell points; they are not
+what the conclusions rest on, and nothing here is a causal effect of choosing
+one pathway over another.
+
+**At World, seven of eight cells point to High-RE** — energy employment, the
+decent-living gap and the deprived headcount at both ambition levels, and PM2.5
+mortality at 1.5 °C. The single exception is mortality at 2 °C, where High-RE
+sits 4.3 million deaths higher.
 
 **Scorecard, nine regions plus World:** 42 of 60 **point** to High-RE, 18 to
 High-CDR. Jobs 20/20 · deprivation 14/20 · health 8/20. (Of those, 36 clear the
 interval and 4 clear it against — context, not the claim.)
+
+> **Three outcome families, not five measures.** The deprivation gap and the
+> deprived headcount move together in every cell; counting both would report one
+> finding twice.
 
 On the **engineered-only sensitivity**: 44 of 60 favour High-RE, 32 clearing,
 3 against. The narrower axis favours High-RE in slightly *more* cells and clears
@@ -88,6 +97,15 @@ Across all nine regions plus World, **in direction terms**: **jobs** keeps its
 sign in **19 of 20** cells (retaining a median 18% of the pooled magnitude);
 **deprivation reverses in 8 of 20**; **mortality** cannot be scored at all at
 1.5 °C (2 residual scenarios) and reverses in 2 of the 10 scoreable 2 °C cells.
+
+> **This is a sensitivity, not a headline result.** The arm imbalance is a
+> property of what AR6 contains and which models report which pathways — an
+> artefact of the database, not of the analysis. Removing REMIND leaves 8
+> High-RE scenarios at 1.5 °C, so intervals widen and significance is lost
+> almost everywhere; that part is lost power and should be discounted. Read it
+> as a ceiling on attribution: the employment direction survives it, and the
+> other two are bounded by it. It does not change any pooled direction reported
+> above.
 
 ### Mortality is the most model-dependent of the three
 

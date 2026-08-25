@@ -119,7 +119,7 @@ function region(name, verdict, vcolor, stats, mech, real, note){
 }
 
 bullets("The answer in one slide","Renewables-led mitigation delivers more wellbeing — decisively in one outcome",
-  ["ENERGY EMPLOYMENT — the result, and it is now unanimous. High-RE is better in all 20 region × ambition cells and ALL 20 clear the interval. At World, net energy employment goes from 291 to 687 job-years per 1,000 people at 1.5°C (+136%) and 173 to 461 at 2°C (+167%). Nothing else in the study comes close for consistency.",
+  ["ENERGY EMPLOYMENT — the result, and it is now unanimous. High-RE is better in all 20 region × ambition cells and ALL 20 clear the interval. At World, net energy employment goes from 291 to 687 job-years per 1,000 people at 1.5°C (+136%) and 173 to 466 at 2°C (+169%). Nothing else in the study comes close for consistency.",
    "ENERGY DEPRIVATION — directionally positive, but the World cell no longer clears zero. The decent-living gap closes from 18.67 to 12.98 GJ per capita at 1.5°C, a 30% reduction — but the interval is [−1.21, +12.48]. Better in 13 of 20 cells, 6 significant, 3 significantly against. It holds firmly in Latin America, Europe, India+ and China+, and reverses in the Middle East.",
    "AIR-QUALITY MORTALITY — now measurable, and mildly favourable. Restricting to scenarios that report all five PM2.5 precursors directly at R10 level removes the ammonia problem at source. High-RE avoids 8.69 million cumulative deaths at World 1.5°C [+0.97, +46.90] — significant — while the 2°C cell is −3.03 and not. Europe carries it: 4.61 million avoided, significant at both levels.",
    "OVERALL: 42 of 60 comparisons favour High-RE, 30 significantly, 4 against. The revamp made jobs stronger, deprivation weaker at World, and mortality reportable for the first time."],
@@ -129,9 +129,9 @@ bullets("The answer in one slide","Renewables-led mitigation delivers more wellb
 table("The answer in one slide","World, all three outcomes, both ambition levels",
   ["Outcome","Ambition","High-CMT","High-RE","Difference","95% interval","Change"],
   [[{t:"Energy jobs",o:{bold:true}},"1.5°C","290.97","686.78",{t:"+395.81",o:{color:GREEN,bold:true}},{t:"[+285, +508]",o:{color:GREEN}},{t:"+136%",o:{color:GREEN,bold:true}}],
-   [{t:"job-years per 1,000",o:{color:MUTE}},"2°C","173.11","461.44",{t:"+288.33",o:{color:GREEN,bold:true}},{t:"[+136, +411]",o:{color:GREEN}},{t:"+167%",o:{color:GREEN,bold:true}}],
+   [{t:"job-years per 1,000",o:{color:MUTE}},"2°C","173.11","465.97",{t:"+292.68",o:{color:GREEN,bold:true}},{t:"[+147, +411]",o:{color:GREEN}},{t:"+169%",o:{color:GREEN,bold:true}}],
    [{t:"Energy deprivation",o:{bold:true}},"1.5°C","18.67","12.98",{t:"−5.69",o:{bold:true}},{t:"[−1.21, +12.48]",o:{color:MUTE,bold:true}},"−30%"],
-   [{t:"gap, GJ per capita",o:{color:MUTE}},"2°C","15.52","11.06",{t:"−4.46",o:{bold:true}},{t:"[−0.22, +8.03]",o:{color:MUTE,bold:true}},"−29%"],
+   [{t:"gap, GJ per capita",o:{color:MUTE}},"2°C","15.52","11.27",{t:"−4.31",o:{bold:true}},{t:"[−0.38, +8.05]",o:{color:MUTE,bold:true}},"−28%"],
    [{t:"PM2.5 mortality",o:{bold:true}},"1.5°C","423.82","415.12",{t:"−8.69",o:{color:GREEN,bold:true}},{t:"[+0.97, +46.90]",o:{color:GREEN}},{t:"−2%",o:{color:GREEN}}],
    [{t:"million cumulative deaths",o:{color:MUTE}},"2°C","433.70","436.73",{t:"+3.03",o:{color:MUTE}},{t:"[−19.4, +29.8]",o:{color:MUTE}},"+1%"]],
   [2.6,1.2,1.4,1.4,1.7,2.2,1.6],{t:"WORLD",c:GOLD},
@@ -216,6 +216,32 @@ table("Model composition","Who populates which arm — and it has genuinely impr
   [2.4,1.5,1.5,2.4,4.3],{t:"IMPROVED",c:GOLD},
   "REMIND is 71% of High-RE and 1% of High-CMT — down from 85% / 1%. Eight of ten families hold both arms, and MESSAGEix holds 44 against 37, which is genuinely balanced. The confound is materially reduced but not eliminated, so the within-model check still decides what the paper can claim.",10.5);
 
+table("Diagnostics","World coverage flow — how many scenarios each outcome can actually use",
+  ["","1.5°C CMT","1.5°C RE","2°C CMT","2°C RE","What gates it"],
+  [[{t:"Classified",o:{bold:true}},{t:"64",o:{bold:true}},{t:"64",o:{bold:true}},{t:"239",o:{bold:true}},{t:"239",o:{bold:true}},
+    "Top tercile on the focal axis, not top tercile on the opposing axis"],
+   [{t:"Complete World jobs",o:{bold:true}},"42","43","192","218",
+    "Requires renewable AND fossil jobs in all ten R10 regions"],
+   [{t:"Complete World deprivation",o:{bold:true}},"53","43","189","210",
+    "Requires the decent-living gap in all ten regions"],
+   [{t:"Complete World mortality",o:{bold:true}},{t:"42",o:{color:RED}},{t:"37",o:{color:RED}},{t:"138",o:{color:RED}},{t:"168",o:{color:RED}},
+    "Requires all five PM2.5 precursors reported directly at R10 — the strictest gate"],
+   [{t:"",o:{}},{t:"",o:{}},{t:"",o:{}},{t:"",o:{}},{t:"",o:{}},{t:"",o:{}}],
+   [{t:"Retention, jobs",o:{color:MUTE}},{t:"66%",o:{color:MUTE}},{t:"67%",o:{color:MUTE}},{t:"80%",o:{color:MUTE}},{t:"91%",o:{color:MUTE}},
+    {t:"The three outcomes are gated INDEPENDENTLY — missing mortality does not blank jobs",o:{color:MUTE}}],
+   [{t:"Retention, mortality",o:{color:MUTE}},{t:"66%",o:{color:MUTE}},{t:"58%",o:{color:MUTE}},{t:"58%",o:{color:MUTE}},{t:"70%",o:{color:MUTE}},
+    {t:"Mortality is always the binding constraint on sample size",o:{color:MUTE}}]],
+  [3.2,1.5,1.5,1.5,1.5,3.0],{t:"COVERAGE",c:TEAL},
+  "A World figure is computed ONLY when all ten R10 regions are present for that outcome. Partial-region sums are set to NA rather than reported, which is why the arm sizes differ between outcomes and why they are smaller than the classified counts. This is the fix described on the next slide; the previous World row inherited whichever deployment variable's coverage its table row belonged to.",10);
+
+bullets("Diagnostics","The World aggregation fix, and what it moved",
+  ["THE DEFECT. The master built the World row by summing outcomes WITHIN each deployment-variable group, so a scenario's World jobs total inherited the regional coverage of whichever CDR variable that row belonged to. COFFEE 1.1 / COMMIT-Baseline reports Renewable Capacity for ten regions and Total CDR for nine, and its World jobs read 765,457 on one row and 684,824 on the other. All 288 discrepant scenario-regions showed exactly this pattern — 288 of 288.",
+   "THE FIX. World outcomes are now built from an outcome-only R10 table with no reference to deployment rows, each outcome gated INDEPENDENTLY on having all ten regions, with explicit coverage fields carried through. The R10 rows were verified clean — zero variation across Variable rows — so the corruption was created entirely in the aggregation step and World could be rebuilt without re-running the master.",
+   "WHAT IT MOVED, and it is less than the raw sensitivity suggested. World jobs at 1.5°C is UNCHANGED at 686.78. At 2°C it moves from 461.44 to 465.97 and the gap from +288.3 to +292.7. Deprivation at 2°C moves from 11.06 to 11.27. Every regional cell is unchanged by construction, and the scorecard is unchanged at 42 of 60.",
+   "MORTALITY NEEDED NO FIX. The reporting-complete pipeline already implements this rule: all 516 scenarios carrying a World row have exactly ten regions, and World equals the sum of the ten to within 1e-13. Requiring direct R10 precursor reporting enforces completeness upstream."],
+  {t:"THE FIX",c:GREEN},
+  "Implemented and validated in V3_world_strict.R. The master script still writes the old World row, so it needs porting back to source before anyone re-runs from scratch.");
+
 section("Part three","The wellbeing results","What High-RE delivers, at World and in every region.");
 
 function regtable(title,tag,unitnote,H,R,note){
@@ -234,7 +260,7 @@ function regtable(title,tag,unitnote,H,R,note){
 
 regtable("Energy jobs: job-years per 1,000 people, 2020–2100",{t:"20 / 20",c:GOLD},"",
   ["Region","High-CMT","High-RE","Difference","High-CMT","High-RE","Difference"],
-  [["WORLD","290.97","686.78",{t:"+395.8 ●",o:{color:GREEN,bold:true}},"173.11","461.44",{t:"+288.3 ●",o:{color:GREEN,bold:true}}],
+  [["WORLD","290.97","686.78",{t:"+395.8 ●",o:{color:GREEN,bold:true}},"173.11","465.97",{t:"+292.7 ●",o:{color:GREEN,bold:true}}],
    ["Africa","225.80","1057.55",{t:"+831.8 ●",o:{color:GREEN,bold:true}},"167.37","705.78",{t:"+538.4 ●",o:{color:GREEN,bold:true}}],
    ["China+","209.47","333.70",{t:"+124.2 ●",o:{color:GREEN}},"157.68","248.68",{t:"+91.0 ●",o:{color:GREEN}}],
    ["Europe","91.50","154.49",{t:"+63.0 ●",o:{color:GREEN}},"57.00","114.89",{t:"+57.9 ●",o:{color:GREEN}}],
@@ -248,7 +274,7 @@ regtable("Energy jobs: job-years per 1,000 people, 2020–2100",{t:"20 / 20",c:G
 
 regtable("Energy deprivation: decent-living gap, GJ per capita",{t:"13 / 20",c:GOLD},"",
   ["Region","High-CMT","High-RE","Gap closed","High-CMT","High-RE","Gap closed"],
-  [["WORLD","18.67","12.98",{t:"−5.69",o:{bold:true}},"15.52","11.06",{t:"−4.46",o:{bold:true}}],
+  [["WORLD","18.67","12.98",{t:"−5.69",o:{bold:true}},"15.52","11.27",{t:"−4.31",o:{bold:true}}],
    ["Africa","67.27","45.15",{t:"−22.12",o:{color:MUTE}},"65.56","40.77",{t:"−24.79",o:{color:MUTE}}],
    ["China+","1.14","0.80",{t:"−0.34 ●",o:{color:GREEN}},"0.81","0.68",{t:"−0.13",o:{color:MUTE}}],
    ["Europe","5.95","2.80",{t:"−3.14 ●",o:{color:GREEN,bold:true}},"3.32","2.66",{t:"−0.66",o:{color:MUTE}}],
@@ -452,7 +478,7 @@ table("Is it real?","What survives, and what the reader should take on trust",
 section("Part six","What we can claim","And what has to be said alongside it.");
 
 bullets("The claim","What renewables-led mitigation delivers, and how sure we are",
-  ["ONE — WORK. At matched climate ambition, renewables-led mitigation employs substantially more people in energy: 291 against 687 job-years per 1,000 at World 1.5°C, a difference of +396 [+285, +508]. Better in ALL 20 region × ambition cells and significant in all 20 — the only outcome of which that is true. The mechanism is the renewable build, which outweighs High-CMT's bioenergy, fossil and nuclear employment combined by 4.4 to 1.",
+  ["ONE — WORK. At matched climate ambition, renewables-led mitigation employs substantially more people in energy: 291 against 687 job-years per 1,000 at World 1.5°C, a difference of +396 [+285, +508], and +293 [+147, +411] at 2°C. Better in ALL 20 region × ambition cells and significant in all 20 — the only outcome of which that is true. The mechanism is the renewable build, which outweighs High-CMT's bioenergy, fossil and nuclear employment combined by 4.4 to 1.",
    "TWO — ENERGY ACCESS, REGIONALLY. Renewables-led pathways close the decent-living energy gap significantly in Latin America (−23.1 GJ per capita), Europe (−3.1), India+ (−0.6) and China+ (−0.3), and widen it significantly in the Middle East (+1.2). The World aggregate is −5.69 GJ per capita but its interval touches zero, so this is a regional result rather than a global one.",
    "THREE — AIR QUALITY, IN EUROPE. Renewables-led pathways avoid 4.61 million cumulative PM2.5 deaths in Europe at 1.5°C and 3.76 million at 2°C, both significant — a 29% reduction, the largest proportional effect anywhere. At World the 1.5°C cell is significant (8.69 million avoided) and the 2°C cell is not. Fourteen of twenty cells straddle zero, so there is no universal air-quality co-benefit to claim.",
    "TAKEN TOGETHER: the choice between engineered carbon management and renewables matters decisively for employment, regionally for energy access, and in specific places for air quality. That asymmetry is the paper's answer, and it is more useful than three uniform ticks would have been."],
@@ -460,14 +486,14 @@ bullets("The claim","What renewables-led mitigation delivers, and how sure we ar
 
 bullets("Limitations","Stated plainly, because they are load-bearing",
   ["MODEL COMPOSITION REMAINS THE BINDING CONSTRAINT, though materially better than before. REMIND supplies 71% of High-RE against 1% of High-CMT. The within-model check supports jobs at 2°C strongly, jobs at 1.5°C weakly, and deprivation not at all.",
-   "THE OUTCOME COLUMNS ARE NOT UNIQUE PER SCENARIO IN THE MASTER DATASET. In 288 of 11,808 scenario-regions the jobs value differs between a scenario's Variable rows, and the published medians take whichever row comes first. At World 1.5°C the High-RE jobs median is 686.8 on that rule and 503.5 if the minimum is taken. Direction is unaffected; magnitude is not. This should be resolved upstream.",
+   "THE WORLD AGGREGATION DEFECT IS FIXED, and the fix is now the default. The master built World by summing outcomes WITHIN each deployment-variable group, so a scenario's World total inherited that variable's regional coverage. World outcomes are now aggregated only when all ten R10 values are present, gated per outcome. It moves World jobs at 2°C from 461.4 to 466.0 and leaves 1.5°C unchanged; regional cells are untouched by construction.",
    "MORTALITY RUNS ON A RESTRICTED SAMPLE BY DESIGN — 422 of 643 classified targets. The restriction is the right call, but it means the mortality arms are smaller than the jobs and deprivation arms and the comparison is correspondingly less precise.",
    "THE DEPRIVATION MEASURE TRUNCATES AT ZERO, so it responds only to sectors where a region falls short — not always the household sector. It is a regional aggregate and cannot speak to who inside a region is deprived.",
    "EXCLUDING LAND-BASED REMOVAL SHARPENS THE COMPARISON BUT NARROWS IT. The paper now compares two energy-system strategies cleanly, and says nothing about land-based removal, which is a large part of many real mitigation portfolios and carries its own distributional consequences."],
   {t:"LIMITS",c:RED});
 
 bullets("What is open","Next steps, in priority order",
-  ["RESOLVE THE DUPLICATE-ROW ISSUE in the master dataset so each scenario-region has one outcome value. This is the only open item that affects a published number rather than an interpretation, and it is a one-line fix once the intended row is identified.",
+  ["PORT THE STRICT WORLD AGGREGATION BACK INTO THE MASTER SCRIPT. It is implemented and validated downstream (V3_world_strict.R) but the master still writes the old World row, so anyone re-running from source reproduces the defect.",
    "REPORT WITHIN-MODEL RESULTS ALONGSIDE POOLED ONES in the paper, not only the SI. The 2°C jobs cell — six of six families agreeing — is the most persuasive number in the study and it is currently buried.",
    "CONSIDER A LAND-BASED CDR COMPANION ANALYSIS. Excluding land was right for this comparison, but the excluded pathways are not uninteresting; they are a different paper with a different outcome set.",
    "RE_SPEC DEFINITION SENSITIVITY — whether the renewables axis should include nuclear or biomass. A reviewer will ask, and the answer is currently a principled argument without a table behind it."],

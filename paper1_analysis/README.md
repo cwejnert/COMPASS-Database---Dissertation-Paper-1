@@ -50,10 +50,28 @@ wider definition.
 portfolio rule takes same-size terciles on the same sample and subtracts the same
 overlap from each, so the two arms are necessarily equal.
 
-**The binding constraint.** REMIND supplies **73%** of the High-RE arm and under
-1% of High-CDR. Seven of ten model families hold both arms (eight on the
-engineered axis — COFFEE and GEM drop out when land enters). Every pooled
-comparison remains a pathway contrast *plus* a modelling-framework contrast:
+**The binding constraint, and it is worst where the headlines are.** REMIND
+supplies **73%** of the High-RE arm pooled — but **88% at 1.5 °C** and 69% at
+2 °C, against ~1% of High-CDR at both. At high ambition the arms are almost
+perfectly segregated by model:
+
+| | 1.5 °C | 2 °C |
+|---|---|---|
+| scenarios · families present | 134 · 7 | 476 · 9 |
+| REMIND's share of the **High-RE** arm | **88%** (59/67) | 69% (165/238) |
+| families with ≥1 scenario in both arms | 5 | 6 |
+| families with **≥3 in both** (askable within-model) | **1** | 4 |
+
+Per family at 1.5 °C: REMIND 1 CDR / 59 RE · IMAGE 23 / 0 · WITCH 6 / 0 ·
+MESSAGEix 25 / 3 · GCAM 7 / 1 · POLES 4 / 1 · AIM 1 / 3. So *High-RE against
+High-CDR* at high ambition is close to **REMIND against IMAGE, MESSAGEix, WITCH
+and GCAM**, and the one family that can be asked within-model rests on three
+High-RE scenarios. This is very likely substantive rather than clerical: at the
+most stringent target, frameworks diverge structurally in *how* they get there,
+and that divergence is what sorts them into arms.
+
+Every pooled comparison is therefore a pathway contrast *plus* a
+modelling-framework contrast:
 
 | | pooled | within-model support | verdict |
 |---|---|---|---|
@@ -61,11 +79,11 @@ comparison remains a pathway contrast *plus* a modelling-framework contrast:
 | Deprivation | 14/20, 11 significant, 2 against | **42%** agree · 9 conflicts | an association; attribution unresolved |
 | Health | 8/20, 5 significant, 2 against | **25%** agree · only 2 families | Europe holds on pooling alone; no general claim |
 
-> **The real limit is ambition, not outcome.** At 1.5 °C only **one** model
-> family (MESSAGEix) holds both arms well enough to be asked, so every
-> high-ambition cell — including the headline ones — rests on pooling. At 2 °C
-> four families can be asked and jobs holds in 16 of 20 cells. Quoting a single
-> agreement rate across both levels hides this. Source:
+> **The real limit is ambition, not outcome.** At 1.5 °C only **one** family
+> (MESSAGEix, on three High-RE scenarios) holds both arms well enough to be
+> asked, so every high-ambition cell — including the headline ones — rests on
+> pooling. At 2 °C four families can be asked and jobs holds in 16 of 20 cells.
+> Quoting a single agreement rate across both levels hides this. Source:
 > `W14_within_model_landprimary.R`.
 
 ---
@@ -275,8 +293,9 @@ discarded.
 
 ## Known limitations, stated because they are load-bearing
 
-1. **Model composition remains the binding constraint** — 73% vs under 1%
-   REMIND, and seven of ten families holding both arms rather than eight. A property of AR6, not of this analysis, and it
+1. **Model composition remains the binding constraint, and it is worst at
+   1.5 °C** — REMIND is 88% of the High-RE arm at high ambition (73% pooled),
+   and only one family holds both arms well enough to be asked there. A property of AR6, not of this analysis, and it
    limits what any study classifying AR6 by technology can claim.
 2. **Forty-two scenarios enter the High-CDR arm on a renewables value they never
    reported.** The zero fill treats a missing row as zero deployment. Retaining
@@ -300,12 +319,13 @@ discarded.
   classified scenarios have no mortality output because the target list was
   drawn under the engineered axis. This limits a headline result, not just a
   robustness check — it is the top priority.
-- **Get more model families into the 1.5 °C comparison.** The within-model check
-  now runs on the all-CDR axis and repaired keys (`W14`), and it exposes the real
-  limit: at 1.5 °C only one family holds both arms well enough to be asked, so
-  every high-ambition cell rests on pooling. Nothing in this dataset fixes that —
-  it is a property of AR6 — but the paper must say it plainly rather than quoting
-  an average across ambition levels.
+- **Get more model families into the 1.5 °C comparison.** `W14` exposes the real
+  limit: at 1.5 °C the arms are almost perfectly segregated by model (REMIND 88%
+  of High-RE; IMAGE and WITCH pure High-CDR), and only MESSAGEix — on three
+  High-RE scenarios — can be asked within-model. Nothing in this dataset fixes
+  that; it is a property of AR6, and plausibly a substantive one, since
+  frameworks diverge structurally in how they reach the most stringent target.
+  The paper must state it by ambition level rather than quoting a pooled share.
 - **Fix the labels file at source.** The mangled degree signs should be corrected
   where the file is written, and
   `COMPASS_engineered_cmt_century_outcomes_summary.R`'s `inner_join()` should

@@ -260,6 +260,25 @@ table("Model composition","Who populates which arm — and what the wider axis c
   [2.4,1.4,1.4,2.2,4.7],{t:"THE COST",c:GOLD},
   "THIS IS THE PRICE OF THE WIDER AXIS AND IT BELONGS IN THE PAPER. Families holding both arms falls from eight to seven, and REMIND's share of High-RE rises slightly. A broader CDR definition admits scenarios whose engineered removal is small and re-sorts which models populate which arm. The within-model check is what decides whether that matters.",10.5);
 
+table("Model composition","The confound is far worse at 1.5°C than the pooled figure suggests",
+  ["Model family","1.5°C CDR","1.5°C RE","2°C CDR","2°C RE","Can it be asked within-model?"],
+  [[{t:"REMIND",o:{bold:true}},{t:"1",o:{color:CMT}},{t:"59",o:{bold:true,color:RE}},{t:"0",o:{color:CMT}},{t:"165",o:{bold:true,color:RE}},
+    {t:"no — it is essentially the High-RE arm",o:{color:RED}}],
+   [{t:"MESSAGEix",o:{bold:true}},{t:"25",o:{bold:true}},{t:"3",o:{bold:true}},{t:"74",o:{bold:true}},{t:"24",o:{bold:true}},
+    {t:"YES — the ONLY one at 1.5°C, on 3 RE scenarios",o:{color:GOLD,bold:true}}],
+   ["IMAGE","23",{t:"0",o:{color:RED}},"48","2",{t:"2°C only, barely",o:{color:RED}}],
+   ["POLES-JRC","4","1","56","8",{t:"2°C only",o:{color:GREEN}}],
+   ["GCAM","7","1","26","4",{t:"2°C only",o:{color:GREEN}}],
+   ["AIM/CGE","1","3","20","11",{t:"2°C only",o:{color:GREEN}}],
+   ["WITCH","6",{t:"0",o:{color:RED}},"2","16",{t:"no",o:{color:RED}}],
+   ["TIAM-ECN","0","0","12",{t:"0",o:{color:RED}},{t:"no",o:{color:RED}}],
+   ["COFFEE","0","0","0","8",{t:"no",o:{color:RED}}],
+   [{t:"REMIND's share of the High-RE arm",o:{bold:true,color:RED}},{t:"88%",o:{bold:true,color:RED}},"",{t:"69%",o:{bold:true}},"",
+    {t:"families with ≥3 in BOTH arms: 1 at 1.5°C, 4 at 2°C",o:{bold:true}}]],
+  [2.3,1.3,1.3,1.3,1.3,4.6],{t:"1.5°C vs 2°C",c:RED},
+  "AT 1.5°C THE ARMS ARE ALMOST PERFECTLY SEGREGATED BY MODEL. REMIND supplies 59 of 67 High-RE scenarios and one of 67 High-CDR; IMAGE (23/0) and WITCH (6/0) are pure High-CDR. So 'High-RE against High-CDR' at high ambition is close to 'REMIND against IMAGE, MESSAGEix, WITCH and GCAM'. The pooled 73% REMIND share understates the problem exactly where the headline results sit. This is very likely substantive rather than clerical — at the most stringent target, frameworks diverge structurally in HOW they get there, and that divergence is what sorts them into arms.",10);
+
+
 table("Diagnostics","World coverage flow — how many scenarios each outcome can actually use",
   ["","1.5°C CDR","1.5°C RE","2°C CDR","2°C RE","What gates it"],
   [[{t:"Classified",o:{bold:true}},{t:"67",o:{bold:true}},{t:"67",o:{bold:true}},{t:"238",o:{bold:true}},{t:"238",o:{bold:true}},
@@ -518,7 +537,7 @@ section("Part six","But is it real?",
   "Model composition, the land-based CDR boundary, and the scenarios that never reported renewables.");
 
 bullets("The confound","Better than it was, and still the binding constraint",
-  ["THE ARMS ARE NOT DISJOINT BY MODEL, BUT ONE FAMILY DOMINATES ONE OF THEM. REMIND is 73% of High-RE and under 1% of High-CDR. MESSAGEix holds 99 High-CDR AND 27 High-RE, and seven of ten families hold both arms. Any pooled difference remains partly a modelling-framework contrast, and the improvement lowers the price of the claim rather than removing the need to pay it.",
+  ["ONE FAMILY DOMINATES ONE ARM, AND IT IS WORST WHERE THE HEADLINES ARE. REMIND is 73% of High-RE pooled — but 88% at 1.5°C and 69% at 2°C. At high ambition IMAGE (23/0) and WITCH (6/0) are pure High-CDR while REMIND is 59 of 67 High-RE, so the comparison there is close to 'REMIND against IMAGE, MESSAGEix, WITCH and GCAM'. Any pooled difference is partly a modelling-framework contrast, and quoting the pooled share hides where that bites.",
    "THE WIDER AXIS COSTS SOMETHING HERE, AND IT SHOULD BE SAID. Moving from the engineered axis to all-CDR takes families holding both arms from eight to seven: COFFEE loses its High-CDR arm entirely and GEM drops out of the classification. MESSAGEix gains 55 High-CDR scenarios, which are the land-heavy pathways an engineered axis could not see. The composition changes; it does not obviously worsen.",
    "THE WITHIN-MODEL EVIDENCE SPLITS BY AMBITION, AND IT IS WEAKER THAN THE POOLED RESULT. On jobs, 72% of family-cell comparisons point the pooled way and the median family agrees in 16 of 20 cells. But that average conceals the real structure: at 2°C FOUR families can be asked and jobs is solid (World 2°C: four of four agree, median δ +0.59), while at 1.5°C only ONE family — MESSAGEix — holds both arms at all, and it disagrees in the Middle East, Reforming economies and Rest of Asia.",
    "SO THE 1.5°C JOBS CELLS REST MORE HEAVILY ON POOLING THAN THE 2°C CELLS DO. Across families, MESSAGEix favours High-RE in 17 of 20 jobs cells (median δ +0.83), GCAM in 7 of 10 (+1.00) and AIM in 7 of 10 (+0.29), while POLES-JRC is a coin flip at 5 of 10 (−0.01). Three of four lean the same way; it is not unanimous, and the deck should not say it is.",
@@ -576,7 +595,7 @@ bullets("The claim","What renewables-led mitigation delivers, and how sure we ar
   {t:"CLAIM",c:GOLD});
 
 bullets("Limitations","Stated plainly, because they are load-bearing",
-  ["MODEL COMPOSITION REMAINS THE BINDING CONSTRAINT, AND THE WITHIN-MODEL CHECK IS SOBERING. REMIND supplies 73% of High-RE against under 1% of High-CDR. At 1.5°C only ONE model family holds both arms well enough to be asked at all, so every 1.5°C cell — including the headline ones — rests on pooling. At 2°C four families can be asked and jobs holds in 16 of 20 cells; deprivation agrees in 42% of comparisons and health in 25%.",
+  ["MODEL COMPOSITION REMAINS THE BINDING CONSTRAINT, AND IT IS WORST AT 1.5°C. REMIND supplies 88% of the High-RE arm at high ambition against 1% of High-CDR, and only ONE family (MESSAGEix, on three High-RE scenarios) holds both arms well enough to be asked. Every 1.5°C cell — including the headline ones — rests on pooling. At 2°C the picture genuinely improves: four families can be asked, and jobs holds in 16 of 20 cells. Deprivation agrees in 42% of comparisons and health in 25%.",
    "TWO UPSTREAM DATA DEFECTS WERE FOUND AND FIXED, AND BOTH MATTERED. The World row was aggregated within deployment-variable groups, so it inherited the wrong regional coverage; and 71 classified scenarios never reached the outcome tables because the labels file stores degree signs as literal text that no join could match. Both are fixed here, both moved numbers, and neither reversed a finding — but they are a reminder that the published intermediate files should not be taken at face value.",
    "MORTALITY RUNS ON A RESTRICTED SAMPLE, AND ON THIS AXIS THE RESTRICTION IS WORSE. Its target list was drawn against the ENGINEERED labels, so the 80 scenarios the all-CDR axis newly admits have no mortality run at all. That is target selection rather than a property of those scenarios, and it means the mortality arms here are smaller than the engineered axis's. Re-running the mortality targets against the all-CDR labels is the single most valuable outstanding job.",
    "THE DEPRIVATION MEASURE TRUNCATES AT ZERO, so it responds only to sectors where a region falls short — not always the household sector. It is a regional aggregate and cannot speak to who inside a region is deprived.",

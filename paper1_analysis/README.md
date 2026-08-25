@@ -36,9 +36,15 @@ Positive intervals favour High-RE throughout. **Four of the six World cells clea
 the interval, and all four favour High-RE** — jobs at both ambition levels,
 deprivation at 1.5 °C, mortality at 1.5 °C. Both failures are at 2 °C.
 
-**Scorecard, nine regions plus World:** 42 of 60 favour High-RE, **36 clearing
-the interval**, 4 against. Jobs 20/20 (all significant) · deprivation 14/20
-(11 significant, 2 against) · health 8/20 (5 significant, 2 against).
+**Read direction first — these are associations, not causal estimates.** The
+primary evidence is which way each cell points and how consistently. Intervals
+are reported throughout as context on how firmly a cell points, but they are not
+what the conclusions rest on. That framing makes one robustness test decisive:
+what breaks an association is a **reversal**, not a wide interval.
+
+**Scorecard, nine regions plus World:** 42 of 60 **point** to High-RE, 18 to
+High-CDR. Jobs 20/20 · deprivation 14/20 · health 8/20. (Of those, 36 clear the
+interval and 4 clear it against — context, not the claim.)
 
 On the **engineered-only sensitivity**: 44 of 60 favour High-RE, 32 clearing,
 3 against. The narrower axis favours High-RE in slightly *more* cells and clears
@@ -78,10 +84,30 @@ alone cannot distinguish them.
 | Deprivation · 2 °C | −4.09 | +4.31 | 65 | **sign flips** |
 | Mortality · 1.5 °C | **−11.11** ✓ | — | 2 | cannot be scored |
 
-Across all nine regions plus World: **jobs** keeps its sign in 19 of 20 cells
-and stays significant in 9 (7 of them at 2 °C), retaining a median **18%** of
-the pooled advantage. **Deprivation** loses all 13 significant cells and 8 of 20
-flip sign.
+Across all nine regions plus World, **in direction terms**: **jobs** keeps its
+sign in **19 of 20** cells (retaining a median 18% of the pooled magnitude);
+**deprivation reverses in 8 of 20**; **mortality** cannot be scored at all at
+1.5 °C (2 residual scenarios) and reverses in 2 of the 10 scoreable 2 °C cells.
+
+### Mortality is the most model-dependent of the three
+
+The precursor-reporting gate — the fix for the ammonia asymmetry — culls
+families unevenly, and it culls exactly the ones that gave the High-RE arm its
+breadth:
+
+| pass rate through the gate | | mortality High-RE arm | |
+|---|---|---|---|
+| REMIND | **73%** | 1.5 °C REMIND share | 88% → **94.6%** |
+| GCAM | 18% | 1.5 °C effective models | 1.3 → **1.1** |
+| WITCH | 38% | 2 °C REMIND share | 69% → **82.7%** |
+| TIAM · COFFEE | **0%** | 2 °C effective models | 2.0 → **1.4** |
+
+So the mortality High-RE arm is *more* concentrated than the classified one —
+effectively a single model at 1.5 °C. Every 1.5 °C mortality cell, including the
+Europe result the air-quality section leads with, is **untestable**: dropping
+REMIND leaves two scenarios. At 2 °C none of the three significant cells
+survives and two reverse. The two data decisions interact unfavourably and
+should be reported together.
 
 > **Read this in both directions.** Dropping REMIND leaves 8 High-RE scenarios
 > at 1.5 °C, so losing significance there is partly lost power, not proof of a

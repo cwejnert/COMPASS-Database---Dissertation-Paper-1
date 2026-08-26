@@ -1,0 +1,11 @@
+run<-function(path){cat('\n===',path,'===\n');status<-system2(file.path(R.home('bin'),'Rscript'),path);if(status!=0)stop('Failed: ',path)}
+required<-c('LAND_PRIMARY.rds','master_outputs/approach_A/compass_master_dataset_A.csv','master_outputs/approach_C/compass_master_dataset_C.csv','final_outcomes/mortality_allcdr_reporting_complete_scenario_values_2020_2100.csv')
+missing<-required[!file.exists(required)];if(length(missing))stop('Missing required input(s): ',paste(missing,collapse=', '))
+Sys.setenv(COMPASS_MORTALITY_SCENARIO_VALUES=normalizePath('final_outcomes/mortality_allcdr_reporting_complete_scenario_values_2020_2100.csv',winslash='/'))
+if(tolower(Sys.getenv('COMPASS_REBUILD_PRIMARY','false'))%in%c('true','1','yes'))run('paper1_analysis/V5_land_primary.R')
+if(tolower(Sys.getenv('COMPASS_RUN_RFASST','false'))%in%c('true','1','yes'))run('analysis_scripts/COMPASS_rfasst_full_allR10.R')
+run('paper1_analysis/W14_within_model_landprimary.R')
+run('paper1_analysis/W15_arm_composition.R')
+run('paper1_analysis/W16_factorial_model_robustness.R')
+run('paper1_analysis/W16_factorial_figures.R')
+cat('\nFinal analysis complete. RFASST was ',ifelse(tolower(Sys.getenv('COMPASS_RUN_RFASST','false'))%in%c('true','1','yes'),'rerun.','not rerun; frozen completed output used.'),'\n',sep='')

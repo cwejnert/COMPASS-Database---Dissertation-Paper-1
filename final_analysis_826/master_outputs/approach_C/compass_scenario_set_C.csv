@@ -1,0 +1,328 @@
+"Model","Scenario","Category","Ambition","total_cdr","total_re","Pathway_overlap","Pathway_excl","high_cdr_only","high_re_only","approach","vetting","ambition_method","threshold_label","top_frac"
+"AIM/Hub-Global 2.0","SDI-2.5°C","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 4.2","SSP1-19","C1","1.5C (High-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 4.2","SSP1-26","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 4.2","SSP1-34","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 4.2","SSP1-45","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 5.3","NGFS Phase 2-Below 2°C","C3","2C (Medium-Ambition)",377729.131036242,1622560.92572438,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 5.3","NGFS Phase 2-Current Policies","C4","2C (Medium-Ambition)",0.041437020269,718223.047366125,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 5.3","NGFS Phase 2-Delayed Transition","C4","2C (Medium-Ambition)",227937.419779798,1853062.89833771,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 5.3","NGFS Phase 2-Nationally Determined Contributions (NDCs)","C3","2C (Medium-Ambition)",344077.760593715,1134962.42340978,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Below 2°C","C3","2C (Medium-Ambition)",184448.637380725,3090792.87190375,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Current Policies","C4","2C (Medium-Ambition)",73674.8075277468,1554128.97052156,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Delayed Transition","C3","2C (Medium-Ambition)",175585.401894375,3089545.37987872,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Fragmented World","C3","2C (Medium-Ambition)",181546.49492857,2085327.9398637,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Low Demand","C2","1.5C (High-Ambition)",145178.566646399,2660797.50445951,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Nationally Determined Contributions (NDCs)","C4","2C (Medium-Ambition)",156137.55556443,1953398.97266,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"GCAM 6.0 NGFS","NGFS Phase 5-Net-Zero 2050","C2","1.5C (High-Ambition)",155012.807836231,3336739.4542124,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","COMMIT-2°C-2030","C3","2C (Medium-Ambition)",586133.718372497,321624.853070124,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","COMMIT-Current-Policies","C4","2C (Medium-Ambition)",100029.702797417,191230.707288643,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","COMMIT-NDCplus","C4","2C (Medium-Ambition)",212200.70989267,227605.191678729,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1000","C4","2C (Medium-Ambition)",876081.959184768,702090.022829114,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1000f","C4","2C (Medium-Ambition)",848507.505758893,811580.511947732,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1200","C4","2C (Medium-Ambition)",818814.213220905,671987.570312427,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1200f","C4","2C (Medium-Ambition)",836264.934158684,682096.886468043,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1400","C3","2C (Medium-Ambition)",803294.660026376,658867.523716752,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-1400f","C4","2C (Medium-Ambition)",809700.300279276,682950.450778101,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-3000","C4","2C (Medium-Ambition)",653692.409422285,633771.820827194,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-3000f","C4","2C (Medium-Ambition)",653692.409422285,633771.820827194,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2030-800f","C3","2C (Medium-Ambition)",887538.712028109,812767.785044349,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-INDCi2100","C4","2C (Medium-Ambition)",472863.587221862,565048.573428677,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-1000","C3","2C (Medium-Ambition)",842848.044547377,683474.301139702,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-1200","C4","2C (Medium-Ambition)",810140.605251675,669224.327706253,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-1400","C4","2C (Medium-Ambition)",798889.138114873,652779.438378513,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-1400f","C4","2C (Medium-Ambition)",827021.237222786,667645.946700914,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-3000","C4","2C (Medium-Ambition)",643076.280085541,634028.200372592,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2020-3000f","C4","2C (Medium-Ambition)",643076.280085541,634028.200372592,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0","ENGAGE-NPi2100","C4","2C (Medium-Ambition)",284378.327722237,536517.112002437,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0.1","SSP1-34","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0.1","SSP1-45","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.0.1","SSP1-Baseline","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Default","C2","1.5C (High-Ambition)",945220.52226963,1588856.51319239,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Default-LowBiomass","C1","1.5C (High-Ambition)",1146296.93466715,2051418.10832005,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Lifestyle","C2","1.5C (High-Ambition)",957721.025438778,1514239.10725892,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Lifestyle-Renewables","C2","1.5C (High-Ambition)",1406398.2288187,2093442.17829837,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Renewables","C2","1.5C (High-Ambition)",1049871.70154164,2635442.63858426,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-19-Renewables-LowBiomass","C1","1.5C (High-Ambition)",1252757.28115821,3142295.30906495,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-26-Default","C3","2C (Medium-Ambition)",700267.711472806,1482153.59831313,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-26-Lifestyle","C3","2C (Medium-Ambition)",682403.118995186,1358639.41885895,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-26-Lifestyle-Renewables","C3","2C (Medium-Ambition)",1018159.79604593,1792900.45793675,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-26-Renewables","C3","2C (Medium-Ambition)",728478.48626138,2600647.9559622,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-34-Default","C3","2C (Medium-Ambition)",344342.431489462,1524714.83168443,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-34-Lifestyle","C3","2C (Medium-Ambition)",486865.631230238,1317649.97868909,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-34-Lifestyle-Renewables","C3","2C (Medium-Ambition)",483321.219050652,2350496.07332979,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-SPA1-34-Renewables","C3","2C (Medium-Ambition)",302546.924158593,2539069.7579947,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA0-26-Default","C3","2C (Medium-Ambition)",966850.008481895,862844.258967459,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA1-19-Default-LowBiomass","C1","1.5C (High-Ambition)",1677755.82455086,1153913.8510039,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-19-Default","C2","1.5C (High-Ambition)",1417157.08030829,1099454.02529209,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-19-Lifestyle","C1","1.5C (High-Ambition)",1224476.98780122,1008660.30526297,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-19-Lifestyle-Renewables","C2","1.5C (High-Ambition)",1282064.51223395,2551674.87706988,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-19-Renewables","C2","1.5C (High-Ambition)",1334168.49513672,2645840.87325305,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-26-Default","C3","2C (Medium-Ambition)",1118489.20518413,933531.783439759,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-26-Lifestyle","C3","2C (Medium-Ambition)",941965.447547248,797330.837959991,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-26-Lifestyle-Renewables","C3","2C (Medium-Ambition)",976121.540940465,1777164.95425487,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-26-Renewables","C3","2C (Medium-Ambition)",1174576.12734791,2074357.60617239,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-34-Default","C3","2C (Medium-Ambition)",672687.619525106,876946.126232003,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-34-Lifestyle","C3","2C (Medium-Ambition)",549981.026565024,767654.52946589,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-34-Lifestyle-Renewables","C3","2C (Medium-Ambition)",642254.014341902,1973323.81353873,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-34-Renewables","C3","2C (Medium-Ambition)",705641.955317788,1974767.80185279,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-45-Default","C4","2C (Medium-Ambition)",139515.606362025,821962.912696191,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-45-Lifestyle","C4","2C (Medium-Ambition)",333222.49472766,681934.114876183,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-45-Lifestyle-Renewables","C4","2C (Medium-Ambition)",324905.306402484,1467597.3805989,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-SPA2-45-Renewables","C4","2C (Medium-Ambition)",209220.70532009,1778551.44589272,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-1.5°C-ele_u","C3","2C (Medium-Ambition)",772225.502630608,1958671.84924445,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-1.5°C-tec_u","C3","2C (Medium-Ambition)",759175.790569589,1664038.1407893,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-2.0°C-ele_u","C3","2C (Medium-Ambition)",584591.804761934,1554284.52330658,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-2.0°C-ref","C3","2C (Medium-Ambition)",572177.94958529,1342490.21109318,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-2.0°C-tec_u","C3","2C (Medium-Ambition)",563838.663853716,1359121.25656336,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-NPi-ele","C4","2C (Medium-Ambition)",58338.0105108168,1138476.52189317,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-NPi-ref","C4","2C (Medium-Ambition)",45412.052542657,930675.367491381,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.3","NAVIGATE Demand-NPi-tec","C4","2C (Medium-Ambition)",33666.6130403252,1097496.00931934,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1","ENGAGE-NPi2100","C4","2C (Medium-Ambition)",214103.934742035,987353.207088478,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1","ENGAGE-NoPolicy","C4","2C (Medium-Ambition)",202606.002528601,864355.101415217,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-2.0°C-act_u","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-2.0°C-all_u","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-2.0°C-ele_u","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-2.0°C-ref","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-2.0°C-tec_u","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-NPi-act","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-NPi-all","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-NPi-ele","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-NPi-ref","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.1-BMT-R12","NAVIGATE Demand-NPi-tec","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-GreenPush_max_GDP","C4","2C (Medium-Ambition)",202908.431453328,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-NoPolicyNoCOVID","C4","2C (Medium-Ambition)",202959.844401904,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-Restore","C4","2C (Medium-Ambition)",202894.293784657,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-SelfReliance","C4","2C (Medium-Ambition)",202887.267513555,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-SelfReliance_max_GDP","C4","2C (Medium-Ambition)",203365.456613794,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 1.2","COVID-Shift-SmartUse","C4","2C (Medium-Ambition)",202897.199399005,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Below 2°C","C3","2C (Medium-Ambition)",423488.201463648,2334785.6207637,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Current Policies","C4","2C (Medium-Ambition)",252415.876831531,951108.066945368,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Delayed Transition","C3","2C (Medium-Ambition)",414399.908830517,2295918.9718558,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Fragmented World","C3","2C (Medium-Ambition)",368070.473685989,1692207.08869248,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Low Demand","C2","1.5C (High-Ambition)",418980.134731315,1140434.79808875,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Nationally Determined Contributions (NDCs)","C4","2C (Medium-Ambition)",420369.60136471,1826000.22981704,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"MESSAGEix-GLOBIOM 2.0-M-R12-NGFS","NGFS Phase 5-Net-Zero 2050","C2","1.5C (High-Ambition)",462202.175309756,2587162.14489646,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-2°C-2020","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-2°C-2030","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-Baseline","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-Bridge","C2","1.5C (High-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-Bridge-No-Tax","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-Current-Policies","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-GPP","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-GPP-No-Tax","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-NDC-2050-Convergence","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES GECO2019","COMMIT-NDCplus","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000","C4","2C (Medium-Ambition)",844234.403049385,1688023.07071173,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000-COV","C4","2C (Medium-Ambition)",764763.917642214,1505380.23867675,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000-COV-NDCp","C4","2C (Medium-Ambition)",758112.106817152,1507576.59573003,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000-NDCp","C4","2C (Medium-Ambition)",875433.611296745,1711798.66091112,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000f","C4","2C (Medium-Ambition)",767326.426864152,1645804.43388468,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000f-COV","C4","2C (Medium-Ambition)",741140.5754442,1507963.03845808,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000f-COV-NDCp","C4","2C (Medium-Ambition)",748918.174330138,1503516.81086292,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1000f-NDCp","C4","2C (Medium-Ambition)",868492.742474645,1687684.97955225,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1200","C4","2C (Medium-Ambition)",784400.670328846,1628716.9704315,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1200f","C4","2C (Medium-Ambition)",801003.461921161,1626578.32257241,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1400","C3","2C (Medium-Ambition)",882887.997459238,1641524.6503275,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1400f","C3","2C (Medium-Ambition)",875167.414740389,1639097.78211194,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1600","C3","2C (Medium-Ambition)",863895.702504461,1610708.43307298,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1600f","C3","2C (Medium-Ambition)",863895.702504461,1610708.43307298,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1800","C3","2C (Medium-Ambition)",922137.754920458,1582234.70761698,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-1800f","C3","2C (Medium-Ambition)",922137.754920458,1582234.70761698,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-2000","C3","2C (Medium-Ambition)",932832.589064991,1556251.08778393,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-2000f","C3","2C (Medium-Ambition)",932832.589064991,1556251.08778393,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-2500","C4","2C (Medium-Ambition)",779760.659486955,1422854.92722278,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-2500f","C4","2C (Medium-Ambition)",779760.659486955,1422854.92722278,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-3000","C4","2C (Medium-Ambition)",472826.223228202,1287193.58371991,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-3000f","C4","2C (Medium-Ambition)",472826.223228202,1287193.58371991,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-300f","C2","1.5C (High-Ambition)",1560853.36464833,1909799.1487838,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-400f","C2","1.5C (High-Ambition)",1401627.45364121,1853898.79823786,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-500f","C3","2C (Medium-Ambition)",1226105.38006958,1785874.26344072,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-600f","C3","2C (Medium-Ambition)",1078418.14568481,1732832.34359252,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-600f-COV","C3","2C (Medium-Ambition)",876790.289300927,1575517.31320896,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-600f-COV-NDCp","C3","2C (Medium-Ambition)",849984.209916411,1578836.43946912,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-600f-NDCp","C3","2C (Medium-Ambition)",1103166.25871548,1779232.30113087,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-700f","C3","2C (Medium-Ambition)",903774.134490473,1679942.61636102,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-800f","C4","2C (Medium-Ambition)",779776.025204753,1656702.75883412,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-900","C3","2C (Medium-Ambition)",1297869.67988539,1976495.03107655,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2030-900f","C4","2C (Medium-Ambition)",736226.273590272,1625939.68605929,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2100","C4","2C (Medium-Ambition)",512594.424462455,1313036.37287302,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2100-COV","C4","2C (Medium-Ambition)",506747.250256102,1209022.9944362,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2100-COV-NDCp","C4","2C (Medium-Ambition)",600404.352383313,1259654.96383082,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-INDCi2100-NDCp","C4","2C (Medium-Ambition)",590205.451950537,1370859.96461485,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1000f","C4","2C (Medium-Ambition)",860051.697422481,1656006.4899939,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1000f-COV","C4","2C (Medium-Ambition)",817345.436816958,1495435.99523031,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1200f","C4","2C (Medium-Ambition)",876677.628022661,1622616.78378066,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1400","C3","2C (Medium-Ambition)",947385.233691637,1634729.54681125,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1400f","C3","2C (Medium-Ambition)",948357.713603659,1630185.44754353,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1600","C3","2C (Medium-Ambition)",941534.358090782,1594541.51734605,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1600f","C3","2C (Medium-Ambition)",943685.777991617,1595940.80834922,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1800","C3","2C (Medium-Ambition)",973395.498099727,1566497.71804055,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-1800f","C3","2C (Medium-Ambition)",973395.498099727,1566497.71804055,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-2000","C3","2C (Medium-Ambition)",982076.722726187,1524402.67749902,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-2000f","C3","2C (Medium-Ambition)",982076.722726187,1524402.67749902,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-2500","C4","2C (Medium-Ambition)",813547.679643137,1398887.74451714,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-2500f","C4","2C (Medium-Ambition)",813547.679643137,1398887.74451714,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-3000","C4","2C (Medium-Ambition)",439455.212269675,1275331.66313931,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-3000f","C4","2C (Medium-Ambition)",439455.212269675,1275331.66313931,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2020-900f","C4","2C (Medium-Ambition)",829027.381193568,1678849.2088392,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2100","C4","2C (Medium-Ambition)",341824.195539118,1214793.68324136,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"POLES-JRC ENGAGE","ENGAGE-NPi2100-COV","C4","2C (Medium-Ambition)",341406.18650294,1109686.97949646,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","ECEMF-DIAG-NPi","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 3.5","Rescuing-1.5°C-Highest-Possible-Ambition","C4","2C (Medium-Ambition)",920235.1889679,6241631.4926337,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","CD-LINKS-No-Policy","C4","2C (Medium-Ambition)",1783.4374,2773994.73045,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","COMMIT-Baseline","C4","2C (Medium-Ambition)",1812.72515,2668248.0555,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","COMMIT-Current-Policies","C4","2C (Medium-Ambition)",33726.54985,2713307.73595,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-medium-2°C-cost100","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-medium-2°C-full","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-medium-2°C-limbio","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-medium-2°C-nofuel","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-tax-hi-full","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-tax-hi-none","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-tax-lo-full","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","EMF33-tax-lo-none","C3","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","PEP-NPi","C4","2C (Medium-Ambition)",33726.54985,2713307.73595,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","PEP-NoPolicy","C4","2C (Medium-Ambition)",1812.72515,2668248.0555,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","SMP-Reference-Default","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 1.7-3.0","SMP-Reference-Sustainable","C4","2C (Medium-Ambition)",0,NA,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","ENGAGE-NoPolicy","C4","2C (Medium-Ambition)",5961.6242,2262176.39415,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","NGFS Phase 2-Current Policies","C4","2C (Medium-Ambition)",6647.2754,1552100.76295,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","NGFS Phase 2-Delayed Transition","C3","2C (Medium-Ambition)",182463.6916,2516049.7144,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","NGFS Phase 2-Nationally Determined Contributions (NDCs)","C3","2C (Medium-Ambition)",131680.45455,1997293.80445,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.3","DeepElectrification-SSP2-Baseline","C4","2C (Medium-Ambition)",34499.76215,1801779.85165,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.3","DeepElectrification-SSP2-NPi","C4","2C (Medium-Ambition)",359253.23625,1846751.32765,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2-4.6","SHAPE-SSP2-NPi","C4","2C (Medium-Ambition)",303333.6215,3124627.49885,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2-4.6","SHAPE-SSP2-NPi [with Climate Change Impacts]","C4","2C (Medium-Ambition)",301668.876,3111006.47945,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-End-of-Century-Budget-1150","C4","2C (Medium-Ambition)",144025.28798535,3984178.71776075,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-End-of-Century-Budget-1150-with-OAE","C4","2C (Medium-Ambition)",119695.68348485,4156912.1036843,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-End-of-Century-Budget-500","C2","1.5C (High-Ambition)",337407.7551985,3939775.9237146,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-End-of-Century-Budget-500-with-OAE","C2","1.5C (High-Ambition)",285000.6597766,4250458.8591347,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-Peak-Budget-1150","C3","2C (Medium-Ambition)",88711.5289226,4241488.12267855,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.2.0-4.8.0","RESCUE-Peak-Budget-1150-with-OAE","C3","2C (Medium-Ambition)",90018.74695205,4239161.18393145,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Below 2°C","C3","2C (Medium-Ambition)",142386.8486208,3099997.84496065,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Current Policies","C4","2C (Medium-Ambition)",25518.9924592,2402907.75715255,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Delayed Transition","C3","2C (Medium-Ambition)",116874.69426265,3217436.56533475,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Fragmented World","C3","2C (Medium-Ambition)",66029.20389785,2626709.22237665,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Low Demand","C2","1.5C (High-Ambition)",96891.12694455,2075888.37284735,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Nationally Determined Contributions (NDCs)","C3","2C (Medium-Ambition)",115525.37677825,2848022.9568161,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 3.3-4.8","NGFS Phase 5-Net-Zero 2050","C2","1.5C (High-Ambition)",143765.55833355,3378286.77547635,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000","C3","2C (Medium-Ambition)",556416.895530341,690923.935989028,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000-COV","C3","2C (Medium-Ambition)",581387.992322646,709203.891892007,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000-NDCp","C3","2C (Medium-Ambition)",556807.769559643,693575.358128332,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000f","C3","2C (Medium-Ambition)",557097.031004365,691609.277594632,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000f-COV","C3","2C (Medium-Ambition)",552047.376414727,685263.487098521,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1000f-NDCp","C3","2C (Medium-Ambition)",556379.739566192,705941.26827766,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1200","C3","2C (Medium-Ambition)",522676.052688374,672007.439980189,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1200f","C3","2C (Medium-Ambition)",537206.882520424,682626.911987166,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1400","C4","2C (Medium-Ambition)",473222.736226781,647878.474377193,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1400f","C4","2C (Medium-Ambition)",481616.468136574,655266.675511948,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1600","C4","2C (Medium-Ambition)",447807.127877589,640939.919523664,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-1600f","C3","2C (Medium-Ambition)",450073.574466195,644875.997478831,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-2000","C3","2C (Medium-Ambition)",369543.887195233,604080.419454955,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-2000f","C3","2C (Medium-Ambition)",369543.866662719,606133.147127771,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-2500","C3","2C (Medium-Ambition)",207063.068663247,564175.723200626,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-2500f","C3","2C (Medium-Ambition)",207009.750105672,563098.180483293,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-3000","C4","2C (Medium-Ambition)",58399.9079295208,489057.258589408,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-3000f","C4","2C (Medium-Ambition)",58440.3891219339,489483.385,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-900","C3","2C (Medium-Ambition)",576708.142904848,701897.086874387,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2030-900f","C3","2C (Medium-Ambition)",578639.448241704,701114.48292391,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2100","C4","2C (Medium-Ambition)",15020.6086176742,329059.890662639,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2100-COV","C4","2C (Medium-Ambition)",14662.6780259437,326270.305,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-INDCi2100-NDCp","C4","2C (Medium-Ambition)",17701.3693693994,334146.447839702,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1000","C3","2C (Medium-Ambition)",540002.915823995,691112.592569936,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1000-COV","C3","2C (Medium-Ambition)",530058.15055634,680169.45956664,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1000f","C3","2C (Medium-Ambition)",547716.548595891,687261.909700951,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1000f-COV","C3","2C (Medium-Ambition)",543547.022634253,675367.726076554,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1200","C3","2C (Medium-Ambition)",515348.628013483,664153.527146803,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1200f","C3","2C (Medium-Ambition)",525085.448336667,671168.708015093,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1400","C4","2C (Medium-Ambition)",461136.11058913,646703.763247482,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1400f","C4","2C (Medium-Ambition)",472385.636870008,647691.435948122,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1600","C4","2C (Medium-Ambition)",452172.258843537,620749.757194719,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-1600f","C3","2C (Medium-Ambition)",456970.395902741,621701.728163752,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-2000","C3","2C (Medium-Ambition)",365631.763604967,600642.93903774,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-2000f","C3","2C (Medium-Ambition)",367647.358648225,604934.943689303,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-2500","C3","2C (Medium-Ambition)",214006.497796581,547041.580276953,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-2500f","C3","2C (Medium-Ambition)",214008.218369216,545996.172754981,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-3000","C4","2C (Medium-Ambition)",45035.2280709856,473591.259166842,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-3000f","C4","2C (Medium-Ambition)",45037.7869570158,474317.474511004,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-800","C3","2C (Medium-Ambition)",575248.455684609,717322.94,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-800f","C3","2C (Medium-Ambition)",580457.503094233,709301.9,"High-CMT only","High-CMT",TRUE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-900","C3","2C (Medium-Ambition)",556648.956451054,698422.511455936,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2020-900f","C3","2C (Medium-Ambition)",552920.126190524,702002.814493307,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2100","C4","2C (Medium-Ambition)",205.52538175354,312427.097163971,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"TIAM-ECN 1.1","ENGAGE-NPi2100-COV","C4","2C (Medium-Ambition)",264.568835708227,311473.198271103,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","COMMIT-Baseline","C4","2C (Medium-Ambition)",140805.039876654,1241626.08280612,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1000","C3","2C (Medium-Ambition)",592144.710582481,1931299.68908206,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1000-NDCp","C3","2C (Medium-Ambition)",579066.574757262,1938834.94732775,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1000f","C3","2C (Medium-Ambition)",600972.863886615,1946406.25275075,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1000f-NDCp","C3","2C (Medium-Ambition)",591972.744481883,1944223.91161705,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1200","C4","2C (Medium-Ambition)",489859.063078767,1913084.15498313,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1200-NDCp","C4","2C (Medium-Ambition)",449832.105867806,1908715.67350258,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1200f","C4","2C (Medium-Ambition)",509975.217118785,1904548.82493364,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1200f-NDCp","C4","2C (Medium-Ambition)",482689.141994471,1900051.85990459,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1400","C4","2C (Medium-Ambition)",394614.198337317,1879620.76953311,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1400-NDCp","C4","2C (Medium-Ambition)",378170.160238464,1874024.59052403,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1400f","C4","2C (Medium-Ambition)",414442.438279049,1864785.85753015,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1400f-NDCp","C4","2C (Medium-Ambition)",403867.109855301,1861467.23334104,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1600","C3","2C (Medium-Ambition)",346746.94337777,1842673.39608753,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1600-NDCp","C3","2C (Medium-Ambition)",343562.858760098,1843434.63696904,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1600f","C3","2C (Medium-Ambition)",349514.889964837,1837781.64548892,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1600f-NDCp","C3","2C (Medium-Ambition)",345794.910906942,1835053.86386429,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1800","C3","2C (Medium-Ambition)",333840.471727011,1810005.03641182,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1800-NDCp","C3","2C (Medium-Ambition)",332058.820130693,1808435.86766463,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1800f","C3","2C (Medium-Ambition)",333840.471727011,1810005.03641182,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-1800f-NDCp","C3","2C (Medium-Ambition)",332058.820130693,1808435.86766463,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2000","C3","2C (Medium-Ambition)",318423.228909691,1784238.46250091,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2000-NDCp","C3","2C (Medium-Ambition)",316914.396371746,1783431.11985598,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2000f","C3","2C (Medium-Ambition)",318423.228909691,1784238.46250091,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2000f-NDCp","C3","2C (Medium-Ambition)",316914.396371746,1783431.11985598,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2500","C3","2C (Medium-Ambition)",229976.37482885,1741819.54160173,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2500-NDCp","C3","2C (Medium-Ambition)",228748.898370392,1742417.43999279,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2500f","C3","2C (Medium-Ambition)",229976.37482885,1741819.54160173,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-2500f-NDCp","C3","2C (Medium-Ambition)",228748.898370392,1742417.43999279,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-3000","C4","2C (Medium-Ambition)",175139.377763301,1689452.84771022,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-3000-NDCp","C4","2C (Medium-Ambition)",174556.16833736,1689248.41383923,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-3000f","C4","2C (Medium-Ambition)",175139.377763301,1689452.84771022,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-3000f-NDCp","C4","2C (Medium-Ambition)",174556.16833736,1689248.41383923,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-500f","C2","1.5C (High-Ambition)",707606.063622978,2076305.10182192,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-600f","C3","2C (Medium-Ambition)",707773.361040912,2048330.90813123,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-600f-NDCp","C3","2C (Medium-Ambition)",706077.835426384,2045542.04288765,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-700f","C3","2C (Medium-Ambition)",705458.514559409,2021548.84902833,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-700f-NDCp","C3","2C (Medium-Ambition)",701656.156925429,2017415.95625836,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-800","C3","2C (Medium-Ambition)",691525.258137947,1958886.87004841,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-800-NDCp","C3","2C (Medium-Ambition)",683636.291322109,1966667.62220997,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-800f","C3","2C (Medium-Ambition)",695659.666834993,1995146.34189213,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-800f-NDCp","C3","2C (Medium-Ambition)",674625.29790305,1989945.99206379,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-900","C3","2C (Medium-Ambition)",682573.068600634,1955183.29518593,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-900-NDCp","C3","2C (Medium-Ambition)",632249.446490112,1938629.33978451,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-900f","C3","2C (Medium-Ambition)",653776.994659416,1969054.58998868,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2030-900f-NDCp","C3","2C (Medium-Ambition)",640385.886849264,1967034.73924381,"Both High",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2100","C4","2C (Medium-Ambition)",156632.928592149,1972281.20006105,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-INDCi2100-NDCp","C4","2C (Medium-Ambition)",173149.524058615,1730238.4840513,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-NPi2020-3000","C4","2C (Medium-Ambition)",177029.470418248,1674029.83177153,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-NPi2020-3000f","C4","2C (Medium-Ambition)",177029.470418248,1674029.83177153,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-NPi2100","C4","2C (Medium-Ambition)",140678.387068068,1618135.9868192,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","ENGAGE-NoPolicy","C4","2C (Medium-Ambition)",140839.211374606,1647963.86379762,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","NAVIGATE Demand-NPi-act","C4","2C (Medium-Ambition)",187989.61093882,1488276.67023959,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","NAVIGATE Demand-NPi-all","C4","2C (Medium-Ambition)",180554.187206786,1387269.68492106,"Low (both)",NA,FALSE,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","NAVIGATE Demand-NPi-ele","C4","2C (Medium-Ambition)",176899.78559622,1875026.96206966,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"WITCH 5.0","NAVIGATE Demand-NPi-ref","C4","2C (Medium-Ambition)",184004.870071283,1768141.8610775,"High-RE only","High-RE",FALSE,TRUE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP1-Baseline","C4","2C (Medium-Ambition)",NA,1295685.59227033,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP2-Baseline","C4","2C (Medium-Ambition)",NA,778303.448932345,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP3-Baseline","C4","2C (Medium-Ambition)",NA,413122.27693896,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP4-Baseline","C4","2C (Medium-Ambition)",NA,953985.897897261,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"IMAGE 3.2","SSP2021-SSP5-Baseline","C4","2C (Medium-Ambition)",NA,840529.566883043,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkLR15-SSP1-P50","C4","2C (Medium-Ambition)",NA,1127405.0023,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkLR15-SSP2-P50","C4","2C (Medium-Ambition)",NA,1804066.36125,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkLR15-SSP5-P50","C4","2C (Medium-Ambition)",NA,1104218.9035,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkSR15-SSP1-P50","C4","2C (Medium-Ambition)",NA,1137348.33575,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkSR15-SSP2-P50","C4","2C (Medium-Ambition)",NA,1730195.7391,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","LeastTotalCost-Base-brkSR15-SSP5-P50","C4","2C (Medium-Ambition)",NA,1026725.41515,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","R2p1-SSP1-Baseline","C4","2C (Medium-Ambition)",NA,1401060.5588,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","R2p1-SSP2-Baseline","C4","2C (Medium-Ambition)",NA,2179235.47675,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND 2.1","R2p1-SSP5-Baseline","C4","2C (Medium-Ambition)",NA,1405322.30975,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-Buildings 2.0","BEG-Baseline","C4","2C (Medium-Ambition)",NA,1890047.7282,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-Buildings 2.0","BEG-Efficiency","C4","2C (Medium-Ambition)",NA,1554698.9767,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.0-4.1","Diff-NoPolicy-Baseline","C4","2C (Medium-Ambition)",NA,2161290.48285,"Low (both)",NA,FALSE,NA,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","NGFS Phase 2-Current Policies [IPD 95th]","C4","2C (Medium-Ambition)",NA,1455137.1037,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333
+"REMIND-MAgPIE 2.1-4.2","NGFS Phase 2-Current Policies [IPD Median]","C4","2C (Medium-Ambition)",NA,1485446.57135,"Low (both)",NA,NA,FALSE,"C","full","ar6","top_33pct",0.333333333333333

@@ -38,7 +38,7 @@ within<-pmap_dfr(designs,function(database,ambition_view){
  f<-frames%>%filter(.data$database==.env$db);if(av!='All ambitions')f<-f%>%filter(amb==.env$av)
  expand_grid(Region=ALLR,outcome=names(OUTS))%>%pmap_dfr(function(Region,outcome){
   rr<-Region; sgn<-ifelse(outcome%in%LOWER,-1,1)
-  f%>%filter(.data$Region==.env$rr)%>%group_by(fam)%>%summarise(n_cdr=sum(Pathway=='High-CMT'&!is.na(.data[[outcome]])),n_re=sum(Pathway=='High-RE'&!is.na(.data[[outcome]])),delta=if(n_cdr>=MINN&&n_re>=MINN)sgn*cliff_d(.data[[outcome]][Pathway=='High-CMT'],.data[[outcome]][Pathway=='High-RE'])else NA_real_,.groups='drop')%>%filter(!is.na(delta))%>%mutate(database,ambition_view,Region,outcome,outcome_label=OUTS[outcome],favours=case_when(delta>0~'High-RE',delta<0~'High-CDR',TRUE~'Tie'))
+  f%>%filter(.data$Region==.env$rr)%>%group_by(fam)%>%summarise(n_cdr=sum(Pathway=='High-CMT'&!is.na(.data[[outcome]])),n_re=sum(Pathway=='High-RE'&!is.na(.data[[outcome]])),median_cdr=median(.data[[outcome]][Pathway=='High-CMT'],na.rm=TRUE),median_re=median(.data[[outcome]][Pathway=='High-RE'],na.rm=TRUE),raw_difference=median_re-median_cdr,delta=if(n_cdr>=MINN&&n_re>=MINN)sgn*cliff_d(.data[[outcome]][Pathway=='High-CMT'],.data[[outcome]][Pathway=='High-RE'])else NA_real_,.groups='drop')%>%filter(!is.na(delta))%>%mutate(database,ambition_view,Region,outcome,outcome_label=OUTS[outcome],direction_coded_difference=sgn*raw_difference,favours=case_when(delta>0~'High-RE',delta<0~'High-CDR',TRUE~'Tie'))
  })
 })%>%left_join(pooled%>%select(database,ambition_view,Region,outcome,pooled_effect=effect,pooled_favours=favours),by=c('database','ambition_view','Region','outcome'))%>%mutate(agrees=sign(delta)==sign(pooled_effect))
 dir.create('final_outcomes',showWarnings=FALSE)

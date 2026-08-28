@@ -204,23 +204,24 @@ table("Method — outcome 1 of 3","Energy jobs: what is counted, where, and when
   [2.3,3.0,6.8],{t:"JOBS",c:TEAL},
   "SPATIAL RESOLUTION: jobs are computed per R10 region from that region's own capacity, then summed to World. TEMPORAL: the three streams behave differently over time — construction and manufacturing track the RATE of building and fade, O&M tracks the STOCK and persists. That distinction is what makes the advantage front-loaded and is the mechanism behind the regional ordering.",9.5);
 
-table("Method — outcome 2 of 3","Energy deprivation: how the decent-living gap is built",
+table("Method — outcome 2 of 3","Energy deprivation: how the gap and the headcount are built",
   ["Element","Choice","Detail"],
-  [[{t:"THE IDEA",o:{bold:true,color:GREEN}},{t:"how far BELOW a decent-living floor",o:{bold:true,color:GREEN}},
-    "Not total energy use, and not inequality. A threshold is set for the final energy a person needs for decent living; the gap measures the SHORTFALL beneath it. A region above its floor contributes zero"],
-   [{t:"Threshold",o:{bold:true}},"Kikstra et al. 2021, fig 1A · regional",
-    "Final energy in GJ/cap/yr needed for decent living: India+ 10, China+ 15, Africa 17, Europe 28, North America 37. Regional because the same service costs different amounts of energy in different climates and settlement patterns"],
-   [{t:"Sector split",o:{bold:true}},"residential/commercial · transport · industry",
-    "DESIRE shares 6.7 / 11.8 / 3.8 GJ/cap, normalised to 30% / 53% / 17%. The threshold is applied SEPARATELY IN EACH SECTOR, not to the total"],
+  [[{t:"THE IDEA",o:{bold:true,color:GREEN}},{t:"how many people fall below a decent-living floor, and by how much",o:{bold:true,color:GREEN}},
+    "Not total energy use, and not inequality for its own sake. A threshold is set for the final energy a person needs for decent living; the two measures are the SHARE of people beneath it (headcount) and the ENERGY needed to lift them all to it (gap)"],
+   [{t:"Threshold",o:{bold:true}},"official DESIRE country-level mapping, population-weighted to R10",
+    "Three sectors — residential/commercial, transport, industry — summed to a region total. This replaced pixel-read Kikstra 2021 regional totals and a global sector split, so older quoted thresholds no longer apply"],
    [{t:"Efficiency path",o:{bold:true}},"−1.9%/yr on the threshold, floored at 50%",
-    "The energy needed to deliver decent living falls over time as service provisioning improves, so the bar drops. Floored at half its 2020 value so it cannot collapse to nothing by 2100"],
-   [{t:"THE GAP — step by step",o:{bold:true,color:GOLD}},{t:"gap = max(0, threshold − actual)",o:{bold:true,color:GOLD}},
-    "(1) For each sector, subtract that sector's delivered final energy per capita from that sector's threshold. (2) TRUNCATE AT ZERO: if delivered exceeds the threshold the sector contributes 0, never a negative. (3) Sum the three sectors. (4) Sum over years 2020–2100. The result is cumulative GJ per capita of shortfall"],
-   [{t:"Why truncation matters",o:{bold:true,color:RED}},{t:"surplus never offsets shortfall",o:{color:RED}},
-    "Because negatives are clipped, only sectors where a region falls SHORT can move the measure. Abundant industrial energy cannot compensate for a residential shortfall, and a rich region cannot offset a poor one. This makes it a DEPRIVATION measure rather than a net-adequacy one"],
-   [{t:"Second measure",o:{bold:true}},"headcount below threshold (%)","Share of population living below the floor. Moves with the gap in every cell; reported as a within-family check and because it converts directly into people"]],
+    "The energy needed to deliver decent living falls as service provisioning improves, so the bar drops — calibrated to DESIRE's −30% to −46% by 2040 (−1.9%/yr lands at ≈−38%), then held at a floor"],
+   [{t:"THE KEY STEP",o:{bold:true,color:GOLD}},{t:"a WITHIN-REGION distribution, not a regional average",o:{bold:true,color:GOLD}},
+    "A region's people are not all at the mean. A LOGNORMAL is fitted across people using DESIRE's final-energy GINI for that region: σ = √2·Φ⁻¹((G+1)/2), and μ = ln(E) − σ²/2 where E is mean per-capita final energy"],
+   [{t:"Headcount",o:{bold:true}},{t:"Φ(d₁),  d₁ = (ln T − μ) / σ",o:{bold:true}},
+    "The share of people below the threshold — the distribution's CDF evaluated at the floor. Multiplied by population to give people, then reported as a percentage"],
+   [{t:"The gap",o:{bold:true}},{t:"T·Φ(d₁) − E·Φ(d₂),  d₂ = d₁ − σ",o:{bold:true}},
+    "The partial expectation of (threshold − energy) over the BELOW-THRESHOLD TAIL: the energy required to lift everyone under the floor up to it. Per capita, then × population for EJ, then summed over 2020–2100"],
+   [{t:"WHY THEY ALWAYS AGREE",o:{bold:true,color:RED}},{t:"both are functionals of the SAME fitted lognormal",o:{color:RED}},
+    "The headcount is its CDF at the threshold; the gap is its shortfall integral below the threshold. They move together by construction, so reporting both is ONE deprivation finding measured two ways — not two independent confirmations"]],
   [2.3,3.0,6.8],{t:"DEPRIVATION",c:TEAL},
-  "WHAT IT CANNOT SEE: the threshold is applied to a REGIONAL AVERAGE, so the measure is a regional aggregate and cannot say who inside a region is deprived. The implied within-region inequality is lower than observed, so it understates deprivation in unequal regions.",9.5);
+  "WHAT CHANGED AND WHY IT MATTERS. An earlier version took (threshold − mean) per sector and truncated at zero. That read exactly ZERO whenever a region's mean cleared the threshold — ignoring the poor tail entirely — and was inconsistent with the headcount, which always saw that tail. The distributional gap fixes both. WHAT IT STILL CANNOT DO: absolute levels depend on the lognormal approximation and on the Gini, so threshold and Gini sensitivity remain required; and it speaks to a modelled within-region distribution, not to identified households.",9.5);
 
 table("Method — outcome 3 of 3","PM2.5 mortality: from emissions to deaths, and the input rule",
   ["Element","Choice","Detail"],
@@ -443,7 +444,7 @@ bullets("Why — World","The jobs mechanism is an engineering fact, not a modell
   {t:"WORLD",c:GOLD});
 
 bullets("Why — World","Why the deprivation result now clears at high ambition",
-  ["THE MECHANISM IS DELIVERED FINAL ENERGY. The gap is max(0, threshold − actual) applied per sector and truncated at zero, so a pathway closes it by delivering more usable energy to the sectors that fall short. High-RE closes the World gap from 18.43 to 11.62 GJ per capita at 1.5°C — a 37% reduction, and the interval clears zero at [+1.72, +9.73].",
+  ["THE MECHANISM IS DELIVERED FINAL ENERGY REACHING THE BOTTOM OF THE DISTRIBUTION. The gap is the energy needed to lift everyone below the decent-living floor up to it, computed on a within-region lognormal fitted to that region's final-energy Gini — so a pathway closes it by raising delivered energy where the poor tail sits, not merely by raising the regional mean. High-RE closes the World gap from 18.43 to 11.62 GJ per capita at 1.5°C, a 37% reduction.",
    "WHY IT CLEARS NOW AND DID NOT BEFORE. Two things changed and both added scenarios rather than changing any value. Repairing the mangled scenario keys returned 71 classified scenarios that a text-encoding mismatch had silently dropped, and the all-CDR axis admits 80 more. Deprivation is the outcome with the widest between-model spread, so it is the one most starved by a smaller sample — the point estimate barely moved; the interval tightened.",
    "IT IS STILL A REGIONALLY SPLIT RESULT. Latin America (−24.4), Africa (−24.8), Europe (−3.6), North America (−2.6), India+ (−0.9) and China+ (−0.4) all clear at 1.5°C. Rest of Asia (+3.8 at 1.5°C, +3.4 at 2°C) and the Middle East (+1.3 at 2°C) push the other way, the latter two significantly. That is a genuine split, not a weak global effect.",
    "AND IT DOES NOT HOLD AT 2°C. The World cell is −4.09 [−0.56, +7.75] — large, correctly signed, and not significant. Report deprivation as holding at high ambition and as regionally split at medium ambition; that is more honest and more useful than a single global claim."],
@@ -553,7 +554,23 @@ R2("Pacific OECD — excluded from the regional rows","EXCLUDED",RED,
    ["Deprivation 2°C","+1.73, significant against",RED],["Mortality","+1.7 · +1.9, both significant",GREEN]],
   "Pacific OECD is the only region where the jobs result fails at BOTH ambition levels — the gap is positive but the interval never clears. It is also the only region whose mortality cells are significant while its jobs cells are not, which is the reverse of the pattern everywhere else. Deprivation goes significantly against High-RE at 2°C.",
   "The region is small (Japan, Korea, Australia, New Zealand), highly developed, and already substantially built out, so the marginal renewable build that distinguishes the two arms elsewhere is much smaller here. As in the previous design, the classification does not describe local behaviour well enough to support a regional reading.",
-  "Retained inside the World aggregate — dropping it there would change what 'World' means — and excluded from the nine regional rows. This is a display decision, not a data exclusion: nothing is discarded.");
+  "THE REASON IT IS EXCLUDED IS NOT ITS RESULTS BUT ITS LABEL COHERENCE: scenarios called High-RE build 0.88× the renewable capacity of High-CDR scenarios here at 1.5°C (Cliff's δ −0.11) and the same at 2°C, against δ +0.27 to +0.99 everywhere else. The contrast being measured does not exist locally. Retained inside the World aggregate — dropping it there would change what 'World' means. A display decision, not a data exclusion: no scenario is discarded, and the counts are identical to every other region.");
+
+table("Diagnostics","Why Pacific OECD is not shown as a regional row",
+  ["Region","Cliff's δ on local renewables, 1.5°C","2°C","High-RE ÷ High-CDR median renewable capacity, 1.5°C","Reading"],
+  [[{t:"Pacific OECD",o:{bold:true,color:RED}},{t:"−0.11",o:{bold:true,color:RED}},{t:"+0.03",o:{color:RED}},{t:"0.88×",o:{bold:true,color:RED}},
+    {t:"the contrast does not exist locally",o:{color:RED,bold:true}}],
+   [{t:"Reforming econ.",o:{bold:true}},{t:"+0.27",o:{color:GOLD}},"+0.54","1.15×",{t:"weakest region still shown — flagged",o:{color:GOLD}}],
+   ["Middle East","+0.73","+0.79","1.67×","coherent"],
+   ["Europe","+0.83","+0.83","1.66×","coherent"],
+   ["North America","+0.86","+0.92","1.67×","coherent"],
+   ["Latin America","+0.88","+0.87","1.75×","coherent"],
+   ["China+","+0.89","+0.71","1.57×","coherent"],
+   ["Africa","+0.90","+0.82","2.94×","coherent"],
+   ["Rest of Asia","+0.93","+0.88","4.34×","coherent"],
+   [{t:"India+",o:{bold:true}},{t:"+0.99",o:{color:GREEN,bold:true}},"+0.85","2.46×",{t:"strongest — the label describes it almost perfectly",o:{color:GREEN}}]],
+  [2.2,2.5,1.1,2.9,3.4],{t:"WHY EXCLUDED",c:RED},
+  "EXCLUDING PACIFIC OECD REMOVES NO SCENARIOS. One fixed global classification is applied unchanged in every region, so the counts are identical everywhere (58 v 67 at 1.5°C, ~212 v 238 at 2°C). The question is whether the global label describes LOCAL behaviour: δ is computed on each region's own cumulative renewable capacity. Everywhere else, High-RE scenarios really do build more renewables there (+0.27 to +0.99). In Pacific OECD they build slightly LESS at 1.5°C and the same at 2°C — the contrast is absent locally, so the row would compare two groups that are not different there. Retained in the World aggregate; a display decision, not a data exclusion.",9.5);
 
 section("Part six","But is it real?",
   "Model composition, the land-based CDR boundary, and the scenarios that never reported renewables.");
@@ -676,13 +693,19 @@ bullets("The claim","How firmly each can be stated",
   {t:"CLAIM",c:GOLD},
   "Direction is the claim throughout; intervals are reported as context on how firmly each cell points.");
 
-bullets("Limitations","Stated plainly, because they are load-bearing",
-  ["MODEL COMPOSITION IS THE BINDING CONSTRAINT, AND IT IS AN ARTEFACT OF WHAT AR6 CONTAINS. The two arms are not drawn from the same mix of models: the High-CDR arm is a genuine ensemble (effectively 3.6 models at 1.5°C, 4.7 at 2°C) while the High-RE arm is effectively 1.3 and 2.0, because REMIND supplies 88% and 69% of it. This is a property of which models report which pathways, not of the analysis — but it bounds attribution. The leave-one-out sensitivity in Part six quantifies it: the employment direction survives in 19 of 20 cells; deprivation and mortality are more exposed.",
-   "TWO UPSTREAM DATA DEFECTS WERE FOUND AND FIXED, AND BOTH MATTERED. The World row was aggregated within deployment-variable groups, so it inherited the wrong regional coverage; and 71 classified scenarios never reached the outcome tables because the labels file stores degree signs as literal text that no join could match. Both are fixed here, both moved numbers, and neither reversed a finding — but they are a reminder that the published intermediate files should not be taken at face value.",
-   "MORTALITY RUNS ON A RESTRICTED SAMPLE, AND ON THIS AXIS THE RESTRICTION IS WORSE. Its target list was drawn against the ENGINEERED labels, so the 80 scenarios the all-CDR axis newly admits have no mortality run at all. That is target selection rather than a property of those scenarios, and it means the mortality arms here are smaller than the engineered axis's. Re-running the mortality targets against the all-CDR labels is the single most valuable outstanding job.",
-   "THE DEPRIVATION MEASURE TRUNCATES AT ZERO, so it responds only to sectors where a region falls short — not always the household sector. It is a regional aggregate and cannot speak to who inside a region is deprived.",
-   "THE OUTCOME SET IS ENERGY-SYSTEM CENTRIC. Now that land-based removal is inside the CDR axis, this cuts harder: the analysis scores land-heavy pathways on jobs, energy access and air quality while saying nothing about land competition, food prices, tenure or biodiversity, which are the channels through which land-based removal most plausibly affects wellbeing. The comparison is fair on what it measures and silent on what it does not."],
-  {t:"LIMITS",c:RED});
+bullets("Limitations — the data","What the database imposes, stated plainly",
+  ["MODEL COMPOSITION IS THE BINDING CONSTRAINT, AND AN ARTEFACT OF WHAT AR6 CONTAINS. High-CDR is effectively 3.6 models at 1.5°C and 4.7 at 2°C; High-RE is 1.3 and 2.0, because REMIND supplies 88% and 69% of it. A property of which models report which pathways, not of the analysis — but it bounds attribution. Quantified by the leave-one-out sensitivity in Part six.",
+   "TWO UPSTREAM DATA DEFECTS WERE FOUND AND FIXED, AND BOTH MATTERED. The World row inherited the wrong regional coverage; and 71 classified scenarios never reached the outcome tables because the labels file stores degree signs as literal text no join could match. Both fixed, both moved numbers, neither reversed a finding — but the published intermediate files should not be taken at face value.",
+   "MORTALITY CARRIES TWO RESTRICTIONS THAT COMPOUND. Its targets were drawn against the ENGINEERED labels, so the 80 scenarios the all-CDR axis newly admits have no mortality run. AND the precursor gate culls families unevenly — REMIND passes at 73%, GCAM at 18%, TIAM and COFFEE at 0% — so its High-RE arm is MORE concentrated than the classified one. The fix for the ammonia asymmetry made the composition problem worse.",
+   "PACIFIC OECD IS NOT SHOWN AS A REGIONAL ROW, AND THAT REMOVES NO SCENARIOS. High-RE scenarios build 0.88× the renewable capacity of High-CDR ones there at 1.5°C, against 1.15–4.34× elsewhere: the contrast is absent locally. Retained inside the World aggregate."],
+  {t:"LIMITS · DATA",c:RED});
+
+bullets("Limitations — the measures","What the outcome constructions can and cannot see",
+  ["THE DEPRIVATION MEASURE RESTS ON A MODELLED WITHIN-REGION DISTRIBUTION. The gap and the headcount are both functionals of one lognormal fitted to each region's final-energy Gini — the headcount is its CDF at the threshold, the gap its shortfall integral below it. They agree by construction rather than by corroboration, so they are ONE finding measured twice. Absolute levels are conditional on the lognormal and the Gini, so threshold and Gini sensitivity remain required.",
+   "THE OUTCOME SET IS ENERGY-SYSTEM CENTRIC, AND INCLUDING LAND-BASED REMOVAL MAKES THAT CUT HARDER. The analysis now scores land-heavy pathways on jobs, energy access and air quality while saying nothing about land competition, food prices, tenure or biodiversity — the channels through which land-based removal most plausibly affects wellbeing. Fair on what it measures, silent on what it does not.",
+   "JOB-YEARS ARE A STOCK OF WORK, NOT A HEADCOUNT. 692 job-years per 1,000 people over 2020–2100 is roughly 8.6 people in work per 1,000 at any moment, not 692. Manufacturing is assigned to the deploying region, which is the standard AR6 convention and an optimistic one for regions that import turbines and panels.",
+   "MORTALITY IS AN ABSOLUTE COUNT OVER EIGHTY YEARS, NOT A RATE. It is dominated by population and baseline burden, which is why India+ and China+ carry the largest absolute numbers and why Europe — with a far smaller base — shows the largest proportional effect."],
+  {t:"LIMITS · MEASURES",c:RED});
 
 bullets("What is open","Next steps, in priority order",
   ["RE-RUN THE MORTALITY TARGETS AGAINST THE ALL-CDR LABELS, AND CHECK WHAT IT DOES TO COMPOSITION. 80 newly classified scenarios carry no mortality output because the targets were drawn under the engineered axis. Worth doing on its own terms — but the more important question is whether a re-run recovers any non-REMIND breadth in the High-RE arm, because at present that arm is 95% one model at 1.5°C and no air-quality direction can be tested there.",

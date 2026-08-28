@@ -330,6 +330,38 @@ behaviour there, and it is the only region where the jobs result fails at both
 ambition levels. This is a display decision, not a data exclusion — nothing is
 discarded.
 
+## Why Pacific OECD is not shown as a regional row
+
+**It removes no scenarios.** One fixed global classification is applied unchanged
+in every region, so the arm sizes are identical everywhere — 58 v 67 at 1.5 °C
+and ~212 v 238 at 2 °C, Pacific OECD included. Excluding it is a **display**
+decision; it is retained inside the World aggregate, because dropping it there
+would change what "World" means.
+
+**The reason is label coherence.** The test is whether the global label describes
+local behaviour: Cliff's δ on each region's *own* cumulative renewable capacity,
+High-CDR against High-RE.
+
+| region | δ 1.5 °C | δ 2 °C | High-RE ÷ High-CDR median renewables, 1.5 °C |
+|---|---|---|---|
+| **Pacific OECD** | **−0.11** | +0.03 | **0.88×** |
+| Reforming econ. | +0.27 | +0.54 | 1.15× |
+| Middle East | +0.73 | +0.79 | 1.67× |
+| Europe | +0.83 | +0.83 | 1.66× |
+| North America | +0.86 | +0.92 | 1.67× |
+| Latin America | +0.88 | +0.87 | 1.75× |
+| China+ | +0.89 | +0.71 | 1.57× |
+| Africa | +0.90 | +0.82 | 2.94× |
+| Rest of Asia | +0.93 | +0.88 | 4.34× |
+| India+ | +0.99 | +0.85 | 2.46× |
+
+Everywhere else, scenarios labelled High-RE really do build more renewables in
+that region. In Pacific OECD they build slightly **less** at 1.5 °C and the same
+at 2 °C — the contrast being measured does not exist locally, so the row would
+report an outcome difference between two groups that are not actually different
+there. **Reforming economies is the weakest region still shown** (δ +0.27) and is
+flagged accordingly.
+
 ## Conventions that matter
 
 - **Window 2020–2100** for *both* the classification and the outcomes.

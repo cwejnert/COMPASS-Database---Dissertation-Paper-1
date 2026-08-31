@@ -23,6 +23,9 @@ removal; engineered-only is a sensitivity.
    full versus SCI-vetted; ambitions pooled versus split; pooled versus every
    eligible model family; World plus all R10 regions; four reported measures.
 8. `paper1_analysis/W16_factorial_figures.R` — final robustness matrices.
+9. `paper1_analysis/W19_jobs_retirement_decommissioning.R` — revised employment
+   outcome, inferred capacity retirements, decommissioning job-years, displaced
+   plant/upstream positions, and Full/SCI plus pooled/within-model comparisons.
 
 Run steps 3 and 5–8 together with `Rscript run_final_analysis.R`. Set
 `COMPASS_RUN_RFASST=true` only when intentionally rebuilding mortality.
@@ -47,3 +50,26 @@ both arms, the classified arms are balanced by construction.
 there as superseded are retained for provenance and are not part of the final
 run order.
 
+## Employment outcome and retirement accounting
+
+The primary employment outcome is total cumulative energy-sector job-years:
+construction, manufacturing, operations and maintenance, fuel extraction,
+refining, and decommissioning. `jobs_RE_minus_fossil` is retained only as a
+diagnostic and must not be described as total or net employment.
+
+Because COMPASS does not report retirements directly, annual gross retirements
+are inferred by fuel, region, model, and scenario as
+`max(0, previous stock + additions - current stock)`. A retirement already
+removes future O&M, extraction, and refining employment through the lower
+installed-stock path; those displaced positions are reported separately and
+are not subtracted again from cumulative job-years. Decommissioning is a
+positive, one-time employment stream. Its factors use U.S. NREL JEDI-based
+GCAMUSAJobs values scaled with the existing regional construction-labour
+multipliers; `COMPASS_DECOMMISSIONING_MODE=none` provides the no-decommissioning
+sensitivity.
+
+W19 writes both a 2020–2050 reconstruction from the current master release and a
+2020–2100 deck-compatibility table. The repository description and classification
+window are 2020–2100, while the current master script sets the outcome window to
+2020–2050. Select and document one outcome window before freezing the final
+tables and slides.

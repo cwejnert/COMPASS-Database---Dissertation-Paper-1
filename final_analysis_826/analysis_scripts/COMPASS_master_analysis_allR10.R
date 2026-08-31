@@ -863,15 +863,34 @@ jobs_re_group <- switch(RE_SPEC,
 cat("Jobs counted as renewable under RE_SPEC='", RE_SPEC, "': ",
     paste(jobs_re_group, collapse = ", "), "\n", sep = "")
 
-cap_additions_ts <- compass_ts %>% filter(Variable %in% cap_additions_fuel_map$Variable)
+cap_additions_ts <- compass_ts %>%
+  filter(Variable %in% cap_additions_fuel_map$Variable) %>%
+  inner_join(cap_additions_fuel_map, by = "Variable")
 
-scens_with_additions <- cap_additions_ts %>%
-  filter(Value > 0, Year >= START_YEAR) %>%
-  distinct(Model, Scenario, Region)
-scens_needing_stockdiff <- compass_ts %>%
-  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
-  distinct(Model, Scenario, Region) %>%
-  anti_join(scens_with_additions, by = c("Model", "Scenario", "Region"))
+# Choose the additions driver PER FUEL, not per scenario-region. Some IAMs
+# report direct additions for only a subset of technologies. Treating the
+# presence of one additions variable as coverage for every fuel silently
+# dropped construction jobs for unreported technologies. Any reported series,
+# including an all-zero series, counts as direct coverage; otherwise additions
+# are inferred from positive annual stock changes.
+direct_addition_keys <- cap_additions_ts %>%
+  filter(Year >= START_YEAR) %>%
+  distinct(Model, Scenario, Region, fuel)
+
+# Keep 2019 solely to form the opening 2020 stock balance. The outcome window
+# still begins in 2020.
+stock_balance_ts <- compass_ts %>%
+  filter(Variable %in% cap_stock_fuel_map$Variable,
+         Year >= START_YEAR - 1L) %>%
+  inner_join(cap_stock_fuel_map, by = "Variable") %>%
+  transmute(Model, Scenario, Region, Category, Year, fuel, tech_group,
+            stock_GW = pmax(0, Value))
+
+stock_keys_needing_diff <- stock_balance_ts %>%
+  filter(Year >= START_YEAR) %>%
+  distinct(Model, Scenario, Region, fuel) %>%
+  anti_join(direct_addition_keys,
+            by = c("Model", "Scenario", "Region", "fuel"))
 
 # TOTAL energy-sector employment (Rutovitz-style). The three job streams have
 # DIFFERENT dimensional drivers, so they are applied to different quantities:
@@ -906,32 +925,136 @@ job_ef_long <- job_factors_complete %>%
                          "added", "stock"))
 
 # ---- installed CAPACITY STOCK by tech -> drives O&M + fuel (ongoing) --------
-stock_ts <- compass_ts %>%
-  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
-  inner_join(cap_stock_fuel_map, by = "Variable") %>%
-  transmute(Model, Scenario, Region, Category, Year, fuel, tech_group,
-            stock_GW = pmax(0, Value))
+stock_ts <- stock_balance_ts %>% filter(Year >= START_YEAR)
 
 # ---- capacity ADDITIONS by tech -> drives build (one-time) ------------------
 # Direct where reported; else implied from the annual stock change (year-gap,
 # = 1 on the annual grid; see the fallback-divisor fix note).
 add_direct <- cap_additions_ts %>%
-  semi_join(scens_with_additions, by = c("Model", "Scenario", "Region")) %>%
   filter(Year >= START_YEAR) %>%
-  inner_join(cap_additions_fuel_map, by = "Variable") %>%
   transmute(Model, Scenario, Region, Category, Year, fuel, tech_group,
             add_GW = pmax(0, Value))
-add_fallback <- compass_ts %>%
-  filter(Variable %in% cap_stock_fuel_map$Variable, Year >= START_YEAR) %>%
-  semi_join(scens_needing_stockdiff, by = c("Model", "Scenario", "Region")) %>%
-  inner_join(cap_stock_fuel_map, by = "Variable") %>%
+add_fallback <- stock_balance_ts %>%
+  semi_join(stock_keys_needing_diff,
+            by = c("Model", "Scenario", "Region", "fuel")) %>%
   arrange(Model, Scenario, Region, fuel, Year) %>%
   group_by(Model, Scenario, Region, Category, fuel, tech_group) %>%
-  mutate(add_GW = pmax(0, (Value - lag(Value)) / (Year - lag(Year)))) %>%
+  mutate(add_GW = pmax(0, (stock_GW - lag(stock_GW)) /
+                              (Year - lag(Year)))) %>%
   ungroup() %>%
-  filter(!is.na(add_GW)) %>%
+  filter(Year >= START_YEAR, !is.na(add_GW)) %>%
   transmute(Model, Scenario, Region, Category, Year, fuel, tech_group, add_GW)
 additions_ts <- bind_rows(add_direct, add_fallback)
+
+# ---- inferred gross retirements ---------------------------------------------
+# Capacity Additions is GW/year and compass_interp is annual, so the stock-flow
+# identity is evaluated one year at a time:
+#   retired_t = max(0, stock_{t-1} + additions_t - stock_t).
+# The residual fields expose non-closing IAM series rather than hiding them.
+# They are especially important when additions and stock were interpolated
+# independently. Retirements are a transition diagnostic; the associated lost
+# O&M/fuel jobs are NOT subtracted again from cumulative employment because the
+# lower installed stock already removes those future job-years.
+additions_balance <- additions_ts %>%
+  group_by(Model, Scenario, Region, Category, Year, fuel, tech_group) %>%
+  summarise(gross_additions_GW = sum(add_GW, na.rm = TRUE), .groups = "drop")
+
+retirement_ts <- stock_balance_ts %>%
+  arrange(Model, Scenario, Region, fuel, Year) %>%
+  group_by(Model, Scenario, Region, Category, fuel, tech_group) %>%
+  mutate(previous_stock_GW = lag(stock_GW),
+         year_gap = Year - lag(Year)) %>%
+  ungroup() %>%
+  filter(Year >= START_YEAR, year_gap == 1L) %>%
+  left_join(additions_balance,
+            by = c("Model", "Scenario", "Region", "Category", "Year",
+                   "fuel", "tech_group")) %>%
+  mutate(gross_additions_GW = coalesce(gross_additions_GW, 0),
+         stock_change_GW = stock_GW - previous_stock_GW,
+         inferred_retirements_GW = pmax(
+           0, previous_stock_GW + gross_additions_GW - stock_GW),
+         unexplained_additions_GW = pmax(
+           0, stock_GW - previous_stock_GW - gross_additions_GW),
+         balance_residual_GW = previous_stock_GW + gross_additions_GW -
+           inferred_retirements_GW - stock_GW)
+
+# JGCRI's open GCAMUSAJobs package derives decommissioning employment factors
+# from NREL JEDI project models and links them to retired capacity. These are
+# medians across its 52 U.S. state/DC rows (job-years/MW), downloaded 2026-08-31
+# from data/EF.JEDI.rda. They are a transparent U.S.-anchored proxy, not a claim
+# of globally observed R10 factors:
+#   https://jgcri.github.io/GCAMUSAJobs/articles/methods.html
+#   https://github.com/JGCRI/GCAMUSAJobs/blob/main/data/EF.JEDI.rda
+# A no-decommissioning sensitivity is available through the environment flag.
+DECOMMISSIONING_MODE <- Sys.getenv("COMPASS_DECOMMISSIONING_MODE", "jedi_proxy")
+if (!DECOMMISSIONING_MODE %in% c("jedi_proxy", "none"))
+  stop("COMPASS_DECOMMISSIONING_MODE must be 'jedi_proxy' or 'none'")
+
+jedi_decommission_anchor <- tribble(
+  ~fuel,        ~decommission_jobyears_per_MW_us_median,
+  "solar_pv",   0.62978903,
+  "wind_on",    0.10159004,
+  "hydro",      0.74615629,
+  "geothermal", 1.35736336,
+  "nuclear",    3.21283205,
+  "biomass",    1.67724748,
+  "coal",       2.36290997,
+  "gas",        0.62078255,
+  "oil",        2.36290997
+)
+
+# Transfer the U.S. anchors to R10 using a technology-independent regional
+# labour multiplier derived from this analysis's existing construction factors.
+# This mirrors the regionalisation already used for geothermal and avoids
+# pretending that a U.S. state factor is directly global. Clamp only guards
+# against pathological sparse-factor ratios; the unclamped value is retained.
+.decom_donors <- intersect(jedi_decommission_anchor$fuel,
+                           unique(job_factors_complete$fuel))
+decommission_region_mult <- job_factors_complete %>%
+  filter(category == "construction", fuel %in% .decom_donors,
+         region %in% regions_r10, job_intensity > 0) %>%
+  group_by(fuel) %>%
+  mutate(relative_labour = job_intensity /
+           exp(mean(log(job_intensity), na.rm = TRUE))) %>%
+  group_by(region) %>%
+  summarise(regional_labour_multiplier_raw =
+              exp(mean(log(relative_labour), na.rm = TRUE)),
+            .groups = "drop") %>%
+  mutate(regional_labour_multiplier = pmin(
+    8, pmax(0.25, regional_labour_multiplier_raw)))
+
+decommission_ef <- crossing(
+  region = regions_r10,
+  jedi_decommission_anchor
+) %>%
+  left_join(decommission_region_mult, by = "region") %>%
+  mutate(regional_labour_multiplier = coalesce(regional_labour_multiplier, 1),
+         decommission_jobyears_per_GW =
+           as.numeric(DECOMMISSIONING_MODE == "jedi_proxy") *
+           decommission_jobyears_per_MW_us_median * 1000 *
+           regional_labour_multiplier)
+
+# Gross worker displacement at closure is reported separately from total
+# job-years. Plant jobs use O&M only. Extraction and refinery are upstream
+# regional effects and are not described as workers located at the plant.
+retirement_jobs_annual <- retirement_ts %>%
+  left_join(job_ef_long %>%
+              filter(basis == "stock") %>%
+              select(region, fuel, category, ef) %>%
+              pivot_wider(names_from = category, values_from = ef,
+                          values_fill = 0),
+            by = c("Region" = "region", "fuel")) %>%
+  left_join(decommission_ef,
+            by = c("Region" = "region", "fuel")) %>%
+  mutate(across(any_of(c("oem", "extraction", "refinery")),
+                ~ coalesce(.x, 0)),
+         plant_jobs_displaced_thousands =
+           inferred_retirements_GW * oem / 1000,
+         upstream_jobs_displaced_thousands =
+           inferred_retirements_GW * (extraction + refinery) / 1000,
+         decommission_jobyears_thousands =
+           inferred_retirements_GW *
+             coalesce(decommission_jobyears_per_GW, 0) / 1000)
 
 # ---- three streams -> total jobs per Model/Scenario/Region/Year/tech_group --
 # Keep `fuel` and tag which stream the jobs came from, so the temporal and
@@ -1002,6 +1125,85 @@ cat("wrote compass_jobs_by_fuel_type_year.rds:", nrow(.jobs_out), "rows |",
     dplyr::n_distinct(.jobs_out$job_type), "job types |",
     dplyr::n_distinct(.jobs_out$Region), "regions |",
     dplyr::n_distinct(.jobs_out$Year), "years\n")
+
+saveRDS(retirement_jobs_annual,
+        file.path(OUT_DIR, "compass_jobs_retirements_decommissioning_annual.rds"),
+        compress = "xz")
+.retirement_summary <- retirement_jobs_annual %>%
+  filter(Year >= START_YEAR, Year <= OUTCOME_WINDOW_END) %>%
+  group_by(Model, Scenario, Region, Category, fuel, tech_group) %>%
+  summarise(
+    inferred_retirements_GW = sum(inferred_retirements_GW, na.rm = TRUE),
+    gross_additions_GW = sum(gross_additions_GW, na.rm = TRUE),
+    plant_jobs_displaced_thousands =
+      sum(plant_jobs_displaced_thousands, na.rm = TRUE),
+    upstream_jobs_displaced_thousands =
+      sum(upstream_jobs_displaced_thousands, na.rm = TRUE),
+    decommission_jobyears_thousands =
+      sum(decommission_jobyears_thousands, na.rm = TRUE),
+    absolute_balance_residual_GW = sum(abs(balance_residual_GW), na.rm = TRUE),
+    unexplained_additions_GW = sum(unexplained_additions_GW, na.rm = TRUE),
+    .groups = "drop")
+write_csv(.retirement_summary,
+          file.path(OUT_DIR, "compass_jobs_retirements_decommissioning_2020_2050.csv"))
+write_csv(decommission_ef,
+          file.path(OUT_DIR, "decommissioning_factors_r10_jedi_proxy.csv"))
+
+# Compact scenario-region totals used by the revised employment outcome and
+# transition figures. Unlike net_re_jobs_per_1k, jobs_EnergyTotal is an actual
+# total employment measure: every technology's positive job-years are added.
+.jobs_group_cumulative <- jobs_annual %>%
+  filter(Year >= START_YEAR, Year <= OUTCOME_WINDOW_END) %>%
+  group_by(Model, Scenario, Region, Category, tech_group) %>%
+  summarise(jobyears_thousands = sum(jobs_thousands, na.rm = TRUE),
+            .groups = "drop") %>%
+  pivot_wider(names_from = tech_group, values_from = jobyears_thousands,
+              names_prefix = "jobs_", values_fill = 0)
+for (g in c("Renewables", "Nuclear", "Bioenergy", "Fossil")) {
+  cn <- paste0("jobs_", g)
+  if (!cn %in% names(.jobs_group_cumulative))
+    .jobs_group_cumulative[[cn]] <- 0
+}
+.jobs_transition_cumulative <- retirement_jobs_annual %>%
+  filter(Year >= START_YEAR, Year <= OUTCOME_WINDOW_END) %>%
+  group_by(Model, Scenario, Region, Category) %>%
+  summarise(
+    jobs_Decommission = sum(decommission_jobyears_thousands, na.rm = TRUE),
+    gross_plant_jobs_displaced =
+      sum(plant_jobs_displaced_thousands, na.rm = TRUE),
+    gross_upstream_jobs_displaced =
+      sum(upstream_jobs_displaced_thousands, na.rm = TRUE),
+    inferred_retirements_GW = sum(inferred_retirements_GW, na.rm = TRUE),
+    absolute_balance_residual_GW = sum(abs(balance_residual_GW), na.rm = TRUE),
+    unexplained_additions_GW = sum(unexplained_additions_GW, na.rm = TRUE),
+    .groups = "drop")
+jobs_cumulative_2020_2050 <- .jobs_group_cumulative %>%
+  left_join(.jobs_transition_cumulative,
+            by = c("Model", "Scenario", "Region", "Category")) %>%
+  mutate(across(c(jobs_Decommission, gross_plant_jobs_displaced,
+                  gross_upstream_jobs_displaced, inferred_retirements_GW,
+                  absolute_balance_residual_GW, unexplained_additions_GW),
+                ~ coalesce(.x, 0)),
+         jobs_EnergyTotal_no_decommission = jobs_Renewables + jobs_Nuclear +
+           jobs_Bioenergy + jobs_Fossil,
+         jobs_EnergyTotal = jobs_EnergyTotal_no_decommission +
+           jobs_Decommission,
+         # Retained only as a portfolio-composition diagnostic.
+         jobs_RE_minus_fossil = jobs_Renewables - jobs_Fossil)
+saveRDS(jobs_cumulative_2020_2050,
+        file.path(OUT_DIR, "compass_jobs_cumulative_2020_2050.rds"),
+        compress = "xz")
+write_csv(jobs_cumulative_2020_2050,
+          file.path(OUT_DIR, "compass_jobs_cumulative_2020_2050.csv"))
+cat("wrote retirement/decommissioning outputs:",
+    nrow(retirement_jobs_annual), "annual fuel-region rows | mode",
+    DECOMMISSIONING_MODE, "\n")
+
+if (identical(Sys.getenv("COMPASS_JOBS_ONLY"), "1")) {
+  cat("COMPASS_JOBS_ONLY=1: jobs outputs complete; stopping before DLE and ",
+      "cross-approach rebuild.\n", sep = "")
+  quit(save = "no", status = 0)
+}
 
 # ---- 4c. DLE gap / headcount / implied CO2 (annual) -------------------------
 # DLE FIX 1: use the official DESIRE country-level IAM energy-threshold mapping,
@@ -1252,6 +1454,11 @@ add_percapita <- function(df) {
     re_jobs_per_1k     = if ("jobs_Renewables"              %in% names(.)) jobs_Renewables              / pop_mln       else NA_real_,
     fossil_jobs_per_1k = if ("jobs_Fossil"                  %in% names(.)) jobs_Fossil                  / pop_mln       else NA_real_,
     net_re_jobs_per_1k = if (all(c("jobs_Renewables","jobs_Fossil") %in% names(.))) (jobs_Renewables - jobs_Fossil) / pop_mln else NA_real_,
+    total_energy_jobyears_per_1k = if ("jobs_EnergyTotal" %in% names(.)) jobs_EnergyTotal / pop_mln else NA_real_,
+    total_energy_jobyears_no_decommission_per_1k = if ("jobs_EnergyTotal_no_decommission" %in% names(.)) jobs_EnergyTotal_no_decommission / pop_mln else NA_real_,
+    decommission_jobyears_per_1k = if ("jobs_Decommission" %in% names(.)) jobs_Decommission / pop_mln else NA_real_,
+    gross_plant_jobs_displaced_per_1k = if ("gross_plant_jobs_displaced" %in% names(.)) gross_plant_jobs_displaced / pop_mln else NA_real_,
+    gross_upstream_jobs_displaced_per_1k = if ("gross_upstream_jobs_displaced" %in% names(.)) gross_upstream_jobs_displaced / pop_mln else NA_real_,
     gap_GJ_pc          = if ("cumulative_gap_EJ"            %in% names(.)) cumulative_gap_EJ            * 1000 / pop_mln else NA_real_,
     implied_CO2_tpc    = if ("cumulative_implied_CO2_GtCO2" %in% names(.)) cumulative_implied_CO2_GtCO2 * 1000 / pop_mln else NA_real_
   )
@@ -1459,8 +1666,46 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     if (!cn %in% names(jobs_cum)) jobs_cum[[cn]] <- 0
   }
   jobs_cum <- jobs_cum %>%
-    mutate(jobs_Renewables = rowSums(across(all_of(paste0("jobs_", jobs_re_group))),
-                                     na.rm = TRUE))
+    mutate(
+      # Preserve the physical four-way grouping before jobs_Renewables is
+      # redefined to match the active pathway-classification specification.
+      jobs_BaseRenewables = jobs_Renewables,
+      jobs_EnergyTotal_no_decommission = jobs_BaseRenewables +
+        jobs_Nuclear + jobs_Bioenergy + jobs_Fossil,
+      jobs_Renewables = rowSums(
+        across(all_of(paste0("jobs_", jobs_re_group))), na.rm = TRUE))
+
+  # Decommissioning is a genuine positive, one-time employment stream.
+  # Displaced jobs are gross transition counts, not additional negative
+  # job-years; lower installed stock already reduces ongoing employment.
+  transition_cum <- retirement_jobs_annual %>%
+    inner_join(amb_map, by = c("Model", "Scenario", "Category")) %>%
+    filter(Year >= START_YEAR, Year <= window_end) %>%
+    group_by(Model, Scenario, Region) %>%
+    summarise(
+      jobs_Decommission = sum(decommission_jobyears_thousands, na.rm = TRUE),
+      gross_plant_jobs_displaced =
+        sum(plant_jobs_displaced_thousands, na.rm = TRUE),
+      gross_upstream_jobs_displaced =
+        sum(upstream_jobs_displaced_thousands, na.rm = TRUE),
+      inferred_retirements_GW =
+        sum(inferred_retirements_GW, na.rm = TRUE),
+      additions_stock_balance_residual_GW =
+        sum(abs(balance_residual_GW), na.rm = TRUE),
+      unexplained_additions_GW =
+        sum(unexplained_additions_GW, na.rm = TRUE),
+      .groups = "drop")
+
+  jobs_cum <- jobs_cum %>%
+    left_join(transition_cum,
+              by = c("Model", "Scenario", "Region")) %>%
+    mutate(across(c(jobs_Decommission, gross_plant_jobs_displaced,
+                    gross_upstream_jobs_displaced, inferred_retirements_GW,
+                    additions_stock_balance_residual_GW,
+                    unexplained_additions_GW),
+                  ~ coalesce(.x, 0)),
+           jobs_EnergyTotal = jobs_EnergyTotal_no_decommission +
+             jobs_Decommission)
 
   # DLE cumulated to window
   dle_cum <- dle_annual %>%
@@ -1479,7 +1724,15 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     left_join(mort_cum, by = c("Model", "Scenario", "Region")) %>%
     left_join(jobs_cum %>% select(Model, Scenario, Region,
                                   jobs_Renewables, jobs_Fossil,
-                                  jobs_Nuclear, jobs_Bioenergy),
+                                  jobs_Nuclear, jobs_Bioenergy,
+                                  jobs_BaseRenewables,
+                                  jobs_EnergyTotal_no_decommission,
+                                  jobs_Decommission, jobs_EnergyTotal,
+                                  gross_plant_jobs_displaced,
+                                  gross_upstream_jobs_displaced,
+                                  inferred_retirements_GW,
+                                  additions_stock_balance_residual_GW,
+                                  unexplained_additions_GW),
               by = c("Model", "Scenario", "Region")) %>%
     left_join(dle_cum, by = c("Model", "Scenario", "Region")) %>%
     left_join(pop2020_r10, by = "Region") %>%
@@ -1517,7 +1770,12 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
   #    (they are attached by left_join before this point), so de-duplicating is
   #    lossless. Asserted below rather than assumed.
   outcome_cols <- c("cumulative_deaths_mln", "jobs_Renewables", "jobs_Fossil",
-                    "jobs_Nuclear", "jobs_Bioenergy",
+                    "jobs_Nuclear", "jobs_Bioenergy", "jobs_BaseRenewables",
+                    "jobs_EnergyTotal_no_decommission", "jobs_Decommission",
+                    "jobs_EnergyTotal", "gross_plant_jobs_displaced",
+                    "gross_upstream_jobs_displaced", "inferred_retirements_GW",
+                    "additions_stock_balance_residual_GW",
+                    "unexplained_additions_GW",
                     "cumulative_gap_EJ", "mean_headcount_millions",
                     "cumulative_implied_CO2_GtCO2")
   keys <- c("Model_Group", "Model", "Scenario", "ModelGroup_Scenario",
@@ -1543,7 +1801,13 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
       n_regions_mortality = sum(!is.na(cumulative_deaths_mln)),
       n_regions_co2       = sum(!is.na(cumulative_implied_CO2_GtCO2)),
       jobs_ok = n_regions_jobs == n_r10,
-      across(c(jobs_Renewables, jobs_Fossil, jobs_Nuclear, jobs_Bioenergy),
+      across(c(jobs_Renewables, jobs_Fossil, jobs_Nuclear, jobs_Bioenergy,
+               jobs_BaseRenewables, jobs_EnergyTotal_no_decommission,
+               jobs_Decommission, jobs_EnergyTotal,
+               gross_plant_jobs_displaced,
+               gross_upstream_jobs_displaced, inferred_retirements_GW,
+               additions_stock_balance_residual_GW,
+               unexplained_additions_GW),
              ~ if (jobs_ok) sum(.x, na.rm = TRUE) else NA_real_),
       cumulative_gap_EJ            = strict10(cumulative_gap_EJ),
       mean_headcount_millions      = strict10(mean_headcount_millions),

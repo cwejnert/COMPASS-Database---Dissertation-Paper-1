@@ -1,9 +1,12 @@
 # COMPASS Dissertation Paper 1 — final reproducible analysis
 
-This repository contains the authoritative 2020–2100 Paper 1 pipeline. The
-primary comparison is mutually exclusive High-CDR versus High-RE portfolios,
-classified within ambition band. High-CDR uses all CDR, including land-based
-removal; engineered-only is a sensitivity.
+This directory is the authoritative 2020–2100 Paper 1 pipeline. The primary
+comparison is mutually exclusive high carbon-management/removals versus High-RE
+portfolios, classified within ambition band. The primary carbon-management axis
+adds land-based CDR, novel CDR, and fossil/industrial CCS. Because fossil CCS is
+not itself carbon removal, `High-CMT` is the precise code label; `High-CDR` may
+be used in presentation text only when this broader operational definition is
+stated. Engineered-only classification is a sensitivity.
 
 ## Final run order
 
@@ -16,19 +19,27 @@ removal; engineered-only is a sensitivity.
 4. `analysis_scripts/COMPASS_rfasst_full_allR10.R` — optional expensive RFASST
    run. The completed reporting-complete mortality output is committed under
    `final_outcomes/` and does not need to be rerun for reproduction.
-5. `paper1_analysis/W14_within_model_landprimary.R` — original primary
-   within-model diagnostic.
-6. `paper1_analysis/W15_arm_composition.R` — arm composition and leave-one-out.
-7. `paper1_analysis/W16_factorial_model_robustness.R` — final factorial analysis:
-   full versus SCI-vetted; ambitions pooled versus split; pooled versus every
-   eligible model family; World plus all R10 regions; four reported measures.
-8. `paper1_analysis/W16_factorial_figures.R` — final robustness matrices.
-9. `paper1_analysis/W19_jobs_retirement_decommissioning.R` — revised employment
+5. `paper1_analysis/W19_jobs_retirement_decommissioning.R` — revised employment
    outcome, inferred capacity retirements, decommissioning job-years, displaced
    plant/upstream positions, and Full/SCI plus pooled/within-model comparisons.
+6. `paper1_analysis/W26_targeted_rfasst_rerun.R` — optional expensive targeted
+   RFASST rerun. The validated 472-scenario release is already frozen under
+   `final_outcomes/mortality_472/`.
+7. `paper1_analysis/W27_regenerate_mortality_472.R` — rebuilds mortality pooled,
+   regional, within-family, equal-family, leave-one-family-out, and matched
+   model-project-ambition results from the validated release.
+8. `paper1_analysis/W28_integrated_tiered_analysis.R` — final four-outcome
+   synthesis: Full/SCI; ambitions pooled/split; pooled, family-balanced,
+   leave-one-family-out, and matched project estimates; World and every R10
+   region.
+9. `paper1_analysis/W29_employment_family_mechanisms.R` — targeted AIM/WITCH
+   project and component audit using the revised total-employment definition.
 
-Run steps 3 and 5–8 together with `Rscript run_final_analysis.R`. Set
-`COMPASS_RUN_RFASST=true` only when intentionally rebuilding mortality.
+From this directory, run `Rscript run_final_analysis.R`. It uses the frozen
+employment and mortality releases by default. Set `COMPASS_REBUILD_JOBS=true`
+only to rebuild the full annual jobs pipeline, and
+`COMPASS_RUN_TARGETED_RFASST=true` only when intentionally repeating the costly
+targeted mortality run with its runtime emissions inputs available.
 
 ## Classification rule
 
@@ -42,9 +53,12 @@ both arms, the classified arms are balanced by construction.
 
 - Full database: approach A.
 - SCI-vetted database: approach C.
-- Mortality: `final_outcomes/mortality_allcdr_reporting_complete_scenario_values_2020_2100.csv`.
-- Final factorial tables: `final_outcomes/W16_factorial_*.csv`.
-- Final matrices: `final_outcomes/W16_*.png`.
+- Mortality: 472 Full-database reporting-complete scenarios in
+  `final_outcomes/mortality_472/`; the regenerated Full/SCI scenario-value file
+  is `final_outcomes/mortality_allcdr_reporting_complete_scenario_values_2020_2100.csv`.
+- Revised employment: `final_outcomes/jobs_revision/`.
+- Final four-outcome tables and figures: `final_outcomes/tiered_analysis/`.
+- Model-family methodology and targeted project audits: `audits/`.
 
 `paper1_analysis/README.md` contains the longer audit history. Scripts identified
 there as superseded are retained for provenance and are not part of the final
@@ -68,8 +82,19 @@ GCAMUSAJobs values scaled with the existing regional construction-labour
 multipliers; `COMPASS_DECOMMISSIONING_MODE=none` provides the no-decommissioning
 sensitivity.
 
-W19 writes both a 2020–2050 reconstruction from the current master release and a
-2020–2100 deck-compatibility table. The repository description and classification
-window are 2020–2100, while the current master script sets the outcome window to
-2020–2050. Select and document one outcome window before freezing the final
-tables and slides.
+The primary employment release uses 2020–2100. Set
+`COMPASS_OUTCOME_WINDOW_END=2050` only for the documented near-term sensitivity.
+The 131 MB annual retirement RDS is deliberately excluded from GitHub; W19 uses
+the committed compact cumulative tables, while the master script can regenerate
+the annual audit file.
+
+## Interpretation hierarchy
+
+Scenario-weighted pooled medians describe this database; they are not causal
+treatment effects. Final interpretation proceeds through pooled results,
+within-family and equal-family comparisons, leave-one-family-out influence, and
+matched model-version × project × ambition cells. Employment is directionally
+supported but magnitude-sensitive to composition. Deprivation is a database
+association rather than an independently identified technology effect. Mortality
+is a coverage-qualified and composition-sensitive association. SCI-vetted 1.5°C
+cells are especially sparse and must remain descriptive.

@@ -1,0 +1,9 @@
+metric,value
+screened targets,70
+direct-R10 targets,63
+World-fallback targets,7
+validated direct-R10 successes,42
+validated World-fallback sensitivity successes,0
+direct-R10 failures,21
+World-fallback sensitivity failures,7
+classified scenarios with primary mortality after merge,472

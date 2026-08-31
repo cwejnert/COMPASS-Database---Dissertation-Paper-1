@@ -7,3 +7,8 @@
 Outputs/
 *.csv
 !original_scripts/**
+
+# Compact, frozen outputs required by the authoritative final release.
+!final_analysis_826/final_outcomes/**/*.csv
+!final_analysis_826/audits/**/*.csv
+!final_analysis_826/final_outcomes/jobs_revision/compass_jobs_cumulative_2020_2100.rds

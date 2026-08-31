@@ -1,0 +1,217 @@
+database,ambition_view,fuel,tech_group,measure,n_High-CMT,n_High-RE,median_High-CMT,median_High-RE,raw_difference_high_re_minus_high_cmt
+Full,1.5C,biomass,Bioenergy,decommission_jobyears_thousands,53,67,1896.1723518339231,396.31924107250774,-1499.8531107614153
+Full,1.5C,biomass,Bioenergy,inferred_retirements_GW,53,67,1080.0932203085688,180.87595,-899.2172703085688
+Full,1.5C,biomass,Bioenergy,plant_jobs_displaced_thousands,53,67,4056.019945841196,993.715497495,-3062.3044483461963
+Full,1.5C,biomass,Bioenergy,upstream_jobs_displaced_thousands,53,67,112.6066838693706,15.6535616288,-96.9531222405706
+Full,1.5C,coal,Fossil,decommission_jobyears_thousands,58,67,4680.389692156721,4039.702010090381,-640.6876820663401
+Full,1.5C,coal,Fossil,inferred_retirements_GW,58,67,2020.0829214437297,1817.4168499999998,-202.66607144372983
+Full,1.5C,coal,Fossil,plant_jobs_displaced_thousands,58,67,1702.4927771900507,1511.6126813078388,-190.8800958822119
+Full,1.5C,coal,Fossil,upstream_jobs_displaced_thousands,58,67,2084.288317430851,1801.5603019800749,-282.72801545077596
+Full,1.5C,gas,Fossil,decommission_jobyears_thousands,53,67,4598.0144036343345,2616.4177226136976,-1981.5966810206369
+Full,1.5C,gas,Fossil,inferred_retirements_GW,53,67,6167.8372871838865,4000.12064,-2167.7166471838864
+Full,1.5C,gas,Fossil,plant_jobs_displaced_thousands,53,67,2340.5879864814433,1408.6871368134332,-931.9008496680101
+Full,1.5C,gas,Fossil,upstream_jobs_displaced_thousands,53,67,3.2189808651352148,2.0309610029122154,-1.1880198622229994
+Full,1.5C,geothermal,Renewables,decommission_jobyears_thousands,34,44,21.61419308665438,5.0195520041959245,-16.59464108245846
+Full,1.5C,geothermal,Renewables,inferred_retirements_GW,34,44,6.66920577218789,3.056050000000003,-3.6131557721878873
+Full,1.5C,geothermal,Renewables,plant_jobs_displaced_thousands,34,44,16.235342756213317,4.075615429673852,-12.159727326539464
+Full,1.5C,geothermal,Renewables,upstream_jobs_displaced_thousands,34,44,0,0,0
+Full,1.5C,hydro,Renewables,decommission_jobyears_thousands,53,67,1237.1760817091426,625.0803896322791,-612.0956920768635
+Full,1.5C,hydro,Renewables,inferred_retirements_GW,53,67,1524.4544857477874,643.4279700000003,-881.0265157477871
+Full,1.5C,hydro,Renewables,plant_jobs_displaced_thousands,53,67,1281.9669055495306,513.7384837181316,-768.2284218313989
+Full,1.5C,hydro,Renewables,upstream_jobs_displaced_thousands,53,67,0,0,0
+Full,1.5C,nuclear,Nuclear,decommission_jobyears_thousands,53,67,4182.142602329279,2426.0808999605592,-1756.0617023687196
+Full,1.5C,nuclear,Nuclear,inferred_retirements_GW,53,67,1201.4826878168462,743.36608,-458.1166078168462
+Full,1.5C,nuclear,Nuclear,plant_jobs_displaced_thousands,53,67,1441.2814896978464,848.5107249444098,-592.7707647534365
+Full,1.5C,nuclear,Nuclear,upstream_jobs_displaced_thousands,53,67,19.609791372597517,14.24954825085,-5.3602431217475175
+Full,1.5C,oil,Fossil,decommission_jobyears_thousands,53,46,1472.6702659042276,463.5695298461735,-1009.100736058054
+Full,1.5C,oil,Fossil,inferred_retirements_GW,53,46,580.6388232489675,188.17853495,-392.4602882989675
+Full,1.5C,oil,Fossil,plant_jobs_displaced_thousands,53,46,147.62244033987636,53.008425564217575,-94.61401477565879
+Full,1.5C,oil,Fossil,upstream_jobs_displaced_thousands,53,46,5.2903532679880305,1.8849183503659237,-3.405434917622107
+Full,1.5C,solar_pv,Renewables,decommission_jobyears_thousands,53,67,19879.502886044935,39816.77012879463,19937.2672427497
+Full,1.5C,solar_pv,Renewables,inferred_retirements_GW,53,67,31279.955118608475,60779.25153000001,29499.296411391533
+Full,1.5C,solar_pv,Renewables,plant_jobs_displaced_thousands,53,67,11216.166307208128,26763.640567230002,15547.474260021874
+Full,1.5C,solar_pv,Renewables,upstream_jobs_displaced_thousands,53,67,0,0,0
+Full,1.5C,wind_on,Renewables,decommission_jobyears_thousands,53,67,1276.7486779083445,2734.1199284329327,1457.3712505245883
+Full,1.5C,wind_on,Renewables,inferred_retirements_GW,53,67,12413.808292113245,26237.332319821566,13823.524027708321
+Full,1.5C,wind_on,Renewables,plant_jobs_displaced_thousands,53,67,5203.710275774247,11001.58940454363,5797.879128769384
+Full,1.5C,wind_on,Renewables,upstream_jobs_displaced_thousands,53,67,0,0,0
+Full,2C,biomass,Bioenergy,decommission_jobyears_thousands,195,234,981.1007294038491,306.9383109331744,-674.1624184706747
+Full,2C,biomass,Bioenergy,inferred_retirements_GW,195,234,571.3240131636826,156.91849000000002,-414.4055231636826
+Full,2C,biomass,Bioenergy,plant_jobs_displaced_thousands,195,234,2206.2576050235757,722.84699678,-1483.4106082435756
+Full,2C,biomass,Bioenergy,upstream_jobs_displaced_thousands,195,234,66.68200626398402,12.498695033399999,-54.183311230584025
+Full,2C,coal,Fossil,decommission_jobyears_thousands,200,234,6082.151055146331,4326.021756813511,-1756.1292983328194
+Full,2C,coal,Fossil,inferred_retirements_GW,200,234,2748.1184322218464,1948.9449812500002,-799.1734509718463
+Full,2C,coal,Fossil,plant_jobs_displaced_thousands,200,234,2264.9339225625777,1667.316064079447,-597.6178584831307
+Full,2C,coal,Fossil,upstream_jobs_displaced_thousands,200,234,2769.4619011808613,1937.2197921572683,-832.242109023593
+Full,2C,gas,Fossil,decommission_jobyears_thousands,195,234,3056.7583502386037,3529.0879767020983,472.3296264634946
+Full,2C,gas,Fossil,inferred_retirements_GW,195,234,4731.819524735212,5233.057566457637,501.2380417224249
+Full,2C,gas,Fossil,plant_jobs_displaced_thousands,195,234,1592.009677265026,1821.418786492371,229.40910922734497
+Full,2C,gas,Fossil,upstream_jobs_displaced_thousands,195,234,1.9368234516716105,2.5368214644946665,0.599998012823056
+Full,2C,geothermal,Renewables,decommission_jobyears_thousands,136,191,34.032583720357906,5.479654763025981,-28.552928957331925
+Full,2C,geothermal,Renewables,inferred_retirements_GW,136,191,14.322700734851503,3.204200000000002,-11.118500734851501
+Full,2C,geothermal,Renewables,plant_jobs_displaced_thousands,136,191,26.585998409929044,4.291989386530712,-22.29400902339833
+Full,2C,geothermal,Renewables,upstream_jobs_displaced_thousands,136,191,0,0,0
+Full,2C,hydro,Renewables,decommission_jobyears_thousands,207,234,1170.0680455496467,605.7117503858187,-564.356295163828
+Full,2C,hydro,Renewables,inferred_retirements_GW,207,234,1434.7117181668061,627.9051349999999,-806.8065831668063
+Full,2C,hydro,Renewables,plant_jobs_displaced_thousands,207,234,1233.1234304819159,503.42762125889254,-729.6958092230234
+Full,2C,hydro,Renewables,upstream_jobs_displaced_thousands,207,234,0,0,0
+Full,2C,nuclear,Nuclear,decommission_jobyears_thousands,207,234,2770.6927921320485,1940.8352629746048,-829.8575291574437
+Full,2C,nuclear,Nuclear,inferred_retirements_GW,207,234,817.4211388934676,611.7203850000001,-205.70075389346755
+Full,2C,nuclear,Nuclear,plant_jobs_displaced_thousands,207,234,933.445358398384,701.6150377999005,-231.83032059848347
+Full,2C,nuclear,Nuclear,upstream_jobs_displaced_thousands,207,234,14.862045948847241,10.814305962825,-4.047739986022242
+Full,2C,oil,Fossil,decommission_jobyears_thousands,195,170,1005.3066884263852,689.7287211863226,-315.57796724006266
+Full,2C,oil,Fossil,inferred_retirements_GW,195,170,406.48571006599815,251.40109999999999,-155.08461006599816
+Full,2C,oil,Fossil,plant_jobs_displaced_thousands,195,170,116.87439222032677,79.4639286141109,-37.41046360621587
+Full,2C,oil,Fossil,upstream_jobs_displaced_thousands,195,170,3.8816056875524545,2.6442385647874342,-1.2373671227650203
+Full,2C,solar_pv,Renewables,decommission_jobyears_thousands,195,234,8015.415489893022,26724.298310004087,18708.882820111066
+Full,2C,solar_pv,Renewables,inferred_retirements_GW,195,234,13098.737730722427,40404.82442373999,27306.086693017565
+Full,2C,solar_pv,Renewables,plant_jobs_displaced_thousands,195,234,5041.130435387807,17157.885569615828,12116.75513422802
+Full,2C,solar_pv,Renewables,upstream_jobs_displaced_thousands,195,234,0,0,0
+Full,2C,wind_on,Renewables,decommission_jobyears_thousands,207,234,898.5033075438641,2308.524682295244,1410.0213747513799
+Full,2C,wind_on,Renewables,inferred_retirements_GW,207,234,9375.549613148014,22141.80538677,12766.255773621986
+Full,2C,wind_on,Renewables,plant_jobs_displaced_thousands,207,234,3813.8015535049917,9142.675537716765,5328.873984211773
+Full,2C,wind_on,Renewables,upstream_jobs_displaced_thousands,207,234,0,0,0
+Full,All ambitions pooled,biomass,Bioenergy,decommission_jobyears_thousands,248,301,1136.611091452258,310.3490784471426,-826.2620130051155
+Full,All ambitions pooled,biomass,Bioenergy,inferred_retirements_GW,248,301,699.6867216185703,157.49099999999999,-542.1957216185704
+Full,All ambitions pooled,biomass,Bioenergy,plant_jobs_displaced_thousands,248,301,2493.0404257335317,736.31675685835,-1756.7236688751818
+Full,All ambitions pooled,biomass,Bioenergy,upstream_jobs_displaced_thousands,248,301,67.1217873811172,12.608197192599999,-54.5135901885172
+Full,All ambitions pooled,coal,Fossil,decommission_jobyears_thousands,258,301,5899.012740950497,4310.690217099593,-1588.322523850904
+Full,All ambitions pooled,coal,Fossil,inferred_retirements_GW,258,301,2731.3056880220774,1930.9121300000004,-800.3935580220771
+Full,All ambitions pooled,coal,Fossil,plant_jobs_displaced_thousands,258,301,2141.7797732490735,1618.9730007734393,-522.8067724756343
+Full,All ambitions pooled,coal,Fossil,upstream_jobs_displaced_thousands,258,301,2693.0950374731947,1926.9021241538874,-766.1929133193073
+Full,All ambitions pooled,gas,Fossil,decommission_jobyears_thousands,248,301,3059.1234137919964,3117.0695911819184,57.94617738992201
+Full,All ambitions pooled,gas,Fossil,inferred_retirements_GW,248,301,4732.78312591557,4537.0711593099995,-195.71196660557052
+Full,All ambitions pooled,gas,Fossil,plant_jobs_displaced_thousands,248,301,1597.3016912273667,1626.2490564485702,28.947365221203427
+Full,All ambitions pooled,gas,Fossil,upstream_jobs_displaced_thousands,248,301,1.9392947374502834,2.1921349793826868,0.2528402419324034
+Full,All ambitions pooled,geothermal,Renewables,decommission_jobyears_thousands,170,235,31.743686596844363,5.358698066109134,-26.384988530735228
+Full,All ambitions pooled,geothermal,Renewables,inferred_retirements_GW,170,235,12.651091081574622,3.2013000000000025,-9.44979108157462
+Full,All ambitions pooled,geothermal,Renewables,plant_jobs_displaced_thousands,170,235,24.728074960778507,4.24488918807401,-20.483185772704495
+Full,All ambitions pooled,geothermal,Renewables,upstream_jobs_displaced_thousands,170,235,0,0,0
+Full,All ambitions pooled,hydro,Renewables,decommission_jobyears_thousands,260,301,1187.392441064821,612.1569256385123,-575.2355154263087
+Full,All ambitions pooled,hydro,Renewables,inferred_retirements_GW,260,301,1453.111652689683,632.7812099999998,-820.3304426896833
+Full,All ambitions pooled,hydro,Renewables,plant_jobs_displaced_thousands,260,301,1238.6852947440843,505.65215803815454,-733.0331367059298
+Full,All ambitions pooled,hydro,Renewables,upstream_jobs_displaced_thousands,260,301,0,0,0
+Full,All ambitions pooled,nuclear,Nuclear,decommission_jobyears_thousands,260,301,3044.6771690002415,1991.0406380810089,-1053.6365309192327
+Full,All ambitions pooled,nuclear,Nuclear,inferred_retirements_GW,260,301,935.8400164668266,627.20839242,-308.6316240468266
+Full,All ambitions pooled,nuclear,Nuclear,plant_jobs_displaced_thousands,260,301,1048.8120536460438,721.5538037059843,-327.2582499400595
+Full,All ambitions pooled,nuclear,Nuclear,upstream_jobs_displaced_thousands,260,301,17.379278062846595,11.1425820846,-6.236695978246594
+Full,All ambitions pooled,oil,Fossil,decommission_jobyears_thousands,248,216,1010.6176174376017,688.7768715129588,-321.8407459246429
+Full,All ambitions pooled,oil,Fossil,inferred_retirements_GW,248,216,409.5707969139338,251.07625000000002,-158.4945469139338
+Full,All ambitions pooled,oil,Fossil,plant_jobs_displaced_thousands,248,216,116.98587853055318,79.30481940949116,-37.68105912106202
+Full,All ambitions pooled,oil,Fossil,upstream_jobs_displaced_thousands,248,216,3.8933659718132447,2.644213680392006,-1.2491522914212387
+Full,All ambitions pooled,solar_pv,Renewables,decommission_jobyears_thousands,248,301,10730.854843131483,28630.568943907845,17899.714100776364
+Full,All ambitions pooled,solar_pv,Renewables,inferred_retirements_GW,248,301,19512.4288220188,44267.44814000001,24755.01931798121
+Full,All ambitions pooled,solar_pv,Renewables,plant_jobs_displaced_thousands,248,301,5820.27002697995,19297.14494568,13476.87491870005
+Full,All ambitions pooled,solar_pv,Renewables,upstream_jobs_displaced_thousands,248,301,0,0,0
+Full,All ambitions pooled,wind_on,Renewables,decommission_jobyears_thousands,260,301,1051.9552907574734,2466.116020403638,1414.1607296461643
+Full,All ambitions pooled,wind_on,Renewables,inferred_retirements_GW,260,301,10807.149411070346,24025.62739,13218.477978929655
+Full,All ambitions pooled,wind_on,Renewables,plant_jobs_displaced_thousands,260,301,4595.910790801903,9712.12984625,5116.219055448097
+Full,All ambitions pooled,wind_on,Renewables,upstream_jobs_displaced_thousands,260,301,0,0,0
+SCI-vetted,1.5C,biomass,Bioenergy,decommission_jobyears_thousands,6,6,2519.7207753854273,639.142614242895,-1880.5781611425323
+SCI-vetted,1.5C,biomass,Bioenergy,inferred_retirements_GW,6,6,1537.8679582722596,400.46186572444805,-1137.4060925478116
+SCI-vetted,1.5C,biomass,Bioenergy,plant_jobs_displaced_thousands,6,6,5505.403756723872,1442.973489093059,-4062.430267630813
+SCI-vetted,1.5C,biomass,Bioenergy,upstream_jobs_displaced_thousands,6,6,150.75005688272896,39.627471902971195,-111.12258497975776
+SCI-vetted,1.5C,coal,Fossil,decommission_jobyears_thousands,6,6,8119.1640678395315,5168.429026748954,-2950.7350410905774
+SCI-vetted,1.5C,coal,Fossil,inferred_retirements_GW,6,6,3447.7739895768023,2372.535214042194,-1075.238775534608
+SCI-vetted,1.5C,coal,Fossil,plant_jobs_displaced_thousands,6,6,2701.9800143741363,2142.8577493088483,-559.122265065288
+SCI-vetted,1.5C,coal,Fossil,upstream_jobs_displaced_thousands,6,6,3817.9225634087243,2355.7909958069886,-1462.1315676017357
+SCI-vetted,1.5C,gas,Fossil,decommission_jobyears_thousands,6,6,6807.97450176567,2296.0184977701338,-4511.956003995536
+SCI-vetted,1.5C,gas,Fossil,inferred_retirements_GW,6,6,9417.46854869801,3078.170092739966,-6339.2984559580445
+SCI-vetted,1.5C,gas,Fossil,plant_jobs_displaced_thousands,6,6,3471.47123696207,1128.532826113224,-2342.938410848846
+SCI-vetted,1.5C,gas,Fossil,upstream_jobs_displaced_thousands,6,6,4.568268077636457,0.9840660524169216,-3.5842020252195352
+SCI-vetted,1.5C,geothermal,Renewables,decommission_jobyears_thousands,2,5,324.91869655031644,151.34331637182916,-173.57538017848728
+SCI-vetted,1.5C,geothermal,Renewables,inferred_retirements_GW,2,5,240.08184358567013,102.36956446999999,-137.71227911567013
+SCI-vetted,1.5C,geothermal,Renewables,plant_jobs_displaced_thousands,2,5,267.83665696700496,126.60947685151795,-141.227180115487
+SCI-vetted,1.5C,geothermal,Renewables,upstream_jobs_displaced_thousands,2,5,0,0,0
+SCI-vetted,1.5C,hydro,Renewables,decommission_jobyears_thousands,6,6,1285.368979422044,585.5416180018157,-699.8273614202284
+SCI-vetted,1.5C,hydro,Renewables,inferred_retirements_GW,6,6,1573.3270406724705,636.0099509099998,-937.3170897624707
+SCI-vetted,1.5C,hydro,Renewables,plant_jobs_displaced_thousands,6,6,1338.6943797787428,506.74251062124915,-831.9518691574937
+SCI-vetted,1.5C,hydro,Renewables,upstream_jobs_displaced_thousands,6,6,0,0,0
+SCI-vetted,1.5C,nuclear,Nuclear,decommission_jobyears_thousands,6,6,4298.8453238711345,1970.0397282848808,-2328.8055955862537
+SCI-vetted,1.5C,nuclear,Nuclear,inferred_retirements_GW,6,6,1350.5306524610746,665.712655988036,-684.8179964730386
+SCI-vetted,1.5C,nuclear,Nuclear,plant_jobs_displaced_thousands,6,6,1577.9106035401787,696.0581464378338,-881.8524571023449
+SCI-vetted,1.5C,nuclear,Nuclear,upstream_jobs_displaced_thousands,6,6,26.038493112169448,10.569443671795124,-15.469049440374324
+SCI-vetted,1.5C,oil,Fossil,decommission_jobyears_thousands,6,6,2472.4378616815447,1367.7076743961172,-1104.7301872854275
+SCI-vetted,1.5C,oil,Fossil,inferred_retirements_GW,6,6,942.9289876081494,526.2803993946429,-416.6485882135065
+SCI-vetted,1.5C,oil,Fossil,plant_jobs_displaced_thousands,6,6,281.47061012068696,145.91115126990672,-135.55945885078023
+SCI-vetted,1.5C,oil,Fossil,upstream_jobs_displaced_thousands,6,6,9.281953188669764,5.175591574676164,-4.1063616139936
+SCI-vetted,1.5C,solar_pv,Renewables,decommission_jobyears_thousands,6,6,20459.85052059094,39514.72191294588,19054.871392354944
+SCI-vetted,1.5C,solar_pv,Renewables,inferred_retirements_GW,6,6,32388.818072605136,59530.26427193219,27141.446199327052
+SCI-vetted,1.5C,solar_pv,Renewables,plant_jobs_displaced_thousands,6,6,12204.0967020895,24344.70583271113,12140.60913062163
+SCI-vetted,1.5C,solar_pv,Renewables,upstream_jobs_displaced_thousands,6,6,0,0,0
+SCI-vetted,1.5C,wind_on,Renewables,decommission_jobyears_thousands,6,6,1501.3357412833764,2049.4350571719206,548.0993158885442
+SCI-vetted,1.5C,wind_on,Renewables,inferred_retirements_GW,6,6,13779.246519868906,19156.77802805822,5377.531508189313
+SCI-vetted,1.5C,wind_on,Renewables,plant_jobs_displaced_thousands,6,6,6055.3458123933015,8011.30247051743,1955.9566581241288
+SCI-vetted,1.5C,wind_on,Renewables,upstream_jobs_displaced_thousands,6,6,0,0,0
+SCI-vetted,2C,biomass,Bioenergy,decommission_jobyears_thousands,63,63,1974.0077043021138,1170.3468096274214,-803.6608946746924
+SCI-vetted,2C,biomass,Bioenergy,inferred_retirements_GW,63,63,1246.7432772147934,708.7395518628507,-538.0037253519426
+SCI-vetted,2C,biomass,Bioenergy,plant_jobs_displaced_thousands,63,63,4194.354943326927,2334.0794637266554,-1860.2754796002719
+SCI-vetted,2C,biomass,Bioenergy,upstream_jobs_displaced_thousands,63,63,151.56843903148086,74.75848896922157,-76.80995006225929
+SCI-vetted,2C,coal,Fossil,decommission_jobyears_thousands,63,63,6908.098138730613,5131.773692860339,-1776.3244458702738
+SCI-vetted,2C,coal,Fossil,inferred_retirements_GW,63,63,3117.649774698913,2278.91441196,-838.735362738913
+SCI-vetted,2C,coal,Fossil,plant_jobs_displaced_thousands,63,63,2607.5034384748874,2027.5905338942096,-579.9129045806778
+SCI-vetted,2C,coal,Fossil,upstream_jobs_displaced_thousands,63,63,3114.033101956388,2332.415364834483,-781.6177371219046
+SCI-vetted,2C,gas,Fossil,decommission_jobyears_thousands,63,63,3843.2852864203132,2326.507565453341,-1516.777720966972
+SCI-vetted,2C,gas,Fossil,inferred_retirements_GW,63,63,6040.041209089756,3206.575891505466,-2833.46531758429
+SCI-vetted,2C,gas,Fossil,plant_jobs_displaced_thousands,63,63,1917.9896040991384,1011.1137733286223,-906.8758307705161
+SCI-vetted,2C,gas,Fossil,upstream_jobs_displaced_thousands,63,63,2.6187486346148106,0.9497350024240325,-1.669013632190778
+SCI-vetted,2C,geothermal,Renewables,decommission_jobyears_thousands,42,27,330.07334143885913,145.13090589186623,-184.9424355469929
+SCI-vetted,2C,geothermal,Renewables,inferred_retirements_GW,42,27,242.65785190678213,98.50848398000001,-144.14936792678213
+SCI-vetted,2C,geothermal,Renewables,plant_jobs_displaced_thousands,42,27,273.1561410879939,121.85096942187258,-151.3051716661213
+SCI-vetted,2C,geothermal,Renewables,upstream_jobs_displaced_thousands,42,27,0,0,0
+SCI-vetted,2C,hydro,Renewables,decommission_jobyears_thousands,63,63,2083.170355757544,1404.8272652695746,-678.3430904879692
+SCI-vetted,2C,hydro,Renewables,inferred_retirements_GW,63,63,2489.0881691634654,1492.2098500000004,-996.878319163465
+SCI-vetted,2C,hydro,Renewables,plant_jobs_displaced_thousands,63,63,2069.08633849935,1391.8275928426108,-677.2587456567392
+SCI-vetted,2C,hydro,Renewables,upstream_jobs_displaced_thousands,63,63,0,0,0
+SCI-vetted,2C,nuclear,Nuclear,decommission_jobyears_thousands,63,63,3605.8671581196713,2837.573134719194,-768.2940234004773
+SCI-vetted,2C,nuclear,Nuclear,inferred_retirements_GW,63,63,1158.7601691655811,829.8459495332419,-328.91421963233927
+SCI-vetted,2C,nuclear,Nuclear,plant_jobs_displaced_thousands,63,63,1235.5622541899038,989.6451938807011,-245.91706030920272
+SCI-vetted,2C,nuclear,Nuclear,upstream_jobs_displaced_thousands,63,63,24.228700770891656,14.157972735680785,-10.070728035210871
+SCI-vetted,2C,oil,Fossil,decommission_jobyears_thousands,63,59,1157.483336820529,1932.5942395552272,775.1109027346981
+SCI-vetted,2C,oil,Fossil,inferred_retirements_GW,63,59,460.00670352149757,788.6057459905197,328.59904246902215
+SCI-vetted,2C,oil,Fossil,plant_jobs_displaced_thousands,63,59,132.3406829733276,187.86066562794605,55.519982654618445
+SCI-vetted,2C,oil,Fossil,upstream_jobs_displaced_thousands,63,59,4.580725790785845,7.08441664056324,2.503690849777395
+SCI-vetted,2C,solar_pv,Renewables,decommission_jobyears_thousands,63,63,16570.489300142213,20519.764008172162,3949.2747080299487
+SCI-vetted,2C,solar_pv,Renewables,inferred_retirements_GW,63,63,26594.96918182373,29523.0083993059,2928.039217482172
+SCI-vetted,2C,solar_pv,Renewables,plant_jobs_displaced_thousands,63,63,9780.345824179267,10570.846977942696,790.5011537634291
+SCI-vetted,2C,solar_pv,Renewables,upstream_jobs_displaced_thousands,63,63,0,0,0
+SCI-vetted,2C,wind_on,Renewables,decommission_jobyears_thousands,63,63,1183.5076589931218,2278.548217097937,1095.0405581048153
+SCI-vetted,2C,wind_on,Renewables,inferred_retirements_GW,63,63,12380.3340508461,22007.026170880003,9626.692120033902
+SCI-vetted,2C,wind_on,Renewables,plant_jobs_displaced_thousands,63,63,5159.792942484331,9124.64056649,3964.847624005668
+SCI-vetted,2C,wind_on,Renewables,upstream_jobs_displaced_thousands,63,63,0,0,0
+SCI-vetted,All ambitions pooled,biomass,Bioenergy,decommission_jobyears_thousands,69,69,2066.440452656735,985.0759088780673,-1081.3645437786677
+SCI-vetted,All ambitions pooled,biomass,Bioenergy,inferred_retirements_GW,69,69,1315.5961843264754,648.6702800488961,-666.9259042775793
+SCI-vetted,All ambitions pooled,biomass,Bioenergy,plant_jobs_displaced_thousands,69,69,4394.4982269868915,2190.593978442853,-2203.9042485440386
+SCI-vetted,All ambitions pooled,biomass,Bioenergy,upstream_jobs_displaced_thousands,69,69,151.56843903148086,73.3807952756915,-78.18764375578937
+SCI-vetted,All ambitions pooled,coal,Fossil,decommission_jobyears_thousands,69,69,6949.030517432945,5131.773692860339,-1817.256824572606
+SCI-vetted,All ambitions pooled,coal,Fossil,inferred_retirements_GW,69,69,3178.2696791525927,2318.0439400000005,-860.2257391525923
+SCI-vetted,All ambitions pooled,coal,Fossil,plant_jobs_displaced_thousands,69,69,2625.5598297836573,2048.6941391638284,-576.8656906198289
+SCI-vetted,All ambitions pooled,coal,Fossil,upstream_jobs_displaced_thousands,69,69,3155.633823995172,2332.415364834483,-823.2184591606888
+SCI-vetted,All ambitions pooled,gas,Fossil,decommission_jobyears_thousands,69,69,3895.5960959845866,2326.507565453341,-1569.0885305312454
+SCI-vetted,All ambitions pooled,gas,Fossil,inferred_retirements_GW,69,69,6146.96203634739,3206.575891505466,-2940.3861448419234
+SCI-vetted,All ambitions pooled,gas,Fossil,plant_jobs_displaced_thousands,69,69,1975.2077831244612,1011.1137733286223,-964.0940097958389
+SCI-vetted,All ambitions pooled,gas,Fossil,upstream_jobs_displaced_thousands,69,69,2.6385245729323734,0.9497350024240325,-1.6887895705083409
+SCI-vetted,All ambitions pooled,geothermal,Renewables,decommission_jobyears_thousands,44,32,329.5515426239972,147.1534681222147,-182.3980745017825
+SCI-vetted,All ambitions pooled,geothermal,Renewables,inferred_retirements_GW,44,32,241.82508699184763,100.05907795,-141.7660090418476
+SCI-vetted,All ambitions pooled,geothermal,Renewables,plant_jobs_displaced_thousands,44,32,272.9584588133015,123.38940707761934,-149.56905173568214
+SCI-vetted,All ambitions pooled,geothermal,Renewables,upstream_jobs_displaced_thousands,44,32,0,0,0
+SCI-vetted,All ambitions pooled,hydro,Renewables,decommission_jobyears_thousands,69,69,2076.907720279003,1324.0086254737694,-752.8990948052337
+SCI-vetted,All ambitions pooled,hydro,Renewables,inferred_retirements_GW,69,69,2487.288633862138,1421.7427478556485,-1065.5458860064894
+SCI-vetted,All ambitions pooled,hydro,Renewables,plant_jobs_displaced_thousands,69,69,2067.899008433467,1208.363455644052,-859.5355527894149
+SCI-vetted,All ambitions pooled,hydro,Renewables,upstream_jobs_displaced_thousands,69,69,0,0,0
+SCI-vetted,All ambitions pooled,nuclear,Nuclear,decommission_jobyears_thousands,69,69,3907.129139427022,2342.1090895483885,-1565.0200498786335
+SCI-vetted,All ambitions pooled,nuclear,Nuclear,inferred_retirements_GW,69,69,1235.2666243307758,755.9476697986081,-479.3189545321677
+SCI-vetted,All ambitions pooled,nuclear,Nuclear,plant_jobs_displaced_thousands,69,69,1313.416612461051,829.8894954522439,-483.5271170088072
+SCI-vetted,All ambitions pooled,nuclear,Nuclear,upstream_jobs_displaced_thousands,69,69,24.228700770891656,13.7943557225405,-10.434345048351156
+SCI-vetted,All ambitions pooled,oil,Fossil,decommission_jobyears_thousands,69,65,1158.4725151081068,1932.5942395552272,774.1217244471204
+SCI-vetted,All ambitions pooled,oil,Fossil,inferred_retirements_GW,69,65,460.77701392732564,788.6057459905197,327.8287320631941
+SCI-vetted,All ambitions pooled,oil,Fossil,plant_jobs_displaced_thousands,69,65,133.51461218848561,187.86066562794605,54.346053439460434
+SCI-vetted,All ambitions pooled,oil,Fossil,upstream_jobs_displaced_thousands,69,65,4.605838392589091,7.08441664056324,2.4785782479741485
+SCI-vetted,All ambitions pooled,solar_pv,Renewables,decommission_jobyears_thousands,69,69,16570.489300142213,21082.2825258893,4511.793225747086
+SCI-vetted,All ambitions pooled,solar_pv,Renewables,inferred_retirements_GW,69,69,26594.96918182373,29849.589036066915,3254.619854243185
+SCI-vetted,All ambitions pooled,solar_pv,Renewables,plant_jobs_displaced_thousands,69,69,9784.89616850567,11235.708818539997,1450.8126500343278
+SCI-vetted,All ambitions pooled,solar_pv,Renewables,upstream_jobs_displaced_thousands,69,69,0,0,0
+SCI-vetted,All ambitions pooled,wind_on,Renewables,decommission_jobyears_thousands,69,69,1189.4475423877598,2183.814887890903,994.367345503143
+SCI-vetted,All ambitions pooled,wind_on,Renewables,inferred_retirements_GW,69,69,12491.281022787094,20414.258306700973,7922.977283913879
+SCI-vetted,All ambitions pooled,wind_on,Renewables,plant_jobs_displaced_thousands,69,69,5160.881226279593,8412.009221854749,3251.127995575156
+SCI-vetted,All ambitions pooled,wind_on,Renewables,upstream_jobs_displaced_thousands,69,69,0,0,0

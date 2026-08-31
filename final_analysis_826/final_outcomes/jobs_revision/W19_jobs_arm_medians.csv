@@ -1,0 +1,925 @@
+database,ambition_view,Region,metric,label,unit,Pathway,n,median
+Full,1.5C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,5.081205598567152
+Full,1.5C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,7.477325417865587
+Full,1.5C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,3.41706254608568
+Full,1.5C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,6.36341647575751
+Full,1.5C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.3086157325929708
+Full,1.5C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.24525379568889663
+Full,1.5C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,57396.29258922656
+Full,1.5C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,108644.86270000001
+Full,1.5C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,227.59708437454202
+Full,1.5C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,691.5154348155945
+Full,1.5C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,354.0406985863558
+Full,1.5C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,740.4918286308111
+Full,1.5C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,358.0599002019925
+Full,1.5C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,748.6547433260449
+Full,1.5C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,1.651873894326772
+Full,1.5C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,4.52074320592648
+Full,1.5C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,1.5665488663715927
+Full,1.5C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,5.247177521380699
+Full,1.5C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.053817489844988894
+Full,1.5C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.012583436311560187
+Full,1.5C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,3609.264919545725
+Full,1.5C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,11930.1515
+Full,1.5C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,263.1030946685976
+Full,1.5C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,1043.6076943400124
+Full,1.5C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,328.51401343603
+Full,1.5C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,1047.0454525792875
+Full,1.5C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,329.39653459184615
+Full,1.5C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,1052.4229628263715
+Full,1.5C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,4.990599549958462
+Full,1.5C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,5.874295482119742
+Full,1.5C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,4.901399096824835
+Full,1.5C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,5.536743840356119
+Full,1.5C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.6997428294158452
+Full,1.5C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.6080345235413286
+Full,1.5C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,12493.784762690928
+Full,1.5C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,17949.407180000002
+Full,1.5C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,177.25348198029235
+Full,1.5C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,372.99455388983455
+Full,1.5C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,307.35189694573944
+Full,1.5C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,444.8916997384263
+Full,1.5C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,312.21882513870634
+Full,1.5C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,450.6392965003281
+Full,1.5C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,4.115066471772806
+Full,1.5C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,3.731548378905512
+Full,1.5C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,2.015205382177328
+Full,1.5C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,2.4955636120886715
+Full,1.5C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.324026650238974
+Full,1.5C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.22422522439536574
+Full,1.5C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,5416.945013877968
+Full,1.5C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,9358.97373
+Full,1.5C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,65.90810317684554
+Full,1.5C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,171.1023029757663
+Full,1.5C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,158.0938838828699
+Full,1.5C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,193.69627488377608
+Full,1.5C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,160.28467718425668
+Full,1.5C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,197.48258513690908
+Full,1.5C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,2.691905371577087
+Full,1.5C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,6.307259398748574
+Full,1.5C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,3.1941051865960457
+Full,1.5C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,8.5193965322861
+Full,1.5C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.13958672216446094
+Full,1.5C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.15213784967288502
+Full,1.5C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,7531.289284448535
+Full,1.5C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,19875.74933
+Full,1.5C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,264.4309765430394
+Full,1.5C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,1007.6433597169416
+Full,1.5C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,362.37727230943676
+Full,1.5C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,1063.0443409426132
+Full,1.5C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,363.0686451252857
+Full,1.5C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,1069.3170202853262
+Full,1.5C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,6.231446757307069
+Full,1.5C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,9.286985787611577
+Full,1.5C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,3.619062281365866
+Full,1.5C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,4.928396651115017
+Full,1.5C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.13826035078308901
+Full,1.5C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.0637881285492981
+Full,1.5C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,3329.9018627314204
+Full,1.5C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,6695.22551
+Full,1.5C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,232.42899363446128
+Full,1.5C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,508.9037680673845
+Full,1.5C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,355.70137481965736
+Full,1.5C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,565.6061825224091
+Full,1.5C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,361.21577085369995
+Full,1.5C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,574.4231514231002
+Full,1.5C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,3.8477759889237206
+Full,1.5C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,8.199408246712638
+Full,1.5C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,3.1682226011486834
+Full,1.5C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,5.082618040306346
+Full,1.5C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.024450705992269013
+Full,1.5C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.018684694576189126
+Full,1.5C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,3621.94498148609
+Full,1.5C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,8439.76585
+Full,1.5C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,339.1175313379531
+Full,1.5C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,851.026534492647
+Full,1.5C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,476.08221487293883
+Full,1.5C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,877.0552898357865
+Full,1.5C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,478.724761056395
+Full,1.5C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,883.7582264466162
+Full,1.5C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,7.502858249835774
+Full,1.5C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,8.954194935258789
+Full,1.5C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,3.9915223288729864
+Full,1.5C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,4.470593627856478
+Full,1.5C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.07199930904887442
+Full,1.5C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.05144758204506935
+Full,1.5C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,6614.347991292756
+Full,1.5C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,11422.187989999999
+Full,1.5C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,140.29110609024016
+Full,1.5C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,328.2944630984675
+Full,1.5C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,324.1412134490918
+Full,1.5C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,368.0693484901758
+Full,1.5C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,331.59468276228347
+Full,1.5C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,376.15684005403574
+Full,1.5C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,3.384227291692336
+Full,1.5C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,3.0720085510972504
+Full,1.5C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,1.4098918281950312
+Full,1.5C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,1.6689841355660153
+Full,1.5C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.29208824638668934
+Full,1.5C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.2211778553791245
+Full,1.5C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,1212.9647711928494
+Full,1.5C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,1501.94291
+Full,1.5C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,81.65698775964427
+Full,1.5C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,119.33291402580299
+Full,1.5C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,174.69290930860404
+Full,1.5C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,167.57706481850832
+Full,1.5C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,177.96008241876066
+Full,1.5C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,171.03858647509136
+Full,1.5C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,21.172683521367198
+Full,1.5C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,17.644058293566506
+Full,1.5C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,9.219981699846588
+Full,1.5C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,9.983192042587465
+Full,1.5C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,1.3821308602223434
+Full,1.5C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,1.033806312539176
+Full,1.5C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,2305.227065579255
+Full,1.5C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,2767.16178
+Full,1.5C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,503.3942695057043
+Full,1.5C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,764.2607990895028
+Full,1.5C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,842.0841301384689
+Full,1.5C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,987.8228022767464
+Full,1.5C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,848.9438914216829
+Full,1.5C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,1009.1159356648618
+Full,1.5C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,58,3.4740151686688394
+Full,1.5C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,67,8.90266705234789
+Full,1.5C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,58,2.632774859989126
+Full,1.5C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,67,9.503202748052603
+Full,1.5C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,58,0.15545361076698605
+Full,1.5C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,67,0.18901773156491986
+Full,1.5C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,58,4451.771927412443
+Full,1.5C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,67,14916.911549999999
+Full,1.5C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,58,155.21721035409024
+Full,1.5C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,67,874.2377857624202
+Full,1.5C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,58,220.49094796635387
+Full,1.5C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,67,908.2697784591282
+Full,1.5C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,58,222.68744914584744
+Full,1.5C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,67,917.1961572332673
+Full,2C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,3.3501918221265563
+Full,2C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,234,5.752826129196159
+Full,2C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,2.4557328688364923
+Full,2C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,234,4.675107940934567
+Full,2C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.37222337955824175
+Full,2C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,234,0.25679748695388904
+Full,2C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,32313.45095501085
+Full,2C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,234,80165.33554500001
+Full,2C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,186.4954992507894
+Full,2C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,234,471.15794255985145
+Full,2C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,292.73691016942
+Full,2C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,234,536.0601226521406
+Full,2C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,294.40860114420377
+Full,2C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,234,542.5116411267561
+Full,2C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,1.4304905588668213
+Full,2C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,3.0152060714507827
+Full,2C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,1.1293153035117816
+Full,2C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,3.489119245863318
+Full,2C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.0590375980586135
+Full,2C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.013087716206241603
+Full,2C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,2504.9578633004903
+Full,2C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,8209.971869999998
+Full,2C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,229.1815855608097
+Full,2C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,724.1220547389034
+Full,2C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,277.4517212045501
+Full,2C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,751.2034317854301
+Full,2C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,278.3390997443338
+Full,2C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,754.92722354545
+Full,2C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,215,3.2649152789142786
+Full,2C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,5.22254113972661
+Full,2C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,215,2.886564966262705
+Full,2C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,4.6534128537261825
+Full,2C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,215,0.7117258223204749
+Full,2C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.6694970594814398
+Full,2C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,215,6431.175927017842
+Full,2C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,15044.13337
+Full,2C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,215,129.51450429911162
+Full,2C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,266.25479233945316
+Full,2C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,215,248.82095227129096
+Full,2C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,377.0099705202979
+Full,2C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,215,251.65311943858796
+Full,2C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,382.8479082471947
+Full,2C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,215,2.860370680216944
+Full,2C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,3.18810754871531
+Full,2C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,215,1.690520224916723
+Full,2C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,2.025670677774629
+Full,2C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,215,0.3403363684894423
+Full,2C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.24907037765428658
+Full,2C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,215,3439.753402005463
+Full,2C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,7105.392369999999
+Full,2C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,215,60.07951976247559
+Full,2C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,116.43290583136233
+Full,2C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,215,151.1689994480506
+Full,2C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,155.28654461579816
+Full,2C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,215,153.56532766569075
+Full,2C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,157.33641960260053
+Full,2C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,2.323629115441059
+Full,2C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,4.802911320093736
+Full,2C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,2.266401397146706
+Full,2C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,5.385017927808711
+Full,2C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.2054804939090642
+Full,2C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.15687621236168628
+Full,2C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,4894.157526732233
+Full,2C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,13019.873474999997
+Full,2C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,242.52132824711873
+Full,2C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,668.1790103189942
+Full,2C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,346.6631740119045
+Full,2C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,771.1663094288726
+Full,2C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,347.1923421875433
+Full,2C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,775.3671643585315
+Full,2C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,215,4.074766614873389
+Full,2C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,7.416548505142691
+Full,2C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,215,2.534787201001409
+Full,2C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,3.5908322374651287
+Full,2C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,215,0.1289387131098454
+Full,2C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.06146394101208208
+Full,2C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,215,1939.359056193646
+Full,2C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,5121.517539999999
+Full,2C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,215,178.7178759989487
+Full,2C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,374.9586890476246
+Full,2C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,215,280.3000063804194
+Full,2C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,435.39297492087246
+Full,2C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,215,283.6772886539848
+Full,2C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,442.42133461814115
+Full,2C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,2.1083404325992303
+Full,2C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,5.505673422072343
+Full,2C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,1.6432145697318328
+Full,2C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,3.98525093152805
+Full,2C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.021533275871864484
+Full,2C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.01777868045681287
+Full,2C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,1520.198283381781
+Full,2C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,5923.039630000001
+Full,2C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,153.832701847387
+Full,2C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,549.9700826176957
+Full,2C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,285.3771023312936
+Full,2C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,647.7306131870099
+Full,2C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,287.66312017713074
+Full,2C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,653.3399128438057
+Full,2C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,215,5.294979950351087
+Full,2C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,6.773240788773453
+Full,2C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,215,2.479344444873606
+Full,2C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,3.7109985796330314
+Full,2C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,215,0.06470396304412694
+Full,2C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.05143380414275265
+Full,2C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,215,4727.317129202839
+Full,2C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,8583.745448240003
+Full,2C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,215,101.32495168388063
+Full,2C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,219.5432684574684
+Full,2C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,215,222.46374124944126
+Full,2C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,288.5910688432001
+Full,2C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,215,226.98813779445564
+Full,2C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,295.8364173268369
+Full,2C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,3.5886178776740447
+Full,2C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,234,2.7544984481438273
+Full,2C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,1.471099791381965
+Full,2C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,234,1.3665949092386085
+Full,2C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.4105660846888416
+Full,2C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,234,0.2199304365314193
+Full,2C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,1118.1480543018652
+Full,2C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,234,1212.632665
+Full,2C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,75.20382360287476
+Full,2C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,234,97.86592315041253
+Full,2C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,159.53597848541696
+Full,2C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,234,147.16271750904605
+Full,2C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,161.52666424334083
+Full,2C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,234,149.84741612388564
+Full,2C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,215,14.849761687783326
+Full,2C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,16.889216387376727
+Full,2C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,215,6.342167823755135
+Full,2C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,8.27549522057219
+Full,2C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,215,1.3299573878085684
+Full,2C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,1.0656868028367261
+Full,2C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,215,1347.0283172331526
+Full,2C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,2314.23689
+Full,2C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,215,383.21035306075476
+Full,2C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,605.4554252313136
+Full,2C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,215,754.8991384411358
+Full,2C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,882.2227130439016
+Full,2C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,215,761.7164595646412
+Full,2C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,893.66606850074
+Full,2C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,212,2.425599471792458
+Full,2C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,238,6.552989679967377
+Full,2C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,212,1.4114671734466115
+Full,2C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,238,6.077123874715566
+Full,2C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,212,0.1812526486237939
+Full,2C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,238,0.18646460414889435
+Full,2C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,212,2400.530674027277
+Full,2C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,238,9878.657300000003
+Full,2C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,212,129.18084102366507
+Full,2C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,238,543.6640648439986
+Full,2C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,212,180.13825411872637
+Full,2C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,238,598.8516983422633
+Full,2C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,212,181.8242865036259
+Full,2C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,238,605.7784188998529
+Full,All ambitions pooled,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,3.832356002462176
+Full,All ambitions pooled,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,301,5.944004370964575
+Full,All ambitions pooled,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,2.7546368764579783
+Full,All ambitions pooled,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,301,5.233084654314413
+Full,All ambitions pooled,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.3613167586247983
+Full,All ambitions pooled,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,301,0.25580617339258427
+Full,All ambitions pooled,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,37988.523792631095
+Full,All ambitions pooled,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,301,87572.39597543872
+Full,All ambitions pooled,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,192.67508488158444
+Full,All ambitions pooled,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,301,509.50537371772106
+Full,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,301.3301620459045
+Full,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,301,577.9427132024152
+Full,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,303.5695088216967
+Full,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,301,582.0386278172977
+Full,All ambitions pooled,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,1.4975350873195035
+Full,All ambitions pooled,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,3.3127659208920646
+Full,All ambitions pooled,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,1.1570352713904026
+Full,All ambitions pooled,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,3.830428189636912
+Full,All ambitions pooled,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.05844597977822524
+Full,All ambitions pooled,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.012766113468815623
+Full,All ambitions pooled,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,2732.9564742969146
+Full,All ambitions pooled,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,9540.425389999997
+Full,All ambitions pooled,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,234.2461852523444
+Full,All ambitions pooled,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,784.3038078636702
+Full,All ambitions pooled,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,302.03626516262557
+Full,All ambitions pooled,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,798.6077861379026
+Full,All ambitions pooled,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,302.2937558072924
+Full,All ambitions pooled,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,801.6214207349144
+Full,All ambitions pooled,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,273,4.040963615868609
+Full,All ambitions pooled,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,5.402665729646723
+Full,All ambitions pooled,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,273,3.9182806976575946
+Full,All ambitions pooled,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,4.955834758020094
+Full,All ambitions pooled,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,273,0.7101096078161313
+Full,All ambitions pooled,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.6244296347560613
+Full,All ambitions pooled,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,273,8848.94037299167
+Full,All ambitions pooled,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,15793.35122
+Full,All ambitions pooled,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,273,144.9677564997078
+Full,All ambitions pooled,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,286.4970017860864
+Full,All ambitions pooled,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,273,277.7779005794175
+Full,All ambitions pooled,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,390.6185283793592
+Full,All ambitions pooled,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,273,283.0225907235266
+Full,All ambitions pooled,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,396.1096431974228
+Full,All ambitions pooled,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,273,3.35462020811388
+Full,All ambitions pooled,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,3.346492597366904
+Full,All ambitions pooled,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,273,1.8036076101948875
+Full,All ambitions pooled,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,2.1584491653579594
+Full,All ambitions pooled,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,273,0.340205470244919
+Full,All ambitions pooled,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.24157631895123902
+Full,All ambitions pooled,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,273,4414.582393360994
+Full,All ambitions pooled,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,7685.826219999999
+Full,All ambitions pooled,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,273,60.3378522417015
+Full,All ambitions pooled,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,125.16300567846197
+Full,All ambitions pooled,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,273,152.918498859122
+Full,All ambitions pooled,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,161.85153130661442
+Full,All ambitions pooled,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,273,155.73225937097607
+Full,All ambitions pooled,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,164.52668455314722
+Full,All ambitions pooled,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,2.377513951288801
+Full,All ambitions pooled,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,5.01622489364999
+Full,All ambitions pooled,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,2.36420579531948
+Full,All ambitions pooled,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,6.459280416342942
+Full,All ambitions pooled,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.18230006214064837
+Full,All ambitions pooled,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.15511876802890368
+Full,All ambitions pooled,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,5463.140585715135
+Full,All ambitions pooled,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,15796.83979
+Full,All ambitions pooled,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,251.8478505614092
+Full,All ambitions pooled,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,776.5060151212642
+Full,All ambitions pooled,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,350.87213763849684
+Full,All ambitions pooled,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,854.5139880380783
+Full,All ambitions pooled,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,351.57105435232415
+Full,All ambitions pooled,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,859.4870466357505
+Full,All ambitions pooled,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,273,4.568877650986112
+Full,All ambitions pooled,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,7.7563275709350314
+Full,All ambitions pooled,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,273,2.6750541722697783
+Full,All ambitions pooled,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,3.9473508965111868
+Full,All ambitions pooled,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,273,0.1291998365359408
+Full,All ambitions pooled,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.062064495422964674
+Full,All ambitions pooled,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,273,2376.8870446042943
+Full,All ambitions pooled,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,5468.94823
+Full,All ambitions pooled,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,273,183.420118056418
+Full,All ambitions pooled,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,398.0695925459351
+Full,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,273,291.7967534747868
+Full,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,450.47754826332476
+Full,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,273,294.171260552668
+Full,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,458.5050040820384
+Full,All ambitions pooled,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,2.685118194110455
+Full,All ambitions pooled,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,5.846380363518558
+Full,All ambitions pooled,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,1.7164513422469354
+Full,All ambitions pooled,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,4.186895223123635
+Full,All ambitions pooled,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.021708437570991
+Full,All ambitions pooled,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.017809413720304243
+Full,All ambitions pooled,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,2099.506431825518
+Full,All ambitions pooled,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,6774.046953367943
+Full,All ambitions pooled,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,225.07731715469998
+Full,All ambitions pooled,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,608.806680607934
+Full,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,398.42287416027034
+Full,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,696.5378744470493
+Full,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,402.7951258275623
+Full,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,702.3842548105678
+Full,All ambitions pooled,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,273,5.3926650321608145
+Full,All ambitions pooled,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,7.051750154125175
+Full,All ambitions pooled,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,273,2.735182987839836
+Full,All ambitions pooled,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,3.9576446870335396
+Full,All ambitions pooled,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,273,0.06475432043802722
+Full,All ambitions pooled,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.051438409599863
+Full,All ambitions pooled,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,273,4920.530293506477
+Full,All ambitions pooled,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,9212.80685
+Full,All ambitions pooled,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,273,106.89969186045249
+Full,All ambitions pooled,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,237.4086104460792
+Full,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,273,230.1895580767737
+Full,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,297.19151733434956
+Full,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,273,232.63881449596047
+Full,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,301.5673634544589
+Full,All ambitions pooled,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,3.5886178776740447
+Full,All ambitions pooled,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,301,2.835192015940914
+Full,All ambitions pooled,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,1.471099791381965
+Full,All ambitions pooled,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,301,1.4529253006611198
+Full,All ambitions pooled,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.39008716832701024
+Full,All ambitions pooled,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,301,0.22035953356496324
+Full,All ambitions pooled,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,1118.1480543018652
+Full,All ambitions pooled,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,301,1300.14733799
+Full,All ambitions pooled,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,76.89548972914763
+Full,All ambitions pooled,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,301,100.83281890610252
+Full,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,161.3230066362504
+Full,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,301,151.29280512325124
+Full,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,162.62999611608052
+Full,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,301,154.1494413715546
+Full,All ambitions pooled,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,273,15.189794412775216
+Full,All ambitions pooled,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,17.37374465536635
+Full,All ambitions pooled,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,273,6.867290300107703
+Full,All ambitions pooled,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,8.877613719393821
+Full,All ambitions pooled,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,273,1.3303489947147449
+Full,All ambitions pooled,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,1.063663156315402
+Full,All ambitions pooled,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,273,1605.5630411919656
+Full,All ambitions pooled,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,2438.6021699999997
+Full,All ambitions pooled,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,273,405.15147145763837
+Full,All ambitions pooled,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,622.833229011556
+Full,All ambitions pooled,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,273,771.1855491716857
+Full,All ambitions pooled,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,885.5200032506611
+Full,All ambitions pooled,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,273,784.8466479759098
+Full,All ambitions pooled,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,902.3060990240814
+Full,All ambitions pooled,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,270,2.7099188756808648
+Full,All ambitions pooled,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,305,7.289052481722127
+Full,All ambitions pooled,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,270,1.5674369808746271
+Full,All ambitions pooled,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,305,7.155927948287844
+Full,All ambitions pooled,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,270,0.18051659292257743
+Full,All ambitions pooled,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,305,0.18697666949944364
+Full,All ambitions pooled,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,270,2808.1654810123136
+Full,All ambitions pooled,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,305,11742.987620000002
+Full,All ambitions pooled,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,270,131.72707865931034
+Full,All ambitions pooled,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,305,618.56090826453
+Full,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,270,186.43955004997034
+Full,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,305,661.6657610805556
+Full,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,270,188.7577226535162
+Full,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,305,666.2834764812283
+SCI-vetted,1.5C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,5.513840615632901
+SCI-vetted,1.5C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,7.173030404039274
+SCI-vetted,1.5C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,4.314766856710596
+SCI-vetted,1.5C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,5.304472207438143
+SCI-vetted,1.5C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.518406093226802
+SCI-vetted,1.5C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.3163831059774127
+SCI-vetted,1.5C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,62647.20473894474
+SCI-vetted,1.5C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,87863.3426022057
+SCI-vetted,1.5C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,265.7963950032669
+SCI-vetted,1.5C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,551.6326683391102
+SCI-vetted,1.5C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,452.84062443724986
+SCI-vetted,1.5C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,591.6965053757485
+SCI-vetted,1.5C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,458.3544650528828
+SCI-vetted,1.5C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,601.0386573368169
+SCI-vetted,1.5C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,2.7044346031585293
+SCI-vetted,1.5C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,5.415224998212063
+SCI-vetted,1.5C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,2.699995257482808
+SCI-vetted,1.5C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,5.493025615280593
+SCI-vetted,1.5C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.08712333314072354
+SCI-vetted,1.5C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.027394345389809158
+SCI-vetted,1.5C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,5309.54974907008
+SCI-vetted,1.5C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,12417.658658247557
+SCI-vetted,1.5C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,352.1491980380507
+SCI-vetted,1.5C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,967.0607942565232
+SCI-vetted,1.5C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,455.2450914072018
+SCI-vetted,1.5C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,982.9255627149494
+SCI-vetted,1.5C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,457.9495260103603
+SCI-vetted,1.5C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,989.7250298597436
+SCI-vetted,1.5C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,6.2561242893330284
+SCI-vetted,1.5C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,6.380259125466418
+SCI-vetted,1.5C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,5.142479989550469
+SCI-vetted,1.5C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,4.457219097228454
+SCI-vetted,1.5C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.9712920931497758
+SCI-vetted,1.5C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.910666068771439
+SCI-vetted,1.5C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,12779.533222750415
+SCI-vetted,1.5C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,15189.366257174079
+SCI-vetted,1.5C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,175.8053805606002
+SCI-vetted,1.5C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,238.24980372174252
+SCI-vetted,1.5C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,361.40458246460247
+SCI-vetted,1.5C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,323.1406973831918
+SCI-vetted,1.5C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,367.99828334439655
+SCI-vetted,1.5C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,329.3796827148809
+SCI-vetted,1.5C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,4.910559996054774
+SCI-vetted,1.5C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,4.168271580951595
+SCI-vetted,1.5C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,2.2340671587077208
+SCI-vetted,1.5C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,2.099695359643966
+SCI-vetted,1.5C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.9796601101372734
+SCI-vetted,1.5C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.31270361226493837
+SCI-vetted,1.5C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,6323.166346666812
+SCI-vetted,1.5C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,6705.805212161468
+SCI-vetted,1.5C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,32.55106448353118
+SCI-vetted,1.5C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,126.50783022904228
+SCI-vetted,1.5C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,188.64950936810925
+SCI-vetted,1.5C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,175.40185291884063
+SCI-vetted,1.5C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,193.61116390626546
+SCI-vetted,1.5C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,179.57001505429795
+SCI-vetted,1.5C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,3.468400913526124
+SCI-vetted,1.5C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,4.24083121535016
+SCI-vetted,1.5C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,3.321928923641099
+SCI-vetted,1.5C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,4.705318276139175
+SCI-vetted,1.5C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.2680469699861353
+SCI-vetted,1.5C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.1713346525387372
+SCI-vetted,1.5C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,7849.17449995316
+SCI-vetted,1.5C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,11048.199977611825
+SCI-vetted,1.5C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,239.29911364413186
+SCI-vetted,1.5C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,684.7214880603261
+SCI-vetted,1.5C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,378.0846812844407
+SCI-vetted,1.5C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,710.5555964520207
+SCI-vetted,1.5C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,381.5530821979669
+SCI-vetted,1.5C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,715.617497270315
+SCI-vetted,1.5C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,8.94676780976701
+SCI-vetted,1.5C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,10.575543593398113
+SCI-vetted,1.5C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,5.546003336106276
+SCI-vetted,1.5C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,4.230735518673097
+SCI-vetted,1.5C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.26339806301146584
+SCI-vetted,1.5C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.072756451893790125
+SCI-vetted,1.5C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,4676.432582641111
+SCI-vetted,1.5C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,6132.2231873302535
+SCI-vetted,1.5C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,237.53688000589068
+SCI-vetted,1.5C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,363.3915184324545
+SCI-vetted,1.5C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,551.1858311221163
+SCI-vetted,1.5C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,434.3249421334295
+SCI-vetted,1.5C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,560.1325989318832
+SCI-vetted,1.5C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,444.9004857268276
+SCI-vetted,1.5C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,3.731241162863733
+SCI-vetted,1.5C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,8.271257968279166
+SCI-vetted,1.5C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,3.007807002705806
+SCI-vetted,1.5C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,4.791680627935564
+SCI-vetted,1.5C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.05272552023729113
+SCI-vetted,1.5C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.01616926169012104
+SCI-vetted,1.5C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,2769.436760274234
+SCI-vetted,1.5C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,7942.9840999200005
+SCI-vetted,1.5C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,186.28541881046382
+SCI-vetted,1.5C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,953.7629249994256
+SCI-vetted,1.5C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,338.28223522611455
+SCI-vetted,1.5C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,1091.16665331264
+SCI-vetted,1.5C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,341.86295023918854
+SCI-vetted,1.5C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,1100.9277175099621
+SCI-vetted,1.5C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,8.133744383269207
+SCI-vetted,1.5C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,8.34958751737887
+SCI-vetted,1.5C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,4.9966355100876
+SCI-vetted,1.5C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,4.332616103357525
+SCI-vetted,1.5C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.10769447907204951
+SCI-vetted,1.5C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.05659623094003852
+SCI-vetted,1.5C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,6700.473669170431
+SCI-vetted,1.5C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,9518.47241841129
+SCI-vetted,1.5C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,157.17689253236767
+SCI-vetted,1.5C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,228.59796226553152
+SCI-vetted,1.5C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,353.6296860168656
+SCI-vetted,1.5C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,315.4880306694107
+SCI-vetted,1.5C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,360.7411616891902
+SCI-vetted,1.5C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,323.8210856367837
+SCI-vetted,1.5C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,5.942729660969098
+SCI-vetted,1.5C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,4.831457320673959
+SCI-vetted,1.5C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,2.5393285394654512
+SCI-vetted,1.5C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,2.057920309187828
+SCI-vetted,1.5C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.5221005291867609
+SCI-vetted,1.5C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.3350195067928216
+SCI-vetted,1.5C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,1832.262795941896
+SCI-vetted,1.5C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,1833.9785721537755
+SCI-vetted,1.5C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,117.49823353654952
+SCI-vetted,1.5C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,144.69114121929402
+SCI-vetted,1.5C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,255.00294574978068
+SCI-vetted,1.5C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,199.91642793346256
+SCI-vetted,1.5C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,260.94567541074974
+SCI-vetted,1.5C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,204.51027721550366
+SCI-vetted,1.5C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,23.42332519973936
+SCI-vetted,1.5C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,25.09301731300655
+SCI-vetted,1.5C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,9.249613032062683
+SCI-vetted,1.5C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,11.583110847940667
+SCI-vetted,1.5C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,2.680201920962163
+SCI-vetted,1.5C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.9030957369170117
+SCI-vetted,1.5C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,2351.9165195613286
+SCI-vetted,1.5C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,3811.8279787887614
+SCI-vetted,1.5C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,469.83469694303767
+SCI-vetted,1.5C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,962.0792424743858
+SCI-vetted,1.5C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,1188.9537241859946
+SCI-vetted,1.5C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,1275.7014227994396
+SCI-vetted,1.5C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,1208.6450623537462
+SCI-vetted,1.5C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,1309.722545256037
+SCI-vetted,1.5C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,6,4.918865225557485
+SCI-vetted,1.5C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,6,8.21678639550688
+SCI-vetted,1.5C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,6,3.396252951265569
+SCI-vetted,1.5C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,6,7.5853016976992835
+SCI-vetted,1.5C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,6,0.39908201604317767
+SCI-vetted,1.5C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,6,0.2341308469004889
+SCI-vetted,1.5C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,6,5159.247709372281
+SCI-vetted,1.5C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,6,11154.99662280115
+SCI-vetted,1.5C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,6,171.97484315774227
+SCI-vetted,1.5C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,6,595.3686553504288
+SCI-vetted,1.5C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,6,306.21669473137536
+SCI-vetted,1.5C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,6,616.5058592621428
+SCI-vetted,1.5C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,6,311.13555995693287
+SCI-vetted,1.5C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,6,624.5802234118255
+SCI-vetted,2C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,4.93290868703271
+SCI-vetted,2C,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,63,5.955550692157646
+SCI-vetted,2C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,3.3708295694328987
+SCI-vetted,2C,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,63,4.96680719166422
+SCI-vetted,2C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.4345632272076385
+SCI-vetted,2C,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,63,0.3367150598111456
+SCI-vetted,2C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,54448.47201538571
+SCI-vetted,2C,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,63,75430.13729937153
+SCI-vetted,2C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,186.38013060980208
+SCI-vetted,2C,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,63,295.0638621968638
+SCI-vetted,2C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,340.7099631622462
+SCI-vetted,2C,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,63,411.65414262511683
+SCI-vetted,2C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,345.4670448919984
+SCI-vetted,2C,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,63,417.78545306114
+SCI-vetted,2C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,2.397915513208177
+SCI-vetted,2C,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,2.011427034996185
+SCI-vetted,2C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,2.097090849862506
+SCI-vetted,2C,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,1.9579332882482239
+SCI-vetted,2C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.08378960104398461
+SCI-vetted,2C,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.0640493882245651
+SCI-vetted,2C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,4646.052228612873
+SCI-vetted,2C,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,4427.632529766386
+SCI-vetted,2C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,298.8138130573053
+SCI-vetted,2C,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,376.6732653819048
+SCI-vetted,2C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,393.8958170513758
+SCI-vetted,2C,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,413.85111525183606
+SCI-vetted,2C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,396.4754880085231
+SCI-vetted,2C,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,416.0745146092678
+SCI-vetted,2C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,7.058864953061168
+SCI-vetted,2C,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,4.6851828188302385
+SCI-vetted,2C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,5.406204653784558
+SCI-vetted,2C,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,4.9384133559458
+SCI-vetted,2C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,1.0668433038625045
+SCI-vetted,2C,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.8024079249041325
+SCI-vetted,2C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,13924.13547227362
+SCI-vetted,2C,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,16066.749450155914
+SCI-vetted,2C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,123.0533797465837
+SCI-vetted,2C,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,265.3303482815012
+SCI-vetted,2C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,422.64777262134487
+SCI-vetted,2C,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,411.1217908182524
+SCI-vetted,2C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,430.319692954712
+SCI-vetted,2C,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,415.6239719339535
+SCI-vetted,2C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,4.397309911025978
+SCI-vetted,2C,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,4.003941879822474
+SCI-vetted,2C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,2.3953164788667873
+SCI-vetted,2C,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,2.2055578660266413
+SCI-vetted,2C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.5154834588593622
+SCI-vetted,2C,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.30107868625400047
+SCI-vetted,2C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,7252.013801904768
+SCI-vetted,2C,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,7690.7737899999975
+SCI-vetted,2C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,68.09629480655022
+SCI-vetted,2C,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,125.72242070010563
+SCI-vetted,2C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,185.3951341865672
+SCI-vetted,2C,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,166.6474996280133
+SCI-vetted,2C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,189.79244409759318
+SCI-vetted,2C,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,170.50012409586526
+SCI-vetted,2C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,3.8028645707868636
+SCI-vetted,2C,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,3.293739366628862
+SCI-vetted,2C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,4.302857125839102
+SCI-vetted,2C,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,3.276904415891063
+SCI-vetted,2C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.265386143093136
+SCI-vetted,2C,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.16806688731404307
+SCI-vetted,2C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,10501.530043493503
+SCI-vetted,2C,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,8162.322317070001
+SCI-vetted,2C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,286.28838129936304
+SCI-vetted,2C,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,434.2730336216856
+SCI-vetted,2C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,440.19430224834724
+SCI-vetted,2C,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,479.3970144395703
+SCI-vetted,2C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,444.4447839936732
+SCI-vetted,2C,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,483.6749268411454
+SCI-vetted,2C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,6.1331136640304145
+SCI-vetted,2C,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,8.443167943907735
+SCI-vetted,2C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,2.9943934339603153
+SCI-vetted,2C,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,4.436097537484327
+SCI-vetted,2C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.19515136057953766
+SCI-vetted,2C,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.14840246987763028
+SCI-vetted,2C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,3176.789010263048
+SCI-vetted,2C,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,4754.631750272905
+SCI-vetted,2C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,174.21171064479032
+SCI-vetted,2C,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,277.8537908680977
+SCI-vetted,2C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,323.01626887044836
+SCI-vetted,2C,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,433.25115530801446
+SCI-vetted,2C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,329.22279296266703
+SCI-vetted,2C,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,441.3287012406232
+SCI-vetted,2C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,2.7504240920992067
+SCI-vetted,2C,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,6.866849068859943
+SCI-vetted,2C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,1.7789055689217221
+SCI-vetted,2C,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,4.17105485616122
+SCI-vetted,2C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.055891647096287946
+SCI-vetted,2C,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.04132281753042488
+SCI-vetted,2C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,2224.101639493247
+SCI-vetted,2C,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,7343.314015170452
+SCI-vetted,2C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,129.53417894780503
+SCI-vetted,2C,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,505.2775165463709
+SCI-vetted,2C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,240.73453226268848
+SCI-vetted,2C,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,551.957736866972
+SCI-vetted,2C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,243.48353812511286
+SCI-vetted,2C,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,558.9676853663143
+SCI-vetted,2C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,5.588844296494175
+SCI-vetted,2C,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,8.957199069240165
+SCI-vetted,2C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,2.9474549851045944
+SCI-vetted,2C,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,4.976385072161444
+SCI-vetted,2C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.06837753627901615
+SCI-vetted,2C,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.06384770718437796
+SCI-vetted,2C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,5058.797160451876
+SCI-vetted,2C,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,10277.80259756881
+SCI-vetted,2C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,96.45154014077994
+SCI-vetted,2C,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,240.0126241913281
+SCI-vetted,2C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,219.07291820760668
+SCI-vetted,2C,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,357.8910953087933
+SCI-vetted,2C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,224.75366845426706
+SCI-vetted,2C,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,368.6558905004988
+SCI-vetted,2C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,6.275892254611009
+SCI-vetted,2C,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,63,5.535751729549291
+SCI-vetted,2C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,2.5269408321164595
+SCI-vetted,2C,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,63,2.0167673102542554
+SCI-vetted,2C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.6444768778109246
+SCI-vetted,2C,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,63,0.4622869419926709
+SCI-vetted,2C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,2401.492701140791
+SCI-vetted,2C,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,63,1824.0803427791384
+SCI-vetted,2C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,147.26399468924842
+SCI-vetted,2C,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,63,116.96677870146479
+SCI-vetted,2C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,284.97892110322886
+SCI-vetted,2C,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,63,232.9377771183036
+SCI-vetted,2C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,291.2435433002147
+SCI-vetted,2C,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,63,238.2296176008751
+SCI-vetted,2C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,17.627539724241156
+SCI-vetted,2C,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,25.237967328071136
+SCI-vetted,2C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,7.403305743754164
+SCI-vetted,2C,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,9.872460319119828
+SCI-vetted,2C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,1.4801648479928384
+SCI-vetted,2C,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,1.3371764196528733
+SCI-vetted,2C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,1964.396953563206
+SCI-vetted,2C,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,3320.6681220376754
+SCI-vetted,2C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,286.8720224832836
+SCI-vetted,2C,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,855.9167624814107
+SCI-vetted,2C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,744.0889198404
+SCI-vetted,2C,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,1143.6474166857793
+SCI-vetted,2C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,761.7164595646412
+SCI-vetted,2C,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,1171.1827517179818
+SCI-vetted,2C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,63,2.869141349045725
+SCI-vetted,2C,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,64,5.0374157006285625
+SCI-vetted,2C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,63,1.9749613155494572
+SCI-vetted,2C,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,64,3.780293866504265
+SCI-vetted,2C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,63,0.20794615527388724
+SCI-vetted,2C,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,64,0.22841315593411382
+SCI-vetted,2C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,63,3245.850916107744
+SCI-vetted,2C,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,64,6705.376521996612
+SCI-vetted,2C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,63,109.79274960197439
+SCI-vetted,2C,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,64,229.16419793217494
+SCI-vetted,2C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,63,167.555927007422
+SCI-vetted,2C,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,64,332.3511066655799
+SCI-vetted,2C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,63,170.39731810769538
+SCI-vetted,2C,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,64,338.55479986105365
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,4.967776602822528
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,69,5.955550692157646
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,3.3708295694328987
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,69,4.96680719166422
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.4358319282444745
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,69,0.3366603455481541
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,54677.07658158532
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,69,75430.13729937153
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,187.93304199310523
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,69,308.61802919229706
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,345.82779201058156
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,69,416.96191741661715
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,350.7392575320401
+SCI-vetted,All ambitions pooled,Aggregated R10 regions,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,69,423.27276987230044
+SCI-vetted,All ambitions pooled,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,2.418398651474482
+SCI-vetted,All ambitions pooled,R10AFRICA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,2.0571660854687925
+SCI-vetted,All ambitions pooled,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,2.097090849862506
+SCI-vetted,All ambitions pooled,R10AFRICA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,1.99336242336603
+SCI-vetted,All ambitions pooled,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.08378960104398461
+SCI-vetted,All ambitions pooled,R10AFRICA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.06036437398437721
+SCI-vetted,All ambitions pooled,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,4647.590099380352
+SCI-vetted,All ambitions pooled,R10AFRICA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,5078.416929999999
+SCI-vetted,All ambitions pooled,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,298.8138130573053
+SCI-vetted,All ambitions pooled,R10AFRICA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,461.4333634346336
+SCI-vetted,All ambitions pooled,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,393.8958170513758
+SCI-vetted,All ambitions pooled,R10AFRICA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,534.7539886349987
+SCI-vetted,All ambitions pooled,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,396.4754880085231
+SCI-vetted,All ambitions pooled,R10AFRICA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,539.5434538460627
+SCI-vetted,All ambitions pooled,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,7.027831928182935
+SCI-vetted,All ambitions pooled,R10CHINA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,4.807168183298786
+SCI-vetted,All ambitions pooled,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,5.380758285138617
+SCI-vetted,All ambitions pooled,R10CHINA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,4.903152313442606
+SCI-vetted,All ambitions pooled,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,1.0436056925698227
+SCI-vetted,All ambitions pooled,R10CHINA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.8577255823908989
+SCI-vetted,All ambitions pooled,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,13924.13547227362
+SCI-vetted,All ambitions pooled,R10CHINA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,16066.749450155914
+SCI-vetted,All ambitions pooled,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,129.51450429911162
+SCI-vetted,All ambitions pooled,R10CHINA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,254.55085128014895
+SCI-vetted,All ambitions pooled,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,421.0262958961997
+SCI-vetted,All ambitions pooled,R10CHINA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,397.62806513218504
+SCI-vetted,All ambitions pooled,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,428.0851608492609
+SCI-vetted,All ambitions pooled,R10CHINA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,403.57953019030464
+SCI-vetted,All ambitions pooled,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,4.402069953617406
+SCI-vetted,All ambitions pooled,R10EUROPE,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,4.003941879822474
+SCI-vetted,All ambitions pooled,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,2.3953164788667873
+SCI-vetted,All ambitions pooled,R10EUROPE,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,2.194112021047448
+SCI-vetted,All ambitions pooled,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.5158574195526433
+SCI-vetted,All ambitions pooled,R10EUROPE,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.30255275275707727
+SCI-vetted,All ambitions pooled,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,7252.013801904768
+SCI-vetted,All ambitions pooled,R10EUROPE,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,7614.758357885
+SCI-vetted,All ambitions pooled,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,68.09629480655022
+SCI-vetted,All ambitions pooled,R10EUROPE,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,125.72242070010563
+SCI-vetted,All ambitions pooled,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,185.3951341865672
+SCI-vetted,All ambitions pooled,R10EUROPE,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,167.04202397045208
+SCI-vetted,All ambitions pooled,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,189.79244409759318
+SCI-vetted,All ambitions pooled,R10EUROPE,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,171.3940310049793
+SCI-vetted,All ambitions pooled,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,3.7979939528469275
+SCI-vetted,All ambitions pooled,R10INDIA+,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,3.4868442591084916
+SCI-vetted,All ambitions pooled,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,4.265317776486289
+SCI-vetted,All ambitions pooled,R10INDIA+,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,3.8643906624345554
+SCI-vetted,All ambitions pooled,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.265386143093136
+SCI-vetted,All ambitions pooled,R10INDIA+,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.16883712673573456
+SCI-vetted,All ambitions pooled,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,10490.022064678662
+SCI-vetted,All ambitions pooled,R10INDIA+,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,9188.518269085
+SCI-vetted,All ambitions pooled,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,281.93487124792773
+SCI-vetted,All ambitions pooled,R10INDIA+,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,450.12326693550443
+SCI-vetted,All ambitions pooled,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,440.19430224834724
+SCI-vetted,All ambitions pooled,R10INDIA+,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,533.5375810276868
+SCI-vetted,All ambitions pooled,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,444.4447839936732
+SCI-vetted,All ambitions pooled,R10INDIA+,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,536.7566796088669
+SCI-vetted,All ambitions pooled,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,6.146716636285307
+SCI-vetted,All ambitions pooled,R10LATIN_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,8.443167943907735
+SCI-vetted,All ambitions pooled,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,3.087426009936789
+SCI-vetted,All ambitions pooled,R10LATIN_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,4.436097537484327
+SCI-vetted,All ambitions pooled,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.19826340224744343
+SCI-vetted,All ambitions pooled,R10LATIN_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.13410836227635536
+SCI-vetted,All ambitions pooled,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,3233.997007603757
+SCI-vetted,All ambitions pooled,R10LATIN_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,4770.558944325001
+SCI-vetted,All ambitions pooled,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,174.21171064479032
+SCI-vetted,All ambitions pooled,R10LATIN_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,291.28524614828757
+SCI-vetted,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,323.75232921611865
+SCI-vetted,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,433.25115530801446
+SCI-vetted,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,329.76200935266274
+SCI-vetted,All ambitions pooled,R10LATIN_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,441.3287012406232
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,2.759372480626375
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,6.905958859326898
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,1.7997655555019991
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,4.230210579600292
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.055891647096287946
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.02263194684048734
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,2238.2663038939886
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,7343.314015170452
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,129.53417894780503
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,510.28158016265365
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,241.66587625833506
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,554.034290736261
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,244.41630035043428
+SCI-vetted,All ambitions pooled,R10MIDDLE_EAST,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,561.4888070496086
+SCI-vetted,All ambitions pooled,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,5.625373425723136
+SCI-vetted,All ambitions pooled,R10NORTH_AM,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,8.957199069240165
+SCI-vetted,All ambitions pooled,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,3.056648458045309
+SCI-vetted,All ambitions pooled,R10NORTH_AM,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,4.976385072161444
+SCI-vetted,All ambitions pooled,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.06870631778186
+SCI-vetted,All ambitions pooled,R10NORTH_AM,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.06366934416454163
+SCI-vetted,All ambitions pooled,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,5104.518409050908
+SCI-vetted,All ambitions pooled,R10NORTH_AM,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,10277.80259756881
+SCI-vetted,All ambitions pooled,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,97.66628287873552
+SCI-vetted,All ambitions pooled,R10NORTH_AM,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,238.1544412677311
+SCI-vetted,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,221.67421624200523
+SCI-vetted,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,357.8910953087933
+SCI-vetted,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,227.5289546752696
+SCI-vetted,All ambitions pooled,R10NORTH_AM,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,368.6558905004988
+SCI-vetted,All ambitions pooled,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,6.275892254611009
+SCI-vetted,All ambitions pooled,R10PAC_OECD,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,69,5.535751729549291
+SCI-vetted,All ambitions pooled,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,2.5269408321164595
+SCI-vetted,All ambitions pooled,R10PAC_OECD,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,69,2.0167673102542554
+SCI-vetted,All ambitions pooled,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.6418999016160338
+SCI-vetted,All ambitions pooled,R10PAC_OECD,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,69,0.46128938720421236
+SCI-vetted,All ambitions pooled,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,2392.1991525404155
+SCI-vetted,All ambitions pooled,R10PAC_OECD,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,69,1824.0803427791384
+SCI-vetted,All ambitions pooled,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,146.68233299166022
+SCI-vetted,All ambitions pooled,R10PAC_OECD,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,69,129.2631765558164
+SCI-vetted,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,281.8075545226809
+SCI-vetted,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,69,232.9377771183036
+SCI-vetted,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,288.075135654661
+SCI-vetted,All ambitions pooled,R10PAC_OECD,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,69,238.2296176008751
+SCI-vetted,All ambitions pooled,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,17.651014296136072
+SCI-vetted,All ambitions pooled,R10REF_ECON,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,25.237967328071136
+SCI-vetted,All ambitions pooled,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,7.431310725881915
+SCI-vetted,All ambitions pooled,R10REF_ECON,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,9.9911717118445509
+SCI-vetted,All ambitions pooled,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,1.4801648479928384
+SCI-vetted,All ambitions pooled,R10REF_ECON,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,1.3162866261942057
+SCI-vetted,All ambitions pooled,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,1982.0181548584253
+SCI-vetted,All ambitions pooled,R10REF_ECON,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,3358.447612054002
+SCI-vetted,All ambitions pooled,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,297.82712637547445
+SCI-vetted,All ambitions pooled,R10REF_ECON,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,906.9997285918662
+SCI-vetted,All ambitions pooled,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,764.1234904078757
+SCI-vetted,All ambitions pooled,R10REF_ECON,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,1170.3866384502735
+SCI-vetted,All ambitions pooled,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,782.545503381416
+SCI-vetted,All ambitions pooled,R10REF_ECON,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,1198.361006493186
+SCI-vetted,All ambitions pooled,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-CMT,69,2.8869114330706176
+SCI-vetted,All ambitions pooled,R10REST_ASIA,decommission_jobyears_per_1k,Decommissioning job-years,"job-years per 1,000",High-RE,70,5.423928059762817
+SCI-vetted,All ambitions pooled,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-CMT,69,2.040968684004379
+SCI-vetted,All ambitions pooled,R10REST_ASIA,gross_plant_jobs_displaced_per_1k,Gross plant jobs displaced at retirement,"positions per 1,000",High-RE,70,4.494898942352478
+SCI-vetted,All ambitions pooled,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-CMT,69,0.20837691875558936
+SCI-vetted,All ambitions pooled,R10REST_ASIA,gross_upstream_jobs_displaced_per_1k,Gross upstream jobs displaced at retirement,"positions per 1,000",High-RE,70,0.22841315593411382
+SCI-vetted,All ambitions pooled,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-CMT,69,3267.3504147648814
+SCI-vetted,All ambitions pooled,R10REST_ASIA,inferred_retirements_GW,Inferred retired capacity,GW,High-RE,70,7318.464774896033
+SCI-vetted,All ambitions pooled,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-CMT,69,115.70067311782786
+SCI-vetted,All ambitions pooled,R10REST_ASIA,jobs_RE_minus_fossil_per_1k,Renewable minus fossil job-years (diagnostic),"job-years per 1,000",High-RE,70,240.28036023873167
+SCI-vetted,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-CMT,69,170.49143420442945
+SCI-vetted,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_no_decommission_per_1k,"Total energy job-years, excluding decommissioning","job-years per 1,000",High-RE,70,415.68899148732487
+SCI-vetted,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-CMT,69,173.3293076660468
+SCI-vetted,All ambitions pooled,R10REST_ASIA,total_energy_jobyears_per_1k,"Total energy job-years, including decommissioning","job-years per 1,000",High-RE,70,422.4841855178804

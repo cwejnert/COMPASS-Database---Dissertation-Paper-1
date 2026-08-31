@@ -1,0 +1,71 @@
+Model_display,Scenario_display,amb,Pathway,family,project,target_partition,rerun_status,failure_reason,raw_model,raw_scenario
+IMAGE 3.0,COMMIT-Bridge,2C,High-CDR,IMAGE,COMMIT,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,IMAGE 3.0,COMMIT-Bridge
+REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-hybrid-def,2C,High-RE,REMIND,Diff,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-hybrid-def
+REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-no-transfer-def,2C,High-RE,REMIND,Diff,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-no-transfer-def
+REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-uniform-pricing-def,2C,High-RE,REMIND,Diff,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,REMIND-MAgPIE 2.0-4.1,Diff-1300Gt-uniform-pricing-def
+REMIND-MAgPIE 2.0-4.1,Diff-NoPolicy-Baseline,2C,High-RE,REMIND,Diff,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,REMIND-MAgPIE 2.0-4.1,Diff-NoPolicy-Baseline
+REMIND 2.1,CEMICS-HotellingConst-1.5°C,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-HotellingConst-1.5°C
+REMIND 3.0,NAVIGATE Demand-2.0°C-act_u,2C,High-RE,REMIND,NAVIGATE,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 3.0,NAVIGATE Demand-2.0°C-act_u
+REMIND 3.0,NAVIGATE Demand-2.0°C-ele_u,2C,High-RE,REMIND,NAVIGATE,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 3.0,NAVIGATE Demand-2.0°C-ele_u
+REMIND 3.0,NAVIGATE Demand-2.0°C-tec_u,2C,High-RE,REMIND,NAVIGATE,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 3.0,NAVIGATE Demand-2.0°C-tec_u
+GCAM 6.0 NGFS,NGFS Phase 5-Below 2°C,2C,High-RE,GCAM,NGFS Phase 5,Direct-R10 primary,Primary direct-R10 success,NA,GCAM 6.0 NGFS,NGFS Phase 5-Below 2°C
+IMAGE 3.0,COMMIT-2°C-2020,2C,High-CDR,IMAGE,COMMIT,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,IMAGE 3.0,COMMIT-2°C-2020
+IMAGE 3.0,COMMIT-2°C-2030,2C,High-CDR,IMAGE,COMMIT,World-fallback sensitivity,World-fallback sensitivity failed quality gate,Incomplete/nonzero PM2.5 precursor grid - not run,IMAGE 3.0,COMMIT-2°C-2030
+IMAGE 3.3,NAVIGATE Demand-1.5°C-act_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-1.5°C-act_u
+IMAGE 3.3,NAVIGATE Demand-1.5°C-all_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-1.5°C-all_u
+IMAGE 3.3,NAVIGATE Demand-1.5°C-ref,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-1.5°C-ref
+IMAGE 3.3,NAVIGATE Demand-1.5°C-tec_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-1.5°C-tec_u
+IMAGE 3.3,NAVIGATE Demand-2.0°C-act_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-2.0°C-act_u
+IMAGE 3.3,NAVIGATE Demand-2.0°C-ele_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-2.0°C-ele_u
+IMAGE 3.3,NAVIGATE Demand-2.0°C-ref,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-2.0°C-ref
+IMAGE 3.3,NAVIGATE Demand-2.0°C-tec_u,2C,High-CDR,IMAGE,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,NAVIGATE Demand-2.0°C-tec_u
+IMAGE 3.3,SHAPE-SDP-EI-1.5°C,1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-EI-1.5°C
+IMAGE 3.3,SHAPE-SDP-EI-1.5°C [with Climate Change Impacts],1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-EI-1.5°C [with Climate Change Impacts]
+IMAGE 3.3,SHAPE-SDP-MC-1.5°C,1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-MC-1.5°C
+IMAGE 3.3,SHAPE-SDP-MC-1.5°C [with Climate Change Impacts],1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-MC-1.5°C [with Climate Change Impacts]
+IMAGE 3.3,SHAPE-SDP-RC-1.5°C,1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-RC-1.5°C
+IMAGE 3.3,SHAPE-SDP-RC-1.5°C [with Climate Change Impacts],1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SDP-RC-1.5°C [with Climate Change Impacts]
+IMAGE 3.3,SHAPE-SSP1-1.5°C,1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SSP1-1.5°C
+IMAGE 3.3,SHAPE-SSP2-1.5°C,1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SSP2-1.5°C
+IMAGE 3.3,SHAPE-SSP2-1.5°C [with Climate Change Impacts],1.5C,High-CDR,IMAGE,SHAPE,Direct-R10 primary,Primary direct-R10 success,NA,IMAGE 3.3,SHAPE-SSP2-1.5°C [with Climate Change Impacts]
+MESSAGEix-GLOBIOM 1.1,NGFS Phase 2-Below 2°C,2C,High-CDR,MESSAGEix,NGFS Phase 2,Direct-R10 primary,Primary direct-R10 success,NA,MESSAGEix-GLOBIOM 1.1,NGFS Phase 2-Below 2°C
+MESSAGEix-GLOBIOM 2.0-M-R12-NGFS,NGFS Phase 5-Below 2°C,2C,High-RE,MESSAGEix,NGFS Phase 5,Direct-R10 primary,Primary direct-R10 success,NA,MESSAGEix-GLOBIOM 2.0-M-R12-NGFS,NGFS Phase 5-Below 2°C
+REMIND 2.1,CEMICS-GDPgrowth-1.5°C,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-GDPgrowth-1.5°C
+REMIND 2.1,CEMICS-GDPgrowth-2.0°C,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-GDPgrowth-2.0°C
+REMIND 2.1,CEMICS-HotellingConst-2.0°C,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-HotellingConst-2.0°C
+REMIND 2.1,CEMICS-Linear-1.5°C,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-Linear-1.5°C
+REMIND 2.1,CEMICS-Linear-2.0°C,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-Linear-2.0°C
+REMIND 2.1,CEMICS-Optimal-1.5°C,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-Optimal-1.5°C
+REMIND 2.1,CEMICS-Optimal-2.0°C,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 2.1,CEMICS-Optimal-2.0°C
+REMIND 3.0,NAVIGATE Demand-1.5°C-all_u,1.5C,High-CDR,REMIND,NAVIGATE,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 3.0,NAVIGATE Demand-1.5°C-all_u
+REMIND 3.0,NAVIGATE Demand-2.0°C-all_u,2C,High-RE,REMIND,NAVIGATE,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND 3.0,NAVIGATE Demand-2.0°C-all_u
+REMIND-MAgPIE 1.7-3.0,COMMIT-2°C-2020,1.5C,High-RE,REMIND,COMMIT,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,COMMIT-2°C-2020
+REMIND-MAgPIE 1.7-3.0,COMMIT-2°C-2030,1.5C,High-RE,REMIND,COMMIT,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,COMMIT-2°C-2030
+REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-Cost-Effective,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-Cost-Effective
+REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-Good-Practice,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-Good-Practice
+REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-NDC,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-NDC
+REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-NetZero,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Full-CDR-NetZero
+REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Reduced-CDR-Cost-Effective,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-1.5°C-Reduced-CDR-Cost-Effective
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-Cost-Effective,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-Cost-Effective
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-Good-Practice,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-Good-Practice
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-NDC,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-NDC
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-NetZero,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Full-CDR-NetZero
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-Cost-Effective,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-Cost-Effective
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-Good-Practice,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-Good-Practice
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-NDC,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-NDC
+REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-NetZero,1.5C,High-RE,REMIND,PEP,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 1.7-3.0,PEP-2°C-Reduced-CDR-NetZero
+REMIND-MAgPIE 2.1-4.2,CEMICS-SSP1-1.5°C-minCDR,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,CEMICS-SSP1-1.5°C-minCDR
+REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-1.5°C-fullCDR,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-1.5°C-fullCDR
+REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-1.5°C-minCDR,1.5C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-1.5°C-minCDR
+REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-2.0°C-fullCDR,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-2.0°C-fullCDR
+REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-2.0°C-minCDR,2C,High-RE,REMIND,CEMICS,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,CEMICS-SSP2-2.0°C-minCDR
+REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C,2C,High-RE,REMIND,NGFS Phase 2,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C
+REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C [IPD 95th],2C,High-RE,REMIND,NGFS Phase 2,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C [IPD 95th]
+REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C [IPD Median],2C,High-RE,REMIND,NGFS Phase 2,Direct-R10 primary,Primary direct-R10 failed quality gate,NH3 below credibility threshold or absent - not run,REMIND-MAgPIE 2.1-4.2,NGFS Phase 2-Below 2°C [IPD Median]
+REMIND-MAgPIE 3.3-4.8,NGFS Phase 5-Below 2°C,2C,High-RE,REMIND,NGFS Phase 5,Direct-R10 primary,Primary direct-R10 success,NA,REMIND-MAgPIE 3.3-4.8,NGFS Phase 5-Below 2°C
+WITCH 5.0,COMMIT-2°C-2020,2C,High-CDR,WITCH,COMMIT,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,COMMIT-2°C-2020
+WITCH 5.0,COMMIT-2°C-2030,2C,High-CDR,WITCH,COMMIT,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,COMMIT-2°C-2030
+WITCH 5.0,NAVIGATE Demand-1.5°C-ele_u,2C,High-RE,WITCH,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,NAVIGATE Demand-1.5°C-ele_u
+WITCH 5.0,NAVIGATE Demand-1.5°C-ref,2C,High-RE,WITCH,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,NAVIGATE Demand-1.5°C-ref
+WITCH 5.0,NAVIGATE Demand-2.0°C-ele_u,2C,High-RE,WITCH,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,NAVIGATE Demand-2.0°C-ele_u
+WITCH 5.0,NAVIGATE Demand-2.0°C-ref,2C,High-RE,WITCH,NAVIGATE,Direct-R10 primary,Primary direct-R10 success,NA,WITCH 5.0,NAVIGATE Demand-2.0°C-ref

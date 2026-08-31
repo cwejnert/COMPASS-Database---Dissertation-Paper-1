@@ -1,0 +1,9 @@
+check,passed
+Full World contains 472 unique mortality scenarios,TRUE
+Analysis frame has no duplicate database-scenario-region rows,TRUE
+Every observed Full scenario has all 11 World/R10 result rows,TRUE
+Pooled table contains 2 databases x 3 ambition views x 11 regions,TRUE
+Pooled arm counts are invariant across regions within each specification,TRUE
+Every comparable family effect has finite medians and a finite effect,TRUE
+Every comparable matched cell has both arms and a finite effect,TRUE
+Pre/post pooled comparison covers every pooled specification,TRUE

@@ -1,0 +1,17 @@
+geography,ambition_view,outcome,outcome_label,distinct_finding,cells_favour_re,cells_favour_cdr,cells_total
+R10 regions,1.5C,gap_GJ_pc,DLE gap,TRUE,7,3,10
+R10 regions,1.5C,headcount_pct,Deprived headcount,FALSE,7,3,10
+R10 regions,1.5C,mortality_million_deaths,PM2.5 mortality,TRUE,6,4,10
+R10 regions,1.5C,total_energy_jobyears_per_1k,Employment,TRUE,9,1,10
+R10 regions,2C,gap_GJ_pc,DLE gap,TRUE,5,5,10
+R10 regions,2C,headcount_pct,Deprived headcount,FALSE,5,5,10
+R10 regions,2C,mortality_million_deaths,PM2.5 mortality,TRUE,7,3,10
+R10 regions,2C,total_energy_jobyears_per_1k,Employment,TRUE,9,1,10
+World,1.5C,gap_GJ_pc,DLE gap,TRUE,1,0,1
+World,1.5C,headcount_pct,Deprived headcount,FALSE,1,0,1
+World,1.5C,mortality_million_deaths,PM2.5 mortality,TRUE,1,0,1
+World,1.5C,total_energy_jobyears_per_1k,Employment,TRUE,1,0,1
+World,2C,gap_GJ_pc,DLE gap,TRUE,1,0,1
+World,2C,headcount_pct,Deprived headcount,FALSE,1,0,1
+World,2C,mortality_million_deaths,PM2.5 mortality,TRUE,1,0,1
+World,2C,total_energy_jobyears_per_1k,Employment,TRUE,1,0,1

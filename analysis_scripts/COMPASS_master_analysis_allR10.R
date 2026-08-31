@@ -103,15 +103,16 @@ regions_r10 <- c("R10AFRICA", "R10CHINA+", "R10EUROPE", "R10INDIA+",
 cats_keep   <- c("C1", "C2", "C3", "C4")
 START_YEAR  <- 2020L
 
-# SUBMISSION RELEASE: wellbeing outcomes are measured over the common
-# 2020-2050 policy/net-zero window. Pathway labels remain full-century
-# archetypes (2020-2100 cumulative deployment), but outcome claims are
-# deliberately limited to the period relevant to near-term decisions.
-#
-# This is the frozen window used by the archived RAW_RESULTS and final deck.
-# A 2020-2100 outcome window is a documented sensitivity, not the main result.
-ANALYSIS_RELEASE <- "paper1-v1_2020-2050_nh3-harmonised"
-OUTCOME_WINDOW_END <- 2050L
+# FINAL RELEASE: the primary classification and wellbeing outcomes use the
+# common 2020-2100 horizon. Set COMPASS_OUTCOME_WINDOW_END=2050 only when
+# intentionally generating the documented near-term sensitivity.
+OUTCOME_WINDOW_END <- as.integer(Sys.getenv("COMPASS_OUTCOME_WINDOW_END", "2100"))
+if (!OUTCOME_WINDOW_END %in% c(2050L, 2100L)) {
+  stop("COMPASS_OUTCOME_WINDOW_END must be 2050 or 2100")
+}
+ANALYSIS_RELEASE <- paste0("paper1-final_2020-", OUTCOME_WINDOW_END,
+                           "_nh3-harmonised")
+OUTCOME_WINDOW_TAG <- paste0(START_YEAR, "_", OUTCOME_WINDOW_END)
 WINDOW_15C  <- OUTCOME_WINDOW_END   # 1.5C (High-Ambition)   group
 WINDOW_2C   <- OUTCOME_WINDOW_END   # 2C   (Medium-Ambition) group
 
@@ -673,9 +674,15 @@ world_cumulative_sumR10 <- cdr_cumulative_full %>%
   summarise(Total_Value = sum(Total_Value, na.rm = TRUE), .groups = "drop") %>%
   filter(Total_Value > 0)
 
-n_r10_scens <- n_distinct(paste(compass_ts$Model, compass_ts$Scenario))
-n_world_cdr <- world_cumulative_direct %>% filter(Variable == "Total CDR") %>%
-  { n_distinct(paste(.$Model, .$Scenario)) }
+r10_scenario_keys <- cdr_cumulative_full %>%
+  distinct(Model, Scenario)
+world_cdr_scenario_keys <- world_cumulative_direct %>%
+  filter(Variable == "Total CDR") %>%
+  distinct(Model, Scenario)
+n_r10_scens <- nrow(r10_scenario_keys)
+n_world_cdr <- world_cdr_scenario_keys %>%
+  inner_join(r10_scenario_keys, by = c("Model", "Scenario")) %>%
+  nrow()
 coverage_pct <- if (n_r10_scens > 0) 100 * n_world_cdr / n_r10_scens else 0
 USE_WORLD_REGION <- coverage_pct >= 50
 cat(sprintf("World-region CDR coverage: %.1f%% -> use World rows: %s\n",
@@ -1145,7 +1152,9 @@ saveRDS(retirement_jobs_annual,
     unexplained_additions_GW = sum(unexplained_additions_GW, na.rm = TRUE),
     .groups = "drop")
 write_csv(.retirement_summary,
-          file.path(OUT_DIR, "compass_jobs_retirements_decommissioning_2020_2050.csv"))
+          file.path(OUT_DIR, paste0(
+            "compass_jobs_retirements_decommissioning_",
+            OUTCOME_WINDOW_TAG, ".csv")))
 write_csv(decommission_ef,
           file.path(OUT_DIR, "decommissioning_factors_r10_jedi_proxy.csv"))
 
@@ -1177,7 +1186,7 @@ for (g in c("Renewables", "Nuclear", "Bioenergy", "Fossil")) {
     absolute_balance_residual_GW = sum(abs(balance_residual_GW), na.rm = TRUE),
     unexplained_additions_GW = sum(unexplained_additions_GW, na.rm = TRUE),
     .groups = "drop")
-jobs_cumulative_2020_2050 <- .jobs_group_cumulative %>%
+jobs_cumulative <- .jobs_group_cumulative %>%
   left_join(.jobs_transition_cumulative,
             by = c("Model", "Scenario", "Region", "Category")) %>%
   mutate(across(c(jobs_Decommission, gross_plant_jobs_displaced,
@@ -1190,11 +1199,13 @@ jobs_cumulative_2020_2050 <- .jobs_group_cumulative %>%
            jobs_Decommission,
          # Retained only as a portfolio-composition diagnostic.
          jobs_RE_minus_fossil = jobs_Renewables - jobs_Fossil)
-saveRDS(jobs_cumulative_2020_2050,
-        file.path(OUT_DIR, "compass_jobs_cumulative_2020_2050.rds"),
+saveRDS(jobs_cumulative,
+        file.path(OUT_DIR, paste0("compass_jobs_cumulative_",
+                                  OUTCOME_WINDOW_TAG, ".rds")),
         compress = "xz")
-write_csv(jobs_cumulative_2020_2050,
-          file.path(OUT_DIR, "compass_jobs_cumulative_2020_2050.csv"))
+write_csv(jobs_cumulative,
+          file.path(OUT_DIR, paste0("compass_jobs_cumulative_",
+                                    OUTCOME_WINDOW_TAG, ".csv")))
 cat("wrote retirement/decommissioning outputs:",
     nrow(retirement_jobs_annual), "annual fuel-region rows | mode",
     DECOMMISSIONING_MODE, "\n")

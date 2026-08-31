@@ -1394,7 +1394,8 @@ dle_annual <- dle_headcount_annual %>%
                                         "ModelGroup_Scenario", "Region", "Year", "Category")) %>%
   mutate(implied_CO2_GtCO2 = gap_EJ_total * ei_MtCO2_per_EJ / 1000) %>%
   select(Model, Scenario, Region, Category, Year,
-         gap_EJ_total, headcount_millions, implied_CO2_GtCO2)
+         gap_EJ_total, deprivation_rate, headcount_millions,
+         pop_millions, implied_CO2_GtCO2)
 
 
 # ---- 4c-bis. PERSIST THE ANNUAL DLE TABLE ---------------------------------
@@ -1461,7 +1462,7 @@ cat("10-region total (mln):", round(pop2020_total, 0), "\n")
 add_percapita <- function(df) {
   df %>% mutate(
     mort_per_1k        = if ("cumulative_deaths_mln"        %in% names(.)) cumulative_deaths_mln        / pop_mln * 1000 else NA_real_,
-    headcount_pct      = if ("mean_headcount_millions"      %in% names(.)) mean_headcount_millions      / pop_mln * 100  else NA_real_,
+    headcount_pct      = if (all(c("deprived_person_years_millions", "population_person_years_millions") %in% names(.))) deprived_person_years_millions / population_person_years_millions * 100 else if ("mean_headcount_millions" %in% names(.)) mean_headcount_millions / pop_mln * 100 else NA_real_,
     re_jobs_per_1k     = if ("jobs_Renewables"              %in% names(.)) jobs_Renewables              / pop_mln       else NA_real_,
     fossil_jobs_per_1k = if ("jobs_Fossil"                  %in% names(.)) jobs_Fossil                  / pop_mln       else NA_real_,
     net_re_jobs_per_1k = if (all(c("jobs_Renewables","jobs_Fossil") %in% names(.))) (jobs_Renewables - jobs_Fossil) / pop_mln else NA_real_,
@@ -1725,6 +1726,8 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     group_by(Model, Scenario, Region) %>%
     summarise(cumulative_gap_EJ = sum(gap_EJ_total, na.rm = TRUE),
               mean_headcount_millions = mean(headcount_millions, na.rm = TRUE),
+              deprived_person_years_millions = sum(headcount_millions, na.rm = TRUE),
+              population_person_years_millions = sum(pop_millions, na.rm = TRUE),
               cumulative_implied_CO2_GtCO2 = sum(implied_CO2_GtCO2, na.rm = TRUE),
               .groups = "drop")
 
@@ -1788,6 +1791,8 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
                     "additions_stock_balance_residual_GW",
                     "unexplained_additions_GW",
                     "cumulative_gap_EJ", "mean_headcount_millions",
+                    "deprived_person_years_millions",
+                    "population_person_years_millions",
                     "cumulative_implied_CO2_GtCO2")
   keys <- c("Model_Group", "Model", "Scenario", "ModelGroup_Scenario",
             "Category", "Ambition")
@@ -1808,7 +1813,8 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
     summarise(
       n_regions_jobs      = sum(!is.na(jobs_Renewables) & !is.na(jobs_Fossil)),
       n_regions_gap       = sum(!is.na(cumulative_gap_EJ)),
-      n_regions_headcount = sum(!is.na(mean_headcount_millions)),
+      n_regions_headcount = sum(!is.na(deprived_person_years_millions) &
+                                  !is.na(population_person_years_millions)),
       n_regions_mortality = sum(!is.na(cumulative_deaths_mln)),
       n_regions_co2       = sum(!is.na(cumulative_implied_CO2_GtCO2)),
       jobs_ok = n_regions_jobs == n_r10,
@@ -1822,6 +1828,8 @@ build_df_master <- function(scen_set, pathway_df, ambition_method) {
              ~ if (jobs_ok) sum(.x, na.rm = TRUE) else NA_real_),
       cumulative_gap_EJ            = strict10(cumulative_gap_EJ),
       mean_headcount_millions      = strict10(mean_headcount_millions),
+      deprived_person_years_millions = strict10(deprived_person_years_millions),
+      population_person_years_millions = strict10(population_person_years_millions),
       cumulative_deaths_mln        = strict10(cumulative_deaths_mln),
       cumulative_implied_CO2_GtCO2 = strict10(cumulative_implied_CO2_GtCO2),
       .groups = "drop") %>%

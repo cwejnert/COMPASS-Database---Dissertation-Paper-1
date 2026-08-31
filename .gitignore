@@ -12,3 +12,6 @@ Outputs/
 !final_analysis_826/final_outcomes/**/*.csv
 !final_analysis_826/audits/**/*.csv
 !final_analysis_826/final_outcomes/jobs_revision/compass_jobs_cumulative_2020_2100.rds
+!final_analysis_826/final_outcomes/dle_sensitivity/dle_sensitivity_base_2020_2100.rds
+!final_analysis_826/final_outcomes/dle_sensitivity/W30_dle_sensitivity_scenario_values.rds
+!final_analysis_826/inputs/desire_r10_dle_inputs.csv

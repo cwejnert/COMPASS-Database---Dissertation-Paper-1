@@ -16,7 +16,8 @@ The final release includes:
 - Full-database and SCI-vetted results;
 - strict ten-R10 World aggregation;
 - total energy-sector job-years with inferred retirements and decommissioning;
-- distributional decent-living energy gap and deprived headcount;
+- distributional decent-living energy gap and population-year-weighted deprived
+  share, including a 27-specification threshold/Gini/efficiency sensitivity;
 - the validated 472-scenario reporting-complete RFASST mortality release;
 - pooled, within-family, equal-family, leave-one-family-out, and matched
   model-project-ambition analyses;

@@ -1,0 +1,9 @@
+database,outcome,Region,matched_values,max_abs_difference,median_abs_difference
+Full,gap_GJ_pc,Aggregated R10 regions,590,34.64858794141597,5.9104805923434895
+Full,gap_GJ_pc,R10 regions,5881,74.66683598456122,6.229257150193717
+Full,headcount_pct,Aggregated R10 regions,590,3.0770709075121907,0.18654402413840643
+Full,headcount_pct,R10 regions,5881,38.19845250586651,1.3821503991349444
+SCI-vetted,gap_GJ_pc,Aggregated R10 regions,139,20.149569607944983,6.630629423313924
+SCI-vetted,gap_GJ_pc,R10 regions,1389,53.499250111460135,6.6908124750226925
+SCI-vetted,headcount_pct,Aggregated R10 regions,139,1.5208262743025696,0.3339609898234932
+SCI-vetted,headcount_pct,R10 regions,1389,28.860342311100382,1.5461951492163952

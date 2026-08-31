@@ -1,0 +1,9 @@
+check,passed
+Exactly 27 threshold x Gini x efficiency specifications,TRUE
+Exactly one baseline specification,TRUE
+Compact base covers all ten R10 regions,TRUE
+Scenario sensitivity values have unique database-scenario-region-spec keys,TRUE
+All scenario DLE values are finite and inside physical ranges,TRUE
+Raising the DLE threshold never reduces deprivation,TRUE
+Faster provisioning improvement never increases deprivation,TRUE
+Every stability cell contains all 27 specifications,TRUE

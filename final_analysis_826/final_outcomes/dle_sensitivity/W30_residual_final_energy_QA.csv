@@ -1,0 +1,2 @@
+annual_scenario_region_rows,rows_with_sector_components,rows_with_negative_residual,minimum_residual_EJ,note
+504711,504711,0,9.020289603256515e-6,"The DLE distribution uses reported total final energy directly. Industry and transportation are diagnostics; their remainder is residual final energy, not a clean residential/commercial estimate."

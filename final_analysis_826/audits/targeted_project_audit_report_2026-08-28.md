@@ -1,6 +1,6 @@
 # COMPASS Paper 1 targeted project audit
 
-> Historical audit trail. Final reporting is in `FINAL_WELLBEING_OUTCOME_REVIEW_2026-08-31.md` and `final_outcomes/tiered_analysis/`, which integrate the validated 472-scenario mortality release and the revised 2020–2100 employment outcome with inferred retirements and decommissioning. Do not quote the earlier employment estimates in this file as final results.
+> Historical audit trail. Final reporting is in `FINAL_WELLBEING_OUTCOME_REVIEW_2026-08-31.md`, `DLE_ASSUMPTION_SENSITIVITY_2026-08-31.md`, and `final_outcomes/tiered_analysis/`. Do not quote the earlier employment or deprivation estimates in this file as final values; the model-composition diagnoses remain provenance for the final tiered interpretation.
 
 Date: 2026-08-28
 Scope: World results first, with project/model/version tracing triggered by the quantitative influence screen. Regional project audits should follow only for cells that survive the World screen or remain substantively important.

@@ -1,6 +1,6 @@
 # COMPASS Paper 1 integrated tiered analysis
 
-> Historical pre-employment-revision report. Final reporting is in `FINAL_WELLBEING_OUTCOME_REVIEW_2026-08-31.md` and `final_outcomes/tiered_analysis/`. The mortality release described here remains valid, but the employment estimates below predate the final 2020–2100 retirement/decommissioning update and should not be quoted as final.
+> Historical pre-revision report. Final reporting is in `FINAL_WELLBEING_OUTCOME_REVIEW_2026-08-31.md`, `DLE_ASSUMPTION_SENSITIVITY_2026-08-31.md`, and `final_outcomes/tiered_analysis/`. The mortality release described here remains valid, but the employment estimates predate the retirement/decommissioning update and the DLE/headcount estimates predate the authoritative W30 2020–2100 release. Do not quote those older values as final.
 
 Date: 2026-08-28
 Scope: employment, DLE gap, deprived headcount, and PM2.5 mortality; Full and SCI-vetted databases; ambitions pooled and split; World and all ten R10 regions. Mortality uses the validated 472-scenario RFASST release.

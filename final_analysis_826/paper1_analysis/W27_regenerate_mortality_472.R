@@ -535,8 +535,12 @@ write_csv(validation, file.path(OUT, "W27_cross_model_validation_world_r10.csv")
 write_csv(matched_project_cells, file.path(OUT, "W27_matched_model_project_ambition_cells.csv"))
 write_csv(matched_project_summary, file.path(OUT, "W27_matched_model_project_ambition_summary.csv"))
 write_csv(pre_post_pooled, file.path(OUT, "W27_pre_post_pooled_comparison.csv"))
-write_csv(pre_post_family, file.path(OUT, "W27_pre_post_family_comparison.csv"))
-write_csv(pre_post_validation, file.path(OUT, "W27_pre_post_validation_comparison.csv"))
+if (nrow(pre_post_family) > 0) {
+  write_csv(pre_post_family, file.path(OUT, "W27_pre_post_family_comparison.csv"))
+}
+if (nrow(pre_post_validation) > 0) {
+  write_csv(pre_post_validation, file.path(OUT, "W27_pre_post_validation_comparison.csv"))
+}
 
 world_synthesis <- validation %>%
   filter(Region == WORLD) %>%

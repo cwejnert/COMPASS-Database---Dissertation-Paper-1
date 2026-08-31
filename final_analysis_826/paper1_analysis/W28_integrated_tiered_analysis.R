@@ -52,6 +52,11 @@ JOBS_FILE <- Sys.getenv(
   file.path(BASE_DIR, "final_outcomes/jobs_revision",
             "compass_jobs_cumulative_2020_2100.rds")
 )
+DLE_FILE <- Sys.getenv(
+  "COMPASS_REVISED_DLE_FILE",
+  file.path(BASE_DIR, "final_outcomes/dle_sensitivity",
+            "compass_dle_scenario_values_2020_2100.csv")
+)
 
 dir.create(OUT, recursive = TRUE, showWarnings = FALSE)
 
@@ -69,7 +74,7 @@ LARGE_INFLUENCE_SHIFT_PP <- 20
 OUTCOMES <- c(
   total_energy_jobyears_per_1k = "Employment",
   gap_GJ_pc = "DLE gap",
-  headcount_pct = "Deprived headcount",
+  headcount_pct = "Deprived share",
   mortality_million_deaths = "PM2.5 mortality"
 )
 OUTCOME_ORDER <- unname(OUTCOMES)
@@ -77,11 +82,11 @@ LOWER_IS_BETTER <- c("gap_GJ_pc", "headcount_pct", "mortality_million_deaths")
 UNITS <- c(
   total_energy_jobyears_per_1k = "total energy-sector job-years per 1,000 people",
   gap_GJ_pc = "GJ per capita of cumulative DLE gap",
-  headcount_pct = "% of population below the DLE threshold",
+  headcount_pct = "population-year-weighted mean % below the DLE threshold",
   mortality_million_deaths = "million cumulative PM2.5-attributable deaths"
 )
 
-required <- c(LP_FILE, MORT_FRAME_FILE, JOBS_FILE)
+required <- c(LP_FILE, MORT_FRAME_FILE, JOBS_FILE, DLE_FILE)
 if (any(!file.exists(required))) {
   stop("Missing required input(s):\n", paste(required[!file.exists(required)], collapse = "\n"))
 }
@@ -173,6 +178,19 @@ jobs_world <- readRDS(JOBS_FILE) %>%
   )
 jobs_values <- bind_rows(jobs_regional, jobs_world)
 
+# Final DESIRE-based deprivation values on the same 2020-2100 horizon as jobs
+# and mortality. The archived approach master files contain the historical
+# 2020-2050 DLE release and are retained only for population denominators and
+# provenance.
+dle_values <- read_csv(DLE_FILE, show_col_types = FALSE) %>%
+  filter(is_baseline, Region %in% ALL_REGIONS) %>%
+  transmute(
+    database,
+    model_key = norm_key(Model), scenario_key = norm_key(Scenario), Region,
+    gap_GJ_pc, headcount_pct
+  ) %>%
+  distinct(database, model_key, scenario_key, Region, .keep_all = TRUE)
+
 build_nonmortality <- function(ap) {
   database_name <- ifelse(ap == "A", "Full", "SCI-vetted")
   labels <- LP$labels_land %>%
@@ -185,27 +203,11 @@ build_nonmortality <- function(ap) {
     ) %>%
     distinct(model_key, scenario_key, .keep_all = TRUE)
 
-  regional <- readRDS(file.path(
-    BASE_DIR, "master_outputs", paste0("approach_", ap),
-    paste0("compass_master_dataset_", ap, ".rds")
-  )) %>%
-    filter(Region %in% R10) %>%
-    distinct(Model, Scenario, Region, .keep_all = TRUE) %>%
-    transmute(
-      model_key = norm_key(Model), scenario_key = norm_key(Scenario), Region,
-      gap_GJ_pc, headcount_pct
-    )
+  dle_database <- dle_values %>%
+    filter(.data$database == .env$database_name) %>%
+    select(-database)
 
-  world <- LP$world %>%
-    filter(.data$approach == .env$ap, Region == WORLD) %>%
-    transmute(
-      model_key = norm_key(Model), scenario_key = norm_key(Scenario), Region,
-      gap_GJ_pc, headcount_pct
-    )
-
-  bind_rows(regional, world) %>%
-    left_join(jobs_values,
-              by = c("model_key", "scenario_key", "Region")) %>%
+  dle_frame <- dle_database %>%
     inner_join(labels, by = c("model_key", "scenario_key"), relationship = "many-to-one") %>%
     mutate(
       database = database_name,
@@ -213,11 +215,26 @@ build_nonmortality <- function(ap) {
       project = project_tag(Scenario)
     ) %>%
     select(database, Model, Scenario, Pathway, amb, family, project, Region,
-           all_of(names(OUTCOMES)[1:3])) %>%
+           gap_GJ_pc, headcount_pct) %>%
     pivot_longer(
-      cols = all_of(names(OUTCOMES)[1:3]),
+      cols = c(gap_GJ_pc, headcount_pct),
       names_to = "outcome", values_to = "value"
     )
+
+  jobs_frame <- jobs_values %>%
+    inner_join(labels, by = c("model_key", "scenario_key"), relationship = "many-to-one") %>%
+    mutate(
+      database = database_name,
+      family = family_name(Model),
+      project = project_tag(Scenario)
+    ) %>%
+    transmute(
+      database, Model, Scenario, Pathway, amb, family, project, Region,
+      outcome = "total_energy_jobyears_per_1k",
+      value = total_energy_jobyears_per_1k
+    )
+
+  bind_rows(jobs_frame, dle_frame)
 }
 
 cat("Building unified all-outcome analysis frame...\n")
@@ -686,7 +703,7 @@ qa_checks <- tibble(
     "Every comparable family effect is finite",
     "Every comparable matched cell is finite",
     "Validated Full mortality sample contains 472 scenarios",
-    "Employment, DLE, headcount and mortality all appear in World synthesis"
+    "Employment, DLE gap, deprived share and mortality all appear in World synthesis"
   ),
   passed = c(
     !anyDuplicated(analysis_frame[c("database", "Model", "Scenario", "Region", "outcome")]),
